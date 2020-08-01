@@ -1,0 +1,35 @@
+stages:
+  - dockerize
+  - deploy
+
+variables:
+  IMAGE_TAG: bracketgg/api-server:latest
+  CONTAINER_NAME: api-server
+
+dockerize-develop:
+  stage: dockerize
+
+  only:
+    - develop
+
+  script:
+    - docker build -f ./Dockerfile -t $NODE_IMAGE_TAG .
+    - docker image prune -f
+
+  tags:
+    - develop
+
+deploy-develop:
+  stage: deploy
+
+  only:
+    - develop
+
+  script:
+      # 컨테이너 강제 종료 및 삭제
+    - docker container rm -f $NODE_CONTAINER_NAME
+    - docker run -d --network bracketnet --name=$NODE_CONTAINER_NAME --restart always $NODE_IMAGE_TAG
+    - docker image prune -f
+
+  tags:
+    - develop
