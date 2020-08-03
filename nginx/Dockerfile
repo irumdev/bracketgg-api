@@ -1,5 +1,5 @@
 FROM nginx
-COPY ./nginx/nginx.conf /etc/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY . /var/www
 
 EXPOSE 4663
