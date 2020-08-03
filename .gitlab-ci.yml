@@ -33,7 +33,7 @@ deploy-develop:
     - docker stop $CONTAINER_NAME || true && docker rm $CONTAINER_NAME || true
     - docker run -d --network bracketnet --name=$CONTAINER_NAME --restart always $IMAGE_TAG
     - docker stop $NGINX_NAME || true && docker rm $NGINX_NAME || true
-    - docker run -d -p 4663:4663 -v ./maeng/log/nginx:/var/log/nginx --network bracketnet --name=$NGINX_NAME --restart always $NGINX_TAG
+    - docker run -d -p 4663:4663 -v /$NGINX_NAME/log/nginx:/var/log/nginx --network bracketnet --name=$NGINX_NAME --restart always $NGINX_TAG
     - docker image prune -f
 
   tags:
