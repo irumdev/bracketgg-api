@@ -309,6 +309,7 @@ RUN set -eux; \
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 WORKDIR /var/www
 COPY . /var/www
-RUN /usr/local/bin/composer install && /usr/local/bin/composer update 
+RUN /usr/local/bin/composer install
+# && /usr/local/bin/composer update 
 CMD ["php-fpm"]
 EXPOSE 9000
