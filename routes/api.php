@@ -17,9 +17,7 @@ use Illuminate\Http\Response;
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('auth', function(){
-        return response()->json(['ok' => true, 'message' => 'hello world!'], Response::HTTP_OK);
-    });
+    Route::post('auth', 'User\UserVerifyController@verifyUser');
 });
 
 Route::fallback(function () {
