@@ -20,9 +20,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', 'User\UserVerifyController@verifyUser');
 });
 
-Route::fallback(function () {
-    return response()->json([
-        'ok' => false,
-        'message' => 'fallback'
-    ], Response::HTTP_NOT_FOUND);
-});
+// Route::fallback(function () {
+//     return response()->json([
+//         'ok' => false,
+//         'message' => 'fallback'
+//     ], Response::HTTP_NOT_FOUND);
+// });
