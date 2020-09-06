@@ -5,8 +5,17 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpFoundation\Response;
+
+use App\Helpers\ResponseBuilder;
+
+
+
 class Handler extends ExceptionHandler
 {
+    private ResponseBuilder $response;
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,6 +59,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        $this->response = new ResponseBuilder();
+        $message = null;
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        switch (get_class($exception)) {
+            case UnauthorizedException::class:
+                $message = $this->buildMessage('codes.http.' . Response::HTTP_UNAUTHORIZED);
+                $status = $exception->getCode();
+            break;
+
+            case MethodNotAllowedHttpException::class:
+                $message = $this->buildMessage('codes.http.' . Response::HTTP_METHOD_NOT_ALLOWED);
+                $status = Response::HTTP_METHOD_NOT_ALLOWED;
+            break;
+
+        }
+        if ($message) {
+            return $this->response->fail($message, $status);
+        }
         return parent::render($request, $exception);
+    }
+
+    private function buildMessage(string $langKey): array
+    {
+        return [
+            'code' => (int)__($langKey),
+        ];
     }
 }

@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::fallback(function () {
-    return response()->json([
-        'ok' => false
-    ], 200);
-});
+// Route::fallback(function () {
+//     return response()->json([
+//         'ok' => false
+//     ], 200);
+// });
