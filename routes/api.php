@@ -20,6 +20,13 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', 'User\UserVerifyController@verifyUser');
 });
 
+Route::get('envTest', function(){
+    return response()->json([
+        'ok' => true,
+        'message' => env('TEST', 'NONO')
+    ]);
+});
+
 // Route::fallback(function () {
 //     return response()->json([
 //         'ok' => false,
