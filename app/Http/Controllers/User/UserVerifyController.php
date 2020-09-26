@@ -9,6 +9,7 @@ use Illuminate\Validation\UnauthorizedException;
 use App\Helpers\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 로그인 컨트롤러 클래스 입니다.
@@ -34,7 +35,7 @@ class UserVerifyController extends Controller
      * @version 1.0.0
      * @return
      */
-    public function verifyUser(UserVerifyRequest $request)
+    public function verifyUser(UserVerifyRequest $request): JsonResponse
     {
         $requestDatas = $request->validated();
 
@@ -42,6 +43,8 @@ class UserVerifyController extends Controller
             'email' => $requestDatas['email'],
             'password' => $requestDatas['password'],
         ]);
+
+        // User::find(1)->channels()->with('bannerImages', 'followers')->get()
         if ($canLogin === false) {
             throw new UnauthorizedException(null, Response::HTTP_UNAUTHORIZED);
         }

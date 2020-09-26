@@ -8,10 +8,9 @@ use Throwable;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Helpers\ResponseBuilder;
-
-
 
 class Handler extends ExceptionHandler
 {
@@ -71,6 +70,12 @@ class Handler extends ExceptionHandler
             case MethodNotAllowedHttpException::class:
                 $message = $this->buildMessage('codes.http.' . Response::HTTP_METHOD_NOT_ALLOWED);
                 $status = Response::HTTP_METHOD_NOT_ALLOWED;
+            break;
+
+
+            case ModelNotFoundException::class:
+                $message = $this->buildMessage('codes.http.' . Response::HTTP_NOT_FOUND);
+                $status = Response::HTTP_NOT_FOUND;
             break;
 
         }

@@ -1,11 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
+
+
+use App\Models\Channel;
 
 /**
  * 유저 모델 입니다.
@@ -45,8 +49,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    /**
+     * 유저가 가진 채널들의 정보를 정의합니다.
+     *
+     * @var array
+     */
+    public static $channelsInfo = [
+        'bannerImages:channel_id,banner_image',
+        'broadcastAddress:channel_id,broadcast_address AS broadcastAddress,platform',
+        'followers:user_id,nick_name AS nickName,email,profile_image AS profileImage'
+
+    ];
+
     public function setPasswordAttribute(string $password): void
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function channels(): HasMany
+    {
+        return $this->hasMany(Channel::class, 'owner', 'id');
     }
 }

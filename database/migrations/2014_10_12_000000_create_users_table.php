@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('profile_image')->comment('프로필 이미지');
+            $table->boolean('is_policy_agree')->comment('약관동의 여부');
+            $table->boolean('is_privacy_agree')->comment('개인정보 처리방침 동의 여부');
             $table->rememberToken();
             $table->timestamps();
         });

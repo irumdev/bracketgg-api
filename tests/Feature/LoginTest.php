@@ -5,16 +5,14 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\User;
+use App\Models\User;
 
 class LoginTest extends TestCase
 {
-    private string $testUrl = 'api/v1/auth';
-
     public function test_이메일_입력_안함(): void
     {
-        parent::refresh();
-        $response = $this->post($this->testUrl, [
+        $testUrl = route('verify');
+        $response = $this->post($testUrl, [
             'password' => 'password',
         ])->assertStatus(422);
         $this->assertFalse($response['ok']);
@@ -24,9 +22,9 @@ class LoginTest extends TestCase
 
     public function test_비밀번호_입력_안함(): void
     {
-        parent::refresh();
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
-        $response = $this->post($this->testUrl, [
+        $response = $this->post($testUrl, [
             'email' => $user->email
         ])->assertStatus(422);
         $this->assertFalse($response['ok']);
@@ -37,9 +35,9 @@ class LoginTest extends TestCase
 
     public function test_올바르지_않은_이메일_입력(): void
     {
-        parent::refresh();
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
-        $response = $this->post($this->testUrl, [
+        $response = $this->post($testUrl, [
             'email' => 'asdfasdfsdfasdfasdfasdf',
             'password' => 'password',
         ])->assertStatus(422);
@@ -50,23 +48,23 @@ class LoginTest extends TestCase
 
     public function test_인증_실패(): void
     {
-        parent::refresh();
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
-        $response = $this->post($this->testUrl, [
+        $response = $this->post($testUrl, [
             'email' => $user->email,
             'password' => 'dldf',
         ])->assertStatus(401);
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
-        $this->assertEquals(5, $response['messages']['code']);
+        $this->assertEquals(401, $response['messages']['code']);
     }
 
 
     public function test_존재하지_않는_유저_입력(): void
     {
-        parent::refresh();
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
-        $response = $this->post($this->testUrl, [
+        $response = $this->post($testUrl, [
             'email' => 'asdfasdfsdfasdfasdfasdf@asdf.com',
             'password' => 'password',
         ])->assertStatus(422);
@@ -77,10 +75,10 @@ class LoginTest extends TestCase
 
     public function test_유저_로그인_성공(): void
     {
-        parent::refresh();
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
 
-        $response = $this->post($this->testUrl, [
+        $response = $this->post($testUrl, [
             'email' => $user->email,
             'password' => 'password',
         ])->assertOk();
@@ -96,5 +94,4 @@ class LoginTest extends TestCase
         ], $tmpMessages);
         $this->assertIsString($response['messages']['token']);
     }
-
 }

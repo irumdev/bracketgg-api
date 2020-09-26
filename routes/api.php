@@ -17,8 +17,19 @@ use Illuminate\Http\Response;
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::post('auth', 'User\UserVerifyController@verifyUser');
+
+    Route::post('auth', 'User\UserVerifyController@verifyUser')->name('verify');
+    Route::post('user', 'User\CreateUserController@createUser')->name('createUser');
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::group(['prefix' => 'channel'], function () {
+            Route::get('owner/{user}', 'Channels\ShowUserChannelController@getChannelsByUserId')->name('showChannelByOwnerId');
+            Route::get('{channel}', 'Channels\ShowChannelController@getChannelById')->name('findChannelById');
+        });
+    });
 });
+
+
 
 // Route::fallback(function () {
 //     return response()->json([
