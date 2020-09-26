@@ -30,7 +30,6 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 
-
 // Route::fallback(function () {
 //     return response()->json([
 //         'ok' => false,
