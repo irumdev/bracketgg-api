@@ -24,5 +24,4 @@ class ShowChannelController extends Controller
             $this->channelService->findChannelById($channel->id)
         );
     }
-    //
 }

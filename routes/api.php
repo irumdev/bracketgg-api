@@ -17,22 +17,18 @@ use Illuminate\Http\Response;
 
 
 Route::group(['prefix' => 'v1'], function () {
-
     Route::post('auth', 'User\UserVerifyController@verifyUser')->name('verify');
-    Route::post('user', 'User\CreateUserController@createUser')->name('createUser');
+
+    Route::group(['prefix' => 'user'], function () {
+        // Route::post('', 'User\CreateUserController@createUser')->name('createUser');
+        Route::get('', 'User\ShowUserController@getCurrent')->name('currentUser')->middleware('auth:sanctum');
+    });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('logout', 'User\UserLogoutController@logout')->name('logoutUser');
         Route::group(['prefix' => 'channel'], function () {
             Route::get('owner/{user}', 'Channels\ShowUserChannelController@getChannelsByUserId')->name('showChannelByOwnerId');
             Route::get('{channel}', 'Channels\ShowChannelController@getChannelById')->name('findChannelById');
         });
     });
 });
-
-
-// Route::fallback(function () {
-//     return response()->json([
-//         'ok' => false,
-//         'message' => 'fallback'
-//     ], Response::HTTP_NOT_FOUND);
-// });

@@ -23,6 +23,4 @@ class ChannelBroadcast extends Model
         self::NAVER => '네이버',
         self::KAKAO => '카카오 TV',
     ];
-
-
 }

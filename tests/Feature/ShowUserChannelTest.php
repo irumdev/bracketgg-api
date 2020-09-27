@@ -14,19 +14,14 @@ use App\Helpers\ResponseBuilder;
 
 class ShowUserChannelTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
-    public function test_배너이미지가_있고_팔로워가_있을때채널조회(): void
+    /** @test */
+    public function 배너이미지가_있고_팔로워가_있을때채널조회(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
 
-        $channel = factory(Channel::class, random_int(1,3))->states([
+        $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage','hasFollower',
         ])->create();
 
@@ -37,7 +32,7 @@ class ShowUserChannelTest extends TestCase
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
-        $service = (new ChannelService(new ChannelRepository(new Channel), new ResponseBuilder))->findChannelsByUserId((string)$channelOwner);
+        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -47,15 +42,15 @@ class ShowUserChannelTest extends TestCase
         );
     }
 
-
-    public function test_배너이미지가_있고_팔로워와_방송국이_있을때_채널조회(): void
+    /** @test */
+    public function 배너이미지가_있고_팔로워와_방송국이_있을때_채널조회(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
 
 
-        $channel = factory(Channel::class, random_int(1,3))->states([
+        $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage','hasFollower', 'addBroadcasts'
         ])->create();
 
@@ -66,7 +61,7 @@ class ShowUserChannelTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = (new ChannelService(new ChannelRepository(new Channel), new ResponseBuilder))->findChannelsByUserId((string)$channelOwner);
+        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -76,14 +71,14 @@ class ShowUserChannelTest extends TestCase
         );
     }
 
-
-    public function test_배너이미지가_있을때채널조회(): void
+    /** @test */
+    public function 배너이미지가_있을때채널조회(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
 
-        $channel = factory(Channel::class, random_int(1,3))->states([
+        $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage',
         ])->create();
 
@@ -93,7 +88,7 @@ class ShowUserChannelTest extends TestCase
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
-        $service = (new ChannelService(new ChannelRepository(new Channel), new ResponseBuilder))->findChannelsByUserId((string)$channelOwner);
+        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -103,9 +98,9 @@ class ShowUserChannelTest extends TestCase
         );
     }
 
-    public function test_유저가_채널이_없을때(): void
+    /** @test */
+    public function 유저가_채널이_없을때(): void
     {
-
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );

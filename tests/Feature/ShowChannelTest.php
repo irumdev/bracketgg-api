@@ -12,21 +12,16 @@ use App\Services\ChannelService;
 use App\Repositories\ChannelRepository;
 use App\Helpers\ResponseBuilder;
 
-
 class ShowChannelTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_채널아이디_조회_있을때()
+    /** @test */
+    public function 채널아이디_조회_있을때(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
 
-        $channel = factory(Channel::class, random_int(1,3))->states([
+        $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage','hasFollower','addBroadcasts'
         ])->create();
 
@@ -38,7 +33,7 @@ class ShowChannelTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = (new ChannelService(new ChannelRepository(new Channel), new ResponseBuilder))->findChannelById((string)$channelId);
+        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelById((string)$channelId);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -48,7 +43,8 @@ class ShowChannelTest extends TestCase
         );
     }
 
-    public function test_채널아이디_조회_없을때()
+    /** @test */
+    public function 채널아이디_조회_없을때(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()

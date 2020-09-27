@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
-
 /**
  * 응답 형태를 정형화하는 메소드 입니다.
  *

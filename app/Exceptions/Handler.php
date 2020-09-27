@@ -9,6 +9,7 @@ use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 
 use App\Helpers\ResponseBuilder;
 
@@ -62,15 +63,18 @@ class Handler extends ExceptionHandler
         $message = null;
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         switch (get_class($exception)) {
+
+            case AuthenticationException::class:
             case UnauthorizedException::class:
                 $message = $this->buildMessage('codes.http.' . Response::HTTP_UNAUTHORIZED);
-                $status = $exception->getCode();
+                $status = Response::HTTP_UNAUTHORIZED;
             break;
 
             case MethodNotAllowedHttpException::class:
                 $message = $this->buildMessage('codes.http.' . Response::HTTP_METHOD_NOT_ALLOWED);
                 $status = Response::HTTP_METHOD_NOT_ALLOWED;
             break;
+
 
 
             case ModelNotFoundException::class:

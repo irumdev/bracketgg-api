@@ -44,13 +44,12 @@ class UserVerifyController extends Controller
             'password' => $requestDatas['password'],
         ]);
 
-        // User::find(1)->channels()->with('bannerImages', 'followers')->get()
         if ($canLogin === false) {
             throw new UnauthorizedException(null, Response::HTTP_UNAUTHORIZED);
         }
 
         return $this->response->ok(
-            $this->userService->info(Auth::user())
+            $this->userService->createToken(Auth::user())
         );
     }
 }

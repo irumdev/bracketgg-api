@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\UnauthorizedException;
 use App\Helpers\ResponseBuilder;
 use App\Services\UserService;
+use App\Http\Requests\UserStoreRequest;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 회원가입 컨트롤러 클래스 입니다.
@@ -32,8 +34,10 @@ class CreateUserController extends Controller
      * @version 1.0.0
      * @return
      */
-    public function createUser()
+    public function createUser(UserStoreRequest $request): JsonResponse
     {
-        # code...
+        $requestData = $request->validated();
+        $this->userService->createUser($requestData);
+        return $this->response->ok([]);
     }
 }

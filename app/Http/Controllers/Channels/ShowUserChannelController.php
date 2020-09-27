@@ -9,8 +9,6 @@ use App\Services\ChannelService;
 
 class ShowUserChannelController extends Controller
 {
-    //
-
     private ResponseBuilder $response;
     private ChannelService $channelService;
     public function __construct(ResponseBuilder $responseBuilder, ChannelService $channelService)

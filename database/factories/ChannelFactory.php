@@ -35,7 +35,7 @@ $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $c
         'user_id' => factory(User::class)->create()->id,
     ]);
 });
-$factory->afterCreatingState(Channel::class, 'addBroadcasts', function(Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {
     factory(ChannelBroadcast::class, random_int(1, 5))->create([
         'channel_id' => $channel->id,
     ]);
