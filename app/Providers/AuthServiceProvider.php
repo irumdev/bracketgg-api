@@ -24,7 +24,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        Gate::define('followChannel', 'App\Policies\UserPolicy@followChannel');
+        Gate::define('likeChannel', 'App\Policies\UserPolicy@likeChannel');
+        Gate::define('createChannel', 'App\Policies\UserPolicy@createChannel');
     }
 }

@@ -17,6 +17,5 @@ class UserLogoutController extends Controller
             $user->currentAccessToken()->id,
         )->delete();
         return response()->noContent();
-
     }
 }

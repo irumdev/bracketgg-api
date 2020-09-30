@@ -11,7 +11,7 @@ use App\Models\User;
 class ShowUserInfoByTokenTest extends TestCase
 {
     /** @test */
-    public function 유저정보_조회(): void
+    public function 토큰으로_유저의_정보를_조회하라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $response = $this->getJson(route('currentUser'))
@@ -31,7 +31,7 @@ class ShowUserInfoByTokenTest extends TestCase
     }
 
     /** @test */
-    public function 로그인안했는데_조회하기(): void
+    public function 로그인_안한_유저의_정보조회에_실패하라(): void
     {
         $response = $this->getJson(route('currentUser'))
                          ->assertUnauthorized();

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Models\User;
 use App\Helpers\ResponseBuilder;
-
+use App\Models\Channel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class ShowUserController extends Controller
      * @waiting
      * 인덱스별 유저 정보 조회
      */
-    public function getById(User $user)
+    public function getById(User $user): JsonResponse
     {
         return $this->responseBuilder->ok(
             $this->userService->info($user)

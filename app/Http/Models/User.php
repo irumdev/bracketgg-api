@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 
 use App\Models\Channel;
+use App\Models\ChannelFollower;
 
 /**
  * 유저 모델 입니다.
@@ -29,6 +31,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nick_name', 'email', 'password',
+        'is_policy_agree', 'is_privacy_agree',
     ];
 
     /**
@@ -61,6 +64,8 @@ class User extends Authenticatable
         'followers:user_id,nick_name AS nickName,email,profile_image AS profileImage'
 
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function setPasswordAttribute(string $password): void
     {

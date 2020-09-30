@@ -15,7 +15,7 @@ use App\Helpers\ResponseBuilder;
 class ShowChannelTest extends TestCase
 {
     /** @test */
-    public function 채널아이디_조회_있을때(): void
+    public function 존재하는_채널정보_조회를_성공하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
@@ -44,7 +44,7 @@ class ShowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널아이디_조회_없을때(): void
+    public function 존재하지않는_채널정보_조회를_실패하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()

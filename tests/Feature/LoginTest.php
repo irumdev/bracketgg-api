@@ -10,7 +10,7 @@ use App\Models\User;
 class LoginTest extends TestCase
 {
     /** @test */
-    public function 이메일_입력_안함(): void
+    public function 이메일_입력안하고_로그인을_시도하라(): void
     {
         $testUrl = route('verify');
         $response = $this->postJson($testUrl, [
@@ -22,7 +22,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_입력_안함(): void
+    public function 비밀번호_입력안하고_로그인을_시도하라(): void
     {
         $testUrl = route('verify');
         $user = factory(User::class)->create();
@@ -35,7 +35,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 올바르지_않은_이메일_입력(): void
+    public function 올바르지_않은_이메일_입력하고_로그인을_시도하라(): void
     {
         $testUrl = route('verify');
         $user = factory(User::class)->create();
@@ -49,7 +49,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 인증_실패(): void
+    public function 비밀번호를_틀리고_로그인_시도하라(): void
     {
         $testUrl = route('verify');
         $user = factory(User::class)->create();
@@ -63,7 +63,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 존재하지_않는_유저_입력(): void
+    public function 없는_이메일로_로그인_시도하라(): void
     {
         $testUrl = route('verify');
         $user = factory(User::class)->create();
@@ -77,7 +77,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 유저_로그인_성공(): void
+    public function 로그인_성공하라(): void
     {
         $testUrl = route('verify');
         $user = factory(User::class)->create();

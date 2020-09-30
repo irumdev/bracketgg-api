@@ -15,7 +15,7 @@ use App\Helpers\ResponseBuilder;
 class ShowUserChannelTest extends TestCase
 {
     /** @test */
-    public function 배너이미지가_있고_팔로워가_있을때채널조회(): void
+    public function 유저가_가진_채널중_배너이미지와_팔로워가_있는_채널들의_정보를_조회하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
@@ -43,7 +43,7 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 배너이미지가_있고_팔로워와_방송국이_있을때_채널조회(): void
+    public function 유저가_가진_채널중_배너이미지와_팔로워_그리고_방송국주소를_가진_채널들의_정보를_조회하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
@@ -72,7 +72,7 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 배너이미지가_있을때채널조회(): void
+    public function 유저가_가진_채널중_배너이미지만_있는_채널들의_정보를_조회하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()
@@ -99,7 +99,7 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 유저가_채널이_없을때(): void
+    public function 유저가_채널이_없을때_조회에_실패하라(): void
     {
         Sanctum::actingAs(
             $user = factory(User::class)->create()

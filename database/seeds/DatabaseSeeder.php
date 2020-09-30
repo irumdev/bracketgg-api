@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(Channel::class, 20)->states([
-            'addBannerImage','hasFollower','addBroadcasts'
+            'addBannerImage','hasFollower',
+            'addBroadcasts', 'hasLike'
         ])->create();
-        // $this->call(UserSeeder::class);
     }
 }

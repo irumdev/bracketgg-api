@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ChannelBannerImage;
 use App\Models\ChannelFollower;
 use App\Models\ChannelBroadcast;
+use App\Models\User;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,6 @@ class Channel extends Model
         'logo_image', 'follwer_count',
         'like_count', 'description', 'name',
     ];
-
 
     public function bannerImages(): HasMany
     {
