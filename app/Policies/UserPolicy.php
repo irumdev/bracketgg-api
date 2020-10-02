@@ -19,6 +19,11 @@ class UserPolicy
         return $this->isVerifyEmail($user);
     }
 
+    public function unFollowChannel(User $user): bool
+    {
+        return $this->isVerifyEmail($user);
+    }
+
     public function likeChannel(User $user): bool
     {
         return $this->isVerifyEmail($user);

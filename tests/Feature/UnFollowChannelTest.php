@@ -9,6 +9,7 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\Channel;
 use App\Models\User;
+use App\Models\ChannelFollower;
 
 class UnFollowChannelTest extends TestCase
 {
@@ -24,23 +25,57 @@ class UnFollowChannelTest extends TestCase
             $channel->id
         ]))->assertCreated();
 
+
         $this->assertTrue($tryFollow['ok']);
         $this->assertTrue($tryFollow['isValid']);
-        $this->assertTrue($tryFollow['messages']['ok']);
-        $this->assertFalse($tryFollow['messages']['isAlreadyFollow']);
-        $this->assertEquals($activeUser->id, $channel->followers->last()->id);
+        $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
             'channel' => $channel->id
         ]))->assertOk();
-        $this->assertEquals([
-            'ok' => true,
-            'isValid' => true,
-            'messages' => [
-                'ok' => true,
-                'isAlreadyUnFollow' => false,
-            ]
-        ], $tryUnFollow->original);
+
+        $this->assertTrue($tryUnFollow['ok']);
+        $this->assertTrue($tryUnFollow['isValid']);
+        $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
+
+
+        // $this->assertEquals([
+        //     'ok' => true,
+        //     'isValid' => true,
+        //     'messages' => [
+        //         'ok' => true,
+        //         'isAlreadyUnFollow' => false,
+        //     ]
+        // ], $tryUnFollow->original);
+    }
+
+    /** @test */
+    public function 이메일_인증안받은_유저가_언팔로우_실패하라()
+    {
+        $activeUser = Sanctum::actingAs($user = factory(User::class)->create());
+        $channel = factory(Channel::class)->states([
+            'hasFollower'
+        ])->create();
+
+        $tryFollow = $this->postJson(route('followChannel', [
+            $channel->id
+        ]))->assertCreated();
+
+        $this->assertTrue($tryFollow['ok']);
+        $this->assertTrue($tryFollow['isValid']);
+        $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
+
+        $user->email_verified_at = null;
+        $user->save();
+        $activeUser = Sanctum::actingAs($user);
+
+        $tryUnFollow = $this->postJson(route('unFollowChannel', [
+            'channel' => $channel->id
+        ]))->assertForbidden();
+
+        $this->assertFalse($tryUnFollow['ok']);
+        $this->assertFalse($tryUnFollow['isValid']);
+        $this->assertEquals(ChannelFollower::AUTORIZE_FAIL, $tryUnFollow['messages']['code']);
     }
 
     /** @test */
@@ -57,33 +92,21 @@ class UnFollowChannelTest extends TestCase
 
         $this->assertTrue($tryFollow['ok']);
         $this->assertTrue($tryFollow['isValid']);
-        $this->assertTrue($tryFollow['messages']['ok']);
-        $this->assertFalse($tryFollow['messages']['isAlreadyFollow']);
-        $this->assertEquals($activeUser->id, $channel->followers->last()->id);
+        $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
             'channel' => $channel->id
         ]))->assertOk();
-        $this->assertEquals([
-            'ok' => true,
-            'isValid' => true,
-            'messages' => [
-                'ok' => true,
-                'isAlreadyUnFollow' => false,
-            ]
-        ], $tryUnFollow->original);
+        $this->assertTrue($tryUnFollow['ok']);
+        $this->assertTrue($tryUnFollow['isValid']);
+        $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
 
         $tryUnFollowSecond = $this->postJson(route('unFollowChannel', [
             'channel' => $channel->id
         ]))->assertStatus(422);
 
-        $this->assertEquals([
-            'ok' => false,
-            'isValid' => false,
-            'messages' => [
-                'ok' => false,
-                'isAlreadyUnFollow' => true,
-            ]
-        ], $tryUnFollowSecond->original);
+        $this->assertFalse($tryUnFollowSecond['ok']);
+        $this->assertFalse($tryUnFollowSecond['isValid']);
+        $this->assertEquals(ChannelFollower::ALREADY_UNFOLLOW, $tryUnFollowSecond['messages']['code']);
     }
 }

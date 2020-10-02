@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Channel;
 use App\Models\ChannelFollower;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Collection;
+use App\Models\ChannelFan;
 
 class UserService
 {
@@ -23,36 +23,41 @@ class UserService
         ]);
     }
 
-    public function followChannel(User $user, Channel $channel): array
+    public function followChannel(User $user, Channel $channel): int
     {
         $isAlreadyFollow = $this->userRepository->isAlreadyFollow($user, $channel);
-        $result = $this->userRepository->followChannel($user, $channel);
 
-        return [
-            'ok' => $isAlreadyFollow ? false : isset($result->id),
-            'isAlreadyFollow' => $isAlreadyFollow,
-        ];
+        if ($isAlreadyFollow) {
+            return ChannelFollower::ALREADY_FOLLOW;
+        }
+        $this->userRepository->followChannel($user, $channel);
+        return ChannelFollower::FOLLOW_OK;
     }
 
-    public function unFollowChannel(User $user, Channel $channel): array
+    public function unFollowChannel(User $user, Channel $channel): int
     {
-        $unFollowChannel = $this->userRepository->unFollowChannel($user, $channel);
-        return [
-            'ok' => $unFollowChannel,
-            'isAlreadyUnFollow' => ! $unFollowChannel
-        ];
+        $isAlreadyFollow = $this->userRepository->isAlreadyFollow($user, $channel);
+        if ($isAlreadyFollow === false) {
+            return ChannelFollower::ALREADY_UNFOLLOW;
+        }
+        $this->userRepository->unFollowChannel($user, $channel);
+        return ChannelFollower::UNFOLLOW_OK;
     }
 
-    public function likeChannel(User $user, Channel $channel)
+    public function likeChannel(User $user, Channel $channel): int
     {
+        $isAlreadyLike = $this->userRepository->isAlreadyLike($user, $channel);
+        if ($isAlreadyLike) {
+            return ChannelFan::ALREADY_LIKE;
+        }
         return $this->userRepository->likeChannel($user, $channel);
     }
 
     public function unLikeChannel(User $user, Channel $channel)
     {
         return $this->userRepository->unLikeChannel($user, $channel);
-
     }
+
     public function info(User $user): array
     {
         return [

@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Gate::define('followChannel', 'App\Policies\UserPolicy@followChannel');
+        Gate::define('unFollowChannel', 'App\Policies\UserPolicy@unFollowChannel');
         Gate::define('likeChannel', 'App\Policies\UserPolicy@likeChannel');
         Gate::define('createChannel', 'App\Policies\UserPolicy@createChannel');
     }

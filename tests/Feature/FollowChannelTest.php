@@ -8,16 +8,18 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel;
+use App\Models\ChannelFollower;
 
 class FollowChannelTest extends TestCase
 {
     /** @test */
     public function 채널을_팔로우_하라(): void
     {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasFollower'
         ])->create();
+
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $tryFollow = $this->postJson(route('followChannel', [
             $channel->id
@@ -25,10 +27,50 @@ class FollowChannelTest extends TestCase
 
         $this->assertTrue($tryFollow['ok']);
         $this->assertTrue($tryFollow['isValid']);
-        $this->assertTrue($tryFollow['messages']['ok']);
-        $this->assertFalse($tryFollow['messages']['isAlreadyFollow']);
+        $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
-        $this->assertEquals($activeUser->id, $channel->followers->last()->id);
+        $this->assertEquals($activeUser->id, $channel->followers->find($activeUser->id)->id);
+        $this->assertEquals($activeUser->email, $channel->followers->find($activeUser->id)->email);
+    }
+
+    /** @test */
+    public function 채널장이_내_채널을_팔로우에_실패_하라(): void
+    {
+        $channel = factory(Channel::class)->states([
+            'hasFollower'
+        ])->create();
+
+        $activeUser = Sanctum::actingAs(User::find($channel->owner));
+
+
+        $tryFollow = $this->postJson(route('followChannel', [
+            $channel->id
+        ]))->assertForbidden();
+
+        $this->assertFalse($tryFollow['ok']);
+        $this->assertFalse($tryFollow['isValid']);
+        $this->assertEquals(ChannelFollower::OWNER_FOLLOW_OWNER, $tryFollow['messages']['code']);
+    }
+
+
+    /** @test */
+    public function 이메일_인증_인받은_유저가_채널을_팔로우를_실패하라(): void
+    {
+        $channel = factory(Channel::class)->states([
+            'hasFollower'
+        ])->create();
+
+        $activeUser = Sanctum::actingAs(factory(User::class)->create([
+            'email_verified_at' => null
+        ]));
+
+        $tryFollow = $this->postJson(route('followChannel', [
+            $channel->id
+        ]))->assertForbidden();
+
+        $this->assertFalse($tryFollow['ok']);
+        $this->assertFalse($tryFollow['isValid']);
+        $this->assertEquals(ChannelFollower::AUTORIZE_FAIL, $tryFollow['messages']['code']);
     }
 
     /** @test */
@@ -45,18 +87,17 @@ class FollowChannelTest extends TestCase
 
         $this->assertTrue($tryFollow['ok']);
         $this->assertTrue($tryFollow['isValid']);
-        $this->assertTrue($tryFollow['messages']['ok']);
-        $this->assertFalse($tryFollow['messages']['isAlreadyFollow']);
+        $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $this->assertEquals($activeUser->id, $channel->followers->last()->id);
 
         $secondTry = $this->postJson(route('followChannel', [
             $channel->id
-        ]))->assertStatus(422);
+        ]))->assertForbidden();
 
         $this->assertFalse($secondTry['ok']);
         $this->assertFalse($secondTry['isValid']);
-        $this->assertEquals(['isAlreadyFollow' => true, 'ok' => false], $secondTry['messages']);
+        $this->assertEquals(ChannelFollower::ALREADY_FOLLOW, $secondTry['messages']['code']);
     }
 
     /** @test */

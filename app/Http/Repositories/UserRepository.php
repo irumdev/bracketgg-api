@@ -43,48 +43,32 @@ class UserRepository
         return $this->findFollowerCondition($user, $channel)->exists();
     }
 
-    public function followChannel(User $user, Channel $channel): ChannelFollower
+    public function likeChannel(User $user, Channel $channel): int
     {
         $createItem = [
             'channel_id' => $channel->id,
             'user_id' => $user->id,
         ];
-        return ChannelFollower::firstOrCreate(
-            $createItem,
-            $createItem,
-        );
-    }
 
-    public function likeChannel(User $user, Channel $channel): array
-    {
-        $createItem = [
-            'channel_id' => $channel->id,
-            'user_id' => $user->id,
-        ];
-        $isSuccess = false;
-        $isAlreadyLike = $this->isAlreadyLike($user, $channel);
+        /**
+         * @todo 트랜잭션
+         */
 
-        if ($isAlreadyLike === false) {
-            $channel->like_count += 1;
-            $channel->save();
-            ChannelFan::firstOrCreate($createItem, $createItem);
-            $isSuccess = true;
-        }
-        return [
-            'isAlreadyLike' => $isAlreadyLike,
-            'isSuccess' => $isSuccess
-        ];
+        $channel->like_count += 1;
+        $channelFan = ChannelFan::firstOrCreate($createItem, $createItem);
+        $isSuccess = $channel->save() && $channelFan !== null;
+
+        return ChannelFan::LIKE_OK;
     }
 
     public function unLikeChannel(User $user, Channel $channel): bool
     {
-        $createItem = [
-            'channel_id' => $channel->id,
-            'user_id' => $user->id,
-        ];
         $isSuccess = false;
         $isAlreadyLike = $this->isAlreadyLike($user, $channel);
 
+        /**
+         * @todo 트랜잭션
+         */
         if ($isAlreadyLike) {
             ChannelFan::where($this->isAlreadyLikeOrFollowCondition($user, $channel))->delete();
             $channel->like_count = $channel->like_count === 0 ? 0 : $channel->like_count - 1;
@@ -101,15 +85,26 @@ class UserRepository
 
     public function unFollowChannel(User $user, Channel $channel): bool
     {
-        $isSuccess = false;
-        $isAlreadyFollow = $this->isAlreadyFollow($user, $channel);
-        if ($isAlreadyFollow) {
-            $isSuccess = $this->findFollowerCondition($user, $channel)->delete();
-            $channel->follwer_count = $channel->follwer_count === 0 ? 0 : $channel->follwer_count - 1;
+        /**
+         * @todo 트랜잭션
+         */
+        $channel->follwer_count = $channel->follwer_count === 0 ? 0 : $channel->follwer_count - 1;
+        return $this->findFollowerCondition($user, $channel)->delete() &&
+               $channel->save();
+    }
 
-            $channel->save();
-
-        }
-        return $isAlreadyFollow;
+    public function followChannel(User $user, Channel $channel): ChannelFollower
+    {
+        $createItem = [
+            'channel_id' => $channel->id,
+            'user_id' => $user->id,
+        ];
+        /**
+         * @todo 트랜잭션
+         */
+        return ChannelFollower::firstOrCreate(
+            $createItem,
+            $createItem,
+        );
     }
 }

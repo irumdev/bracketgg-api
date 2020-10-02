@@ -31,7 +31,7 @@ deploy-develop:
   script:
       # 컨테이너 강제 종료 및 삭제
     - docker stop $CONTAINER_NAME || true && docker rm $CONTAINER_NAME || true
-    - docker run -v /$CONTAINER_NAME/.env:/var/www/.env -d --network bracketnet --name=$CONTAINER_NAME --restart always $IMAGE_TAG
+    - docker run -v /$CONTAINER_NAME/storage:/var/www/storage -v /$CONTAINER_NAME/.env:/var/www/.env -d --network bracketnet --name=$CONTAINER_NAME --restart always $IMAGE_TAG
     - docker stop $NGINX_NAME || true && docker rm $NGINX_NAME || true
     - docker run -d -p 4663:4663 -v /$NGINX_NAME/log/nginx:/var/log/nginx --network bracketnet --name=$NGINX_NAME --restart always $NGINX_TAG
     - docker image prune -f

@@ -10,7 +10,6 @@ use App\Models\ChannelFan;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 
-
 class LikeChannelTest extends TestCase
 {
     /** @test */
@@ -22,6 +21,13 @@ class LikeChannelTest extends TestCase
         ])->create();
 
         $beforeChannelLikeCount = $channel->like_count;
+
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
+        $this->assertFalse($fan->exists());
+
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
             'channel' => $channel->id
         ]))->assertCreated();
@@ -29,16 +35,38 @@ class LikeChannelTest extends TestCase
         $this->assertTrue($tryLikeToChannel['ok']);
         $this->assertTrue($tryLikeToChannel['isValid']);
         $this->assertEquals(Channel::find($channel->id)->like_count, $beforeChannelLikeCount + 1);
-        $fan = ChannelFan::where(
-            [
-                ['user_id', '=', $activeUser->id],
-                ['channel_id', '=', $channel->id],
 
-            ]
-        );
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
 
         $this->assertTrue($fan->exists());
+        $this->assertEquals(ChannelFan::LIKE_OK, $tryLikeToChannel['messages']['code']);
+    }
 
+    /** @test */
+    public function 이메일_인증받지_않은_유저가_채널_좋아요_실패하라(): void
+    {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create([
+            'email_verified_at' => null,
+        ]));
+        $channel = factory(Channel::class)->states([
+            'hasLike'
+        ])->create();
+
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
+        $this->assertFalse($fan->exists());
+
+        $tryLikeToChannel = $this->postJson(route('likeChannel', [
+            'channel' => $channel->id
+        ]))->assertForbidden();
+
+        $this->assertFalse($tryLikeToChannel['ok']);
+        $this->assertFalse($tryLikeToChannel['isValid']);
     }
 
     /** @test */
