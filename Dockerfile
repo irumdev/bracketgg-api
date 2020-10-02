@@ -309,7 +309,10 @@ RUN set -eux; \
 # RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 WORKDIR /var/www
 COPY . /var/www
-RUN /usr/local/bin/composer install --optimize-autoloader --no-dev && chown -R www-data:www-data /var/www && \
+RUN /usr/local/bin/composer install --optimize-autoloader --no-dev && \
+    cd /var/www && \
+    chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www/storage
+
 CMD ["php-fpm"]
 EXPOSE 9000
