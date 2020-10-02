@@ -48,11 +48,11 @@ class FollowChannelController extends Controller
         $unFollowChannelResult = $this->userService->unFollowChannel(Auth::user(), $channel);
 
         switch ($unFollowChannelResult) {
-
             case ChannelFollower::ALREADY_UNFOLLOW:
                 return $this->responseBuilder->fail([
                     'code' => $unFollowChannelResult
-                ]);
+                ], Response::HTTP_FORBIDDEN);
+
             case ChannelFollower::UNFOLLOW_OK:
                 return $this->responseBuilder->ok([
                     'code' => $unFollowChannelResult

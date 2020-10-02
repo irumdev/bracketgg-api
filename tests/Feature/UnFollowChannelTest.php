@@ -103,7 +103,7 @@ class UnFollowChannelTest extends TestCase
 
         $tryUnFollowSecond = $this->postJson(route('unFollowChannel', [
             'channel' => $channel->id
-        ]))->assertStatus(422);
+        ]))->assertForbidden();
 
         $this->assertFalse($tryUnFollowSecond['ok']);
         $this->assertFalse($tryUnFollowSecond['isValid']);

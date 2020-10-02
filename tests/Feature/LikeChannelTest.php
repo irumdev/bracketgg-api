@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Channel;
-use App\Models\ChannelFan;
 use Laravel\Sanctum\Sanctum;
+use App\Models\ChannelFan;
 use App\Models\User;
 
 class LikeChannelTest extends TestCase
@@ -63,48 +63,78 @@ class LikeChannelTest extends TestCase
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
             'channel' => $channel->id
-        ]))->assertForbidden();
+        ]))->assertUnauthorized();
 
         $this->assertFalse($tryLikeToChannel['ok']);
         $this->assertFalse($tryLikeToChannel['isValid']);
+        $this->assertEquals(ChannelFan::AUTORIZE_FAIL, $tryLikeToChannel['messages']['code']);
     }
 
     /** @test */
-    public function 채널_좋아요_취소_하라(): void
+    public function 없는_채널에_좋아요_실패하라(): void
     {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create([
+            'email_verified_at' => null,
+        ]));
+        $channel = factory(Channel::class)->states([
+            'hasLike'
+        ])->create();
+
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
+        $this->assertFalse($fan->exists());
+
+        $tryLikeToChannel = $this->postJson(route('likeChannel', [
+            'channel' => -99
+        ]))->assertNotFound();
+
+        $this->assertFalse($tryLikeToChannel['ok']);
+        $this->assertFalse($tryLikeToChannel['isValid']);
+        $this->assertEquals(404, $tryLikeToChannel['messages']['code']);
+    }
+
+    /** @test */
+    public function 이미_좋아요_중복에_실패하라(): void
+    {
+
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $channel = factory(Channel::class)->create();
+        $channel = factory(Channel::class)->states([
+            'hasLike'
+        ])->create();
 
         $beforeChannelLikeCount = $channel->like_count;
+
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
+        $this->assertFalse($fan->exists());
+
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
             'channel' => $channel->id
         ]))->assertCreated();
 
-
         $this->assertTrue($tryLikeToChannel['ok']);
         $this->assertTrue($tryLikeToChannel['isValid']);
-        $this->assertEquals(Channel::find($channel->id)->like_count, 1);
+        $this->assertEquals(Channel::find($channel->id)->like_count, $beforeChannelLikeCount + 1);
 
-        $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
+        $fan = ChannelFan::where([
+            ['user_id', '=', $activeUser->id],
+            ['channel_id', '=', $channel->id],
+        ]);
+
+        $this->assertTrue($fan->exists());
+        $this->assertEquals(ChannelFan::LIKE_OK, $tryLikeToChannel['messages']['code']);
+
+        $tryLikeToChannelSecond = $this->postJson(route('likeChannel', [
             'channel' => $channel->id
-        ]))->assertOk();
+        ]))->assertForbidden();
 
-        $this->assertTrue($tryLikeToChannel['ok']);
-        $this->assertTrue($tryLikeToChannel['isValid']);
-        $this->assertEquals(Channel::find($channel->id)->like_count, 0);
-    }
+        $this->assertFalse($tryLikeToChannelSecond['ok']);
+        $this->assertFalse($tryLikeToChannelSecond['isValid']);
+        $this->assertEquals(ChannelFan::ALREADY_LIKE, $tryLikeToChannelSecond['messages']['code']);
 
-    /** @test */
-    public function 채널_좋아요_0인데_취소에_실패_하라(): void
-    {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $channel = factory(Channel::class)->create();
-        $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->id
-        ]))->assertOk();
-
-        $this->assertTrue($tryLikeToChannel['ok']);
-        $this->assertTrue($tryLikeToChannel['isValid']);
-        $this->assertEquals(Channel::find($channel->id)->like_count, 0);
     }
 }

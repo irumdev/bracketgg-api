@@ -3,14 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\ChannelFan;
+
+
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ChannelFan;
 
-class LikeChannelRequest extends FormRequest
+
+
+class UnLikeChannelRequest extends FormRequest
 {
     private ResponseBuilder $responseBuilder;
     private User $user;
@@ -29,7 +33,7 @@ class LikeChannelRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user;
-        return $user && $user->can('likeChannel');
+        return $user && $user->can('unLikeChannel');
     }
 
     protected function failedAuthorization(): void
@@ -40,7 +44,6 @@ class LikeChannelRequest extends FormRequest
             ], Response::HTTP_UNAUTHORIZED)
         );
     }
-
 
     private function buildAuthorizeErrorMessage(User $user): int
     {
@@ -56,7 +59,6 @@ class LikeChannelRequest extends FormRequest
         }
         return $message;
     }
-
 
     /**
      * Get the validation rules that apply to the request.
