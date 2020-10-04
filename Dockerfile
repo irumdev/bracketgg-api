@@ -308,10 +308,10 @@ RUN set -eux; \
 #                    x11proto-xext-dev \
 #                    xtrans-dev
 # RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-RUN echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
+RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
  && echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
- && echo 'post_max_size = ${uploadMaxSize}M' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
- && echo 'upload_max_filesize = ${uploadMaxSize}}M' >> /usr/local/etc/php/conf.d/php-uploadFile.ini
+ && echo "post_max_size = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
+ && echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini
 
 WORKDIR /var/www
 COPY . /var/www
