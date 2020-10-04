@@ -13,8 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::fallback(function () {
-//     return response()->json([
-//         'ok' => false
-//     ], 200);
-// });
+Route::get('profile-image/{profileImage}', 'User\ProfileImageController@getProfileImage')->name('profileImage');

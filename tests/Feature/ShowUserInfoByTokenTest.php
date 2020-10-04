@@ -13,6 +13,29 @@ class ShowUserInfoByTokenTest extends TestCase
     /** @test */
     public function 토큰으로_유저의_정보를_조회하라(): void
     {
+        $activeUser = Sanctum::actingAs(factory(User::class)->state('addProfileImage')->create());
+        $response = $this->getJson(route('currentUser'))
+                         ->assertOk();
+
+        $this->assertTrue($response['ok']);
+        $this->assertTrue($response['isValid']);
+
+        $this->assertEquals(
+            [
+                'id' => $activeUser->id,
+                'nickName' => $activeUser->nick_name,
+                'email' => $activeUser->email,
+                'profileImage' => route('profileImage', [
+                    'profileImage' => $activeUser->profile_image
+                ])
+            ],
+            $response['messages'],
+        );
+    }
+
+    /** @test */
+    public function 토큰으로_프로필이미지가_없는_유저의_정보를_조회하라(): void
+    {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $response = $this->getJson(route('currentUser'))
                          ->assertOk();
@@ -25,6 +48,7 @@ class ShowUserInfoByTokenTest extends TestCase
                 'id' => $activeUser->id,
                 'nickName' => $activeUser->nick_name,
                 'email' => $activeUser->email,
+                'profileImage' => null,
             ],
             $response['messages'],
         );

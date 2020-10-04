@@ -13,11 +13,14 @@ use Faker\Generator as Faker;
 use App\Helpers\Image;
 
 $factory->define(Channel::class, function (Faker $faker) {
+    $imagePath = explode('/', $faker->image(storage_path('app/profileImages')));
     return [
         'logo_image' => Image::create(),
         'follwer_count' => 0,
         'like_count' => 0,
-        'owner' => factory(User::class)->create(),
+        'owner' => factory(User::class)->create([
+            'profile_image' => $imagePath[count($imagePath) - 1],
+        ]),
         'description' => $faker->sentence(),
         'name' => $faker->name,
     ];

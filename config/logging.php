@@ -17,6 +17,8 @@ return [
     |
     */
 
+    'isUseSlackNoti' => env('USE_SLACK_NOTI'),
+
     'default' => env('LOG_CHANNEL', 'stack'),
 
     /*
@@ -37,7 +39,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily', 'slack'],
             'ignore_exceptions' => false,
         ],
 
@@ -56,10 +58,11 @@ return [
 
         'slack' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'url' => env('SLACK_WEBHOOK_URL'),
+            'username' => '#alert-bot',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            // 'channel' => '#alert-bot',
+            'level' => 'debug',
         ],
 
         'papertrail' => [

@@ -45,7 +45,7 @@ class FollowChannelTest extends TestCase
 
         $tryFollow = $this->postJson(route('followChannel', [
             $channel->id
-        ]))->assertForbidden();
+        ]))->assertUnauthorized();
 
         $this->assertFalse($tryFollow['ok']);
         $this->assertFalse($tryFollow['isValid']);
@@ -66,7 +66,7 @@ class FollowChannelTest extends TestCase
 
         $tryFollow = $this->postJson(route('followChannel', [
             $channel->id
-        ]))->assertForbidden();
+        ]))->assertUnauthorized();
 
         $this->assertFalse($tryFollow['ok']);
         $this->assertFalse($tryFollow['isValid']);

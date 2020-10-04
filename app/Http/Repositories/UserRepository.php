@@ -7,9 +7,8 @@ use App\Models\Channel;
 use App\Models\ChannelFollower;
 use App\Models\ChannelFan;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
 
 class UserRepository
 {
@@ -22,7 +21,7 @@ class UserRepository
 
     public function create(array $attribute): User
     {
-        return $this->user->create($attribute);
+        return DB::transaction(fn () => $this->user->create($attribute));
     }
 
     private function isAlreadyLikeOrFollowCondition(User $user, Channel $channel): array
@@ -45,31 +44,32 @@ class UserRepository
 
     public function likeChannel(User $user, Channel $channel): int
     {
-        /**
-         * @todo 트랜잭션
-         */
-
         $createItem = [
             'channel_id' => $channel->id,
             'user_id' => $user->id,
         ];
 
-        $channel->like_count += 1;
-        $channelFan = ChannelFan::firstOrCreate($createItem, $createItem);
-        $isSuccess = $channel->save() && $channelFan !== null;
-
+        $isSuccess = DB::transaction(function () use ($createItem, $channel) {
+            $createFanResult = ChannelFan::firstOrCreate($createItem, $createItem);
+            $channel->like_count += 1;
+            return $createFanResult !== null && $channel->save();
+        });
+        if ($isSuccess === false) {
+            // throw new DbFailException();
+            /**
+             * @todo 익셉션 처리하기
+             */
+        }
         return ChannelFan::LIKE_OK;
     }
 
     public function unLikeChannel(User $user, Channel $channel): bool
     {
-        /**
-         * @todo 트랜잭션
-         */
-        $deleteResult = ChannelFan::where($this->isAlreadyLikeOrFollowCondition($user, $channel))->delete();
-        $channel->like_count = $channel->like_count === 0 ? 0 : $channel->like_count - 1;
-        return $deleteResult && $channel->save();
-
+        return DB::transaction(function () use ($user, $channel) {
+            $deleteResult = ChannelFan::where($this->isAlreadyLikeOrFollowCondition($user, $channel))->delete();
+            $channel->like_count = $channel->like_count === 0 ? 0 : $channel->like_count - 1;
+            return $deleteResult !== null && $channel->save();
+        });
     }
 
     public function isAlreadyLike(User $user, Channel $channel): bool
@@ -79,26 +79,24 @@ class UserRepository
 
     public function unFollowChannel(User $user, Channel $channel): bool
     {
-        /**
-         * @todo 트랜잭션
-         */
-        $channel->follwer_count = $channel->follwer_count === 0 ? 0 : $channel->follwer_count - 1;
-        return $this->findFollowerCondition($user, $channel)->delete() &&
-               $channel->save();
+        return DB::transaction(function () use ($user, $channel) {
+            $channel->follwer_count = $channel->follwer_count === 0 ? 0 : $channel->follwer_count - 1;
+            return $this->findFollowerCondition($user, $channel)->delete() &&
+                   $channel->save();
+        });
     }
 
     public function followChannel(User $user, Channel $channel): ChannelFollower
     {
-        /**
-         * @todo 트랜잭션
-         */
         $createItem = [
             'channel_id' => $channel->id,
             'user_id' => $user->id,
         ];
-        return ChannelFollower::firstOrCreate(
-            $createItem,
-            $createItem,
-        );
+        return DB::transaction(function () use ($createItem) {
+            return ChannelFollower::firstOrCreate(
+                $createItem,
+                $createItem,
+            );
+        });
     }
 }

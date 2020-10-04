@@ -11,7 +11,6 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\ChannelFan;
 
-
 class UnLikeChannelTest extends TestCase
 {
     /** @test */
@@ -79,6 +78,5 @@ class UnLikeChannelTest extends TestCase
         $this->assertFalse($tryLikeToChannel['ok']);
         $this->assertFalse($tryLikeToChannel['isValid']);
         $this->assertEquals(ChannelFan::AUTORIZE_FAIL, $tryLikeToChannel['messages']['code']);
-
     }
 }

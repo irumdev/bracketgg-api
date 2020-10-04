@@ -80,6 +80,31 @@ class LoginTest extends TestCase
     public function 로그인_성공하라(): void
     {
         $testUrl = route('verify');
+        $user = factory(User::class)->state('addProfileImage')->create();
+        $response = $this->postJson($testUrl, [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->assertOk();
+
+        $tmpMessages = $response['messages'];
+        unset($tmpMessages['token']);
+        $this->assertTrue($response['isValid']);
+        $this->assertTrue($response['ok']);
+        $this->assertEquals([
+            'id' => $user->id,
+            'nickName' => $user->nick_name,
+            'email' => $user->email,
+            'profileImage' => route('profileImage', [
+                'profileImage' => $user->profile_image
+            ])
+        ], $tmpMessages);
+        $this->assertIsString($response['messages']['token']);
+    }
+
+    /** @test */
+    public function 프로필_이미지가_없는_유저의_로그인_성공하라(): void
+    {
+        $testUrl = route('verify');
         $user = factory(User::class)->create();
 
         $response = $this->postJson($testUrl, [
@@ -95,6 +120,7 @@ class LoginTest extends TestCase
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
+            'profileImage' => null
         ], $tmpMessages);
         $this->assertIsString($response['messages']['token']);
     }

@@ -8,6 +8,7 @@ use App\Helpers\ResponseBuilder;
 use App\Services\UserService;
 use App\Http\Requests\UserStoreRequest;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * 회원가입 컨트롤러 클래스 입니다.
@@ -42,9 +43,7 @@ class CreateUserController extends Controller
     public function createUser(UserStoreRequest $request): JsonResponse
     {
         $requestData = $request->validated();
-
         $createdUser = $this->userService->createUser($requestData);
-
-        return $this->response->ok($createdUser);
+        return $this->response->ok($createdUser, Response::HTTP_CREATED);
     }
 }

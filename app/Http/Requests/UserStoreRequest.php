@@ -33,7 +33,7 @@ class UserStoreRequest extends FormRequest
     public const EMAIL_ALREADY_EXISTS = 13;
 
     public const REQUIRE_POLICY_AGREE = 14;
-    public const REQUIRE_PRIVACT_AGREE = 15;
+    public const REQUIRE_PRIVACY_AGREE = 15;
 
     public const NOT_EQUAL_ONE_POLICY_AGREE = 16;
     public const NOT_EQUAL_ONE_PRIVACT_AGREE = 17;
@@ -65,13 +65,13 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nick_name' => 'required|string|min:1|max:12',
             'email' => 'required|string|email|unique:App\Models\User,email',
+            'nick_name' => 'required|string|min:1|max:12',
             'password' => 'required|string|min:8|max:30',
-            'confirmedPassword' => 'required|string|min:8|same:password|max:30',
+            'confirmedPassword' => 'required|string|min:8|max:30|same:password',
             'is_policy_agree' =>  'required|in:1',
             'is_privacy_agree' => 'required|in:1',
-            'profile_image' => 'nullable|mimes:jpeg,jpg,png|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ];
     }
     public function messages(): array
@@ -95,7 +95,7 @@ class UserStoreRequest extends FormRequest
             'confirmedPassword.same' => json_encode(['code' => self::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD]),
 
             'is_policy_agree.required'  => json_encode(['code' => self::REQUIRE_POLICY_AGREE]),
-            'is_privacy_agree.required' => json_encode(['code' => self::REQUIRE_PRIVACT_AGREE]),
+            'is_privacy_agree.required' => json_encode(['code' => self::REQUIRE_PRIVACY_AGREE]),
 
             'is_policy_agree.in'  => json_encode(['code' => self::NOT_EQUAL_ONE_POLICY_AGREE]),
             'is_privacy_agree.in' => json_encode(['code' => self::NOT_EQUAL_ONE_PRIVACT_AGREE]),

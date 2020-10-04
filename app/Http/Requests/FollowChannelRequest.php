@@ -34,7 +34,7 @@ class FollowChannelRequest extends FormRequest
         throw new HttpResponseException(
             $this->response->fail([
                 'code' => $this->buildAuthorizeErrorMessage($this->user),
-            ], Response::HTTP_FORBIDDEN)
+            ], Response::HTTP_UNAUTHORIZED)
         );
     }
 

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Contracts\Validation\Validator;
+use App\Helpers\ValidJson;
 
 class ValidMessage
 {
@@ -11,16 +12,16 @@ class ValidMessage
         $error = collect(
             $validator->errors()
         );
+        $firstError = $error->first();
 
-        $firstErrorKey = $error->keys()->first();
+        do {
+            $error = array_shift($firstError);
+            if (ValidJson::isJson($error)) {
+                $error = json_decode($error, true);
+                break;
+            }
+        } while (count($firstError) !== 0);
 
-        $firstError = is_array($error->get($firstErrorKey)[0]) ? $error->get($firstErrorKey)[0] : json_decode(
-            $error->get($firstErrorKey)[0],
-            true
-        );
-
-        return [
-            'code' => $firstError['code'],
-        ];
+        return $error;
     }
 }

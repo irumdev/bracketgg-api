@@ -98,7 +98,6 @@ class LikeChannelTest extends TestCase
     /** @test */
     public function 이미_좋아요_중복에_실패하라(): void
     {
-
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasLike'
@@ -135,6 +134,5 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($tryLikeToChannelSecond['ok']);
         $this->assertFalse($tryLikeToChannelSecond['isValid']);
         $this->assertEquals(ChannelFan::ALREADY_LIKE, $tryLikeToChannelSecond['messages']['code']);
-
     }
 }

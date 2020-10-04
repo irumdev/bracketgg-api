@@ -7,6 +7,7 @@ use App\Models\Channel;
 use App\Models\ChannelFollower;
 use App\Repositories\UserRepository;
 use App\Models\ChannelFan;
+use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
@@ -69,11 +70,23 @@ class UserService
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
+            'profileImage' => is_null($user->profile_image) ? null : route('profileImage', [
+                'profileImage' => $user->profile_image
+            ]),
         ];
     }
 
     public function createUser(array $attribute): User
     {
+        if (isset($attribute['profile_image'])) {
+            $storeImageResult = $attribute['profile_image']->store('profileImages');
+            if (is_string($storeImageResult) === false) {
+                /**
+                 * @todo 익셉션 처리하기
+                 */
+            }
+            $attribute['profile_image'] = $attribute['profile_image']->hashName();
+        }
         return $this->userRepository->create($attribute);
     }
 }

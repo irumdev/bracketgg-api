@@ -12,8 +12,6 @@ use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ChannelFan;
 
-
-
 class UnLikeChannelRequest extends FormRequest
 {
     private ResponseBuilder $responseBuilder;

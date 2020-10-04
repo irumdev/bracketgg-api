@@ -16,8 +16,6 @@ use App\Helpers\ResponseBuilder;
 use App\Models\ChannelFan;
 use App\Models\Channel;
 
-
-
 class LikeChannelController extends Controller
 {
     public ResponseBuilder $responseBuilder;
@@ -43,7 +41,6 @@ class LikeChannelController extends Controller
                     'code' => $likeChannelResult
                 ], Response::HTTP_CREATED);
         }
-
     }
 
     public function unLikeChannel(UnLikeChannelRequest $request, Channel $channel): JsonResponse
