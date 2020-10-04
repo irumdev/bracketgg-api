@@ -95,8 +95,7 @@ RUN set -eux; \
     #####################
     # clear dev package
     #####################
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    echo ''
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #     apt-get remove libhashkit-dev \
 #                    libjpeg62-turbo-dev \
 #                    libsasl2-dev \
@@ -307,15 +306,13 @@ RUN set -eux; \
 #                    x11proto-dev \
 #                    x11proto-xext-dev \
 #                    xtrans-dev
-# RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
- && echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
- && echo "post_max_size = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
- && echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini
-
 WORKDIR /var/www
 COPY . /var/www
-RUN /usr/local/bin/composer install --optimize-autoloader --no-dev && \
+RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+    echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+    echo "post_max_size = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+    echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+    /usr/local/bin/composer install --optimize-autoloader --no-dev && \
     cd /var/www && \
     chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www/storage
