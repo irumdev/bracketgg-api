@@ -1,7 +1,7 @@
 ARG phpVersion=7.4
 FROM php:${phpVersion}-fpm
 LABEL maintainer="dhtmdgkr123 <osh12201@gmail.com>"
-
+ARG uploadMaxSize=5
 USER root
 RUN set -eux; \
     apt-get update; \
@@ -95,7 +95,8 @@ RUN set -eux; \
     #####################
     # clear dev package
     #####################
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    echo ''
 #     apt-get remove libhashkit-dev \
 #                    libjpeg62-turbo-dev \
 #                    libsasl2-dev \
@@ -307,6 +308,11 @@ RUN set -eux; \
 #                    x11proto-xext-dev \
 #                    xtrans-dev
 # RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
+ && echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
+ && echo 'post_max_size = ${uploadMaxSize}M' >> /usr/local/etc/php/conf.d/php-uploadFile.ini \
+ && echo 'upload_max_filesize = ${uploadMaxSize}}M' >> /usr/local/etc/php/conf.d/php-uploadFile.ini
+
 WORKDIR /var/www
 COPY . /var/www
 RUN /usr/local/bin/composer install --optimize-autoloader --no-dev && \
