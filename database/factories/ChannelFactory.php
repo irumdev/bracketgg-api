@@ -8,19 +8,17 @@ use App\Models\ChannelFan;
 use App\Models\ChannelFollower;
 use App\Models\ChannelBroadcast;
 use App\Models\ChannelBannerImage;
+use App\Models\ChannelSlug;
 
 use Faker\Generator as Faker;
 use App\Helpers\Image;
 
 $factory->define(Channel::class, function (Faker $faker) {
-    $imagePath = explode('/', $faker->image(storage_path('app/profileImages')));
     return [
         'logo_image' => Image::create(),
         'follwer_count' => 0,
         'like_count' => 0,
-        'owner' => factory(User::class)->create([
-            'profile_image' => $imagePath[count($imagePath) - 1],
-        ]),
+        'owner' => factory(User::class)->states(['addProfileImage'])->create(),
         'description' => $faker->sentence(),
         'name' => $faker->name,
     ];
@@ -28,6 +26,12 @@ $factory->define(Channel::class, function (Faker $faker) {
 
 $factory->afterCreatingState(Channel::class, 'addBannerImage', function (Channel $channel, Faker $faker) {
     factory(ChannelBannerImage::class, random_int(1, 10))->create([
+        'channel_id' => $channel->id,
+    ]);
+});
+
+$factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $channel, Faker $faker) {
+    ChannelSlug::factory()->create([
         'channel_id' => $channel->id,
     ]);
 });

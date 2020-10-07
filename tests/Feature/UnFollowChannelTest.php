@@ -18,11 +18,12 @@ class UnFollowChannelTest extends TestCase
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
-            'hasFollower'
+            'hasFollower', 'addSlug'
         ])->create();
 
+
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->id
+            $channel->slug
         ]))->assertCreated();
 
 
@@ -31,7 +32,7 @@ class UnFollowChannelTest extends TestCase
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertOk();
 
         $this->assertTrue($tryUnFollow['ok']);
@@ -50,15 +51,15 @@ class UnFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이메일_인증안받은_유저가_언팔로우_실패하라()
+    public function 이메일_인증안받은_유저가_언팔로우_실패하라(): void
     {
         $activeUser = Sanctum::actingAs($user = factory(User::class)->create());
         $channel = factory(Channel::class)->states([
-            'hasFollower'
+            'hasFollower', 'addSlug'
         ])->create();
 
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->id
+            $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryFollow['ok']);
@@ -70,7 +71,7 @@ class UnFollowChannelTest extends TestCase
         $activeUser = Sanctum::actingAs($user);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryUnFollow['ok']);
@@ -79,15 +80,15 @@ class UnFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이미_언팔로우했는데_또_언팔로우시_실패하라()
+    public function 이미_언팔로우했는데_또_언팔로우시_실패하라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
-            'hasFollower'
+            'hasFollower', 'addSlug'
         ])->create();
 
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->id
+            $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryFollow['ok']);
@@ -95,14 +96,14 @@ class UnFollowChannelTest extends TestCase
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertOk();
         $this->assertTrue($tryUnFollow['ok']);
         $this->assertTrue($tryUnFollow['isValid']);
         $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
 
         $tryUnFollowSecond = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryUnFollowSecond['ok']);

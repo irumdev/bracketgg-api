@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Channel extends Model
 {
@@ -34,6 +35,12 @@ class Channel extends Model
         return $this->belongsTo(User::class, 'owner', 'id');
     }
 
+    public function getSlugAttribute(): string
+    {
+        $slugRelation = $this->hasOne(ChannelSlug::class, 'channel_id', 'id');
+        return $slugRelation->first()->slug;
+    }
+
     public function followers(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -44,5 +51,15 @@ class Channel extends Model
             'id',
             'user_id'
         );
+    }
+
+    public function resolveRouteBinding($slug, $field = null)
+    {
+        return ChannelSlug::where('slug', $slug)->firstOrFail()->channel;
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

@@ -17,11 +17,11 @@ class UnLikeChannelTest extends TestCase
     public function 채널_좋아요_취소_하라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $channel = factory(Channel::class)->create();
+        $channel = factory(Channel::class)->state('addSlug')->create();
 
         $beforeChannelLikeCount = $channel->like_count;
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertCreated();
 
 
@@ -30,7 +30,7 @@ class UnLikeChannelTest extends TestCase
         $this->assertEquals(Channel::find($channel->id)->like_count, 1);
 
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertOk();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -44,9 +44,9 @@ class UnLikeChannelTest extends TestCase
     public function 채널_좋아요_0인데_취소에_실패_하라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $channel = factory(Channel::class)->create();
+        $channel = factory(Channel::class)->state('addSlug')->create();
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryLikeToChannel['ok']);
@@ -62,7 +62,7 @@ class UnLikeChannelTest extends TestCase
             'email_verified_at' => null,
         ]));
         $channel = factory(Channel::class)->states([
-            'hasLike'
+            'hasLike', 'addSlug'
         ])->create();
 
         $fan = ChannelFan::where([
@@ -72,7 +72,7 @@ class UnLikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertUnauthorized();
 
         $this->assertFalse($tryLikeToChannel['ok']);

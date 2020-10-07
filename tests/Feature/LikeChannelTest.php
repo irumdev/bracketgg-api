@@ -17,7 +17,7 @@ class LikeChannelTest extends TestCase
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
-            'hasLike'
+            'hasLike', 'addSlug'
         ])->create();
 
         $beforeChannelLikeCount = $channel->like_count;
@@ -29,7 +29,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -52,7 +52,7 @@ class LikeChannelTest extends TestCase
             'email_verified_at' => null,
         ]));
         $channel = factory(Channel::class)->states([
-            'hasLike'
+            'hasLike', 'addSlug'
         ])->create();
 
         $fan = ChannelFan::where([
@@ -62,7 +62,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertUnauthorized();
 
         $this->assertFalse($tryLikeToChannel['ok']);
@@ -77,7 +77,7 @@ class LikeChannelTest extends TestCase
             'email_verified_at' => null,
         ]));
         $channel = factory(Channel::class)->states([
-            'hasLike'
+            'hasLike', 'addSlug'
         ])->create();
 
         $fan = ChannelFan::where([
@@ -100,7 +100,7 @@ class LikeChannelTest extends TestCase
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
-            'hasLike'
+            'hasLike', 'addSlug'
         ])->create();
 
         $beforeChannelLikeCount = $channel->like_count;
@@ -112,7 +112,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -128,7 +128,7 @@ class LikeChannelTest extends TestCase
         $this->assertEquals(ChannelFan::LIKE_OK, $tryLikeToChannel['messages']['code']);
 
         $tryLikeToChannelSecond = $this->postJson(route('likeChannel', [
-            'channel' => $channel->id
+            'channel' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryLikeToChannelSecond['ok']);

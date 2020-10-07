@@ -34,7 +34,7 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 $factory->afterCreatingState(User::class, 'addProfileImage', function (User $user, Faker $faker) {
-    $imagePath = explode('/', $faker->image(storage_path('app/profileImages')));
-    $user->profile_image = $imagePath[count($imagePath) - 1];
+    // $imagePath = explode('/', $faker->image(storage_path('app/profileImages')));
+    $user->profile_image = Image::create(); //$imagePath[count($imagePath) - 1];
     $user->save();
 });

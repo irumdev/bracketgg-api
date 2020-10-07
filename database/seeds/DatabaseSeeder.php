@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(Channel::class, 20)->states([
+            'addSlug',
             'addBannerImage','hasFollower',
             'addBroadcasts', 'hasLike'
         ])->create();

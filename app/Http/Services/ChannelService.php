@@ -7,7 +7,7 @@ use App\Models\ChannelBannerImage;
 use App\Helpers\ResponseBuilder;
 use App\Models\User;
 use App\Models\ChannelBroadcast;
-
+use App\Models\ChannelSlug;
 use App\Repositories\ChannelRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,10 +24,17 @@ class ChannelService
         $this->responseBuilder = $responseBuilder;
     }
 
+    public function findBySlug(string $slug): Channel
+    {
+        $findBySlugResult = ChannelSlug::where('slug', $slug)->first();
+        throw_if($findBySlugResult === null, (new ModelNotFoundException())->setModel(Channel::class));
+        return $findBySlugResult->channel;
+    }
+
     public function findChannelsByUserId(string $userId): Collection
     {
         $getUserChannelsByUserId = $this->channelRepostiroy->findByUserId($userId)->simplePaginate();
-        $this->assertChannel($getUserChannelsByUserId);
+        throw_if($getUserChannelsByUserId->isNotEmpty() === false, (new ModelNotFoundException())->setModel(Channel::class));
         $result = $this->responseBuilder->paginateMeta($getUserChannelsByUserId)->merge([
             'channels' => collect($getUserChannelsByUserId->items())->map(fn (Channel $channel) => $this->info($channel))
         ]);
@@ -53,13 +60,7 @@ class ChannelService
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
             ])),
+            'slug' => $channel->slug,
         ];
-    }
-
-    private function assertChannel(Paginator $paginator): void
-    {
-        if ($paginator->isNotEmpty() === false) {
-            throw (new ModelNotFoundException())->setModel(Channel::class);
-        }
     }
 }

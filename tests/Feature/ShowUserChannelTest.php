@@ -22,7 +22,7 @@ class ShowUserChannelTest extends TestCase
         );
 
         $channel = factory(Channel::class, random_int(1, 3))->states([
-            'addBannerImage','hasFollower',
+            'addBannerImage','hasFollower','addSlug'
         ])->create();
 
         $channelOwner = $channel->first()->owner;
@@ -51,7 +51,7 @@ class ShowUserChannelTest extends TestCase
 
 
         $channel = factory(Channel::class, random_int(1, 3))->states([
-            'addBannerImage','hasFollower', 'addBroadcasts'
+            'addBannerImage','hasFollower', 'addBroadcasts', 'addSlug'
         ])->create();
 
         $channelOwner = $channel->first()->owner;
@@ -79,7 +79,7 @@ class ShowUserChannelTest extends TestCase
         );
 
         $channel = factory(Channel::class, random_int(1, 3))->states([
-            'addBannerImage',
+            'addBannerImage', 'addSlug'
         ])->create();
 
         $channelOwner = $channel->first()->owner;
@@ -106,7 +106,7 @@ class ShowUserChannelTest extends TestCase
         );
 
         $channel = factory(Channel::class)->states([
-            'addBannerImage',
+            'addBannerImage', 'addSlug'
         ])->create();
 
         $testRequestUrl = route('showChannelByOwnerId', [

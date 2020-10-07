@@ -22,13 +22,14 @@ class ShowChannelTest extends TestCase
         );
 
         $channel = factory(Channel::class, random_int(1, 3))->states([
-            'addBannerImage','hasFollower','addBroadcasts'
+            'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
         ])->create();
 
+        $channelSlug = $channel->first()->slug;
         $channelId = $channel->first()->id;
 
         $testRequestUrl = route('findChannelById', [
-            'channel' => $channelId,
+            'channel' => $channelSlug,
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
