@@ -19,10 +19,13 @@ use Illuminate\Http\Response;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', 'User\UserVerifyController@verifyUser')->name('verify');
 
+    Route::get('email/duplicate', 'User\CheckEmailDuplicateController@getUserEmailDuplicate')->name('checkEmailDuplicate');
     Route::group(['prefix' => 'user'], function () {
         Route::post('', 'User\CreateUserController@createUser')->name('createUser');
         Route::get('', 'User\ShowUserController@getCurrent')->name('currentUser')
                                                             ->middleware('auth:sanctum');
+
+
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
