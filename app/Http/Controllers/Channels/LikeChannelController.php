@@ -16,16 +16,36 @@ use App\Helpers\ResponseBuilder;
 use App\Models\ChannelFan;
 use App\Models\Channel;
 
+/**
+ * 채널을 좋아요 또는 좋아요 취소 하는 컨트롤러 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class LikeChannelController extends Controller
 {
-    public ResponseBuilder $responseBuilder;
+    /**
+     * @var UserService $userService
+     * @var ResponseBuilder $responseBuilder
+     */
     public UserService $userService;
+    public ResponseBuilder $responseBuilder;
+
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {
         $this->responseBuilder = $responseBuilder;
         $this->userService = $userService;
     }
 
+    /**
+     * 로그인한 유저가 채널에 좋아요 하는 메소드 입니다.
+     *
+     * @param   App\Http\Requests\LikeChannelRequest 좋아요 request 인스턴스
+     * @param   App\Models\Channel 채널 인스턴스
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 또는 실패에 대한 응답 코드
+     */
     public function likeChannel(LikeChannelRequest $request, Channel $channel): JsonResponse
     {
         $likeChannelResult = $this->userService->likeChannel(Auth::user(), $channel);
@@ -43,6 +63,15 @@ class LikeChannelController extends Controller
         }
     }
 
+    /**
+     * 로그인한 유저가 채널에 좋아요 하는 메소드 입니다.
+     *
+     * @param   App\Http\Requests\UnLikeChannelRequest 좋아요 취소 request 인스턴스
+     * @param   App\Models\Channel 채널 인스턴스
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 또는 실패에 대한 응답 코드
+     */
     public function unLikeChannel(UnLikeChannelRequest $request, Channel $channel): JsonResponse
     {
         $unLikeChannelResult = $this->userService->unLikeChannel(Auth::user(), $channel);

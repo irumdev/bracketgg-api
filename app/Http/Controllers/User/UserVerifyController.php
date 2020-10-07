@@ -26,6 +26,7 @@ class UserVerifyController extends Controller
         $this->response = $responseBuilder;
         $this->userService = $userService;
     }
+
     /**
      * 로그인 컨트롤러 메인 메소드 입니다
      *

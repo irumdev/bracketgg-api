@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\User;
 
-
 class CheckUserEmailDuplicateTest extends TestCase
 {
     /** @test */

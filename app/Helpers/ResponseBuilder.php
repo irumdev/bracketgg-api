@@ -8,7 +8,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
 /**
- * 응답 형태를 정형화하는 메소드 입니다.
+ * 응답 형태를 정형화하는 클래스 입니다.
  *
  * @author  dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
@@ -42,9 +42,7 @@ class ResponseBuilder
     /**
      * 클라이언트에게 성공 리스폰스를 리턴하는 메소드 입니다.
      *
-     * @param   type 변수이름 변수 설명
-     * @throws  throwClass throw 타입 설명
-     * @used    \사용된\클래스\메소드
+     * @param   Illuminate\Http\JsonResponse json리스폰스
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
      * @return JsonResponse 성공 리스폰스

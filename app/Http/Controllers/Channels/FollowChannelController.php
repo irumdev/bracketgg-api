@@ -13,8 +13,18 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\FollowChannelRequest;
 use App\Http\Requests\UnFollowRequest;
 
+/**
+ * 채널을 팔로우 또는 언팔로우 하는 컨트롤러 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class FollowChannelController extends Controller
 {
+    /**
+     * @var UserService $userService
+     * @var ResponseBuilder $responseBuilder
+     */
     private UserService $userService;
     private ResponseBuilder $responseBuilder;
 
@@ -24,6 +34,15 @@ class FollowChannelController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
+    /**
+     * 채널을 팔로우 하는 메소드 입니다.
+     *
+     * @param   App\Http\Requests\FollowChannelRequest 채널 request 객체
+     * @param   App\Models\Channel 팔로우 요청한 채널 인스턴스
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 리스폰스 또는 팔로우 실패 리스폰스
+     */
     public function followChannel(FollowChannelRequest $request, Channel $channel): JsonResponse
     {
         $followChannelResult = $this->userService->followChannel(Auth::user(), $channel);
@@ -43,6 +62,15 @@ class FollowChannelController extends Controller
         }
     }
 
+    /**
+     * 채널을 언팔로우 하는 메소드 입니다.
+     *
+     * @param   App\Http\Requests\UnFollowRequest 채널 request 객체
+     * @param   App\Models\Channel 언팔로우 요청한 채널 인스턴스
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 리스폰스 또는 언팔로우 실패 리스폰스
+     */
     public function unFollowChannel(UnFollowRequest $request, Channel $channel): JsonResponse
     {
         $unFollowChannelResult = $this->userService->unFollowChannel(Auth::user(), $channel);

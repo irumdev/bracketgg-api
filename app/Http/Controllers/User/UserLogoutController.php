@@ -7,8 +7,22 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
+/**
+ * 로그아웃을 하는 컨트롤러 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class UserLogoutController extends Controller
 {
+    /**
+     * 로그아웃을 하는 메소드 입니다.
+     *
+     * @param   Illuminate\Http\Request $request 요청 객체
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 204 status를 클라이언트에게 리턴합니다.
+     */
     public function logout(Request $request)
     {
         $user = $request->user();

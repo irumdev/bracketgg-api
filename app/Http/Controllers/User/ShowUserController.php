@@ -11,8 +11,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+/**
+ * 유저의 정보를 조회하는 컨트롤러 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class ShowUserController extends Controller
 {
+    /**
+     * @var ResponseBuilder $responseBuilder
+     * @var UserService $userService
+     */
     private ResponseBuilder $responseBuilder;
     private UserService $userService;
 
@@ -22,6 +32,19 @@ class ShowUserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * 현재 로그인 한 유저의 정보를 가져오는 메소드 입니다.
+     *
+     * @return Illuminate\Http\JsonResponse
+     */
+
+    /**
+     * 현재 로그인 한 유저의 정보를 가져오는 메소드 입니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 현재 로그인 한 유저의 정보
+     */
     public function getCurrent(): JsonResponse
     {
         return $this->responseBuilder->ok(
@@ -29,9 +52,12 @@ class ShowUserController extends Controller
         );
     }
 
+
     /**
-     * @waiting
-     * 인덱스별 유저 정보 조회
+     * 유저 인덱스를 가지고 유저 정보를 조회하는 메소드 입니다.
+     *
+     * @param User $user
+     * @deprecated
      */
     public function getById(User $user): JsonResponse
     {

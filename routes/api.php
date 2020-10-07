@@ -24,8 +24,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('', 'User\CreateUserController@createUser')->name('createUser');
         Route::get('', 'User\ShowUserController@getCurrent')->name('currentUser')
                                                             ->middleware('auth:sanctum');
-
-
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
