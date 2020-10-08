@@ -19,6 +19,10 @@ use Illuminate\Http\JsonResponse;
  */
 class UserVerifyController extends Controller
 {
+    /**
+     * @var ResponseBuilder $response
+     * @var UserService $userService
+     */
     private ResponseBuilder $response;
     private UserService $userService;
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)

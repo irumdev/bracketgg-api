@@ -13,7 +13,6 @@ use Illuminate\Support\Arr;
  */
 class Image
 {
-
     /**
      * faker의 fakeImageUrl의 서버 다운으로 인하여
      * placeimg로 대체

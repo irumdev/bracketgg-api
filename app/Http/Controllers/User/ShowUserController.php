@@ -35,12 +35,6 @@ class ShowUserController extends Controller
     /**
      * 현재 로그인 한 유저의 정보를 가져오는 메소드 입니다.
      *
-     * @return Illuminate\Http\JsonResponse
-     */
-
-    /**
-     * 현재 로그인 한 유저의 정보를 가져오는 메소드 입니다.
-     *
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
      * @return JsonResponse 현재 로그인 한 유저의 정보
@@ -56,6 +50,8 @@ class ShowUserController extends Controller
     /**
      * 유저 인덱스를 가지고 유저 정보를 조회하는 메소드 입니다.
      *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
      * @param User $user
      * @deprecated
      */

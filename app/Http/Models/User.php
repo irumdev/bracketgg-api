@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 
 use App\Models\Channel;
-use App\Models\ChannelFollower;
 
 /**
  * 유저 모델 입니다.
