@@ -228,5 +228,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    'test' => [
+
+        'useRealImage' => env('TEST_USE_REAL_IMAGE', false)
+    ]
 
 ];

@@ -5,11 +5,9 @@ namespace App\Services;
 use App\Models\Channel;
 use App\Models\ChannelBannerImage;
 use App\Helpers\ResponseBuilder;
-use App\Models\User;
 use App\Models\ChannelBroadcast;
 use App\Models\ChannelSlug;
 use App\Repositories\ChannelRepository;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
@@ -56,7 +54,6 @@ class ChannelService
             'likeCount' => $channel->like_count,
             'description' => $channel->description,
             'bannerImages' => $channel->bannerImages->map(fn (ChannelBannerImage $image) => $image->banner_image),
-            'followerCount' => $channel->followers->count(),
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
             ])),

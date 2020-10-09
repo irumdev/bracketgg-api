@@ -9,6 +9,7 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel;
 use App\Models\ChannelFollower;
+use Illuminate\Support\Str;
 
 class FollowChannelTest extends TestCase
 {
@@ -108,7 +109,7 @@ class FollowChannelTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $tryFollow = $this->postJson(route('followChannel', [
-            'channel' => -99
+            'channel' => Str::random(10)
         ]))->assertNotFound();
 
         $this->assertEquals(['code' => 404], $tryFollow['messages']);

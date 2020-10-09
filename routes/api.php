@@ -4,6 +4,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 
+use App\Http\Controllers\User\UserLogoutController;
+use App\Http\Controllers\User\CheckEmailDuplicateController;
+use App\Http\Controllers\User\CreateUserController;
+use App\Http\Controllers\User\ShowUserController;
+use App\Http\Controllers\User\UserVerifyController;
+
+use App\Http\Controllers\Channels\FollowChannelController;
+use App\Http\Controllers\Channels\LikeChannelController;
+use App\Http\Controllers\Channels\ShowChannelController;
+use App\Http\Controllers\Channels\ShowUserChannelController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,26 +30,28 @@ use Illuminate\Http\Response;
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::post('auth', 'User\UserVerifyController@verifyUser')->name('verify');
+    Route::post('auth', [UserVerifyController::class, 'verifyUser'])->name('verify');
 
-    Route::get('email/duplicate', 'User\CheckEmailDuplicateController@getUserEmailDuplicate')->name('checkEmailDuplicate');
+    Route::get('email/duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
     Route::group(['prefix' => 'user'], function () {
-        Route::post('', 'User\CreateUserController@createUser')->name('createUser');
-        Route::get('', 'User\ShowUserController@getCurrent')->name('currentUser')
-                                                            ->middleware('auth:sanctum');
+        Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');
+        Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
+                                                                ->middleware('auth:sanctum');
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::post('logout', 'User\UserLogoutController@logout')->name('logoutUser');
+
+        Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
         Route::group(['prefix' => 'channel'], function () {
-            Route::get('owner/{user}', 'Channels\ShowUserChannelController@getChannelsByUserId')->name('showChannelByOwnerId');
-            Route::get('{channel}', 'Channels\ShowChannelController@getChannelById')->name('findChannelById');
+            Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
+            Route::get('{channel}', [ShowChannelController::class, 'getChannelById'])->name('findChannelById');
 
-            Route::post('{channel}/follow', 'Channels\FollowChannelController@followChannel')->name('followChannel');
-            Route::post('{channel}/unfollow', 'Channels\FollowChannelController@unFollowChannel')->name('unFollowChannel');
+            Route::get('{channel}/isfollow', [FollowChannelController::class, 'isFollow'])->name('channelIsFollow');
+            Route::post('{channel}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
+            Route::post('{channel}/unfollow', [FollowChannelController::class, 'unFollowChannel'])->name('unFollowChannel');
 
-            Route::post('{channel}/like', 'Channels\LikeChannelController@likeChannel')->name('likeChannel');
-            Route::post('{channel}/unlike', 'Channels\LikeChannelController@unLikeChannel')->name('unLikeChannel');
+            Route::post('{channel}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
+            Route::post('{channel}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
         });
     });
 });

@@ -37,7 +37,7 @@ class UserRepository
         return ChannelFollower::where($this->isAlreadyLikeOrFollowCondition($user, $channel));
     }
 
-    public function isAlreadyFollow(User $user, Channel $channel): bool
+    public function isAlreadyFollowChannel(User $user, Channel $channel): bool
     {
         return $this->findFollowerCondition($user, $channel)->exists();
     }
@@ -92,7 +92,10 @@ class UserRepository
             'channel_id' => $channel->id,
             'user_id' => $user->id,
         ];
-        return DB::transaction(function () use ($createItem) {
+
+        return DB::transaction(function () use ($createItem, $channel) {
+            $channel->follwer_count += 1;
+            $channel->save();
             return ChannelFollower::firstOrCreate(
                 $createItem,
                 $createItem,

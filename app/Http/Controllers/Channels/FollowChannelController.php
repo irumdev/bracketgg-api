@@ -88,4 +88,21 @@ class FollowChannelController extends Controller
 
         }
     }
+
+    /**
+     * 유저가 채널을 팔로우 했는지 안했는지 판단하는 메소드 입니다.
+     *
+     * @param   App\Http\Requests\UnFollowRequest 채널 request 객체
+     * @param   App\Models\Channel 언팔로우 요청한 채널 인스턴스
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 리스폰스 또는 언팔로우 실패 리스폰스
+     */
+    public function isFollow(UnFollowRequest $request, Channel $channel): JsonResponse
+    {
+        $isFollowChannel = $this->userService->isFollowChannel(Auth::user(), $channel);
+        return $this->responseBuilder->ok([
+            'isFollow' => $isFollowChannel,
+        ]);
+    }
 }

@@ -26,7 +26,7 @@ class UserService
 
     public function followChannel(User $user, Channel $channel): int
     {
-        $isAlreadyFollow = $this->userRepository->isAlreadyFollow($user, $channel);
+        $isAlreadyFollow = $this->userRepository->isAlreadyFollowChannel($user, $channel);
 
         if ($isAlreadyFollow) {
             return ChannelFollower::ALREADY_FOLLOW;
@@ -35,9 +35,14 @@ class UserService
         return ChannelFollower::FOLLOW_OK;
     }
 
+    public function isFollowChannel(User $user, Channel $channel): bool
+    {
+        return $this->userRepository->isAlreadyFollowChannel($user, $channel);
+    }
+
     public function unFollowChannel(User $user, Channel $channel): int
     {
-        $isAlreadyFollow = $this->userRepository->isAlreadyFollow($user, $channel);
+        $isAlreadyFollow = $this->userRepository->isAlreadyFollowChannel($user, $channel);
         if ($isAlreadyFollow === false) {
             return ChannelFollower::ALREADY_UNFOLLOW;
         }

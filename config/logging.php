@@ -59,9 +59,8 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('SLACK_WEBHOOK_URL'),
-            'username' => '#alert-bot',
-            'emoji' => ':boom:',
-            // 'channel' => '#alert-bot',
+            'username' => 'alert-bot',
+            'emoji' => 'https://avatars.slack-edge.com/2020-10-08/1428155402577_7e6a1aee33bd791a867d_48.jpg',
             'level' => 'debug',
         ],
 
