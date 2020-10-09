@@ -317,5 +317,5 @@ RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile
     chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www/storage
 
-CMD ["cd /var/www && php artisan route:cache && php artisan config:cache && php-fpm"]
+CMD ["php-fpm"]
 EXPOSE 9000
