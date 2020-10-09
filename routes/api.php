@@ -31,6 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', [UserVerifyController::class, 'verifyUser'])->name('verify');
 
     Route::get('email/duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
+
     Route::group(['prefix' => 'user'], function () {
         Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');
         Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
@@ -52,6 +53,7 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::post('{channel}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
             Route::post('{channel}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
+            Route::get('{channel}/islike', [LikeChannelController::class, 'isLike'])->name('isLikeChannel');
         });
     });
 });

@@ -355,26 +355,25 @@ class CreateUserTest extends TestCase
     public function 프로필이미지_없이_특수한_이메일로_회원가입에_성공하라(): void
     {
         $emaiCase = collect([
-                'test.test@gmail.com',
-                'test-a@gmail.com',
-                'test..a@gmail.com',
-                'test._.-a@gmail.co.kr',
-            ]);
+            'test.test@gmail.com',
+            'test-a@gmail.com',
+            'test..a@gmail.com',
+            'test._.-a@gmail.co.kr',
+        ]);
         $emaiCase->each(function ($email) {
             $tryCreateUser = $this->postJson($this->testUrl, [
-                    'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
-                    'nick_name' => $nickName = Str::random(12),
-                    'password' => $password = Str::random(30),
-                    'confirmedPassword' => $password,
-                    'is_policy_agree' => 1,
-                    'is_privacy_agree' => 1,
-                ])->assertCreated();
+                'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
+                'nick_name' => $nickName = Str::random(12),
+                'password' => $password = Str::random(30),
+                'confirmedPassword' => $password,
+                'is_policy_agree' => 1,
+                'is_privacy_agree' => 1,
+            ])->assertCreated();
 
             $user = User::where([
-                    ['email', '=', $randEmail],
-                    ['nick_name','=', $nickName],
-                ])->first();
-
+                ['email', '=', $randEmail],
+                ['nick_name','=', $nickName],
+            ])->first();
 
             $this->assertEquals($tryCreateUser['messages']['id'], $user->id);
             $this->assertEquals($tryCreateUser['messages']['email'], $user->email);

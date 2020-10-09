@@ -59,7 +59,7 @@ class UserService
         return $this->userRepository->likeChannel($user, $channel);
     }
 
-    public function unLikeChannel(User $user, Channel $channel)
+    public function unLikeChannel(User $user, Channel $channel): int
     {
         $isAlreadyLike = $this->userRepository->isAlreadyLike($user, $channel);
         if ($isAlreadyLike) {
@@ -67,6 +67,12 @@ class UserService
             return ChannelFan::UNLIKE_OK;
         }
         return ChannelFan::ALREADY_UNLIKE;
+    }
+
+    public function isAlreadyLike(User $user, Channel $channel): bool
+    {
+        $isAlreadyLike = $this->userRepository->isAlreadyLike($user, $channel);
+        return $isAlreadyLike;
     }
 
     public function info(User $user): array

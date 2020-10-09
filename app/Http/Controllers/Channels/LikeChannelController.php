@@ -15,6 +15,7 @@ use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
 use App\Models\ChannelFan;
 use App\Models\Channel;
+use App\Http\Requests\CheckUserLikeChannelRequest;
 
 /**
  * 채널을 좋아요 또는 좋아요 취소 하는 컨트롤러 입니다.
@@ -87,5 +88,13 @@ class LikeChannelController extends Controller
                     'code' => $unLikeChannelResult
                 ]);
         }
+    }
+
+    public function isLike(CheckUserLikeChannelRequest $request, Channel $channel): JsonResponse
+    {
+        $channnelIsLike =  $this->userService->isAlreadyLike(Auth::user(), $channel);
+        return $this->responseBuilder->ok([
+            'isLike' => $channnelIsLike
+        ]);
     }
 }

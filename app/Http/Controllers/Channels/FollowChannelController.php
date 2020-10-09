@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\FollowChannelRequest;
 use App\Http\Requests\UnFollowRequest;
+use App\Http\Requests\CheckUserFollowChannelRequest;
 
 /**
  * 채널을 팔로우 또는 언팔로우 하는 컨트롤러 입니다.
@@ -98,7 +99,7 @@ class FollowChannelController extends Controller
      * @version 1.0.0
      * @return JsonResponse 성공 리스폰스 또는 언팔로우 실패 리스폰스
      */
-    public function isFollow(UnFollowRequest $request, Channel $channel): JsonResponse
+    public function isFollow(CheckUserFollowChannelRequest $request, Channel $channel): JsonResponse
     {
         $isFollowChannel = $this->userService->isFollowChannel(Auth::user(), $channel);
         return $this->responseBuilder->ok([
