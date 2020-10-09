@@ -314,10 +314,11 @@ RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile
     echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     /usr/local/bin/composer install --optimize-autoloader --no-dev && \
     cd /var/www && \
-    chown -R www-data:www-data /var/www && \
-    chmod -R 755 /var/www/storage && \
     php artisan route:cache && \
-    php artisan config:cache
+    php artisan config:cache && \
+    chown -R www-data:www-data /var/www && \
+    chmod -R 755 /var/www/storage
+
 
 CMD ["php-fpm"]
 EXPOSE 9000
