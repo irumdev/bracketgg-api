@@ -14,13 +14,14 @@ use App\Helpers\ResponseBuilder;
 
 class ShowChannelTest extends TestCase
 {
+    private function reslover(): ChannelService
+    {
+        return (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()));
+    }
+
     /** @test */
     public function 존재하는_채널정보_조회를_성공하라(): void
     {
-        Sanctum::actingAs(
-            $user = factory(User::class)->create()
-        );
-
         $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
         ])->create();
@@ -34,7 +35,7 @@ class ShowChannelTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelById((string)$channelId);
+        $service = $this->reslover()->findChannelById((string)$channelId);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -47,11 +48,6 @@ class ShowChannelTest extends TestCase
     /** @test */
     public function 존재하지않는_채널정보_조회를_실패하라(): void
     {
-        Sanctum::actingAs(
-            $user = factory(User::class)->create()
-        );
-
-
         $testRequestUrl = route('findChannelById', [
             'channel' => '-999',
         ]);

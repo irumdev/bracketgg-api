@@ -351,18 +351,17 @@ class CreateUserTest extends TestCase
         $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
     }
 
-        /** @test */
-        public function 프로필이미지_없이_특수한_이메일로_회원가입에_성공하라(): void
-        {
-            $emaiCase = collect([
+    /** @test */
+    public function 프로필이미지_없이_특수한_이메일로_회원가입에_성공하라(): void
+    {
+        $emaiCase = collect([
                 'test.test@gmail.com',
                 'test-a@gmail.com',
                 'test..a@gmail.com',
                 'test._.-a@gmail.co.kr',
             ]);
-            $emaiCase->each(function($email) {
-
-                $tryCreateUser = $this->postJson($this->testUrl, [
+        $emaiCase->each(function ($email) {
+            $tryCreateUser = $this->postJson($this->testUrl, [
                     'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
                     'nick_name' => $nickName = Str::random(12),
                     'password' => $password = Str::random(30),
@@ -371,21 +370,19 @@ class CreateUserTest extends TestCase
                     'is_privacy_agree' => 1,
                 ])->assertCreated();
 
-                $user = User::where([
+            $user = User::where([
                     ['email', '=', $randEmail],
                     ['nick_name','=', $nickName],
                 ])->first();
 
 
-                $this->assertEquals($tryCreateUser['messages']['id'], $user->id);
-                $this->assertEquals($tryCreateUser['messages']['email'], $user->email);
-                $this->assertEquals($tryCreateUser['messages']['nick_name'], $user->nick_name);
-                $this->assertEquals($tryCreateUser['messages']['is_policy_agree'], $user->is_policy_agree);
-                $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
-
-            });
-
-        }
+            $this->assertEquals($tryCreateUser['messages']['id'], $user->id);
+            $this->assertEquals($tryCreateUser['messages']['email'], $user->email);
+            $this->assertEquals($tryCreateUser['messages']['nick_name'], $user->nick_name);
+            $this->assertEquals($tryCreateUser['messages']['is_policy_agree'], $user->is_policy_agree);
+            $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
+        });
+    }
 
     /** @test */
     public function 회원가입에_성공하라(): void

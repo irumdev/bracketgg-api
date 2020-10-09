@@ -15,8 +15,6 @@ use App\Http\Controllers\Channels\LikeChannelController;
 use App\Http\Controllers\Channels\ShowChannelController;
 use App\Http\Controllers\Channels\ShowUserChannelController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,12 +37,14 @@ Route::group(['prefix' => 'v1'], function () {
                                                                 ->middleware('auth:sanctum');
     });
 
-    Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::group(['prefix' => 'channel'], function () {
+        Route::get('{channel}', [ShowChannelController::class, 'getChannelById'])->name('findChannelById');
+    });
 
+    Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
         Route::group(['prefix' => 'channel'], function () {
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
-            Route::get('{channel}', [ShowChannelController::class, 'getChannelById'])->name('findChannelById');
 
             Route::get('{channel}/isfollow', [FollowChannelController::class, 'isFollow'])->name('channelIsFollow');
             Route::post('{channel}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
