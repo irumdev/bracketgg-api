@@ -104,6 +104,6 @@ class FollowChannelController extends Controller
         $isFollowChannel = $this->userService->isFollowChannel(Auth::user(), $channel);
         return $this->responseBuilder->ok([
             'isFollow' => $isFollowChannel,
-        ]);
+        ])
     }
 }

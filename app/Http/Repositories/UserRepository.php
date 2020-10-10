@@ -57,7 +57,7 @@ class UserRepository
         if ($isSuccess === false) {
             // throw new DbFailException();
             /**
-             * @todo 익셉션 처리하기
+             * @todo : 익셉션 처리하기
              */
         }
         return ChannelFan::LIKE_OK;

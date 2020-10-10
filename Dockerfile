@@ -318,4 +318,5 @@ RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile
     chmod -R 755 /var/www/storage
 
 CMD ["php-fpm"]
+# ENTRYPOINT [ "/" ]
 EXPOSE 9000
