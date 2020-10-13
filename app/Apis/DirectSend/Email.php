@@ -55,6 +55,7 @@ class Email
         $sendInfo = self::buildInfo([
             'receivers' => [
                 ['email' => 'dhtmdgkr123@naver.com', 'name' => 'asdf'],
+                ['email' => 'me@haodoo.io', 'name' => 'asdf'],
             ],
             'subject' => '제목입니다.',
             'view' => view('email.verify', [
