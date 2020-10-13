@@ -43,7 +43,7 @@ class CheckFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 팔로우_한_채널_조화에_true_리턴을_받아라(): void
+    public function 팔로우_한_채널_조회에_true_리턴을_받아라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();

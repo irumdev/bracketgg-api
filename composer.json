@@ -46,7 +46,8 @@
             "database/factories",
             "app/Http/Repositories",
             "app/Http/Models",
-            "app/Http/Services"
+            "app/Http/Services",
+            "app/Apis"
         ]
     },
     "autoload-dev": {

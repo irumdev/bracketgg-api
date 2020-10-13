@@ -92,44 +92,8 @@ class Handler extends ExceptionHandler
 
         if (config('logging.isUseSlackNoti')) {
             $errorMessage = new ErrorFormatter($exception, $request);
-
-            // $errorInfo = [
-            //     'errorLine' => $exception->getLine(),
-            //     'errorMessage' => $exception->getMessage(),
-            //     'errorFile' => $exception->getFile(),
-            //     'routeName' => url()->full(),
-            //     'requestParam' => $request->all(),
-            //     'errorTrase' => $exception->getTrace(),
-            //     'requestMethod' => $request->getMethod(),
-            //     'requestIp' => $request->ip(),
-            // ];
-
-            // $errorFormat = join("\n", [
-            //     "%s 파일에서",
-            //     "%s 번째 줄에 에러가 발생 했습니다.",
-            //     "에러메세지 :  %s",
-            //     "에러 url : %s",
-            //     "요청 메소드 : %s",
-            //     "요청 ip : %s",
-            //     "요청 파라미터 : {\n    %s\n}",
-            //     "에러 트레이스 : \n%s",
-            // ]);
             Log::critical($errorMessage->errorInfo());
             Log::channel('slack')->critical($errorMessage->toKor());
-            // Log::channel('slack')->critical(sprintf(
-            //     $errorFormat,
-            //     $errorInfo['errorFile'],
-            //     $errorInfo['errorLine'],
-            //     $errorInfo['errorMessage'],
-            //     $errorInfo['routeName'],
-            //     $errorInfo['requestMethod'],
-            //     $errorInfo['requestIp'],
-            //     collect($errorInfo['requestParam'])->map(fn ($key, $value) => $key . " : " . $value)->join("\n"),
-            //     $exception->getTraceAsString(),
-            // ));
-
-            // ->toKor();
-            // Log::critical($errorMessage);
         }
         return parent::render($request, $exception);
     }

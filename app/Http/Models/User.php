@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Auth\MustVerifyEmail;
+use App\Notifications\UserEmailVerifyNotification;
 
 use App\Models\Channel;
 
@@ -22,6 +23,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
+    use MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -75,5 +77,11 @@ class User extends Authenticatable
     public function channels(): HasMany
     {
         return $this->hasMany(Channel::class, 'owner', 'id');
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+
+        // $this->notify(new UserEmailVerifyNotification);
     }
 }

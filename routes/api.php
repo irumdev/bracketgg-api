@@ -30,8 +30,14 @@ use App\Http\Controllers\Channels\ShowUserChannelController;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', [UserVerifyController::class, 'verifyUser'])->name('verify');
 
-    Route::get('email/duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
 
+    Route::group(['prefix' => 'email'], function () {
+        Route::get('duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
+        Route::get('verify/{id}/{hash}', function ($id, $hash) {
+
+
+        })->middleware('signed')->name('verifyEmail');
+    });
     Route::group(['prefix' => 'user'], function () {
         Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');
         Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
