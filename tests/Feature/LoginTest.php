@@ -80,7 +80,7 @@ class LoginTest extends TestCase
     public function 로그인_성공하라(): void
     {
         $testUrl = route('verify');
-        $user = factory(User::class)->state('addProfileImage')->create();
+        $user = factory(User::class)->states(['addProfileImage'])->create();
         $response = $this->postJson($testUrl, [
             'email' => $user->email,
             'password' => 'password',

@@ -10,6 +10,6 @@ use App\Helpers\Image;
 $factory->define(ChannelBannerImage::class, function (Faker $faker) {
     return [
         //
-        'banner_image' => Image::create(),
+        'banner_image' => Image::fakeUrl(),
     ];
 });

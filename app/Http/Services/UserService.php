@@ -81,7 +81,7 @@ class UserService
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
-            'profileImage' => is_null($user->profile_image) ? null : route('profileImage', [
+            'profileImage' => empty($user->profile_image) ? null : route('profileImage', [
                 'profileImage' => $user->profile_image
             ]),
         ];

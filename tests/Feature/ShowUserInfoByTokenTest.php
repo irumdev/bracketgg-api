@@ -14,8 +14,7 @@ class ShowUserInfoByTokenTest extends TestCase
     public function 토큰으로_유저의_정보를_조회하라(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->state('addProfileImage')->create());
-        $response = $this->getJson(route('currentUser'))
-                         ->assertOk();
+        $response = $this->getJson(route('currentUser'))->assertOk();
 
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);

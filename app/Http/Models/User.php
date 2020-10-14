@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail;
-use App\Notifications\UserEmailVerifyNotification;
+use Illuminate\Support\Facades\URL;
+use App\Apis\DirectSend\Email;
 
 use App\Models\Channel;
 
@@ -81,7 +82,24 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification(): void
     {
+        Email::send([
+            'receivers' => [
+                ['email' => $this->email, 'name' => $this->nick_name]
+            ],
+            'subject' => __('emails.verify.title'),
+            'view' => view('email.verify', [
+                'userName' => $this->nick_name,
+                'verifyUrl' => URL::signedRoute('verifyEmail', [
+                    'id' => $this->id,
+                    'hash' => sha1($this->email),
+                ])
+            ])->render()
+        ]);
 
-        // $this->notify(new UserEmailVerifyNotification);
+    }
+
+    private function getVerifyUrl()
+    {
+        # code...
     }
 }

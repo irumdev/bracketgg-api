@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('profile-image/{profileImage}', 'User\ProfileImageController@getProfileImage')->name('profileImage');
+// Route::get('email/verify/{id}/{hash}')->middleware('signed')->name('verifyEmail');

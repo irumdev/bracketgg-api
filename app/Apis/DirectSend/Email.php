@@ -1,12 +1,17 @@
 <?php
 namespace App\Apis\DirectSend;
 
+// use InvalidArgumentException;
+
+use App\Exceptions\InvalidEmailArgumentException;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
 
 class Email
 {
-    private const NOT_EXISTS = 0;
+    private const OK = '0';
+    private const RETRY_COUNT = 10;
 
 
     private static function buildInfo(array $sendData)
@@ -20,17 +25,18 @@ class Email
 
 
         $hasInvalidBaseInfo = array_filter($baseInfo, fn($item) => $item === null);
-        $hasNotReceiver = isset($sendData['receivers']) === false || count($sendData['receivers']) <= 0;
+        $hasReceiver = isset($sendData['receivers']) || count($sendData['receivers']) <= 0;
+
 
         throw_if(count($hasInvalidBaseInfo) > 0, new InvalidArgumentException(__('apis.directSend.hasNotApiKeys')));
-        throw_if($hasNotReceiver, new InvalidArgumentException('must attach receiver'));
-        throw_if(isset($sendData['subject']) === false, new InvalidArgumentException('must attach subject'));
-        throw_if(isset($sendData['view']) === false, new InvalidArgumentException('must attach view'));
+        throw_unless($hasReceiver, self::setArgException('attach', 'receiver'));
+        throw_unless(isset($sendData['subject']), self::setArgException('attach', 'subject'));
+        throw_unless(isset($sendData['view']), self::setArgException('attach', 'view'));
 
         $baseInfo['receiver'] = array_map(function($receiver) {
 
             // throw_if(isset($receiver['name']) === false, self::getReceiverErrorMessage('name'));
-            throw_if(isset($receiver['email']) === false, self::getReceiverErrorMessage('email'));
+            throw_unless(isset($receiver['email']), self::setArgException('receiver', 'email'));
 
             return array_merge($receiver, ['note' => '', 'mobile' => '']);
         }, $sendData['receivers']);
@@ -43,47 +49,26 @@ class Email
     }
 
 
-    private static function getReceiverErrorMessage(string $key): InvalidArgumentException
+    private static function setArgException(string $key, string $missingAttribute): InvalidArgumentException
     {
-        return new InvalidArgumentException(__('apis.directSend.receiver', [
-            'attribute' => $key
+        return new InvalidArgumentException(__('apis.directSend.' . $key, [
+            'attribute' => $missingAttribute
         ]));
     }
 
-    public static function send(array $sendData)
+    public static function send(array $sendData): void
     {
-        $sendInfo = self::buildInfo([
-            'receivers' => [
-                ['email' => 'dhtmdgkr123@naver.com', 'name' => 'asdf'],
-                ['email' => 'me@haodoo.io', 'name' => 'asdf'],
-            ],
-            'subject' => '제목입니다.',
-            'view' => view('email.verify', [
-                'userName' => 'dhtmdgkr123',
-                'verifyUrl' => 'http://asdasdfasdf.com'
-            ])->render(),
-
-        ]);
-
-
-        return self::postRequest($sendInfo);
-
-
+        $sendEmailResult = self::postRequest(self::buildInfo($sendData))->json();
+        throw_if(data_get($sendEmailResult, 'status') !== self::OK, new InvalidEmailArgumentException(json_encode($sendEmailResult)));
     }
 
-
-    private static function postRequest(array $requestData)
+    private static function postRequest(array $requestData): Response
     {
         return Http::withHeaders([
             'Cache-control' => 'no-cache',
             'Content-type' => 'application/json; charset=utf-8',
-        ])->retry(10)->post('https://directsend.co.kr/index.php/api_v2/mail_change_word', $requestData)->json();
+        ])->retry(self::RETRY_COUNT)->post(config('apis.directSend.email'), $requestData);
     }
-
-
-
-
-
 
 }
 

@@ -15,7 +15,7 @@ use App\Helpers\Image;
 
 $factory->define(Channel::class, function (Faker $faker) {
     return [
-        'logo_image' => Image::create(),
+        'logo_image' => Image::fakeUrl(),
         'follwer_count' => 0,
         'like_count' => 0,
         'owner' => factory(User::class)->states(['addProfileImage'])->create(),
