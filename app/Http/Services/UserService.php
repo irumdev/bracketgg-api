@@ -100,4 +100,13 @@ class UserService
         }
         return $this->userRepository->create($attribute);
     }
+
+    public function markEmailAsVerified(string $userIdx): bool
+    {
+        return $this->userRepository->markEmailAsVerified(
+            $this->userRepository->findByIdx($userIdx)
+        );
+    }
+
+
 }

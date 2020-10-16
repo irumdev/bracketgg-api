@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 
-
 class CreateUserTest extends TestCase
 {
     private string $testUrl;
@@ -333,7 +332,7 @@ class CreateUserTest extends TestCase
             'directsend.co.kr/*' => Http::response(['status' => '0'])
         ]);
         $tryCreateUser = $this->postJson($this->testUrl, [
-            'email' =>  $randEmail = 'dhtmdgkr123@naver.com',
+            'email' =>  $randEmail = Str::random(12) . '@' . Str::random(12) . '.com',
             'nick_name' => $nickName = Str::random(12),
             'password' => $password = Str::random(30),
             'confirmedPassword' => $password,

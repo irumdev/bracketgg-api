@@ -1,6 +1,6 @@
 <?php
 return [
     'verify' => [
-        'title' => 'bracket.gg 이메일 인증'
+        'title' => 'BRACKET.GG 이메일 인증'
     ]
 ];

@@ -45,7 +45,6 @@ class Image
         }
 
         if ($randomize) {
-
             $url = substr($url, 0, -1);
             $url .= '?' . random_int(100, 1000);
         }
@@ -62,7 +61,7 @@ class Image
         }
 
         $name = md5(uniqid(empty($_SERVER['SERVER_ADDR']) ? '' : $_SERVER['SERVER_ADDR'], true));
-        $filename = $name .'.jpg';
+        $filename = $name . '.jpg';
         $filepath = $dir . DIRECTORY_SEPARATOR . $filename;
 
         $url = static::fakeUrl($width, $height, $category, $randomize, $gray);
@@ -78,9 +77,6 @@ class Image
             if (!$success) {
                 unlink($filepath);
                 return new \RuntimeException('Image server is not working');
-
-
-                // return false;
             }
         } elseif (ini_get('allow_url_fopen')) {
             // use remote fopen() via copy()

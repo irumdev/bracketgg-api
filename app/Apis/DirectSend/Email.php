@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Apis\DirectSend;
 
 // use InvalidArgumentException;
@@ -13,7 +14,6 @@ class Email
     private const OK = '0';
     private const RETRY_COUNT = 10;
 
-
     private static function buildInfo(array $sendData)
     {
         $baseInfo = [
@@ -24,7 +24,7 @@ class Email
         ];
 
 
-        $hasInvalidBaseInfo = array_filter($baseInfo, fn($item) => $item === null);
+        $hasInvalidBaseInfo = array_filter($baseInfo, fn ($item) => $item === null);
         $hasReceiver = isset($sendData['receivers']) || count($sendData['receivers']) <= 0;
 
 
@@ -33,7 +33,7 @@ class Email
         throw_unless(isset($sendData['subject']), self::setArgException('attach', 'subject'));
         throw_unless(isset($sendData['view']), self::setArgException('attach', 'view'));
 
-        $baseInfo['receiver'] = array_map(function($receiver) {
+        $baseInfo['receiver'] = array_map(function ($receiver) {
 
             // throw_if(isset($receiver['name']) === false, self::getReceiverErrorMessage('name'));
             throw_unless(isset($receiver['email']), self::setArgException('receiver', 'email'));
@@ -69,6 +69,4 @@ class Email
             'Content-type' => 'application/json; charset=utf-8',
         ])->retry(self::RETRY_COUNT)->post(config('apis.directSend.email'), $requestData);
     }
-
 }
-

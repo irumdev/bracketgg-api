@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,3 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('profile-image/{profileImage}', 'User\ProfileImageController@getProfileImage')->name('profileImage');
-// Route::get('email/verify/{id}/{hash}')->middleware('signed')->name('verifyEmail');

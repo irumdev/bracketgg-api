@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use Throwable;
 use Illuminate\Http\Request;
+
 class ErrorFormatter
 {
     private Throwable $exception;

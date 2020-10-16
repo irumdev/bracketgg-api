@@ -9,6 +9,7 @@ use App\Http\Controllers\User\CheckEmailDuplicateController;
 use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\ShowUserController;
 use App\Http\Controllers\User\UserVerifyController;
+use App\Http\Controllers\User\VerifyEmailController;
 
 use App\Http\Controllers\Channels\FollowChannelController;
 use App\Http\Controllers\Channels\LikeChannelController;
@@ -33,10 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'email'], function () {
         Route::get('duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
-        Route::get('verify/{id}/{hash}', function ($id, $hash) {
-
-
-        })->middleware('signed')->name('verifyEmail');
+        Route::get('verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])->middleware('signed')->name('verifyEmail');
     });
     Route::group(['prefix' => 'user'], function () {
         Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');

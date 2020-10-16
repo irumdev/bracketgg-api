@@ -24,6 +24,11 @@ class UserRepository
         return DB::transaction(fn () => $this->user->create($attribute));
     }
 
+    public function findByIdx(string $idx): User
+    {
+        return User::findOrFail($idx);
+    }
+
     private function isAlreadyLikeOrFollowCondition(User $user, Channel $channel): array
     {
         return [
@@ -84,6 +89,11 @@ class UserRepository
             return $this->findFollowerCondition($user, $channel)->delete() &&
                    $channel->save();
         });
+    }
+
+    public function markEmailAsVerified(User $user): bool
+    {
+        return DB::transaction(fn() => $user->markEmailAsVerified());
     }
 
     public function followChannel(User $user, Channel $channel): ChannelFollower

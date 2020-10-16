@@ -41,7 +41,7 @@ class UserEmailVerifyNotification extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
                 ->view('email.verify', [
                     'verifyLink' => $this->verificationUrl($notifiable)
                 ])

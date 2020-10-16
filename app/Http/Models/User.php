@@ -10,7 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\URL;
+/**
+ * @todo event로 빼놓기
+ */
 use App\Apis\DirectSend\Email;
+use Illuminate\Support\Carbon;
 
 use App\Models\Channel;
 
@@ -82,24 +86,33 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification(): void
     {
-        Email::send([
+        $sendInfo = [
             'receivers' => [
                 ['email' => $this->email, 'name' => $this->nick_name]
             ],
             'subject' => __('emails.verify.title'),
             'view' => view('email.verify', [
                 'userName' => $this->nick_name,
-                'verifyUrl' => URL::signedRoute('verifyEmail', [
-                    'id' => $this->id,
-                    'hash' => sha1($this->email),
-                ])
-            ])->render()
-        ]);
-
+                'verifyUrl' => $this->verificationUrl($this)
+            ])->render(),
+        ];
+        Email::send($sendInfo);
     }
 
-    private function getVerifyUrl()
+    private function verificationUrl(User $user): string
     {
-        # code...
+        $signedVerifyUrl = Url::temporarySignedRoute('verifyEmail', now()->addMinutes(config('auth.verification.expire', 60)), [
+            'id' => $user->getKey(),
+            'hash' => sha1($user->getEmailForVerification()),
+        ]);
+        $parseSignedUrlResult = parse_url($signedVerifyUrl);
+        $urlPath = explode('/api/v1/', $parseSignedUrlResult['path']);
+        throw_if(($reqeustPath = data_get($urlPath, 1)) === null, new \InvalidArgumentException('cat not get signature'));
+
+        $signedFrontVerifyUrl = trim(
+            config('app.frontEndUrl') . $reqeustPath . '?' . $parseSignedUrlResult['query']
+        );
+
+        return $signedFrontVerifyUrl;
     }
 }

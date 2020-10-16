@@ -5,13 +5,16 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
-use Illuminate\Validation\UnauthorizedException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
+use Illuminate\Support\Facades\Log;
+
+use Symfony\Component\HttpFoundation\Response;
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ErrorFormatter;
 
@@ -82,6 +85,11 @@ class Handler extends ExceptionHandler
             case ModelNotFoundException::class:
                 $message = $this->buildMessage(Response::HTTP_NOT_FOUND);
                 $status = Response::HTTP_NOT_FOUND;
+            break;
+
+            case InvalidSignatureException::class:
+                $message = $this->buildMessage(Response::HTTP_FORBIDDEN);
+                $status = Response::HTTP_FORBIDDEN;
             break;
 
         }
