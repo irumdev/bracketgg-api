@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Channels;
+namespace App\Http\Controllers\Channel;
 
 use App\Models\Channel;
 use App\Models\ChannelFollower;

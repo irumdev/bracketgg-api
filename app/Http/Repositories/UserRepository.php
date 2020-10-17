@@ -93,7 +93,7 @@ class UserRepository
 
     public function markEmailAsVerified(User $user): bool
     {
-        return DB::transaction(fn() => $user->markEmailAsVerified());
+        return DB::transaction(fn () => $user->markEmailAsVerified());
     }
 
     public function followChannel(User $user, Channel $channel): ChannelFollower

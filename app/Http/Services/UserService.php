@@ -107,6 +107,4 @@ class UserService
             $this->userRepository->findByIdx($userIdx)
         );
     }
-
-
 }

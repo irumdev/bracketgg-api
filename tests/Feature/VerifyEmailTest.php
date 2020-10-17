@@ -15,8 +15,6 @@ use function GuzzleHttp\Psr7\parse_query;
 
 class VerifyEmailTest extends TestCase
 {
-
-
     private const UN_DEFINED_USER = -1;
     private string $testUrl;
 
@@ -39,7 +37,6 @@ class VerifyEmailTest extends TestCase
         $parseVerifyUrl = parse_url($verifyUrl);
 
         return sprintf('%s/api/v1%s?%s', config('app.url'), $parseVerifyUrl['path'], $parseVerifyUrl['query']);
-
     }
 
     private function createUser(): array
@@ -169,7 +166,5 @@ class VerifyEmailTest extends TestCase
 
         $failVeryfiedUser = User::find($user->id);
         $this->assertNotNull($failVeryfiedUser->email_verified_at);
-
     }
-
 }

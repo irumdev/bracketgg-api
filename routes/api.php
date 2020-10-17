@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Response;
 
 use App\Http\Controllers\User\UserLogoutController;
 use App\Http\Controllers\User\CheckEmailDuplicateController;
@@ -11,10 +9,10 @@ use App\Http\Controllers\User\ShowUserController;
 use App\Http\Controllers\User\UserVerifyController;
 use App\Http\Controllers\User\VerifyEmailController;
 
-use App\Http\Controllers\Channels\FollowChannelController;
-use App\Http\Controllers\Channels\LikeChannelController;
-use App\Http\Controllers\Channels\ShowChannelController;
-use App\Http\Controllers\Channels\ShowUserChannelController;
+use App\Http\Controllers\Channel\FollowChannelController;
+use App\Http\Controllers\Channel\LikeChannelController;
+use App\Http\Controllers\Channel\ShowChannelController;
+use App\Http\Controllers\Channel\ShowUserChannelController;
 
 /*
 |--------------------------------------------------------------------------

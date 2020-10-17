@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Channels;
+namespace App\Http\Controllers\Channel;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LikeChannelRequest;
