@@ -137,4 +137,39 @@ class VerifyEmailTest extends TestCase
         $this->assertNull($failVeryfiedUser->email_verified_at);
     }
 
+
+    /** @test */
+    public function 이미_이메일_인증한_유저가_이메일_인증에_실패하라(): void
+    {
+        $tryCreateUser = $this->createUser();
+        $user = $tryCreateUser['user'];
+
+
+        $this->assertNull($user->email_verified_at);
+        $user->email_verified_at = now();
+        $user->save();
+
+        $this->assertNotNull($user->email_verified_at);
+
+        $verifyUrl = $this->generateEmailVerifyUrl($user);
+        $parseUrl = parse_url($verifyUrl);
+
+        $splitUrlBySlug = array_merge(array_filter(explode('/', $parseUrl['path'])));
+        $splitUrlBySlug[4] = self::UN_DEFINED_USER;
+
+        $callableUrl = config('app.url') . '/' . join('/', $splitUrlBySlug) . '?' . $parseUrl['query'];
+
+
+        $tryVerifyEmail = $this->getJson($callableUrl)
+                                ->assertForbidden();
+
+        $this->assertFalse($tryVerifyEmail['ok']);
+        $this->assertFalse($tryVerifyEmail['isValid']);
+        $this->assertEquals(403, $tryVerifyEmail['messages']['code']);
+
+        $failVeryfiedUser = User::find($user->id);
+        $this->assertNotNull($failVeryfiedUser->email_verified_at);
+
+    }
+
 }

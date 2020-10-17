@@ -19,6 +19,9 @@ class CreateUserTest extends TestCase
     {
         parent::setUp();
         $this->testUrl = route('createUser');
+        Http::fake([
+            'directsend.co.kr/*' => Http::response(['status' => '0'])
+        ]);
     }
 
     private function errorResponseSkeleton(int $message): array
@@ -328,9 +331,6 @@ class CreateUserTest extends TestCase
     /** @test */
     public function 프로필이미지_없이_회원가입에_성공하라(): void
     {
-        Http::fake([
-            'directsend.co.kr/*' => Http::response(['status' => '0'])
-        ]);
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' =>  $randEmail = Str::random(12) . '@' . Str::random(12) . '.com',
             'nick_name' => $nickName = Str::random(12),
@@ -356,9 +356,6 @@ class CreateUserTest extends TestCase
     /** @test */
     public function 프로필이미지_없이_특수한_이메일로_회원가입에_성공하라(): void
     {
-        Http::fake([
-            'directsend.co.kr/*' => Http::response(['status' => '0'])
-        ]);
         $emaiCase = collect([
             'test.test@gmail.com',
             'test-a@gmail.com',
@@ -391,9 +388,6 @@ class CreateUserTest extends TestCase
     /** @test */
     public function 회원가입에_성공하라(): void
     {
-        Http::fake([
-            'directsend.co.kr/*' => Http::response(['status' => '0'])
-        ]);
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => $nickName = Str::random(12),
