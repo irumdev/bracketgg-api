@@ -308,7 +308,7 @@ RUN set -eux; \
 #                    xtrans-dev
 WORKDIR /var/www
 COPY . /var/www
-RUN echo ${uploadMaxSize} && echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+RUN echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo "post_max_size = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \

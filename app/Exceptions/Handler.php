@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-
+use Illuminate\Auth\Access\AuthorizationException as AuthAccessFailException;
 use Illuminate\Support\Facades\Log;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +69,7 @@ class Handler extends ExceptionHandler
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         switch (get_class($exception)) {
 
+            case AuthAccessFailException::class:
             case AuthenticationException::class:
             case UnauthorizedException::class:
                 $message = $this->buildMessage(Response::HTTP_UNAUTHORIZED);
@@ -102,7 +103,10 @@ class Handler extends ExceptionHandler
             Log::critical($errorMessage->errorInfo());
             Log::channel('slack')->critical($errorMessage->toKor());
         }
-        return parent::render($request, $exception);
+        if (config('app.debug')) {
+            return parent::render($request, $exception);
+        }
+        return $this->response->fail('tryAgain', $status);
     }
 
     private function buildMessage(string $langKey): array

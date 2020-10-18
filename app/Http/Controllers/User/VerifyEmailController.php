@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailVerificationRequest;
+use App\Http\Requests\ResendEmailVerificationRequest;
 
-use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Http\JsonResponse;
 use App\Helpers\ResponseBuilder;
 
 class VerifyEmailController extends Controller
@@ -27,6 +29,15 @@ class VerifyEmailController extends Controller
 
         return $this->responseBuilder->ok([
             'markEmailAsVerified' => $markEmailAsVerifiedResult,
+        ]);
+    }
+
+    public function resendEmail(ResendEmailVerificationRequest $request)
+    {
+        $user = Auth::user();
+        $user->sendEmailVerificationNotification();
+        return $this->responseBuilder->ok([
+            'sendEmailVerification' => true,
         ]);
     }
 }

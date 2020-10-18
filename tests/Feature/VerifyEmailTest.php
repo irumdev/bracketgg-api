@@ -7,8 +7,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Carbon as SupportCarbon;
 use Tests\TestCase;
 
 use function GuzzleHttp\Psr7\parse_query;

@@ -57,5 +57,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{channel}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
             Route::get('{channel}/islike', [LikeChannelController::class, 'isLike'])->name('isLikeChannel');
         });
+
+        Route::post('email/resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
     });
 });
