@@ -13,6 +13,10 @@ use Illuminate\Support\Arr;
  */
 class Image
 {
+    /**
+     * 페이크 이미지 카테고리들
+     * @var array[string]
+     */
     private array $categories = [
         'animals', 'arch','nature','people', 'tech', 'any'
     ];

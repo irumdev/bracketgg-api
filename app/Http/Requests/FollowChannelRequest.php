@@ -26,7 +26,7 @@ class FollowChannelRequest extends FormRequest
         $user = $this->user;
         return $user &&
                $user->can('followChannel') &&
-               $user->id !== $this->route('channel')->owner;
+               $user->id !== $this->route('slug')->owner;
     }
 
     protected function failedAuthorization(): void
@@ -46,7 +46,7 @@ class FollowChannelRequest extends FormRequest
                 $message = ChannelFollower::AUTORIZE_FAIL;
                 break;
 
-            case $user->id === $this->route('channel')->owner:
+            case $user->id === $this->route('slug')->owner:
                 $message = ChannelFollower::OWNER_FOLLOW_OWNER;
                 break;
 

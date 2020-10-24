@@ -38,7 +38,7 @@ class UserVerifyController extends Controller
      * @throws  UnauthorizedException 로그인 실패 시 throw 됩니다.
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
-     * @return
+     * @return JsonResponse 토큰생성 결과
      */
     public function verifyUser(UserVerifyRequest $request): JsonResponse
     {

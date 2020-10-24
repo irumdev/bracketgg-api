@@ -21,7 +21,7 @@ class UnLikeChannelTest extends TestCase
 
         $beforeChannelLikeCount = $channel->like_count;
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertCreated();
 
 
@@ -30,7 +30,7 @@ class UnLikeChannelTest extends TestCase
         $this->assertEquals(Channel::find($channel->id)->like_count, 1);
 
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertOk();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -46,7 +46,7 @@ class UnLikeChannelTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->state('addSlug')->create();
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryLikeToChannel['ok']);
@@ -72,7 +72,7 @@ class UnLikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('unLikeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertUnauthorized();
 
         $this->assertFalse($tryLikeToChannel['ok']);

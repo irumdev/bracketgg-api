@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Illuminate\Auth\Access\AuthorizationException as AuthAccessFailException;
 use Illuminate\Support\Facades\Log;
 
@@ -18,8 +19,18 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ErrorFormatter;
 
+/**
+ * 모든 exception들을 처리하는 클래스 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class Handler extends ExceptionHandler
 {
+    /**
+     * validate response result
+     * @var ResponseBuilder
+     */
     private ResponseBuilder $response;
     /**
      * A list of the exception types that are not reported.
@@ -82,6 +93,7 @@ class Handler extends ExceptionHandler
             break;
 
 
+            case RouteNotFoundException::class:
             case NotFoundHttpException::class:
             case ModelNotFoundException::class:
                 $message = $this->buildMessage(Response::HTTP_NOT_FOUND);

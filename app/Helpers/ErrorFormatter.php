@@ -5,16 +5,39 @@ namespace App\Helpers;
 use Throwable;
 use Illuminate\Http\Request;
 
+/**
+ * 에러 로그를
+ * 포매팅 해주는 헬퍼 클래스 입니다.
+ *
+ * @author  dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class ErrorFormatter
 {
+    /**
+     * @var Throwable
+     */
     private Throwable $exception;
+
+    /**
+     * @var Request
+     */
     private Request $request;
+
     public function __construct(Throwable $exception, Request $request)
     {
         $this->exception = $exception;
         $this->request = $request;
     }
 
+
+    /**
+     * 에러정보를 정형화 하여 배열로 리턴합니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return array
+     */
     public function errorInfo(): array
     {
         return [
@@ -30,6 +53,13 @@ class ErrorFormatter
         ];
     }
 
+    /**
+     * 에러메세지 포맷팅 하기 위한 string format입니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return string
+     */
     public function format(): string
     {
         return join("\n", [
@@ -43,6 +73,14 @@ class ErrorFormatter
             "에러 트레이스 : \n%s",
         ]);
     }
+
+    /**
+     * 에러 내용을 한글화 합니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return string
+     */
     public function toKor(): string
     {
         $errorInfo = $this->errorInfo();

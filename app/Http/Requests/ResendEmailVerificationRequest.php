@@ -15,7 +15,7 @@ class ResendEmailVerificationRequest extends FormRequest
     public function authorize(): bool
     {
         $user = Auth::user();
-        return $user->hasVerifiedEmail() === false;
+        return $user && $user->hasVerifiedEmail() === false;
     }
 
     /**

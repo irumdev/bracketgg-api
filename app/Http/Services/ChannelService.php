@@ -39,9 +39,26 @@ class ChannelService
         return $result;
     }
 
+    /**
+     * @todo 곧 쓸 메서드
+     * 아직 안쓰는 메소드
+     */
+    public function findByName(string $channelName): Channel
+    {
+        $findByName = $this->channelRepostiroy->findByName($channelName);
+        return $findByName;
+    }
+
     public function findChannelById(string $channelId): Collection
     {
         return collect($this->info($this->channelRepostiroy->findById($channelId)));
+    }
+
+    public function createChannel(array $createChannnelInfo): array
+    {
+        $createdChannel = $this->channelRepostiroy->create($createChannnelInfo);
+
+        return $this->info($createdChannel);
     }
 
     public function info(Channel $channel): array

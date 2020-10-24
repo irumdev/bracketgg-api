@@ -29,7 +29,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -62,7 +62,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertUnauthorized();
 
         $this->assertFalse($tryLikeToChannel['ok']);
@@ -87,7 +87,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => -99
+            'slug' => -99
         ]))->assertNotFound();
 
         $this->assertFalse($tryLikeToChannel['ok']);
@@ -112,7 +112,7 @@ class LikeChannelTest extends TestCase
         $this->assertFalse($fan->exists());
 
         $tryLikeToChannel = $this->postJson(route('likeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryLikeToChannel['ok']);
@@ -128,7 +128,7 @@ class LikeChannelTest extends TestCase
         $this->assertEquals(ChannelFan::LIKE_OK, $tryLikeToChannel['messages']['code']);
 
         $tryLikeToChannelSecond = $this->postJson(route('likeChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryLikeToChannelSecond['ok']);

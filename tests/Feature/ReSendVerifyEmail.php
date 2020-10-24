@@ -12,8 +12,6 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
 class ReSendVerifyEmail extends TestCase
 {
     private string $testUrl;
@@ -27,7 +25,7 @@ class ReSendVerifyEmail extends TestCase
     }
 
     /** @test */
-    public function 이매일_재발송에_성공하라(): void
+    public function 이메일_재발송에_성공하라(): void
     {
         $user = factory(User::class)->create();
         $user->email_verified_at = null;
@@ -41,9 +39,7 @@ class ReSendVerifyEmail extends TestCase
 
         $this->assertTrue($tryResendEmailVerification['ok']);
         $this->assertTrue($tryResendEmailVerification['isValid']);
-
         $this->assertTrue($tryResendEmailVerification['messages']['sendEmailVerification']);
-
     }
 
     /** @test */

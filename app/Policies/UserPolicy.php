@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserPolicy
 {
@@ -36,6 +37,8 @@ class UserPolicy
 
     public function createChannel(User $user): bool
     {
-        return $this->isVerifyEmail($user);
+        return $this->isVerifyEmail($user) && (
+            $user->channels->count() < 5
+        );
     }
 }

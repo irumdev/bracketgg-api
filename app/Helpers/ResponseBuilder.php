@@ -42,7 +42,8 @@ class ResponseBuilder
     /**
      * 클라이언트에게 성공 리스폰스를 리턴하는 메소드 입니다.
      *
-     * @param   Illuminate\Http\JsonResponse json리스폰스
+     * @param   string 보여줄 메세지
+     * @param   int 클라이언트 http status
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
      * @return JsonResponse 성공 리스폰스
@@ -56,6 +57,15 @@ class ResponseBuilder
                     ->response();
     }
 
+    /**
+     * 클라이언트에게 실패 리스폰스를 리턴합니다.
+     *
+     * @param   string 보여줄 메세지
+     * @param   int 클라이언트 http status
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 성공 리스폰스
+     */
     public function fail($message, int $httpStatus = Response::HTTP_UNPROCESSABLE_ENTITY): JsonResponse
     {
         return $this->setOk(false)
@@ -65,31 +75,69 @@ class ResponseBuilder
                     ->response();
     }
 
+    /**
+     * ok 여부를 설정합니다.
+     *
+     * @param   bool ok 여부
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return ResponseBuilder
+     */
     public function setOk(bool $ok = true): ResponseBuilder
     {
         $this->ok = $ok;
         return $this;
     }
 
+    /**
+     * http status를 설정합니다.
+     *
+     * @param   int httpStatus 응답코드
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return ResponseBuilder
+     */
     public function setHttpStatus(int $httpStatus = Response::HTTP_OK): ResponseBuilder
     {
         $this->status = $httpStatus;
         return $this;
     }
 
+    /**
+     * 값이 유효한지 여부를 설정합니다.
+     *
+     * @param   bool ok 여부
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return ResponseBuilder
+     */
     public function setIsValid(bool $isValid = true): ResponseBuilder
     {
         $this->isValid = $isValid;
         return $this;
     }
 
+    /**
+     * 클라이언트한테 리턴할 메세지를 설정합니다.
+     *
+     * @param   mixed 보여줄 메세지
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return ResponseBuilder
+     */
     public function setMessage($message): ResponseBuilder
     {
         $this->message = $message;
         return $this;
     }
 
-
+    /**
+     * 세팅한 값을을 배열로 정형화 합니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return array
+     */
     private function build(): array
     {
         return [
@@ -99,6 +147,13 @@ class ResponseBuilder
         ];
     }
 
+    /**
+     * 세팅한 값을을 배열로 정형화 합니다.
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
     public function response(): JsonResponse
     {
         return new JsonResponse($this->build(), $this->status);

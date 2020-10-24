@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\ChannelBannerImage;
 use App\Models\ChannelFollower;
 use App\Models\ChannelBroadcast;
 use App\Models\User;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Channel extends Model
 {
     protected $fillable = [
         'logo_image', 'follwer_count',
-        'like_count', 'description', 'name',
+        'like_count', 'description',
+        'name', 'owner'
     ];
 
     public function bannerImages(): HasMany
@@ -36,8 +38,13 @@ class Channel extends Model
 
     public function getSlugAttribute(): string
     {
-        $slugRelation = $this->hasOne(ChannelSlug::class, 'channel_id', 'id');
+        $slugRelation = $this->slug();
         return $slugRelation->first()->slug;
+    }
+
+    public function slug(): HasOne
+    {
+        return $this->hasOne(ChannelSlug::class, 'channel_id', 'id');
     }
 
     public function followers(): HasManyThrough
@@ -50,15 +57,5 @@ class Channel extends Model
             'id',
             'user_id'
         );
-    }
-
-    public function resolveRouteBinding($slug, $field = null)
-    {
-        return ChannelSlug::where('slug', $slug)->firstOrFail()->channel;
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
     }
 }

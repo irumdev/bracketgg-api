@@ -21,7 +21,7 @@ class CheckFollowChannelTest extends TestCase
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
-            'channel' => Str::random(40)
+            'slug' => Str::random(40)
         ]))->assertNotFound();
 
 
@@ -34,7 +34,7 @@ class CheckFollowChannelTest extends TestCase
     public function 로그인_안한_유저가_팔로우_여부조회에_실패하라(): void
     {
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
-            'channel' => Str::random(40)
+            'slug' => Str::random(40)
         ]))->assertUnauthorized();
 
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['ok']);
@@ -49,7 +49,7 @@ class CheckFollowChannelTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
         $tryFollowChannel = $this->postJson(route('followChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]));
 
         $this->assertTrue($tryFollowChannel['ok']);
@@ -57,7 +57,7 @@ class CheckFollowChannelTest extends TestCase
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollowChannel['messages']['code']);
 
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
-            'channel' => $channel->slug,
+            'slug' => $channel->slug,
         ]))->assertOk();
 
         $this->assertTrue($tryCheckChannelIsAlreadyFollow['ok']);
@@ -71,7 +71,7 @@ class CheckFollowChannelTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
-            'channel' => $channel->slug,
+            'slug' => $channel->slug,
         ]))->assertOk();
 
         $this->assertTrue($tryCheckChannelIsAlreadyFollow['ok']);

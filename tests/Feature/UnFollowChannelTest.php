@@ -23,7 +23,7 @@ class UnFollowChannelTest extends TestCase
 
 
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->slug
+            'slug' => $channel->slug
         ]))->assertCreated();
 
 
@@ -32,7 +32,7 @@ class UnFollowChannelTest extends TestCase
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertOk();
 
         $this->assertTrue($tryUnFollow['ok']);
@@ -59,7 +59,7 @@ class UnFollowChannelTest extends TestCase
         ])->create();
 
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->slug
+           'slug' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryFollow['ok']);
@@ -71,7 +71,7 @@ class UnFollowChannelTest extends TestCase
         $activeUser = Sanctum::actingAs($user);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryUnFollow['ok']);
@@ -88,7 +88,7 @@ class UnFollowChannelTest extends TestCase
         ])->create();
 
         $tryFollow = $this->postJson(route('followChannel', [
-            $channel->slug
+            'slug' => $channel->slug
         ]))->assertCreated();
 
         $this->assertTrue($tryFollow['ok']);
@@ -96,14 +96,14 @@ class UnFollowChannelTest extends TestCase
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollow['messages']['code']);
 
         $tryUnFollow = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertOk();
         $this->assertTrue($tryUnFollow['ok']);
         $this->assertTrue($tryUnFollow['isValid']);
         $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
 
         $tryUnFollowSecond = $this->postJson(route('unFollowChannel', [
-            'channel' => $channel->slug
+            'slug' => $channel->slug
         ]))->assertForbidden();
 
         $this->assertFalse($tryUnFollowSecond['ok']);
