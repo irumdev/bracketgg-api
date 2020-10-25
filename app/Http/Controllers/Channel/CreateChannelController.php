@@ -11,7 +11,7 @@ use App\Http\Requests\CreateChannelRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class CreateChannenlController extends Controller
+class CreateChannelController extends Controller
 {
     private ChannelService $channelService;
     private ResponseBuilder $responseBuilder;

@@ -48,7 +48,7 @@ class CheckFollowChannelTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
-        $tryFollowChannel = $this->postJson(route('followChannel', [
+        $tryFollowChannel = $this->patchJson(route('followChannel', [
             'slug' => $channel->slug
         ]));
 

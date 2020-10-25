@@ -48,7 +48,7 @@ class CheckLikeChannelTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
 
-        $tryLikeToChannel = $this->postJson(route('likeChannel', [
+        $tryLikeToChannel = $this->patchJson(route('likeChannel', [
             'slug' => $channel->slug
         ]))->assertCreated();
 

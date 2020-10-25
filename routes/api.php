@@ -13,7 +13,8 @@ use App\Http\Controllers\Channel\FollowChannelController;
 use App\Http\Controllers\Channel\LikeChannelController;
 use App\Http\Controllers\Channel\ShowChannelController;
 use App\Http\Controllers\Channel\ShowUserChannelController;
-use App\Http\Controllers\Channel\CreateChannenlController;
+use App\Http\Controllers\Channel\CreateChannelController;
+use App\Http\Controllers\Channel\UpdateChannelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,17 +51,23 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
 
         Route::group(['prefix' => 'channel'], function () {
-            Route::post('', [CreateChannenlController::class, 'createChannel'])->name('createChannel');
+            Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
+            /**
+             * @todo 채널 정보 수정 이어서 진행하기
+             */
+            // Route::put('{slug}', [UpdateChannelController::class, 'updateChannelInfo'])->name('updateChannelInfo');
 
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
 
             Route::get('{slug}/isfollow', [FollowChannelController::class, 'isFollow'])->name('channelIsFollow');
-            Route::post('{slug}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
-            Route::post('{slug}/unfollow', [FollowChannelController::class, 'unFollowChannel'])->name('unFollowChannel');
-
-            Route::post('{slug}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
-            Route::post('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
             Route::get('{slug}/islike', [LikeChannelController::class, 'isLike'])->name('isLikeChannel');
+
+
+            Route::patch('{slug}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
+            Route::patch('{slug}/unfollow', [FollowChannelController::class, 'unFollowChannel'])->name('unFollowChannel');
+
+            Route::patch('{slug}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
+            Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
         });
 
         Route::post('email/resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');

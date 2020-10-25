@@ -22,8 +22,8 @@ class CreateChannelRequest extends FormRequest
     private const NAME_LENGTH_LONG = 4;
     private const NAME_IS_NOT_UNIQUE = 5;
 
-    public const AUTORIZE_FAIL = 1;
-
+    public const CAN_NOT_CREATE_CHANNEL = 1;
+    public const HAS_NOT_VERIFY_EMAIL = 2;
 
     private ResponseBuilder $responseBuilder;
     private User $user;
@@ -89,11 +89,15 @@ class CreateChannelRequest extends FormRequest
     {
         switch ($user) {
             case $user->can('createChannel') === false:
-                $message = self::AUTORIZE_FAIL;
+                $message = self::CAN_NOT_CREATE_CHANNEL;
+                break;
+
+            case $user->hasVerifiedEmail() === false:
+                $message = self::HAS_NOT_VERIFY_EMAIL;
                 break;
 
             default:
-                $message = self::AUTORIZE_FAIL;
+                $message = self::CAN_NOT_CREATE_CHANNEL;
                 break;
         }
         return $message;
