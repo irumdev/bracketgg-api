@@ -4,9 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ResendEmailVerificationRequest extends FormRequest
 {
+    private User $user;
+    public function __construct()
+    {
+        $this->user = Auth::user();
+    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,8 +20,7 @@ class ResendEmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = Auth::user();
-        return $user && $user->hasVerifiedEmail() === false;
+        return $this->user && $this->user->hasVerifiedEmail() === false;
     }
 
     /**

@@ -5,12 +5,16 @@ namespace App\Repositories;
 use App\Models\Channel;
 use App\Models\ChannelSlug;
 use App\Models\User;
+use App\Models\ChannelBannerImage;
+use App\Factories\ChannelInfoFactory;
+
+use App\Exceptions\FileSaveFailException;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class ChannelRepository
+class ChannelRepository extends ChannelInfoFactory
 {
     private Channel $channel;
     public function __construct(Channel $channel)
@@ -51,6 +55,23 @@ class ChannelRepository
             ]);
 
             return $createdChannel;
+        });
+    }
+
+    public function updateChannelInfo(Channel $channel, array $updateInfo): bool
+    {
+        return DB::transaction(function () use ($channel, $updateInfo) {
+            $this->slug($channel, data_get($updateInfo, 'slug'));
+
+            $filteredBannerInfo = array_filter([
+                'bannerImage' => $updateInfo['banner_image'] ?? '',
+                'id' => $updateInfo['banner_image_id'] ?? ''
+            ], fn ($item) => empty($item) === false);
+
+            $this->bannerImage($channel, $filteredBannerInfo);
+            $updateInfo['logo_image'] = $this->logoImage($channel, data_get($updateInfo, 'logo_image'));
+
+            return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
     }
 }

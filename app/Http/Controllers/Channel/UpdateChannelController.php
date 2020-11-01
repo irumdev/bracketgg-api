@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Channel;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateChannelRequest;
+
 use App\Services\ChannelService;
 use App\Helpers\ResponseBuilder;
 use App\Models\Channel;
@@ -23,8 +23,12 @@ class UpdateChannelController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function updateChannelInfo(Channel $channel)
+    public function updateChannelInfo(UpdateChannelRequest $request, Channel $channel)
     {
-
+        $updateResult = $this->channelService->updateChannelInfo(
+            $channel,
+            $request->validated()
+        );
+        return $this->responseBuilder->ok($updateResult);
     }
 }

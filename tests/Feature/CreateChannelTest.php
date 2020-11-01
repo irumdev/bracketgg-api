@@ -114,16 +114,14 @@ class CreateChannelTest extends TestCase
 
         $this->assertTrue($tryCreateChannel['ok']);
         $this->assertTrue($tryCreateChannel['isValid']);
-        $this->assertEquals($channel['id'], $dbChannel->id);
-        $this->assertEquals($channel['channelName'], $dbChannel->name);
 
-
-        $this->assertEquals($channel['bannerImages'], []);
-        $this->assertEquals($channel['broadCastAddress'], []);
-
-        $this->assertEquals($channel['likeCount'], 0);
-        $this->assertEquals($channel['followerCount'], 0);
-
+        $this->assertEquals($dbChannel->id, $channel['id']);
+        $this->assertEquals($dbChannel->name, $channel['channelName']);
+        $this->assertEquals($dbChannel->owner, $channel['owner']);
+        $this->assertEquals([], $channel['bannerImages']);
+        $this->assertEquals([], $channel['broadCastAddress']);
+        $this->assertEquals(0, $channel['likeCount']);
+        $this->assertEquals(0, $channel['followerCount']);
         $this->assertEquals($dbChannel->slug, $channel['slug']);
     }
 }

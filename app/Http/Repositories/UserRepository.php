@@ -7,6 +7,8 @@ use App\Models\Channel;
 use App\Models\ChannelFollower;
 use App\Models\ChannelFan;
 
+use App\Exceptions\DBtransActionFail;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,12 +61,7 @@ class UserRepository
             $channel->like_count += 1;
             return $createFanResult !== null && $channel->save();
         });
-        if ($isSuccess === false) {
-            // throw new DbFailException();
-            /**
-             * @todo : 익셉션 처리하기
-             */
-        }
+        throw_unless($isSuccess, new DBtransActionFail());
         return ChannelFan::LIKE_OK;
     }
 

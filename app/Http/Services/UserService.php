@@ -5,8 +5,12 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Channel;
 use App\Models\ChannelFollower;
-use App\Repositories\UserRepository;
 use App\Models\ChannelFan;
+
+use App\Repositories\UserRepository;
+
+use App\Exceptions\FileSaveFailException;
+
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -91,11 +95,7 @@ class UserService
     {
         if (isset($attribute['profile_image'])) {
             $storeImageResult = $attribute['profile_image']->store('profileImages');
-            if (is_string($storeImageResult) === false) {
-                /**
-                 * @todo 익셉션 처리하기
-                 */
-            }
+            throw_unless(is_string($storeImageResult), new FileSaveFailException());
             $attribute['profile_image'] = $attribute['profile_image']->hashName();
         }
         return $this->userRepository->create($attribute);

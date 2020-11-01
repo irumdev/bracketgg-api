@@ -13,15 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
+use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
 class CreateChannelRequest extends FormRequest
 {
-    private const NAME_IS_EMPTY = 1;
-    private const NAME_IS_NOT_STRING = 2;
-    private const NAME_LENGTH_SHORT = 3;
-    private const NAME_LENGTH_LONG = 4;
-    private const NAME_IS_NOT_UNIQUE = 5;
-
     public const CAN_NOT_CREATE_CHANNEL = 1;
     public const HAS_NOT_VERIFY_EMAIL = 2;
 
@@ -51,23 +46,13 @@ class CreateChannelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|min:1|max:20|unique:App\Models\Channel,name'
-        ];
+        return CreateChannelRule::rules();
     }
-
 
     public function messages(): array
     {
-        return [
-            'name.required' => json_encode(['code' => self::NAME_IS_EMPTY]),
-            'name.string' => json_encode(['code' => self::NAME_IS_NOT_STRING]),
-            'name.min' => json_encode(['code' => self::NAME_LENGTH_SHORT]),
-            'name.max' => json_encode(['code' => self::NAME_LENGTH_LONG]),
-            'name.unique' => json_encode(['code' => self::NAME_IS_NOT_UNIQUE]),
-        ];
+        return CreateChannelRule::messages();
     }
-
 
     protected function failedAuthorization(): void
     {

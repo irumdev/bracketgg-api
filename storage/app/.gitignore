@@ -1,4 +1,6 @@
 *
 !public/
 !profileImages/
+!channelLogos/
+!channelBanners/
 !.gitignore

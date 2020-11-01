@@ -72,6 +72,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'channelLogo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/channelLogos'),
+            'url' => env('APP_URL') . '/channelLogo',
+            'visibility' => 'public',
+        ],
+
+        'channelBanners' => [
+            'driver' => 'local',
+            'root' => storage_path('app/channelBanners'),
+            'url' => env('APP_URL') . '/channelBanners',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

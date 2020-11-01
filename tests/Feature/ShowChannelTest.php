@@ -8,26 +8,20 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel;
-use App\Services\ChannelService;
-use App\Repositories\ChannelRepository;
-use App\Helpers\ResponseBuilder;
+use App\Models\ChannelBannerImage;
+use App\Models\ChannelBroadcast;
 
 class ShowChannelTest extends TestCase
 {
-    private function reslover(): ChannelService
-    {
-        return (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()));
-    }
-
     /** @test */
     public function 슬러그로_존재하는_채널정보_조회를_성공하라(): void
     {
-        $channel = factory(Channel::class, random_int(1, 3))->states([
-            'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
+        $channel = factory(Channel::class)->states([
+            'addBannerImage','hasFollower','addBroadcasts', 'addSlug', 'hasLike'
         ])->create();
 
-        $channelSlug = $channel->first()->slug;
-        $channelId = $channel->first()->id;
+        $channelSlug = $channel->slug;
+        $channelId = $channel->id;
 
         $testRequestUrl = route('findChannelById', [
             'slug' => $channelSlug,
@@ -35,20 +29,46 @@ class ShowChannelTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = $this->reslover()->findChannelById((string)$channelId);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
+        $message = $response['messages'];
+
+        $this->assertEquals($channelId, $message['id']);
+        $this->assertEquals($channel->name, $message['channelName']);
+        $this->assertEquals($channel->owner, $message['owner']);
+
+        $this->assertEquals($channel->fans()->count(), $message['likeCount']);
+        $this->assertEquals($channel->like_count, $message['likeCount']);
+
+        $this->assertEquals($channel->followers()->count(), $message['followerCount']);
+        $this->assertEquals($channel->follwer_count, $message['followerCount']);
+        $this->assertEquals($channel->logo_image, $message['logoImage']);
+
+        $this->assertEquals($channel->description, $message['description']);
+
+
         $this->assertEquals(
-            $service->toArray(),
-            ($response['messages'])
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => $banner->banner_image)->toArray(),
+            $message['bannerImages']
         );
+
+        $this->assertEquals(
+            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+                'channel_id' => $channel->id,
+                'broadcastAddress' => $channelBroadcast->broadcast_address,
+                'platform' => $channelBroadcast->platform,
+                'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
+            ])->toArray(),
+            $message['broadCastAddress']
+        );
+        $this->assertEquals($channel->slug, $message['slug']);
     }
 
     /** @test */
     public function 채널이름으로_존재하는_채널정보_조회를_성공하라(): void
     {
-        $channel = factory(Channel::class, random_int(1, 3))->states([
+        $channel = factory(Channel::class)->states([
             'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
         ])->create()->first();
 
@@ -63,19 +83,40 @@ class ShowChannelTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = $this->reslover()->findChannelById((string)$channelId);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
         $message = $response['messages'];
 
         $this->assertEquals($channelId, $message['id']);
-        $this->assertEquals($channelName, $message['channelName']);
+        $this->assertEquals($channel->name, $message['channelName']);
+        $this->assertEquals($channel->owner, $message['owner']);
+
+        $this->assertEquals($channel->fans()->count(), $message['likeCount']);
+        $this->assertEquals($channel->like_count, $message['likeCount']);
+
+        $this->assertEquals($channel->followers()->count(), $message['followerCount']);
+        $this->assertEquals($channel->follwer_count, $message['followerCount']);
+        $this->assertEquals($channel->logo_image, $message['logoImage']);
+
+        $this->assertEquals($channel->description, $message['description']);
+
 
         $this->assertEquals(
-            $service->toArray(),
-            ($response['messages'])
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => $banner->banner_image)->toArray(),
+            $message['bannerImages']
         );
+
+        $this->assertEquals(
+            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+                'channel_id' => $channel->id,
+                'broadcastAddress' => $channelBroadcast->broadcast_address,
+                'platform' => $channelBroadcast->platform,
+                'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
+            ])->toArray(),
+            $message['broadCastAddress']
+        );
+        $this->assertEquals($channel->slug, $message['slug']);
     }
 
     /** @test */
@@ -92,7 +133,7 @@ class ShowChannelTest extends TestCase
 
         $this->assertEquals(
             ['code' => 404],
-            ($response['messages'])
+            $response['messages']
         );
     }
 
@@ -111,7 +152,7 @@ class ShowChannelTest extends TestCase
 
         $this->assertEquals(
             ['code' => 404],
-            ($response['messages'])
+            $response['messages']
         );
     }
 }

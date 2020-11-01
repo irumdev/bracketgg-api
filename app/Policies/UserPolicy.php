@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Channel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -38,7 +39,17 @@ class UserPolicy
     public function createChannel(User $user): bool
     {
         return $this->isVerifyEmail($user) && (
-            $user->channels->count() < 5
+            $user->channels->count() < $this->getLimitCreateChannelCountFrom($user)
         );
+    }
+
+    private function getLimitCreateChannelCountFrom(User $user): int
+    {
+        return 5;
+    }
+
+    public function updateChannel(User $user, Channel $channel): bool
+    {
+        return $user->id === $channel->owner;
     }
 }

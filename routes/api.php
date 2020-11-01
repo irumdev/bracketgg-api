@@ -52,10 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'channel'], function () {
             Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
-            /**
-             * @todo 채널 정보 수정 이어서 진행하기
-             */
-            // Route::put('{slug}', [UpdateChannelController::class, 'updateChannelInfo'])->name('updateChannelInfo');
+            Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfo'])->name('updateChannelInfo');
 
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
 

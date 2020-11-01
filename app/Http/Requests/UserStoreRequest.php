@@ -65,7 +65,14 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|unique:App\Models\User,email',
+            // 'email' => 'required|string|email|unique:App\Models\User,email',
+            'email' => [
+                'required',
+                'string',
+                'regex:/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD',
+                // 'regex:/^(.+)@((?:\w+)(?:\.(?:\w+))+)/',
+                'unique:App\Models\User,email'
+            ],
             'nick_name' => 'required|string|min:1|max:12',
             'password' => 'required|string|min:8|max:30',
             'confirmedPassword' => 'required|string|min:8|max:30|same:password',
@@ -88,7 +95,7 @@ class UserStoreRequest extends FormRequest
             'password.string' => json_encode(['code' => self::NOT_STRING_PASSWORD]),
             'confirmedPassword.string' => json_encode(['code' => self::NOT_STRING_RE_ENTER_PASSWORD]),
 
-            'email.email' => json_encode(['code' => self::EMAIL_PATTERN_NOT_MATCH]),
+            'email.regex' => json_encode(['code' => self::EMAIL_PATTERN_NOT_MATCH]),
             'email.unique' => json_encode(['code' => self::EMAIL_ALREADY_EXISTS]),
             'password.min' => json_encode(['code' => self::PASSWORD_MIN_LENGTH]),
             'confirmedPassword.min' =>  json_encode(['code' => self::PASSWORD_RE_ENTER_MIN_LEN_ERROR]),

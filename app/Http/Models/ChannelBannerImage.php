@@ -9,5 +9,6 @@ class ChannelBannerImage extends Model
     //
     protected $fillable = [
         'banner_image',
+        'channel_id',
     ];
 }

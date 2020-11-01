@@ -14,6 +14,7 @@ use App\Helpers\ValidJson;
  */
 class ValidMessage
 {
+    private const NOT_EXISTS = 0;
     /**
      * 여러가지 에러 메세지중 첫번째 에러 메시지를
      * 추출하는 메소드 입니다.
@@ -36,7 +37,7 @@ class ValidMessage
                 $error = json_decode($error, true);
                 break;
             }
-        } while (count($firstError) !== 0);
+        } while (count($firstError) !== self::NOT_EXISTS);
 
         return $error;
     }

@@ -312,6 +312,9 @@ RUN echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo '[PHP]' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo "post_max_size = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo "upload_max_filesize = ${uploadMaxSize}M" >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
+    echo '' >> /usr/local/etc/php/conf.d/php-memory-limit.ini && \
+    echo '[PHP]' >> /usr/local/etc/php/conf.d/php-memory-limit.ini && \
+    echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/php-memory-limit.ini && \
     /usr/local/bin/composer install --optimize-autoloader --no-dev && \
     cd /var/www && \
     chown -R www-data:www-data /var/www && \

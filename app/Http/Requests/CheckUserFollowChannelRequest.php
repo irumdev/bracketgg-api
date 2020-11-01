@@ -9,7 +9,6 @@ class CheckUserFollowChannelRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @todo 넣을꺼 생각하기
      * @return bool
      */
     public function authorize(): bool

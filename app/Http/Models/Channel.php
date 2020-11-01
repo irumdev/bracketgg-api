@@ -42,6 +42,18 @@ class Channel extends Model
         return $slugRelation->first()->slug;
     }
 
+    public function fans(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            User::class,
+            ChannelFan::class,
+            'channel_id',
+            'id',
+            'id',
+            'user_id'
+        );
+    }
+
     public function slug(): HasOne
     {
         return $this->hasOne(ChannelSlug::class, 'channel_id', 'id');

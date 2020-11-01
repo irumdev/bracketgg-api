@@ -12,6 +12,9 @@ use App\Models\Channel;
 class ChannelSlug extends Model
 {
     use HasFactory;
+    public const MIN_SLUG_LENGTH = 4;
+    public const MAX_SLUG_LENGTH = 16;
+
     protected $fillable = [
         'slug', 'channel_id'
     ];
@@ -23,7 +26,7 @@ class ChannelSlug extends Model
     public function unique(): string
     {
         do {
-            $randomSlug = Str::random(10);
+            $randomSlug = strtolower(Str::random(self::MAX_SLUG_LENGTH));
         } while (self::where('slug', $randomSlug)->exists());
         return $randomSlug;
     }

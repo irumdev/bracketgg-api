@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
+use App\Http\Controllers\Channel\UpdateChannelController;
+
+use App\Http\Controllers\User\ProfileImageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,4 +18,5 @@ use Symfony\Component\HttpFoundation\Response;
 |
 */
 
-Route::get('profile-image/{profileImage}', 'User\ProfileImageController@getProfileImage')->name('profileImage');
+Route::get('profile-image/{profileImage}', [ProfileImageController::class, 'getProfileImage'])->name('profileImage');
+Route::get('logo-image/{channelLogoImage}', [UpdateChannelController::class, 'getChannelLogoImage'])->name('channelLogoImage');

@@ -8,6 +8,7 @@ use App\Helpers\ResponseBuilder;
 use App\Models\ChannelBroadcast;
 use App\Models\ChannelSlug;
 use App\Repositories\ChannelRepository;
+use App\Exceptions\DBtransActionFail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
@@ -57,8 +58,14 @@ class ChannelService
     public function createChannel(array $createChannnelInfo): array
     {
         $createdChannel = $this->channelRepostiroy->create($createChannnelInfo);
-
         return $this->info($createdChannel);
+    }
+
+    public function updateChannelInfo(Channel $channel, array $updateInfo)
+    {
+        $updateResult = $this->channelRepostiroy->updateChannelInfo($channel, $updateInfo);
+        throw_unless($updateResult, new DBtransActionFail());
+        return $this->info($channel);
     }
 
     public function info(Channel $channel): array
@@ -74,6 +81,7 @@ class ChannelService
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
             ])),
+            'owner' => $channel->owner,
             'slug' => $channel->slug,
         ];
     }
