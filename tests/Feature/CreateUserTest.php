@@ -45,12 +45,11 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 아무것도_안넣은채로_회원가입에_실패하라(): void
+    public function failRegisterUserWithOutAnyInfo(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl)
                               ->assertStatus(422);
-
-
         $this->assertResponseError(
             UserStoreRequest::REQUIRE_EMAIL,
             $tryCreateUser->original
@@ -58,8 +57,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 올바른_이메일을_입력안한채_회원가입에_실패하라(): void
+    public function failRegisterUserWithoutEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => 'asdf',
         ])->assertStatus(422);
@@ -71,8 +71,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 중복된_이메일로_회원기입_시도후_회원가입에_실패하라(): void
+    public function failRegisterUserWithDuplicateEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = factory(User::class)->create();
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $user->email,
@@ -84,8 +85,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 이메일은_입력했지만_닉네임을_입력_안한채로_회원가입에_실패하라(): void
+    public function failRegisterUserWithoutNickName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
         ])->assertStatus(422);
@@ -96,8 +98,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 닉네임이_한글자도_없는채로_회원가입에_실패하라(): void
+    public function failRegisterUserWithEmptyNickName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => ''
@@ -109,8 +112,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 닉네임이_12글자_이상_입력후_회원가입에_실패하라(): void
+    public function failRegisterUserWithLargeNickName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(13)
@@ -122,8 +126,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 닉네임과_이메일을_입력했지만_비밀번호를_없이_회원가입에_실패하라(): void
+    public function failRegisterUserWithOutPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12)
@@ -135,8 +140,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 닉네임과_이메일_비밀번호를을_입력했지만_비밀번호를_8자리_미만입력하여_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPasswordIsShort(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -149,8 +155,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 닉네임과_이메일_비밀번호를을_입력했지만_비밀번호를_30자리_초괴입력하여_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPasswordIsLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -163,8 +170,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_재입력을_입력하지않아서_회원가입에_실패하라(): void
+    public function failRegisterUserWithOutPasswordReEnter(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -178,8 +186,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_재입력이_8자리_미만으로_입력하여_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPasswordeEnterIsToShort(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -194,8 +203,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_재입력이_30자리_초과로_입력하여_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPasswordeEnterIsToLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -210,8 +220,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_재입력이_입력한_비밀번호와_달라서_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPassworReEnterIsNotEqualsPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -226,8 +237,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 약관동의를_안해서_회원가입에_실패하라(): void
+    public function failRegisterUserUnAgreePolicy(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -242,8 +254,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 약관동의에_이상한_값을_넣어서_회원가입에_실패하라(): void
+    public function failRegisterUserWhebAgreePolicyValueIsInValud(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -258,8 +271,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 개인정보_처리방침에_동의하지_않아서_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPrivacyPolicyNotAgree(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -274,8 +288,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 개인정보_처리방침에_이상한_값을_넣어서_회원가입에_실패하라(): void
+    public function failRegisterUserWhenPrivacyPolicyValueInvalid(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -292,8 +307,9 @@ class CreateUserTest extends TestCase
 
 
     /** @test */
-    public function 프로필사진에_사진_아닌거_올려서_회원가입에_실패하라(): void
+    public function failRegisterUserProfileImageIsNotImage(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -311,8 +327,9 @@ class CreateUserTest extends TestCase
 
 
     /** @test */
-    public function 프로필사진에_사진_2048kb보다_큰거_올려서_회원가입에_실패하라(): void
+    public function failRegisterUserProfileImageIsLarge(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => Str::random(12),
@@ -329,8 +346,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 프로필이미지_없이_회원가입에_성공하라(): void
+    public function successRegisterUserWithoutProfileImage(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' =>  $randEmail = Str::random(12) . '@' . Str::random(12) . '.com',
             'nick_name' => $nickName = Str::random(12),
@@ -354,8 +372,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 프로필이미지_없이_특수한_이메일로_회원가입에_성공하라(): void
+    public function successRegisterUserWithoutProfileImageWithSpecificEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $specialEmails = collect([
             'test.test@gmail.com',
             'test-a@gmail.com',
@@ -366,6 +385,9 @@ class CreateUserTest extends TestCase
              */
         ]);
         $specialEmails->each(function ($email) {
+            if (($user = User::where('email', $email)->first()) !== null) {
+                $user->forceDelete();
+            }
             $tryCreateUser = $this->postJson($this->testUrl, $param = [
                 'email' => $email,
                 'nick_name' => $nickName = Str::random(12),
@@ -389,8 +411,9 @@ class CreateUserTest extends TestCase
     }
 
     /** @test */
-    public function 회원가입에_성공하라(): void
+    public function successRegisterUser(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->postJson($this->testUrl, [
             'email' => $randEmail = Str::random(5) . '@' . 'asdf.com',
             'nick_name' => $nickName = Str::random(12),

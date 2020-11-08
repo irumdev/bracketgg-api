@@ -14,8 +14,9 @@ use App\Models\ChannelBroadcast;
 class ShowChannelTest extends TestCase
 {
     /** @test */
-    public function 슬러그로_존재하는_채널정보_조회를_성공하라(): void
+    public function successLookupExistsChannelInfoFromSlug(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'addBannerImage','hasFollower','addBroadcasts', 'addSlug', 'hasLike'
         ])->create();
@@ -23,7 +24,7 @@ class ShowChannelTest extends TestCase
         $channelSlug = $channel->slug;
         $channelId = $channel->id;
 
-        $testRequestUrl = route('findChannelById', [
+        $testRequestUrl = route('findChannelBySlug', [
             'slug' => $channelSlug,
         ]);
 
@@ -66,8 +67,9 @@ class ShowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널이름으로_존재하는_채널정보_조회를_성공하라(): void
+    public function successLookUpExistsChannelInfoFromName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
         ])->create()->first();
@@ -78,7 +80,7 @@ class ShowChannelTest extends TestCase
         $channelName = $channel->name;
 
         $testRequestUrl = route('findChannelByName', [
-            'channelName' => $channelName,
+            'name' => $channelName,
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
@@ -120,9 +122,10 @@ class ShowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 존재하지않는_슬러그로_채널정보_조회를_실패하라(): void
+    public function failLookUpNotExistsChannelInfoFromSlug(): void
     {
-        $testRequestUrl = route('findChannelById', [
+        $this->setName($this->getCurrentCaseKoreanName());
+        $testRequestUrl = route('findChannelBySlug', [
             'slug' => '-999',
         ]);
 
@@ -137,12 +140,12 @@ class ShowChannelTest extends TestCase
         );
     }
 
-
     /** @test */
-    public function 존재하지않는_채널이름으로_채널정보_조회를_실패하라(): void
+    public function failLookUpNotExistsChannelInfoFromName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testRequestUrl = route('findChannelByName', [
-            'channelName' => '-999',
+            'name' => '-999',
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertNotFound();

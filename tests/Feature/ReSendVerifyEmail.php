@@ -25,8 +25,9 @@ class ReSendVerifyEmail extends TestCase
     }
 
     /** @test */
-    public function 이메일_재발송에_성공하라(): void
+    public function successSendVerifyEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = factory(User::class)->create();
         $user->email_verified_at = null;
         $user->save();
@@ -43,8 +44,9 @@ class ReSendVerifyEmail extends TestCase
     }
 
     /** @test */
-    public function 이미_인증한_유저가_이메일_요청에_실패하라(): void
+    public function failSendVerifyEmailWhenAlreadyUserVerifyEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = factory(User::class)->create();
         $this->assertNotNull($user->email_verified_at);
 

@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use Tests\TestCase;
 
-use function GuzzleHttp\Psr7\parse_query;
-
 class VerifyEmailTest extends TestCase
 {
     private const UN_DEFINED_USER = -1;
@@ -70,8 +68,9 @@ class VerifyEmailTest extends TestCase
     }
 
     /** @test */
-    public function 이메일_인증에_성공하라(): void
+    public function successVerifyEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->createUser();
         $user = $tryCreateUser['user'];
 
@@ -87,8 +86,9 @@ class VerifyEmailTest extends TestCase
     }
 
     /** @test */
-    public function 제한시간_초과로_이메일_인증에_실패하라(): void
+    public function failVerifyEmailWhenTimeOut(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->createUser();
         $user = $tryCreateUser['user'];
 
@@ -107,8 +107,9 @@ class VerifyEmailTest extends TestCase
     }
 
     /** @test */
-    public function 존재하지_않는_유저로_이메일_인증에_실패하라(): void
+    public function failVerifyEmailWhenUserIsNotExists(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->createUser();
         $user = $tryCreateUser['user'];
 
@@ -132,10 +133,10 @@ class VerifyEmailTest extends TestCase
         $this->assertNull($failVeryfiedUser->email_verified_at);
     }
 
-
     /** @test */
-    public function 이미_이메일_인증한_유저가_이메일_인증에_실패하라(): void
+    public function failVerifyEmailWhenUserAlreadyVerifyEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateUser = $this->createUser();
         $user = $tryCreateUser['user'];
 

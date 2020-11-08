@@ -43,8 +43,8 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'channel'], function () {
-        Route::get('{slug}', [ShowChannelController::class, 'getChannelById'])->name('findChannelById');
-        Route::get('{channelName}/exists', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
+        Route::get('slug/{slug}', [ShowChannelController::class, 'getChannelById'])->name('findChannelBySlug');
+        Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -54,11 +54,11 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
             Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfo'])->name('updateChannelInfo');
 
+            Route::get('{slug}/followers', [ShowUserChannelController::class, 'getFollower'])->name('getFollower');
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
 
             Route::get('{slug}/isfollow', [FollowChannelController::class, 'isFollow'])->name('channelIsFollow');
             Route::get('{slug}/islike', [LikeChannelController::class, 'isLike'])->name('isLikeChannel');
-
 
             Route::patch('{slug}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
             Route::patch('{slug}/unfollow', [FollowChannelController::class, 'unFollowChannel'])->name('unFollowChannel');

@@ -13,8 +13,9 @@ use App\Models\User;
 class LikeChannelTest extends TestCase
 {
     /** @test */
-    public function 채널_좋아요_하라(): void
+    public function likeChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasLike', 'addSlug'
@@ -46,8 +47,9 @@ class LikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이메일_인증받지_않은_유저가_채널_좋아요_실패하라(): void
+    public function failLikeChannelWhenTryUserEmailIsNotVerified(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create([
             'email_verified_at' => null,
         ]));
@@ -71,8 +73,9 @@ class LikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 없는_채널에_좋아요_실패하라(): void
+    public function failLikeChannelWhenChannelIsNotExists(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create([
             'email_verified_at' => null,
         ]));
@@ -96,8 +99,9 @@ class LikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이미_좋아요_중복에_실패하라(): void
+    public function failLikeChannelWhenTryUserAlreadyLike(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasLike', 'addSlug'

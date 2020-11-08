@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\ResponseBuilder;
 use App\Services\ChannelService;
+use App\Services\UserService;
+use App\Models\Channel;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 유자가 가진 채널들의 정보를 보여주는 컨트롤러 입니다.
@@ -21,10 +25,12 @@ class ShowUserChannelController extends Controller
      */
     private ResponseBuilder $response;
     private ChannelService $channelService;
-    public function __construct(ResponseBuilder $responseBuilder, ChannelService $channelService)
+    private UserService $userService;
+    public function __construct(ResponseBuilder $responseBuilder, ChannelService $channelService, UserService $userService)
     {
         $this->response = $responseBuilder;
         $this->channelService = $channelService;
+        $this->userService = $userService;
     }
 
     /**
@@ -36,10 +42,20 @@ class ShowUserChannelController extends Controller
      * @version 1.0.0
      * @return JsonResponse 성공 리스폰스
      */
-    public function getChannelsByUserId(string $userId)
+    public function getChannelsByUserId(string $userId): JsonResponse
     {
         return $this->response->ok(
             $this->channelService->findChannelsByUserId($userId)
+        );
+    }
+
+    public function getFollower(Channel $channel): JsonResponse
+    {
+        $channelFollowers = $this->channelService->followers($channel)->simplePaginate();
+        return $this->response->ok(
+            $this->response->paginateMeta($channelFollowers)->merge([
+                'followers' => array_map(fn (User $fan) => $this->userService->info($fan), $channelFollowers->items())
+            ])
         );
     }
 }

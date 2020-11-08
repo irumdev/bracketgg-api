@@ -11,8 +11,9 @@ use App\Models\User;
 class CheckUserEmailDuplicateTest extends TestCase
 {
     /** @test */
-    public function 이메일이_중복되지않아_false_를_받아라()
+    public function getFalseWhenEmailIsNotDuplicate(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCheckEmailDuplicate = $this->getJson(route('checkEmailDuplicate', [
             'email' => Str::random(10) . '@' . Str::random(10),
         ]))->assertOk();
@@ -23,8 +24,9 @@ class CheckUserEmailDuplicateTest extends TestCase
     }
 
     /** @test */
-    public function 이메일이_중복되_true_를_받아라()
+    public function getTrueWhenEmailIsDuplicate(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = factory(User::class)->create();
         $tryCheckEmailDuplicate = $this->getJson(route('checkEmailDuplicate', [
             'email' => $user->email,

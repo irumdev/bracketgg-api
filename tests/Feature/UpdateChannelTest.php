@@ -63,8 +63,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_슬러그_업데이트에_성공하라(): void
+    public function successUpdateChannelSlug(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
 
         $channel = $tryCreateChannel['channel'];
@@ -83,7 +84,7 @@ class UpdateChannelTest extends TestCase
         $this->assertEquals($rand, $tryChangeSlug['messages']['slug']);
         $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
 
-        $getChannelUrl = route('findChannelById', [
+        $getChannelUrl = route('findChannelBySlug', [
             'slug' => $rand
         ]);
 
@@ -93,8 +94,9 @@ class UpdateChannelTest extends TestCase
 
 
     /** @test */
-    public function 최소자리로_채널_슬러그_업데이트에_성공하라(): void
+    public function successUpdateChannelSlugWhenSlugLengthIsBoundaries(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
 
         $channel = $tryCreateChannel['channel'];
@@ -113,7 +115,7 @@ class UpdateChannelTest extends TestCase
         $this->assertEquals($rand, $tryChangeSlug['messages']['slug']);
         $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
 
-        $getChannelUrl = route('findChannelById', [
+        $getChannelUrl = route('findChannelBySlug', [
             'slug' => $rand
         ]);
 
@@ -122,8 +124,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_슬러그_자리수_미달로_업데이트에_실패하라(): void
+    public function failUpdateChannelSlugWhenSlugIsTooShort(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -142,8 +145,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_슬러그_자리수_초과로_업데이트에_실패하라(): void
+    public function failUpdateChannelSlugWhenSlugIsTooLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -162,8 +166,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_슬러그_패턴_불일치로_업데이트에_실패하라(): void
+    public function failUpdateChannelSlugWhenSlugPatterlIsWrong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -189,8 +194,9 @@ class UpdateChannelTest extends TestCase
 
 
     /** @test */
-    public function 채널_이름_업데이트에_성공하라(): void
+    public function successUpdateChannelName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -214,8 +220,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_이름_최대자리_초과로_실패하라(): void
+    public function failUpdateChannelNameWhenChannelNameIsTooLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -234,8 +241,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_이름_중복으로_실패하라(): void
+    public function failUpdateChannelNameWhenChannelNameIsDuplicate(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -254,8 +262,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_설명_업데이트에_성공하라(): void
+    public function successUpdateChannelDescription(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -277,7 +286,7 @@ class UpdateChannelTest extends TestCase
         $this->assertEquals($desc, $tryChangeSlug['messages']['description']);
         $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
 
-        $getChannelUrl = route('findChannelById', [
+        $getChannelUrl = route('findChannelBySlug', [
             'slug' => $channel->slug
         ]);
 
@@ -286,8 +295,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 로고이미지_이미지_아닌거_올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateLogoImageWhenLogoImageIsNotImageFile(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -310,8 +320,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 로고이미지_이미지_사진큰거_올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateLogoImageWhenLogoImageIsTooLarge(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -334,8 +345,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 로고이미지_이미지_업데이트에_성공하라(): void
+    public function successUpdateLogoImage(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
 
         $channel = $tryCreateChannel['channel'];
@@ -363,8 +375,9 @@ class UpdateChannelTest extends TestCase
 
 
     /** @test */
-    public function 배너이미지_이미지_아닌거_올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateBannerImageWhenBannerImageIsNotImageFile(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -399,8 +412,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 배너이미지_이미지_사진큰거_올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateBannerImageWhenBannerImageIsTooLarge(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -434,8 +448,9 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 배너이미지_이미지_올랄때_배너_아이디_안올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateBannerImageWhenUploadBannerImageButBannerImageIsEmpty(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -467,8 +482,9 @@ class UpdateChannelTest extends TestCase
 
 
     /** @test */
-    public function 배너이미지_이미지_올랄때_배너_아이디_이상한거_올려서_채널정보_업데이트에_실패하라(): void
+    public function failUpdateBannerImageWhenBannerImageIdIsInvalid(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
@@ -499,12 +515,12 @@ class UpdateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 배너이미지_이미지_업데이트에_성공하라(): void
+    public function successUpdateBannerImage(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCreateChannel = $this->createChannel();
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
-
 
         $banerImage = ChannelBannerImage::create([
             'banner_image' => 'test',

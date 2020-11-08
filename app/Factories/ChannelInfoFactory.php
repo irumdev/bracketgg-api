@@ -12,7 +12,7 @@ use App\Exceptions\FileSaveFailException;
 
 class ChannelInfoFactory implements ChannelUpdateInfoContract
 {
-    private function isNoEmpty($value)
+    private function isNoEmpty($value): bool
     {
         return empty($value) === false;
     }
@@ -36,7 +36,7 @@ class ChannelInfoFactory implements ChannelUpdateInfoContract
         return $fileName;
     }
 
-    public function bannerImage(Channel $channel, array $bannerImage = null)
+    public function bannerImage(Channel $channel, array $bannerImage = null): void
     {
         if ($this->isNoEmpty($bannerImage)) {
             throw_unless($bannerImage['bannerImage']->store('channelBanners'), new FileSaveFailException());

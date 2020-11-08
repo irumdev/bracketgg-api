@@ -10,8 +10,9 @@ use App\Models\User;
 class LoginTest extends TestCase
 {
     /** @test */
-    public function 이메일_입력안하고_로그인을_시도하라(): void
+    public function failLoginWithoutEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $response = $this->postJson($testUrl, [
             'password' => 'password',
@@ -22,8 +23,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호_입력안하고_로그인을_시도하라(): void
+    public function failLoginWithoutPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
@@ -35,8 +37,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 올바르지_않은_이메일_입력하고_로그인을_시도하라(): void
+    public function failLoginWithInvalidEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
@@ -49,8 +52,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 비밀번호를_틀리고_로그인_시도하라(): void
+    public function failLoginWithWrongPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
@@ -63,8 +67,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 없는_이메일로_로그인_시도하라(): void
+    public function failLoginWithNotExistsEmail(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
@@ -77,8 +82,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 로그인_성공하라(): void
+    public function successLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->states(['addProfileImage'])->create();
         $response = $this->postJson($testUrl, [
@@ -102,8 +108,9 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function 프로필_이미지가_없는_유저의_로그인_성공하라(): void
+    public function successLoginWithUndefinedProfileUser(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $testUrl = route('verify');
         $user = factory(User::class)->create();
 

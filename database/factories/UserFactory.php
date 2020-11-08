@@ -21,7 +21,8 @@ use App\Helpers\Image;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'nick_name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'email' => \Illuminate\Support\Str::random(20) . '@' . \Illuminate\Support\Str::random(20). '.' . \Illuminate\Support\Str::random(3),
+        //$faker->unique()->safeEmail,
         'email_verified_at' => now(),
         // 'profile_image' => Image::create(), // fakeUrl
         'profile_image' => null,

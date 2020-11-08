@@ -11,4 +11,12 @@ abstract class TestCase extends BaseTestCase
     {
         $this->artisan('migrate:fresh');
     }
+
+    public function getCurrentCaseKoreanName(): string
+    {
+        $calledClassName = substr(strrchr(get_called_class(), "\\"), 1);
+        $calledMethodName = $this->getName();
+        $korCaseName = __('testCase.' . $calledClassName . '.' . $calledMethodName);
+        return count(explode('testCase', $korCaseName)) >= 2 ? $calledMethodName : $korCaseName;
+    }
 }

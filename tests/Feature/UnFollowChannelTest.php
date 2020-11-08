@@ -14,8 +14,9 @@ use App\Models\ChannelFollower;
 class UnFollowChannelTest extends TestCase
 {
     /** @test */
-    public function 팔로우를_취소하라(): void
+    public function successUnFollowChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'
@@ -51,8 +52,9 @@ class UnFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이메일_인증안받은_유저가_언팔로우_실패하라(): void
+    public function failUnFolllowChannelWhenUserEmailIsNotVerified(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs($user = factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'
@@ -80,8 +82,9 @@ class UnFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이미_언팔로우했는데_또_언팔로우시_실패하라(): void
+    public function failUnFolllowChannelWhenUserAlreadyUnfollowChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'

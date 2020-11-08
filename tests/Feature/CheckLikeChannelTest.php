@@ -13,8 +13,9 @@ use Laravel\Sanctum\Sanctum;
 class CheckLikeChannelTest extends TestCase
 {
     /** @test */
-    public function 없는_채널_좋아요여부_조회에_실패하라(): void
+    public function failLookUpChannelIsFanWhenChannelNotExists(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
@@ -27,9 +28,10 @@ class CheckLikeChannelTest extends TestCase
         $this->assertEquals(['code' => 404], $tryCheckChannelIsLike['messages']);
     }
 
-    /** @test */
-    public function 로그인_안한채로_좋아요_여부_조회에_시도에_실패_하라(): void
+    /** @test */
+    public function failLookUpChannelIsFanWhenUserisNotLogined(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
         $tryCheckChannelIsLike = $this->getJson(route('isLikeChannel', [
@@ -42,8 +44,10 @@ class CheckLikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_좋아요_후_여부조회에_true_리턴을_받아라(): void
+    public function getTrueWhenLikeChannelAndLookupChannelIsLike(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
+
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
@@ -66,8 +70,9 @@ class CheckLikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_좋아요안한채로_여부조회에_false_리턴을_받아라(): void
+    public function getFalseWhenUnLikeChannelAndLookupChannelIsLike(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $channel = factory(Channel::class)->states(['addSlug'])->create();

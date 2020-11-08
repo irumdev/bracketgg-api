@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
             return ChannelSlug::where('slug', $channelSlug)->firstOrFail()->channel;
         });
 
-        Route::bind('channelName', function ($channelName) {
+        Route::bind('name', function ($channelName) {
             return Channel::where('name', $channelName)->firstOrFail();
         });
     }

@@ -12,6 +12,7 @@ use App\Exceptions\FileSaveFailException;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
 
 class ChannelRepository extends ChannelInfoFactory
@@ -73,5 +74,10 @@ class ChannelRepository extends ChannelInfoFactory
 
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
+    }
+
+    public function followers(Channel $channel): HasManyThrough
+    {
+        return $channel->followers();
     }
 }

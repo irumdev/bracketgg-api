@@ -15,8 +15,9 @@ use App\Helpers\ResponseBuilder;
 class ShowUserChannelTest extends TestCase
 {
     /** @test */
-    public function 유저가_가진_채널중_배너이미지와_팔로워가_있는_채널들의_정보를_조회하라(): void
+    public function successLookUpChannelWhenChannelHasBannerImageAndFollowers(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
@@ -43,13 +44,12 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 유저가_가진_채널중_배너이미지와_팔로워_그리고_방송국주소를_가진_채널들의_정보를_조회하라(): void
+    public function successLookUpChannelWhenChannelHasBannerImageAndFollowersAndBroadcastAddress(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
-
-
         $channel = factory(Channel::class, random_int(1, 3))->states([
             'addBannerImage','hasFollower', 'addBroadcasts', 'addSlug'
         ])->create();
@@ -72,8 +72,9 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 유저가_가진_채널중_배너이미지만_있는_채널들의_정보를_조회하라(): void
+    public function successLookUpChannelWhenChannelHasBannerImage(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );
@@ -99,8 +100,9 @@ class ShowUserChannelTest extends TestCase
     }
 
     /** @test */
-    public function 유저가_채널이_없을때_조회에_실패하라(): void
+    public function failLookUpChannelWhenUserDontHaveChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         Sanctum::actingAs(
             $user = factory(User::class)->create()
         );

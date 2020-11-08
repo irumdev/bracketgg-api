@@ -14,8 +14,9 @@ use Illuminate\Support\Str;
 class FollowChannelTest extends TestCase
 {
     /** @test */
-    public function 채널을_팔로우_하라(): void
+    public function successFollowChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'addSlug'
         ])->create();
@@ -37,15 +38,14 @@ class FollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널장이_내_채널을_팔로우에_실패_하라(): void
+    public function ownerFailFollowChannelWhenFollowMyChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'
         ])->create();
 
         $activeUser = Sanctum::actingAs(User::find($channel->owner));
-
-
         $tryFollow = $this->patchJson(route('followChannel', [
             'slug' => $channel->slug
         ]))->assertUnauthorized();
@@ -57,8 +57,9 @@ class FollowChannelTest extends TestCase
 
 
     /** @test */
-    public function 이메일_인증_인받은_유저가_채널을_팔로우를_실패하라(): void
+    public function failFollowChannelWhenUserEmailIsNotVerified(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'
         ])->create();
@@ -77,8 +78,9 @@ class FollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이미_채널을_팔로우_했는데_또다시_팔로우_시도에_실패하라(): void
+    public function failFollowChannelWhelAlreadyChannelFollowed(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states([
             'hasFollower', 'addSlug'
@@ -104,8 +106,9 @@ class FollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 없는_채널_팔로우에_실패하라(): void
+    public function failFollowChannelWhenChannelNotExists(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $tryFollow = $this->patchJson(route('followChannel', [

@@ -11,8 +11,9 @@ use App\Models\User;
 class ShowUserInfoByTokenTest extends TestCase
 {
     /** @test */
-    public function 토큰으로_유저의_정보를_조회하라(): void
+    public function successLookUpUserInfoWithBearerToken(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->state('addProfileImage')->create());
         $response = $this->getJson(route('currentUser'))->assertOk();
 
@@ -24,17 +25,21 @@ class ShowUserInfoByTokenTest extends TestCase
                 'id' => $activeUser->id,
                 'nickName' => $activeUser->nick_name,
                 'email' => $activeUser->email,
-                'profileImage' => route('profileImage', [
+                'profileImage' => $userProfileImageUrl = route('profileImage', [
                     'profileImage' => $activeUser->profile_image
                 ])
             ],
             $response['messages'],
         );
+        if (config('app.test.useRealImage')) {
+            $this->get($userProfileImageUrl)->assertOk();
+        }
     }
 
     /** @test */
-    public function 토큰으로_프로필이미지가_없는_유저의_정보를_조회하라(): void
+    public function successLookUpDonthaveProfileImageUserInfoWithBearerToken(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $response = $this->getJson(route('currentUser'))
                          ->assertOk();
@@ -54,8 +59,9 @@ class ShowUserInfoByTokenTest extends TestCase
     }
 
     /** @test */
-    public function 로그인_안한_유저의_정보조회에_실패하라(): void
+    public function failLookUpUserInfoWithOutLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $response = $this->getJson(route('currentUser'))
                          ->assertUnauthorized();
 

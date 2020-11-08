@@ -14,8 +14,9 @@ use App\Models\ChannelFan;
 class UnLikeChannelTest extends TestCase
 {
     /** @test */
-    public function 채널_좋아요_취소_하라(): void
+    public function successUnLikeChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->state('addSlug')->create();
 
@@ -41,8 +42,9 @@ class UnLikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널_좋아요_0인데_취소에_실패_하라(): void
+    public function failUnLikeChannelWhenChannelHasNotLikeUser(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->state('addSlug')->create();
         $tryLikeToChannel = $this->patchJson(route('unLikeChannel', [
@@ -56,8 +58,9 @@ class UnLikeChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이메일_인증받지_않은_유저가_채널_좋아요_실패하라(): void
+    public function failUnLikeChannelWhenUserEmailIsNotVerified(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create([
             'email_verified_at' => null,
         ]));

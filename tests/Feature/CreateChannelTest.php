@@ -24,8 +24,9 @@ class CreateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이름을_안넣고_채널생성에_실패하라(): void
+    public function failCreateChannelWithoutChannelName(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(
             factory(User::class)->states(['addProfileImage'])->create()
         );
@@ -38,8 +39,9 @@ class CreateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이름_최대길이_넘겨서_채널생성에_실패하라(): void
+    public function failCreateChannelWhenChannelNameIsLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(
             factory(User::class)->states(['addProfileImage'])->create()
         );
@@ -53,8 +55,9 @@ class CreateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 이름이_중복되서_채널생성에_실패하라(): void
+    public function failCreateChannelWhenChannelNameIsDuplicate(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(
             factory(User::class)->states(['addProfileImage'])->create()
         );
@@ -73,8 +76,9 @@ class CreateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 최대_체널_생성개수_제한에_의하여_채널생성에_실패하라(): void
+    public function failCreateChannelWhenChannelCreateCountIsExceed(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(
             factory(User::class)->states(['addProfileImage'])->create()
         );
@@ -98,8 +102,9 @@ class CreateChannelTest extends TestCase
     }
 
     /** @test */
-    public function 채널생성에_성공하라(): void
+    public function successCreateChannel(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(
             factory(User::class)->states(['addProfileImage'])->create()
         );

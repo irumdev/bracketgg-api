@@ -37,19 +37,34 @@ $factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $chann
 });
 
 $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker) {
-    factory(ChannelFollower::class, $followerCount = random_int(1, 10))->create([
-        'channel_id' => $channel->id,
-        'user_id' => factory(User::class)->create()->id,
-    ]);
+    collect(range(1, $followerCount = random_int(1, 10)))->each(function ($step) use ($channel) {
+        factory(ChannelFollower::class)->create([
+            'channel_id' => $channel->id,
+            'user_id' => factory(User::class)->create()->id,
+        ]);
+    });
+
+    $channel->follwer_count = $followerCount;
+    $channel->save();
+});
+
+$factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channel $channel, Faker $faker) {
+    collect(range(1, $followerCount = 50))->each(function ($step) use ($channel) {
+        factory(ChannelFollower::class)->create([
+            'channel_id' => $channel->id,
+            'user_id' => factory(User::class)->create()->id,
+        ]);
+    });
+
     $channel->follwer_count = $followerCount;
     $channel->save();
 });
 
 $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $channel, Faker $faker) {
-    $fansCount = $fansCount = random_int(1, 30);
+    $fansCount = random_int(1, 30);
 
-    collect(range(1, $fansCount))->map(function ($step) use ($channel) {
-        factory(ChannelFan::class, )->create([
+    collect(range(1, $fansCount))->each(function ($step) use ($channel) {
+        factory(ChannelFan::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id
         ]);

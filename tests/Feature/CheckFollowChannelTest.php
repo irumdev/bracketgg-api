@@ -15,15 +15,14 @@ use App\Models\ChannelFollower;
 
 class CheckFollowChannelTest extends TestCase
 {
-
     /** @test */
-    public function 없는채널_팔로우_여부조회에_실패하라(): void
+    public function failFollowChannelWhenChannelIsNotExists(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
             'slug' => Str::random(40)
         ]))->assertNotFound();
-
 
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['ok']);
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['isValid']);
@@ -31,8 +30,9 @@ class CheckFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 로그인_안한_유저가_팔로우_여부조회에_실패하라(): void
+    public function failLookupChannelIsFollowingWhenUserIsNotLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
             'slug' => Str::random(40)
         ]))->assertUnauthorized();
@@ -43,8 +43,9 @@ class CheckFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 팔로우_한_채널_조회에_true_리턴을_받아라(): void
+    public function getTrueWhenChannelAlreadyFollow(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
@@ -66,8 +67,9 @@ class CheckFollowChannelTest extends TestCase
     }
 
     /** @test */
-    public function 팔로우_안한_채널_조화에_false_리턴을_받아라(): void
+    public function getFalseWhenChannelUnFollow(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
         $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [

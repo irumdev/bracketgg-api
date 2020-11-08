@@ -68,6 +68,11 @@ class ChannelService
         return $this->info($channel);
     }
 
+    public function followers(Channel $channel)
+    {
+        return $this->channelRepostiroy->followers($channel);
+    }
+
     public function info(Channel $channel): array
     {
         return [
