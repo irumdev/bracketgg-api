@@ -39,6 +39,14 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+        AuthAccessFailException::class,
+        AuthenticationException::class,
+        UnauthorizedException::class,
+        MethodNotAllowedHttpException::class,
+        RouteNotFoundException::class,
+        NotFoundHttpException::class,
+        ModelNotFoundException::class,
+        InvalidSignatureException::class,
     ];
 
     /**
@@ -61,7 +69,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception): void
     {
-        parent::report($exception);
+        $shouldReport = $this->shouldReport($exception);
+        if ($shouldReport) {
+            parent::report($exception);
+        }
+
+        if ($shouldReport && config('logging.isUseSlackNoti')) {
+            $errorMessage = new ErrorFormatter($exception, request());
+            Log::channel('slack')->critical($errorMessage->toKor());
+        }
     }
 
     /**
@@ -76,6 +92,18 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         $this->response = new ResponseBuilder();
+        $renderObject = $this->response->fail('tryAgain', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $response = $this->buildClientResponse($exception);
+        if ($response['message']) {
+            $renderObject = $this->response->fail($response['message'], $response['status']);
+        } elseif (config('app.debug')) {
+            $renderObject = parent::render($request, $exception);
+        }
+        return $renderObject;
+    }
+
+    private function buildClientResponse(Throwable $exception)
+    {
         $message = null;
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         switch (get_class($exception)) {
@@ -106,19 +134,10 @@ class Handler extends ExceptionHandler
             break;
 
         }
-        if ($message) {
-            return $this->response->fail($message, $status);
-        }
-
-        if (config('logging.isUseSlackNoti')) {
-            $errorMessage = new ErrorFormatter($exception, $request);
-            Log::critical($errorMessage->errorInfo());
-            Log::channel('slack')->critical($errorMessage->toKor());
-        }
-        if (config('app.debug')) {
-            return parent::render($request, $exception);
-        }
-        return $this->response->fail('tryAgain', $status);
+        return [
+            'status' => $status,
+            'message' => $message
+        ];
     }
 
     private function buildMessage(string $langKey): array

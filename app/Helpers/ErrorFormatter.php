@@ -53,13 +53,6 @@ class ErrorFormatter
         ];
     }
 
-    /**
-     * 에러메세지 포맷팅 하기 위한 string format입니다.
-     *
-     * @author  dhtmdgkr123 <osh12201@gmail.com>
-     * @version 1.0.0
-     * @return string
-     */
     public function format(): string
     {
         return join("\n", [

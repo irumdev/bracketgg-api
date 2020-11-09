@@ -84,12 +84,7 @@ class User extends Authenticatable
         return $this->hasMany(Channel::class, 'owner', 'id');
     }
 
-    // public function sendEmailVerificationNotification(): void
-    // {
-
-    // }
-
-    public function sendEmailVerificationNoti(): void
+    public function sendEmailVerificationNotification(): void
     {
         $sendInfo = [
             'receivers' => [

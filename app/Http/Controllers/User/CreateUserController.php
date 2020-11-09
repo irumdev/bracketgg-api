@@ -47,7 +47,7 @@ class CreateUserController extends Controller
     {
         $requestData = $request->validated();
         $createdUser = $this->userService->createUser($requestData);
-        $createdUser->sendEmailVerificationNoti();
+        $createdUser->sendEmailVerificationNotification();
         return $this->response->ok($createdUser, Response::HTTP_CREATED);
     }
 }
