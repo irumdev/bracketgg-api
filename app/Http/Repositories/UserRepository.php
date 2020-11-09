@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UserRepository
 {
     use SoftDeletes;
+
     private User $user;
     public function __construct(User $user)
     {

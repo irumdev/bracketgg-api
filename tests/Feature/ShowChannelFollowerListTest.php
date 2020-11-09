@@ -38,7 +38,6 @@ class ShowChannelFollowerListTest extends TestCase
             'slug' => '-1'
         ]))->assertNotFound();
 
-
         $this->assertFalse($tryLookUpFollowersList['ok']);
         $this->assertFalse($tryLookUpFollowersList['isValid']);
 
@@ -46,7 +45,6 @@ class ShowChannelFollowerListTest extends TestCase
             ['code' => 404],
             $tryLookUpFollowersList['messages']
         );
-
     }
 
     /** @test */
@@ -63,7 +61,7 @@ class ShowChannelFollowerListTest extends TestCase
         do {
             $requestUrl = route('getFollower', [
                 'slug' => $channel->slug
-            ]) . '?' .http_build_query([
+            ]) . '?' . http_build_query([
                 'page' => $current
             ]);
 
@@ -74,15 +72,14 @@ class ShowChannelFollowerListTest extends TestCase
 
             $responseFollowers = $tryLookUpFollowersList['messages']['followers'];
 
-            $followerIds = collect($channel->followers->map(fn($follower) => $follower->id));
-            array_map(function($follower) use ($followerIds) {
+            $followerIds = collect($channel->followers->map(fn ($follower) => $follower->id));
+            array_map(function ($follower) use ($followerIds) {
                 $user = User::find($follower['id']);
                 $this->assertNotNull($user);
                 $this->assertTrue($followerIds->contains($user->id));
             }, $responseFollowers);
             $current += 1;
-
-        } while($tryLookUpFollowersList['messages']['meta']['hasMorePage']);
+        } while ($tryLookUpFollowersList['messages']['meta']['hasMorePage']);
     }
 
     /** @test */
@@ -104,10 +101,5 @@ class ShowChannelFollowerListTest extends TestCase
         $this->isNull($tryLookUpFollowersList['messages']['meta']['next']);
         $this->isNull($tryLookUpFollowersList['messages']['meta']['prev']);
         $this->assertEquals([], $tryLookUpFollowersList['messages']['followers']);
-
-
-        // dd($tryLookUpFollowersList);
-        // $this->assertEquals()
-
     }
 }

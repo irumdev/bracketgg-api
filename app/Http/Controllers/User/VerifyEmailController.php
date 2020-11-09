@@ -14,8 +14,15 @@ use App\Helpers\ResponseBuilder;
 
 class VerifyEmailController extends Controller
 {
-    private UserService $userService;
+    /**
+     * @var ResponseBuilder $response
+     */
     private ResponseBuilder $responseBuilder;
+
+    /**
+     * @var UserService $userService
+     */
+    private UserService $userService;
 
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {

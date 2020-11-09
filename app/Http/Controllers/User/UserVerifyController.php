@@ -21,9 +21,12 @@ class UserVerifyController extends Controller
 {
     /**
      * @var ResponseBuilder $response
-     * @var UserService $userService
      */
     private ResponseBuilder $response;
+
+    /**
+     * @var UserService $userService
+     */
     private UserService $userService;
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {

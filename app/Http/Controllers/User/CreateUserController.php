@@ -20,9 +20,12 @@ class CreateUserController extends Controller
 {
     /**
      * @var ResponseBuilder $response
-     * @var UserService $userService
      */
     private ResponseBuilder $response;
+
+    /**
+     * @var UserService $userService
+     */
     private UserService $userService;
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {
@@ -44,7 +47,7 @@ class CreateUserController extends Controller
     {
         $requestData = $request->validated();
         $createdUser = $this->userService->createUser($requestData);
-        $createdUser->sendEmailVerificationNotification();
+        $createdUser->sendEmailVerificationNoti();
         return $this->response->ok($createdUser, Response::HTTP_CREATED);
     }
 }

@@ -21,9 +21,12 @@ class ShowUserController extends Controller
 {
     /**
      * @var ResponseBuilder $responseBuilder
-     * @var UserService $userService
      */
     private ResponseBuilder $responseBuilder;
+
+    /**
+     * @var UserService $userService
+     */
     private UserService $userService;
 
     public function __construct(UserService $userService, ResponseBuilder $responseBuilder)
