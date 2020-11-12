@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Channel;
@@ -50,7 +52,7 @@ class ChannelService
         return $findByName;
     }
 
-    public function findChannelById(string $channelId): Collection
+    public function findChannelById(int $channelId): Collection
     {
         return collect($this->info($this->channelRepostiroy->findById($channelId)));
     }

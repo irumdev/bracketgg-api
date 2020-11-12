@@ -20,7 +20,7 @@ $factory->define(Channel::class, function (Faker $faker) {
         'like_count' => 0,
         'owner' => factory(User::class)->states(['addProfileImage'])->create(),
         'description' => $faker->sentence(),
-        'name' => $faker->name,
+        'name' => \Illuminate\Support\Str::random(15),
     ];
 });
 

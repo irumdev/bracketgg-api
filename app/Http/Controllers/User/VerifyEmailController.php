@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailVerificationRequest;
@@ -24,6 +28,11 @@ class VerifyEmailController extends Controller
      */
     private UserService $userService;
 
+    /**
+     * @var User $user;
+     */
+    private User $user;
+
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {
         $this->responseBuilder = $responseBuilder;
@@ -41,8 +50,8 @@ class VerifyEmailController extends Controller
 
     public function resendEmail(ResendEmailVerificationRequest $request)
     {
-        $user = Auth::user();
-        $user->sendEmailVerificationNotification();
+        $this->user = Auth::user();
+        $this->user->sendEmailVerificationNotification();
         return $this->responseBuilder->ok([
             'sendEmailVerification' => true,
         ]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\Channel;
@@ -40,7 +42,7 @@ class ChannelRepository extends ChannelInfoFactory
         return Channel::where('name', $channelName)->first();
     }
 
-    public function findById(string $id): Channel
+    public function findById(int $id): Channel
     {
         return Channel::with(User::$channelsInfo)->findOrFail($id);
     }

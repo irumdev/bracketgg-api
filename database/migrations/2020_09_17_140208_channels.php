@@ -23,10 +23,8 @@ class Channels extends Migration
             $table->foreignId('owner')->comment('채널장');
             $table->text('description')->comment('소개');
             $table->string('name')->comment('채널이름');
-
             $table->softDeletes();
             $table->timestamps();
-
 
             $table->foreign('owner')->references('id')->on('users')->cascadeOnDelete();
         });

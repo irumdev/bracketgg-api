@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -111,12 +113,12 @@ class Handler extends ExceptionHandler
             case AuthAccessFailException::class:
             case AuthenticationException::class:
             case UnauthorizedException::class:
-                $message = $this->buildMessage(Response::HTTP_UNAUTHORIZED);
+                $message = $this->buildMessage((string)Response::HTTP_UNAUTHORIZED);
                 $status = Response::HTTP_UNAUTHORIZED;
             break;
 
             case MethodNotAllowedHttpException::class:
-                $message = $this->buildMessage(Response::HTTP_METHOD_NOT_ALLOWED);
+                $message = $this->buildMessage((string)Response::HTTP_METHOD_NOT_ALLOWED);
                 $status = Response::HTTP_METHOD_NOT_ALLOWED;
             break;
 
@@ -124,12 +126,12 @@ class Handler extends ExceptionHandler
             case RouteNotFoundException::class:
             case NotFoundHttpException::class:
             case ModelNotFoundException::class:
-                $message = $this->buildMessage(Response::HTTP_NOT_FOUND);
+                $message = $this->buildMessage((string)Response::HTTP_NOT_FOUND);
                 $status = Response::HTTP_NOT_FOUND;
             break;
 
             case InvalidSignatureException::class:
-                $message = $this->buildMessage(Response::HTTP_FORBIDDEN);
+                $message = $this->buildMessage((string)Response::HTTP_FORBIDDEN);
                 $status = Response::HTTP_FORBIDDEN;
             break;
 
