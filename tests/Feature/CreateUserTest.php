@@ -74,9 +74,18 @@ class CreateUserTest extends TestCase
     public function failRegisterUserWithDuplicateEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
+        $fixedEmail = 'asdf123@asdf.com';
+        if (User::where('email', $fixedEmail)->first() !== null) {
+            User::where('email', $fixedEmail)->first()->forceDelete();
+        }
         $user = factory(User::class)->create();
+        $user->email = $fixedEmail;
+        $user->save();
+
+        $user = User::find($user->id);
+
         $tryCreateUser = $this->postJson($this->testUrl, [
-            'email' => $user->email,
+            'email' => $fixedEmail,
         ])->assertStatus(422);
         $this->assertResponseError(
             UserStoreRequest::EMAIL_ALREADY_EXISTS,

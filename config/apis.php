@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $directSendBaseUri = 'https://directsend.co.kr/index.php/api_v2/';
 return [
     'directSend' => [

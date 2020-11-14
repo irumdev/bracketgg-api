@@ -18,7 +18,7 @@ class ShowChannelTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
-            'addBannerImage','hasFollower','addBroadcasts', 'addSlug', 'hasLike'
+            'addSlug', 'hasLike', 'addBannerImage', 'addBroadcasts',
         ])->create();
 
         $channelSlug = $channel->slug;
@@ -34,7 +34,7 @@ class ShowChannelTest extends TestCase
         $this->assertTrue($response['isValid']);
 
         $message = $response['messages'];
-
+        $channel = Channel::find($channel->id);
         $this->assertEquals($channelId, $message['id']);
         $this->assertEquals($channel->name, $message['channelName']);
         $this->assertEquals($channel->owner, $message['owner']);

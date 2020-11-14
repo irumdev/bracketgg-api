@@ -37,40 +37,40 @@ $factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $chann
 });
 
 $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker) {
-    collect(range(1, $followerCount = random_int(1, 10)))->each(function ($step) use ($channel) {
+    $fanCount = range(1, $followerCount = random_int(1, 10));
+    collect($fanCount)->each(function ($step) use ($channel) {
         factory(ChannelFollower::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id,
         ]);
     });
 
-    $channel->follwer_count = $followerCount;
+    $channel->follwer_count = count($fanCount);
     $channel->save();
 });
 
 $factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channel $channel, Faker $faker) {
-    collect(range(1, $followerCount = 50))->each(function ($step) use ($channel) {
+    $fanCount = range(1, $followerCount = 50);
+    collect($fanCount)->each(function ($step) use ($channel) {
         factory(ChannelFollower::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id,
         ]);
     });
-
-    $channel->follwer_count = $followerCount;
+    $channel->follwer_count = count($fanCount);
     $channel->save();
 });
 
 $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $channel, Faker $faker) {
-    $fansCount = random_int(1, 30);
+    $fanCount = random_int(1, 30);
 
-    collect(range(1, $fansCount))->each(function ($step) use ($channel) {
+    for ($i = 0; $i < $fanCount; $i++) {
         factory(ChannelFan::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id
         ]);
-    });
-
-    $channel->like_count = $fansCount;
+    }
+    $channel->like_count = $fanCount;
     $channel->save();
 });
 $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {

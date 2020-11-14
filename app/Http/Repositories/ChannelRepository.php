@@ -5,14 +5,9 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Channel;
-use App\Models\ChannelSlug;
 use App\Models\User;
-use App\Models\ChannelBannerImage;
 use App\Factories\ChannelInfoFactory;
 
-use App\Exceptions\FileSaveFailException;
-
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
