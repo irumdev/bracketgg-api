@@ -15,4 +15,12 @@ class ArrayMixin
             return $target;
         };
     }
+
+    public function replaceItemByKey(): callable
+    {
+        return function (array $items, $key, $item) {
+            $items[$key] = $item;
+            return $item;
+        };
+    }
 }

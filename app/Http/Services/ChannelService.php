@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Channel;
-use App\Models\ChannelBannerImage;
+use App\Models\Channel\Channel;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Helpers\ResponseBuilder;
-use App\Models\ChannelBroadcast;
-use App\Models\ChannelSlug;
+use App\Models\Channel\Broadcast as ChannelBroadcast;
+use App\Models\Channel\Slug as ChannelSlug;
 use App\Repositories\ChannelRepository;
 use App\Exceptions\DBtransActionFail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

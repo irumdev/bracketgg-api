@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Channel;
 
-use App\Models\ChannelBannerImage;
-use App\Models\ChannelFollower;
-use App\Models\ChannelBroadcast;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
+use App\Models\Channel\Follower as ChannelFollower;
+use App\Models\Channel\Fan as ChannelFan;
+use App\Models\Channel\Broadcast as ChannelBroadcast;
+use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Channel extends Model
 {
+    protected $table = 'channels';
     protected $fillable = [
         'logo_image', 'follwer_count',
         'like_count', 'description',

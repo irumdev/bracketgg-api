@@ -7,9 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
-use App\Models\Channel;
-use App\Models\ChannelBannerImage;
-use App\Models\ChannelBroadcast;
+use App\Models\Channel\Channel;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
+use App\Models\Channel\Broadcast as ChannelBroadcast;
 
 class ShowChannelTest extends TestCase
 {

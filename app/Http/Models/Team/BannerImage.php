@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BannerImage extends Model
 {
-    //
+    protected $table = 'team_banner_images';
+
     protected $fillable = [
         'banner_image',
         'team_id',

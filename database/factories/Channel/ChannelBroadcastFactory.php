@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\ChannelBroadcast;
+use App\Models\Channel\Broadcast as ChannelBroadcast;
 use Illuminate\Support\Arr;
 
 use Faker\Generator as Faker;

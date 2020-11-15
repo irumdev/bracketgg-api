@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\ResponseBuilder;
 use App\Services\ChannelService;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
 

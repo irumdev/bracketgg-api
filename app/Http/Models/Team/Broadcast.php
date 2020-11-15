@@ -13,5 +13,7 @@ class Broadcast extends Model
      * @todo 같은플랫폼으로 여러개개 들어갈 수 있음
      * @todo 같은플랫폼 같은주소는 안됨
      */
-    public array $platforms = BroadcastFactory::PLATFORMS;
+    protected $table = 'team_broadcasts';
+
+    public static array $platforms = BroadcastFactory::PLATFORMS;
 }

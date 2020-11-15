@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Factories;
 
 use App\Contracts\ChannelUpdateInfoContract;
-use App\Models\Channel;
-use App\Models\ChannelBannerImage;
+use App\Models\Channel\Channel;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
 
 use Illuminate\Http\UploadedFile;
 

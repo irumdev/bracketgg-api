@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Channel;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChannelFollower extends Model
+class Follower extends Model
 {
     use SoftDeletes;
 
@@ -18,7 +18,7 @@ class ChannelFollower extends Model
     public const UNFOLLOW_OK = 5;
     public const ALREADY_UNFOLLOW = 6;
 
-
+    protected $table = 'channel_followers';
     protected $fillable = [
         'user_id', 'channel_id'
     ];

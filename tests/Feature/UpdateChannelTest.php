@@ -9,11 +9,11 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Http\Requests\UpdateChannelRequest;
-use App\Models\ChannelSlug;
+use App\Models\Channel\Slug as ChannelSlug;
 use Illuminate\Http\UploadedFile;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
-use App\Models\ChannelBannerImage;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
 
 class UpdateChannelTest extends TestCase
 {

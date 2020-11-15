@@ -48,14 +48,14 @@ return [
         'successRegisterUserWithoutProfileImageWithSpecificEmail' => '프로필이미지 없이 특수한 이메일로 회원가입에 성공하라',
         'successRegisterUser' => '회원가입에 성공하라',
     ],
-    'FollowChannelTest' => [
+    'FollowTest' => [
         'successFollowChannel' => '채널을 팔로우 하라',
         'ownerFailFollowChannelWhenFollowMyChannel' => '채널장이 내 채널을 팔로우에 실패 하라',
         'failFollowChannelWhenUserEmailIsNotVerified' => '이메일 인증 인받은 유저가 채널을 팔로우를 실패하라',
         'failFollowChannelWhelAlreadyChannelFollowed' => '이미 채널을 팔로우 했는데 또다시 팔로우 시도에 실패하라',
         'failFollowChannelWhenChannelNotExists' => '없는 채널 팔로우에 실패하라'
     ],
-    'LikeChannelTest' => [
+    'LikeTest' => [
         'likeChannel' => '채널 좋아요 하라',
         'failLikeChannelWhenTryUserEmailIsNotVerified' => '이메일 인증받지 않은 유저가 채널 좋아요 실패하라',
         'failLikeChannelWhenChannelIsNotExists' => '없는 채널에 좋아요 실패하라',

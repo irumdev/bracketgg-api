@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
-use App\Models\ChannelFan;
-use App\Models\Channel;
+use App\Models\Channel\Fan as ChannelFan;
+use App\Models\Channel\Channel;
 use App\Http\Requests\CheckUserLikeChannelRequest;
 
 /**

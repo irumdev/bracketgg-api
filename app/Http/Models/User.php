@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\URL;
 use App\Apis\DirectSend\Email;
 use Illuminate\Support\Carbon;
 
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 
 /**
  * 유저 모델 입니다.

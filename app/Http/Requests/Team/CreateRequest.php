@@ -2,26 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Team;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Contracts\Validation\Validator as ValidContract;
-
+use Illuminate\Support\Arr;
+use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 use App\Models\User;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
-use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
+use App\Http\Requests\Rules\CreateChannel as CreateChannelRules;
+use Illuminate\Contracts\Validation\Validator as ValidContract;
 
-class CreateChannelRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
-    public const CAN_NOT_CREATE_CHANNEL = 1;
-    public const HAS_NOT_VERIFY_EMAIL = 2;
-
     private ResponseBuilder $responseBuilder;
     private User $user;
 
@@ -38,7 +34,7 @@ class CreateChannelRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user->can('createChannel');
+        return $this->user->can('createTeam');
     }
 
     /**
@@ -48,12 +44,20 @@ class CreateChannelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return CreateChannelRule::rules();
+        $rules  = CreateChannelRules::rules();
+        $rules = explode('|', $rules);
+        // unique:App\Models\Channel,name
+        dd(
+            Arr::replaceItemByKey($rules, count($rules) - 1, 'unique:App\Models\Team\Team,name')
+        );
+        return $rules;
     }
 
     public function messages(): array
     {
-        return CreateChannelRule::messages();
+        return [
+            ''
+        ];
     }
 
     protected function failedAuthorization(): void
@@ -70,23 +74,5 @@ class CreateChannelRequest extends FormRequest
         throw new HttpResponseException(
             $this->responseBuilder->fail(ValidMessage::first($validator))
         );
-    }
-
-    private function buildAuthorizeErrorMessage(User $user): int
-    {
-        switch ($user) {
-            case $user->hasVerifiedEmail() === false:
-                $message = self::HAS_NOT_VERIFY_EMAIL;
-                break;
-
-            case $user->can('createChannel') === false:
-                $message = self::CAN_NOT_CREATE_CHANNEL;
-                break;
-
-            default:
-                $message = self::CAN_NOT_CREATE_CHANNEL;
-                break;
-        }
-        return $message;
     }
 }

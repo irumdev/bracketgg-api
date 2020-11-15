@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Channel;
 
-use App\Models\Channel;
-use App\Models\ChannelFollower;
+use App\Models\Channel\Channel;
+use App\Models\Channel\Follower as ChannelFollower;
 use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Http\JsonResponse;

@@ -3,78 +3,37 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\User;
-use App\Models\Channel;
-use App\Models\ChannelFan;
-use App\Models\ChannelFollower;
-use App\Models\ChannelBroadcast;
-use App\Models\ChannelBannerImage;
-use App\Models\ChannelSlug;
+use App\Models\Team\Team;
+use App\Models\Team\BannerImage;
+use App\Models\Team\Slug;
+use App\Models\Team\Broadcast;
 
 use Faker\Generator as Faker;
 use App\Helpers\Image;
 
-// $factory->define(Channel::class, function (Faker $faker) {
-//     return [
-//         'logo_image' => Image::fakeUrl(),
-//         'follwer_count' => 0,
-//         'like_count' => 0,
-//         'owner' => factory(User::class)->states(['addProfileImage'])->create(),
-//         'description' => $faker->sentence(),
-//         'name' => \Illuminate\Support\Str::random(15),
-//     ];
-// });
+$factory->define(Team::class, function (Faker $faker) {
+    return [
+        'owner' => factory(User::class)->states(['addProfileImage'])->create(),
+        'name' => \Illuminate\Support\Str::random(15),
+        'is_public' => random_int(0, 1) === 0,
+        'logo_image' => Image::fakeUrl(),
+    ];
+});
 
-// $factory->afterCreatingState(Channel::class, 'addBannerImage', function (Channel $channel, Faker $faker) {
-//     factory(ChannelBannerImage::class, random_int(1, 10))->create([
-//         'channel_id' => $channel->id,
-//     ]);
-// });
+$factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team, Faker $faker) {
+    factory(BannerImage::class, random_int(1, 10))->create([
+        'team_id' => $team->id,
+    ]);
+});
 
-// $factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $channel, Faker $faker) {
-//     ChannelSlug::factory()->create([
-//         'channel_id' => $channel->id,
-//     ]);
-// });
+$factory->afterCreatingState(Team::class, 'addSlug', function (Team $channel, Faker $faker) {
+    Slug::factory()->create([
+        'team_id' => $channel->id,
+    ]);
+});
 
-// $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker) {
-//     collect(range(1, $followerCount = random_int(1, 10)))->each(function ($step) use ($channel) {
-//         factory(ChannelFollower::class)->create([
-//             'channel_id' => $channel->id,
-//             'user_id' => factory(User::class)->create()->id,
-//         ]);
-//     });
-
-//     $channel->follwer_count = $followerCount;
-//     $channel->save();
-// });
-
-// $factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channel $channel, Faker $faker) {
-//     collect(range(1, $followerCount = 50))->each(function ($step) use ($channel) {
-//         factory(ChannelFollower::class)->create([
-//             'channel_id' => $channel->id,
-//             'user_id' => factory(User::class)->create()->id,
-//         ]);
-//     });
-
-//     $channel->follwer_count = $followerCount;
-//     $channel->save();
-// });
-
-// $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $channel, Faker $faker) {
-//     $fansCount = random_int(1, 30);
-
-//     collect(range(1, $fansCount))->each(function ($step) use ($channel) {
-//         factory(ChannelFan::class)->create([
-//             'channel_id' => $channel->id,
-//             'user_id' => factory(User::class)->create()->id
-//         ]);
-//     });
-
-//     $channel->like_count = $fansCount;
-//     $channel->save();
-// });
-// $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {
-//     factory(ChannelBroadcast::class, random_int(1, 5))->create([
-//         'channel_id' => $channel->id,
-//     ]);
-// });
+$factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $channel, Faker $faker) {
+    factory(Broadcast::class, random_int(1, 5))->create([
+        'team_id' => $channel->id,
+    ]);
+});

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-use App\Models\Channel;
-use App\Models\ChannelBannerImage;
+use App\Models\Channel\Channel;
 use Illuminate\Http\UploadedFile;
 
 interface ChannelUpdateInfoContract

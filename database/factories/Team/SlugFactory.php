@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Team;
 
 use App\Models\Team\Slug;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class TeamSlugFactory extends Factory
+class SlugFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

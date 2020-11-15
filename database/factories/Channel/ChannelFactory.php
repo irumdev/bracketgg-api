@@ -3,12 +3,12 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\User;
-use App\Models\Channel;
-use App\Models\ChannelFan;
-use App\Models\ChannelFollower;
-use App\Models\ChannelBroadcast;
-use App\Models\ChannelBannerImage;
-use App\Models\ChannelSlug;
+use App\Models\Channel\Channel;
+use App\Models\Channel\Fan as ChannelFan;
+use App\Models\Channel\Follower as ChannelFollower;
+use App\Models\Channel\Broadcast as ChannelBroadcast;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
+use App\Models\Channel\Slug as ChannelSlug;
 
 use Faker\Generator as Faker;
 use App\Helpers\Image;

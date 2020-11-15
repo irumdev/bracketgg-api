@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 

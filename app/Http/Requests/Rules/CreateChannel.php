@@ -18,7 +18,7 @@ class CreateChannel
     public static function rules(): array
     {
         return  [
-            'name' => 'required|string|min:' . self::NAME_MIN_LENGTH . '|max:' . self::NAME_MAX_LENGTH . '|unique:App\Models\Channel,name',
+            'name' => 'required|string|min:' . self::NAME_MIN_LENGTH . '|max:' . self::NAME_MAX_LENGTH . '|unique:App\Models\Channel\Channel,name',
         ];
     }
 

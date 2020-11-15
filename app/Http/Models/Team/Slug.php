@@ -17,6 +17,8 @@ class Slug extends Model
     public const MIN_SLUG_LENGTH = 4;
     public const MAX_SLUG_LENGTH = 16;
 
+    protected $table = 'team_slugs';
+
     protected $fillable = [
         'slug', 'team_id'
     ];

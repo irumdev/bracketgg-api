@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -43,6 +43,11 @@ class UserPolicy
         return $this->isVerifyEmail($user) && (
             $user->channels->count() < $this->getLimitCreateChannelCountFrom($user)
         );
+    }
+
+    public function createTeam(User $user): bool
+    {
+        return $this->isVerifyEmail($user);
     }
 
     private function getLimitCreateChannelCountFrom(User $user): int

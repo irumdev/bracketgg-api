@@ -6,10 +6,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
-use App\Models\ChannelFan;
+use App\Models\Channel\Fan as ChannelFan;
 
 class UnLikeChannelTest extends TestCase
 {

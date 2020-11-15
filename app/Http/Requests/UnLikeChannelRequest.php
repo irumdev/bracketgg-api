@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
-use App\Models\ChannelFan;
+use App\Models\Channel\Fan as ChannelFan;
 
 class UnLikeChannelRequest extends FormRequest
 {

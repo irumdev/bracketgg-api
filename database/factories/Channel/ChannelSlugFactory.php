@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Channel;
 
-use App\Models\ChannelSlug;
+use App\Models\Channel\Slug as ChannelSlug;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class ChannelSlugFactory extends Factory
+class SlugFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

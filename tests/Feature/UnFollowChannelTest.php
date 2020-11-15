@@ -7,9 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use Laravel\Sanctum\Sanctum;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use App\Models\User;
-use App\Models\ChannelFollower;
+use App\Models\Channel\Follower as ChannelFollower;
 
 class UnFollowChannelTest extends TestCase
 {

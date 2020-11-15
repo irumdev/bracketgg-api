@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 use App\Services\ChannelService;
 use App\Repositories\ChannelRepository;
 use App\Helpers\ResponseBuilder;

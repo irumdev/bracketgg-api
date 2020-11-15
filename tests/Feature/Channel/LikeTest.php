@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Channel;
-use Laravel\Sanctum\Sanctum;
-use App\Models\ChannelFan;
 use App\Models\User;
+use App\Models\Channel\Channel;
+use App\Models\Channel\Fan as ChannelFan;
+use Laravel\Sanctum\Sanctum;
 
-class LikeChannelTest extends TestCase
+class LikeTest extends TestCase
 {
     /** @test */
     public function likeChannel(): void

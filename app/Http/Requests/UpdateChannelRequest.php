@@ -13,9 +13,9 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 
 use App\Models\User;
-use App\Models\Channel;
-use App\Models\ChannelSlug;
-use App\Models\ChannelBannerImage;
+use App\Models\Channel\Channel;
+use App\Models\Channel\Slug as ChannelSlug;
+use App\Models\Channel\BannerImage as ChannelBannerImage;
 
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 

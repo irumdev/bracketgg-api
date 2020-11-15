@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Models\ChannelFollower;
+use App\Models\Channel\Follower as ChannelFollower;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;

@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Http\Models\User;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
+use App\Models\Team\Team;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,12 @@ class DatabaseSeeder extends Seeder
             'addSlug',
             'addBannerImage','hasFollower',
             'addBroadcasts', 'hasLike'
+        ])->create();
+
+        factory(Team::class, 20)->states([
+            'addSlug',
+            'addBannerImage',
+            'addBroadcasts'
         ])->create();
     }
 }

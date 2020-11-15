@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateChannelRequest;
 
 use App\Services\ChannelService;
 use App\Helpers\ResponseBuilder;
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 
 class UpdateChannelController extends Controller
 {

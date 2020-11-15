@@ -6,8 +6,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use App\Models\ChannelSlug;
-use App\Models\Channel;
+use App\Models\Channel\Slug as ChannelSlug;
+use App\Models\Channel\Channel;
 
 class RouteServiceProvider extends ServiceProvider
 {

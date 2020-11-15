@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Channel;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 
-use App\Models\Channel;
+use App\Models\Channel\Channel;
 
-class ChannelSlug extends Model
+class Slug extends Model
 {
     use HasFactory;
     public const MIN_SLUG_LENGTH = 4;
@@ -20,6 +20,8 @@ class ChannelSlug extends Model
     protected $fillable = [
         'slug', 'channel_id'
     ];
+    protected $table = 'channel_slugs';
+
     public function channel(): BelongsTo
     {
         return $this->belongsTo(Channel::class, 'channel_id', 'id');
