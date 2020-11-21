@@ -72,6 +72,9 @@ class CreateChannelRequest extends FormRequest
         );
     }
 
+    /**
+     * @todo 공통화
+     */
     private function buildAuthorizeErrorMessage(User $user): int
     {
         switch ($user) {

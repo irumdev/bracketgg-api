@@ -35,5 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('createChannel', 'App\Policies\UserPolicy@createChannel');
 
         Gate::define('updateChannel', 'App\Policies\UserPolicy@updateChannel');
+
+        Gate::define('createTeam', 'App\Policies\UserPolicy@createTeam');
     }
 }

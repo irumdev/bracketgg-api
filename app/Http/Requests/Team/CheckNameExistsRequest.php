@@ -4,26 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Team;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Arr;
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Exceptions\HttpResponseException;
-
 use App\Models\User;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
-use App\Http\Requests\Rules\CreateChannel as CreateChannelRules;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 
-class CreateRequest extends FormRequest
+class CheckNameExistsRequest extends FormRequest
 {
-    private ResponseBuilder $responseBuilder;
-    private User $user;
-    private bool $canCreateTeam = false;
-
     public const CAN_NOT_CREATE_TEAM = 1;
     public const HAS_NOT_VERIFY_EMAIL = 2;
+
+    private User $user;
+    private bool $canCreateTeam = false;
+    private ResponseBuilder $responseBuilder;
 
     public function __construct(ResponseBuilder $responseBuilder)
     {
@@ -36,6 +34,7 @@ class CreateRequest extends FormRequest
      *
      * @return bool
      */
+
     public function authorize(): bool
     {
         $this->canCreateTeam = $this->user->can('createTeam');
@@ -49,15 +48,9 @@ class CreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = explode('|', CreateChannelRules::rules()['name']);
         return [
-            'name' => join('|', Arr::replaceItemByKey($rules, count($rules) - 1, 'unique:App\Models\Team\Team,name'))
+            'name' => 'unique:App\Models\Team\Team'
         ];
-    }
-
-    public function messages(): array
-    {
-        return CreateChannelRules::messages();
     }
 
     protected function failedAuthorization(): void
@@ -67,6 +60,15 @@ class CreateRequest extends FormRequest
                 'code' => $this->buildAuthorizeErrorMessage($this->user),
             ], Response::HTTP_UNAUTHORIZED)
         );
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.unique' => json_encode([
+                'isDuplicate' => true
+            ]),
+        ];
     }
 
     protected function failedValidation(ValidContract $validator): void
@@ -95,5 +97,16 @@ class CreateRequest extends FormRequest
                 break;
         }
         return $message;
+    }
+
+    /**
+     * @override
+     * @see Illuminate\Http\Concerns\InteractsWithInput
+     */
+    public function all($keys = null)
+    {
+        return array_merge(request()->all(), [
+            'name' => $this->route('teamName')
+        ]);
     }
 }

@@ -14,9 +14,15 @@ abstract class TestCase extends BaseTestCase
 
     public function getCurrentCaseKoreanName(): string
     {
-        $calledClassName = substr(strrchr(get_called_class(), "\\"), 1);
+        $calledClassName = array_merge(array_filter(explode("Tests\\Feature\\", get_called_class())));
+
         $calledMethodName = $this->getName();
-        $korCaseName = __('testCase.' . $calledClassName . '.' . $calledMethodName);
+        $korCaseName = __(join('.', [
+            'testCase',
+            str_replace('\\', '.', $calledClassName[0]),
+            $calledMethodName,
+        ]));
+
         return count(explode('testCase', $korCaseName)) >= 2 ? $calledMethodName : $korCaseName;
     }
 }

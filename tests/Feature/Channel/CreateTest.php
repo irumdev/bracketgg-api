@@ -13,7 +13,7 @@ use App\Models\Channel\Channel;
 
 use Laravel\Sanctum\Sanctum;
 
-class CreateChannelTest extends TestCase
+class CreateTest extends TestCase
 {
     private string $testUrl;
 

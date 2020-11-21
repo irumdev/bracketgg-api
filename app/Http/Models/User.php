@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +17,7 @@ use App\Apis\DirectSend\Email;
 use Illuminate\Support\Carbon;
 
 use App\Models\Channel\Channel;
+use App\Models\Team\Team;
 
 /**
  * 유저 모델 입니다.
@@ -74,6 +73,17 @@ class User extends Authenticatable
 
     ];
 
+    /**
+     * 유저가 가진 팀들의 정보를 정의합니다.
+     *
+     * @var array
+     */
+    public static $teamInfo = [
+        'bannerImages:team_id,banner_image',
+        'broadcastAddress:team_id,broadcast_address AS broadcastAddress,platform',
+    ];
+
+
     protected $dates = ['deleted_at'];
 
     public function setPasswordAttribute(string $password): void
@@ -84,6 +94,11 @@ class User extends Authenticatable
     public function channels(): HasMany
     {
         return $this->hasMany(Channel::class, 'owner', 'id');
+    }
+
+    public function teams(): HasMany
+    {
+        return $this->hasMany(Team::class, 'owner', 'id');
     }
 
     public function sendEmailVerificationNotification(): void

@@ -17,13 +17,6 @@ return [
         'getFalseWhenEmailIsNotDuplicate' => '이메일이 중복되지않아 false 를 받아라',
         'getTrueWhenEmailIsDuplicate' => '이메일이 중복되어 true를 받아라'
     ],
-    'CreateChannelTest' => [
-        'failCreateChannelWithoutChannelName' => '이름을 안넣고 채널생성에 실패하라',
-        'failCreateChannelWhenChannelNameIsLong' => '이름 최대길이 넘겨서 채널생성에 실패하라',
-        'failCreateChannelWhenChannelNameIsDuplicate' => '이름이 중복되서 채널생성에 실패하라',
-        'failCreateChannelWhenChannelCreateCountIsExceed' => '최대 채널 생성개수 제한에 의하여 채널생성에 실패하라',
-        'successCreateChannel' => '채널 생성에 성공하라',
-    ],
     'CreateUserTest' => [
         'failRegisterUserWithOutAnyInfo' => '아무것도 안넣은채로 회원가입에 실패하라',
         'failRegisterUserWithoutEmail' => '올바른 이메일을 입력안한채 회원가입에 실패하라',
@@ -48,18 +41,41 @@ return [
         'successRegisterUserWithoutProfileImageWithSpecificEmail' => '프로필이미지 없이 특수한 이메일로 회원가입에 성공하라',
         'successRegisterUser' => '회원가입에 성공하라',
     ],
-    'FollowTest' => [
-        'successFollowChannel' => '채널을 팔로우 하라',
-        'ownerFailFollowChannelWhenFollowMyChannel' => '채널장이 내 채널을 팔로우에 실패 하라',
-        'failFollowChannelWhenUserEmailIsNotVerified' => '이메일 인증 인받은 유저가 채널을 팔로우를 실패하라',
-        'failFollowChannelWhelAlreadyChannelFollowed' => '이미 채널을 팔로우 했는데 또다시 팔로우 시도에 실패하라',
-        'failFollowChannelWhenChannelNotExists' => '없는 채널 팔로우에 실패하라'
+    'Channel' => [
+        'LikeTest' => [
+            'likeChannel' => '채널 좋아요 하라',
+            'failLikeChannelWhenTryUserEmailIsNotVerified' => '이메일 인증받지 않은 유저가 채널 좋아요 실패하라',
+            'failLikeChannelWhenChannelIsNotExists' => '없는 채널에 좋아요 실패하라',
+            'failLikeChannelWhenTryUserAlreadyLike' => '이미 좋아요 중복에 실패하라',
+        ],
+        'FollowTest' => [
+            'successFollowChannel' => '채널을 팔로우 하라',
+            'ownerFailFollowChannelWhenFollowMyChannel' => '채널장이 내 채널을 팔로우에 실패 하라',
+            'failFollowChannelWhenUserEmailIsNotVerified' => '이메일 인증 인받은 유저가 채널을 팔로우를 실패하라',
+            'failFollowChannelWhelAlreadyChannelFollowed' => '이미 채널을 팔로우 했는데 또다시 팔로우 시도에 실패하라',
+            'failFollowChannelWhenChannelNotExists' => '없는 채널 팔로우에 실패하라'
+        ],
+        'CreateTest' => [
+            'failCreateChannelWithoutChannelName' => '이름을 안넣고 채널생성에 실패하라',
+            'failCreateChannelWhenChannelNameIsLong' => '이름 최대길이 넘겨서 채널생성에 실패하라',
+            'failCreateChannelWhenChannelNameIsDuplicate' => '이름이 중복되서 채널생성에 실패하라',
+            'failCreateChannelWhenChannelCreateCountIsExceed' => '최대 채널 생성개수 제한에 의하여 채널생성에 실패하라',
+            'successCreateChannel' => '채널 생성에 성공하라',
+        ],
     ],
-    'LikeTest' => [
-        'likeChannel' => '채널 좋아요 하라',
-        'failLikeChannelWhenTryUserEmailIsNotVerified' => '이메일 인증받지 않은 유저가 채널 좋아요 실패하라',
-        'failLikeChannelWhenChannelIsNotExists' => '없는 채널에 좋아요 실패하라',
-        'failLikeChannelWhenTryUserAlreadyLike' => '이미 좋아요 중복에 실패하라',
+    'Team' => [
+        'DuplicateNameCheckTest' => [
+            'getTrueWhenTeamNameIsExists' => '팀 이름이 이미 존재하여 true 리턴 받는다',
+            'getFalseWhenTeamNameIsNotExists' => '팀이름이 존재하지 않아 false 리턴 받는다',
+        ],
+        'CreateTest' => [
+            'failCreatTeamWhenTeamNameIsNotUnique' => '팀 이름 중복으로 팀생성에 실패하라',
+            'failCreatTeamWhenUserIsNotLogin' => '로그인 안한채로 팀 생성에 실패하라',
+            'failCreatTeamWhenTeamNameIsLong' => '팀 이름이 20자를 초과하여 팀 생성에 실패하라',
+            'failCreatTeamWhenTeamNameIsEmpty' => '팀 이름이 비어있어 팀 생성에 실패하라',
+            'failCreatTeamWhenUserHasManyTeams' => '한 유저가 팀 을 3개 이상 가지고 있어 팀 생성에 실패하라',
+            'successCreateTeam' => '팀 생성에 성공하라',
+        ]
     ],
     'LoginTest' => [
         'failLoginWithoutEmail' => '이메일 입력안하고 로그인을 시도하라',

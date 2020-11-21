@@ -18,6 +18,10 @@ use App\Http\Controllers\Channel\ShowUserChannelController;
 use App\Http\Controllers\Channel\CreateChannelController;
 use App\Http\Controllers\Channel\UpdateChannelController;
 
+use App\Http\Controllers\Team\CreateTeamController;
+use  App\Http\Controllers\Team\CheckTeamNameExistsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -67,6 +71,11 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::patch('{slug}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
             Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
+        });
+
+        Route::group(['prefix' => 'team'], function () {
+            Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
+            Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
         });
 
         Route::post('email/resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');

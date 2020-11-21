@@ -20,7 +20,7 @@ class ArrayMixin
     {
         return function (array $items, $key, $item) {
             $items[$key] = $item;
-            return $item;
+            return $items;
         };
     }
 }

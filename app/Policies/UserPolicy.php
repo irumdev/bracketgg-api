@@ -47,7 +47,14 @@ class UserPolicy
 
     public function createTeam(User $user): bool
     {
-        return $this->isVerifyEmail($user);
+        return $this->isVerifyEmail($user) && (
+            $user->teams->count() < $this->getLimitCreateTeamCountFrom($user)
+        );
+    }
+
+    private function getLimitCreateTeamCountFrom(User $user): int
+    {
+        return 3;
     }
 
     private function getLimitCreateChannelCountFrom(User $user): int
