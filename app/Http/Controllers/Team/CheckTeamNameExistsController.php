@@ -23,5 +23,4 @@ class CheckTeamNameExistsController extends Controller
             'isDuplicate' => false,
         ]);
     }
-
 }

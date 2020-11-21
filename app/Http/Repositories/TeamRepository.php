@@ -75,5 +75,4 @@ class TeamRepository extends ChannelInfoFactory
     //         return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
     //     });
     // }
-
 }

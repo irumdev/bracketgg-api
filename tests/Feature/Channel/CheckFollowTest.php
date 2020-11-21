@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 use App\Models\Channel\Channel;
 use App\Models\Channel\Follower as ChannelFollower;
 
-class CheckFollowChannelTest extends TestCase
+class CheckFollowTest extends TestCase
 {
     /** @test */
     public function failFollowChannelWhenChannelIsNotExists(): void

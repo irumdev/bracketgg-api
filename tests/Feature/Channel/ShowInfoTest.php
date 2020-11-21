@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,7 +11,7 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 
-class ShowChannelTest extends TestCase
+class ShowInfoTest extends TestCase
 {
     /** @test */
     public function successLookupExistsChannelInfoFromSlug(): void

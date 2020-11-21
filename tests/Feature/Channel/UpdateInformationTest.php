@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,7 +15,7 @@ use App\Models\Channel\Channel;
 use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 
-class UpdateChannelTest extends TestCase
+class UpdateInformationTest extends TestCase
 {
     public function createChannel(): array
     {

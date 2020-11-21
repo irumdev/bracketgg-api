@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\User;
 
-class CheckUserEmailDuplicateTest extends TestCase
+class EmailDuplicateTest extends TestCase
 {
     /** @test */
     public function getFalseWhenEmailIsNotDuplicate(): void

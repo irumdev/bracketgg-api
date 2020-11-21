@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ShowUserInfoByTokenTest extends TestCase
+class ShowInfoByTokenTest extends TestCase
 {
     /** @test */
     public function successLookUpUserInfoWithBearerToken(): void

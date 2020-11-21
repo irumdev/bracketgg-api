@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,7 +9,7 @@ use App\Models\Channel\Channel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
-class ShowChannelFollowerListTest extends TestCase
+class ShowFollowerListTest extends TestCase
 {
     /** @test */
     public function failLookUpFollowersWhenUserIsNotLogin(): void
@@ -18,7 +18,6 @@ class ShowChannelFollowerListTest extends TestCase
         $tryLookUpFollowersList = $this->getJson(route('getFollower', [
             'slug' => '-1',
         ]))->assertUnauthorized();
-
 
         $this->assertFalse($tryLookUpFollowersList['ok']);
         $this->assertFalse($tryLookUpFollowersList['isValid']);

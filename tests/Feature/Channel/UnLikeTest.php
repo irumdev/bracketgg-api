@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,7 +11,7 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel\Fan as ChannelFan;
 
-class UnLikeChannelTest extends TestCase
+class UnLikeTest extends TestCase
 {
     /** @test */
     public function successUnLikeChannel(): void
@@ -24,7 +24,6 @@ class UnLikeChannelTest extends TestCase
         $tryLikeToChannel = $this->patchJson(route('likeChannel', [
             'slug' => $channel->slug
         ]))->assertCreated();
-
 
         $this->assertTrue($tryLikeToChannel['ok']);
         $this->assertTrue($tryLikeToChannel['isValid']);

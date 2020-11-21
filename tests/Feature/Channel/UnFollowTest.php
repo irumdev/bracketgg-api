@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,7 +11,7 @@ use App\Models\Channel\Channel;
 use App\Models\User;
 use App\Models\Channel\Follower as ChannelFollower;
 
-class UnFollowChannelTest extends TestCase
+class UnFollowTest extends TestCase
 {
     /** @test */
     public function successUnFollowChannel(): void
@@ -39,16 +39,6 @@ class UnFollowChannelTest extends TestCase
         $this->assertTrue($tryUnFollow['ok']);
         $this->assertTrue($tryUnFollow['isValid']);
         $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
-
-
-        // $this->assertEquals([
-        //     'ok' => true,
-        //     'isValid' => true,
-        //     'messages' => [
-        //         'ok' => true,
-        //         'isAlreadyUnFollow' => false,
-        //     ]
-        // ], $tryUnFollow->original);
     }
 
     /** @test */

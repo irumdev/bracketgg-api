@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -12,7 +12,7 @@ use App\Services\ChannelService;
 use App\Repositories\ChannelRepository;
 use App\Helpers\ResponseBuilder;
 
-class ShowUserChannelTest extends TestCase
+class ShowChannelInfoByOwnerTest extends TestCase
 {
     /** @test */
     public function successLookUpChannelWhenChannelHasBannerImageAndFollowers(): void

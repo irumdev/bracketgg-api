@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
+use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
+use App\Http\Requests\UserStoreRequest;
 
-class CreateUserTest extends TestCase
+class CreateTest extends TestCase
 {
     private string $testUrl;
 
@@ -34,7 +34,6 @@ class CreateUserTest extends TestCase
             ]
         ];
     }
-
 
     private function assertResponseError(int $message, array $responseOrigin): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,7 +10,7 @@ use App\Models\Channel\Channel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
-class CheckLikeChannelTest extends TestCase
+class CheckLikeTest extends TestCase
 {
     /** @test */
     public function failLookUpChannelIsFanWhenChannelNotExists(): void

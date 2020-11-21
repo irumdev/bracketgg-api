@@ -21,7 +21,6 @@ use App\Http\Controllers\Channel\UpdateChannelController;
 use App\Http\Controllers\Team\CreateTeamController;
 use  App\Http\Controllers\Team\CheckTeamNameExistsController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

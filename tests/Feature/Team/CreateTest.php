@@ -85,7 +85,7 @@ class CreateTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
-        collect(range(0 ,2))->map(function() use ($user) {
+        collect(range(0, 2))->map(function () use ($user) {
             $team = factory(Team::class)->create();
 
             $team->owner = $user->id;

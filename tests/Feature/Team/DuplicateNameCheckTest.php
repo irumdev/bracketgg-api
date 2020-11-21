@@ -26,7 +26,6 @@ class DuplicateNameCheckTest extends TestCase
         $this->assertFalse($tryCheckTeamNameIsDuplicate['ok']);
         $this->assertFalse($tryCheckTeamNameIsDuplicate['isValid']);
         $this->assertTrue($tryCheckTeamNameIsDuplicate['messages']['isDuplicate']);
-
     }
 
     /** @test */
@@ -41,6 +40,5 @@ class DuplicateNameCheckTest extends TestCase
         $this->assertTrue($tryCheckTeamNameIsDuplicate['ok']);
         $this->assertTrue($tryCheckTeamNameIsDuplicate['isValid']);
         $this->assertFalse($tryCheckTeamNameIsDuplicate['messages']['isDuplicate']);
-
     }
 }

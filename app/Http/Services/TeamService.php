@@ -39,5 +39,4 @@ class TeamService
             'slug' => $team->slug,
         ];
     }
-
 }
