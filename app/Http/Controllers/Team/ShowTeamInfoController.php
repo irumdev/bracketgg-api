@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Team;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Team\Team;
 use App\Services\TeamService;
-use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseBuilder;
+use App\Http\Controllers\Controller;
 
 class ShowTeamInfoController extends Controller
 {
@@ -18,8 +18,8 @@ class ShowTeamInfoController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    // public function getTeam(Team $team)
-    // {
-    //     return
-    // }
+    public function getInfo(Team $team)
+    {
+        return $this->responseBuilder->ok($this->teamService->get($team));
+    }
 }

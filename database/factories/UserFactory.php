@@ -33,6 +33,8 @@ $factory->define(User::class, function (Faker $faker) {
         // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'password' => 'password', // password
         'remember_token' => Str::random(10),
+        'create_channel_limit' => User::DEFAULT_CREATE_CHANNEL_LIMIT_COUNT,
+        'create_team_limit' => User::DEFAULT_CREATE_TEAM_LIMIT_COUNT,
     ];
 });
 

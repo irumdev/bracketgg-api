@@ -34,7 +34,7 @@ class ChannelRepository extends ChannelInfoFactory
      */
     public function findByName(string $channelName): Channel
     {
-        return Channel::where('name', $channelName)->first();
+        return Channel::with(User::$channelsInfo)->where('name', $channelName)->first();
     }
 
     public function findById(int $id): Channel

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Team\Team;
 use App\Models\Channel\Channel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,14 +53,19 @@ class UserPolicy
         );
     }
 
+    public function updateTeam(User $user, Team $team)
+    {
+        return $user->id === $team->owner;
+    }
+
     private function getLimitCreateTeamCountFrom(User $user): int
     {
-        return 3;
+        return $user->create_team_limit;
     }
 
     private function getLimitCreateChannelCountFrom(User $user): int
     {
-        return 5;
+        return $user->create_channel_limit;
     }
 
     public function updateChannel(User $user, Channel $channel): bool

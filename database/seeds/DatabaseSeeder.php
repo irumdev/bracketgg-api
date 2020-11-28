@@ -14,16 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        factory(Team::class, 20)->states([
+            'addSlug',
+            'addBannerImage',
+            'addBroadcasts',
+            'addOperateGame',
+        ])->create();
+
         factory(Channel::class, 20)->states([
             'addSlug',
             'addBannerImage','hasFollower',
             'addBroadcasts', 'hasLike'
-        ])->create();
-
-        factory(Team::class, 20)->states([
-            'addSlug',
-            'addBannerImage',
-            'addBroadcasts'
         ])->create();
     }
 }

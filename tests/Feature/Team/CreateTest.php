@@ -124,7 +124,7 @@ class CreateTest extends TestCase
         $this->assertEquals([], $message['broadCastAddress']);
         $this->assertEquals($team->id, $message['id']);
         $this->assertEquals($teamName, $team->name);
-        $this->assertEquals($teamName, $message['channelName']);
+        $this->assertEquals($teamName, $message['teamName']);
         $this->assertNull($team->logo_image);
         $this->assertNull($message['logoImage']);
         $this->assertEquals($user->id, $message['owner']);

@@ -4,29 +4,27 @@ declare(strict_types=1);
 
 namespace Database\Factories\Team;
 
-use App\Models\Team\Slug;
+use App\Models\Team\OperateGame;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class SlugFactory extends Factory
+class OperateGameFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Slug::class;
+    protected $model = OperateGame::class;
 
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition(): array
+    public function definition()
     {
         return [
             //
-            'slug' => Str::lower(Str::random(random_int(4, 14)))
         ];
     }
 }

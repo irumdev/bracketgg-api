@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 use App\Models\User;
+use App\Http\Requests\Rules\CreateTeam as CreateTeamRules;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRules;
@@ -49,10 +50,7 @@ class CreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = explode('|', CreateChannelRules::rules()['name']);
-        return [
-            'name' => join('|', Arr::replaceItemByKey($rules, count($rules) - 1, 'unique:App\Models\Team\Team,name'))
-        ];
+        return CreateTeamRules::rules();
     }
 
     public function messages(): array

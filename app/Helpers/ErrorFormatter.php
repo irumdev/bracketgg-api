@@ -6,6 +6,7 @@ namespace App\Helpers;
 
 use Throwable;
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator;
 
 /**
  * 에러 로그를

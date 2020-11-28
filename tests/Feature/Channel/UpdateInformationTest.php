@@ -145,6 +145,27 @@ class UpdateInformationTest extends TestCase
     }
 
     /** @test */
+    public function failUpdateChannelSlugWhenSlugIsNotUnique(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $tryCreateChannel = $this->createChannel();
+        $channel = $tryCreateChannel['channel'];
+        $activeUser = $tryCreateChannel['user'];
+
+        $testUrl = route('updateChannelInfo', [
+            'slug' => $channel->slug
+        ]);
+
+        $tryChangeSlug = $this->postJson($testUrl, [
+            'slug' => $channel->slug,
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryChangeSlug['ok']);
+        $this->assertFalse($tryChangeSlug['isValid']);
+        $this->assertEquals(UpdateChannelRequest::SLUG_IS_NOT_UNIQUE, $tryChangeSlug['messages']['code']);
+    }
+
+    /** @test */
     public function failUpdateChannelSlugWhenSlugIsTooLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

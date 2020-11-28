@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Team;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Team\Team;
-use App\Services\TeamService;
-use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseBuilder;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\CheckNameExistsRequest;
 
 class CheckTeamNameExistsController extends Controller
 {
+    /**
+     * @var ResponseBuilder $responseBuilder
+     */
+    private ResponseBuilder $responseBuilder;
+
     public function __construct(ResponseBuilder $responseBuilder)
     {
         $this->responseBuilder = $responseBuilder;

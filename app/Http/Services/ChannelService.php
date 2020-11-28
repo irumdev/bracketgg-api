@@ -28,14 +28,14 @@ class ChannelService
     public function findBySlug(string $slug): Channel
     {
         $findBySlugResult = ChannelSlug::where('slug', $slug)->first();
-        throw_if($findBySlugResult === null, (new ModelNotFoundException())->setModel(Channel::class));
+        throw_unless($findBySlugResult, (new ModelNotFoundException())->setModel(Channel::class));
         return $findBySlugResult->channel;
     }
 
     public function findChannelsByUserId(string $userId): Collection
     {
         $getUserChannelsByUserId = $this->channelRepostiroy->findByUserId($userId)->simplePaginate();
-        throw_if($getUserChannelsByUserId->isNotEmpty() === false, (new ModelNotFoundException())->setModel(Channel::class));
+        throw_unless($getUserChannelsByUserId->isNotEmpty(), (new ModelNotFoundException())->setModel(Channel::class));
         $result = $this->responseBuilder->paginateMeta($getUserChannelsByUserId)->merge([
             'channels' => collect($getUserChannelsByUserId->items())->map(fn (Channel $channel) => $this->info($channel))
         ]);

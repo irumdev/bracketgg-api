@@ -3,13 +3,14 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\User;
-use App\Models\Team\Team;
-use App\Models\Team\BannerImage;
-use App\Models\Team\Slug;
-use App\Models\Team\Broadcast;
-
-use Faker\Generator as Faker;
 use App\Helpers\Image;
+use App\Models\GameType;
+use App\Models\Team\Slug;
+use App\Models\Team\Team;
+use Faker\Generator as Faker;
+use App\Models\Team\Broadcast;
+use App\Models\Team\OperateGame;
+use App\Models\Team\BannerImage;
 
 $factory->define(Team::class, function (Faker $faker) {
     return [
@@ -26,14 +27,24 @@ $factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team
     ]);
 });
 
-$factory->afterCreatingState(Team::class, 'addSlug', function (Team $channel, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addSlug', function (Team $team, Faker $faker) {
     Slug::factory()->create([
-        'team_id' => $channel->id,
+        'team_id' => $team->id,
     ]);
 });
 
-$factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $channel, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team, Faker $faker) {
     factory(Broadcast::class, random_int(1, 5))->create([
-        'team_id' => $channel->id,
+        'team_id' => $team->id,
     ]);
+});
+
+$factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker) {
+    foreach (range(0, 9) as $_) {
+        $type = GameType::factory()->create();
+        OperateGame::factory()->create([
+            'team_id' => $team->id,
+            'game_type_id' => $type->id,
+        ]);
+    }
 });

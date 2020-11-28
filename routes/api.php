@@ -19,7 +19,11 @@ use App\Http\Controllers\Channel\CreateChannelController;
 use App\Http\Controllers\Channel\UpdateChannelController;
 
 use App\Http\Controllers\Team\CreateTeamController;
-use  App\Http\Controllers\Team\CheckTeamNameExistsController;
+use App\Http\Controllers\Team\CheckTeamNameExistsController;
+use App\Http\Controllers\Team\UpdateInformationController;
+use App\Http\Controllers\Team\ShowTeamInfoController;
+
+use App\Http\Controllers\Game\FindTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,8 +78,12 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'team'], function () {
             Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
+            Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
+            Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
         });
+
+        Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
 
         Route::post('email/resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
     });

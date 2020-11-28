@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Factories\ChannelInfoFactory;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,11 @@ class TeamRepository extends ChannelInfoFactory
     public function __construct(Team $team)
     {
         $this->team = $team;
+    }
+
+    public function getByModel(Team $team)
+    {
+        return $team->with(Team::TEAM_RELATIONS)->where('id', $team->id);
     }
 
     // public function findByUserId(string $userId): Builder
@@ -50,6 +56,13 @@ class TeamRepository extends ChannelInfoFactory
             $this->createUniqueSlug($createdTeam);
             return $createdTeam;
         });
+    }
+
+    public function update(Team $team, array $updateInfo): Team
+    {
+        return DB::transaction(fn () => $team->update($updateInfo))->with(Team::TEAM_RELATIONS)
+                                                                  ->where('id', $team->id)
+                                                                  ->first();
     }
 
     public function createUniqueSlug(Team $team)

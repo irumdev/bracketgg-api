@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'GameType' => [
+        'SearchTest' => [
+            'failSearchItemWhenQueryIsEmpty' => '검색할 게임종목을 입력하지 않아 게임타입 조회에 실패하라',
+            'failSearchItemWhenQueryIsNotFound' => '검색할 게임종목을 찾지못해 404를 리턴받아라',
+            'successSearchGameTypes' => '게임종목 검색을 성공하라',
+        ]
+    ],
     'Channel' => [
         'LikeTest' => [
             'likeChannel' => '채널 좋아요 하라',
@@ -57,6 +64,7 @@ return [
             'failUpdateChannelSlugWhenSlugIsTooShort' => '채널 슬러그 자리수 미달로 업데이트에 실패하라',
             'failUpdateChannelSlugWhenSlugIsTooLong' => '채널 슬러그 자리수 초과로 업데이트에 실패하라',
             'failUpdateChannelSlugWhenSlugPatterlIsWrong' => '채널 슬러그 패턴 불일치로 업데이트에 실패하라',
+            'failUpdateChannelSlugWhenSlugIsNotUnique' => '채널 슬러그를 이미 사용하고 있어서 업데이트에 실패하라',
             'successUpdateChannelName' => '채널 이름 업데이트에 성공하라',
             'failUpdateChannelNameWhenChannelNameIsTooLong' => '채널 이름 최대자리 초과로 실패하라',
             'failUpdateChannelNameWhenChannelNameIsDuplicate' => '채널 이름 중복으로 실패하라',
@@ -95,6 +103,16 @@ return [
             'failCreatTeamWhenTeamNameIsEmpty' => '팀 이름이 비어있어 팀 생성에 실패하라',
             'failCreatTeamWhenUserHasManyTeams' => '한 유저가 팀 을 3개 이상 가지고 있어 팀 생성에 실패하라',
             'successCreateTeam' => '팀 생성에 성공하라',
+        ],
+        'UpdateInformationTest' => [
+            'failUpdateTeamSlugWhenSlugIsNotUnique' => '팀 슬러그가 중복되어 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenSlugIsLong' => '팀 슬러그가 길어서(최대 16자리) 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenSlugIsShort' => '팀 슬러그가 짧아서(최소 4자리) 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenSlugPatternIsNotMatch' => '팀 슬러그가 패턴에 맞지 않아(첫글자에 영어 소문자 포함, 이후에는 엉여 대소문자, 숫자, - 포함) 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenPublicStatusIsNotBoolean' => '팀 공개여부가 bool이 아니여서 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenGameCategoryIsNotArray' => '팀 게임종목을 array로 안보내서 팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenGameCategoryItemIsLong' => '팀 게임종목이 길어서  팀정보 변경에 실패하라',
+            'successUpdateAllItem' => '모든 팀정보 변경에 성공',
         ]
     ],
     'User' => [

@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories\Team;
+namespace Database\Factories;
 
-use App\Models\Team\Slug;
+use App\Models\GameType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class SlugFactory extends Factory
+class GameTypeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Slug::class;
+    protected $model = GameType::class;
 
     /**
      * Define the model's default state.
@@ -25,8 +24,7 @@ class SlugFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            'slug' => Str::lower(Str::random(random_int(4, 14)))
+            'name' => $this->faker->name(),
         ];
     }
 }

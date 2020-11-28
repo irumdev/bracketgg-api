@@ -47,6 +47,7 @@ class UpdateChannelRequest extends FormRequest
     public const BANNER_ID_IS_EMPTY = 19;
     public const BANNER_ID_IS_NOT_EXISTS = 20;
 
+    public const SLUG_IS_NOT_UNIQUE = 21;
 
     public function __construct(ResponseBuilder $responseBuilder)
     {
@@ -84,7 +85,8 @@ class UpdateChannelRequest extends FormRequest
                  * 패턴은 첫글자에 영어 소문자 포함
                  * 이후에는 엉여 대소문자, 숫자, - 포함
                  */
-                'regex:/^(([a-z]{1}).*(\-?)*(\d*))/'
+                'regex:/^(([a-z]{1}).*(\-?)*(\d*))/',
+                'unique:App\Models\Channel\Slug,slug'
             ],
             'name' => array_replace(explode('|', $channelNameRule), [0 => 'nullable']),
             'description' => 'nullable|string',
@@ -114,6 +116,7 @@ class UpdateChannelRequest extends FormRequest
             'slug.min' => json_encode(['code' => self::SLUG_IS_SHORT]),
             'slug.max' => json_encode(['code' => self::SLUG_IS_LONG]),
             'slug.regex' => json_encode(['code' => self::SLUG_PATTERN_IS_WRONG]),
+            'slug.unique' => json_encode(['code' => self::SLUG_IS_NOT_UNIQUE]),
 
             'description.string' => json_encode(['code' => self::DESCRIPTION_IS_NOT_STRING]),
 

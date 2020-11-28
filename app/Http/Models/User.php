@@ -31,6 +31,9 @@ class User extends Authenticatable
     use HasApiTokens;
     use MustVerifyEmail;
 
+    public const DEFAULT_CREATE_CHANNEL_LIMIT_COUNT = 5;
+    public const DEFAULT_CREATE_TEAM_LIMIT_COUNT = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -78,11 +81,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    public static $teamInfo = [
-        'bannerImages:team_id,banner_image',
-        'broadcastAddress:team_id,broadcast_address AS broadcastAddress,platform',
-    ];
-
+    public $teamInfo = Team::TEAM_RELATIONS;
 
     protected $dates = ['deleted_at'];
 
