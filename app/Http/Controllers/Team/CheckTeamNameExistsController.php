@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Team;
 use App\Helpers\ResponseBuilder;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\CheckNameExistsRequest;
+use Illuminate\Http\JsonResponse;
 
 class CheckTeamNameExistsController extends Controller
 {
@@ -20,7 +21,7 @@ class CheckTeamNameExistsController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function nameAlreadyExists(CheckNameExistsRequest $request)
+    public function nameAlreadyExists(CheckNameExistsRequest $request): JsonResponse
     {
         return $this->responseBuilder->ok([
             'isDuplicate' => false,

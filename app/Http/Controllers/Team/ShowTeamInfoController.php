@@ -8,6 +8,7 @@ use App\Models\Team\Team;
 use App\Services\TeamService;
 use App\Helpers\ResponseBuilder;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class ShowTeamInfoController extends Controller
 {
@@ -18,7 +19,7 @@ class ShowTeamInfoController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function getInfo(Team $team)
+    public function getInfo(Team $team): JsonResponse
     {
         return $this->responseBuilder->ok($this->teamService->get($team));
     }

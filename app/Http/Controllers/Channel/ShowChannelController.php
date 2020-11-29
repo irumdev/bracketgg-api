@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\ResponseBuilder;
 use App\Services\ChannelService;
 use App\Models\Channel\Channel;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +42,7 @@ class ShowChannelController extends Controller
      * @version 1.0.0
      * @return JsonResponse 채널정보들
      */
-    public function getChannelById(Channel $channel)
+    public function getChannelById(Channel $channel): JsonResponse
     {
         return $this->response->ok(
             $this->channelService->findChannelById($channel->id)

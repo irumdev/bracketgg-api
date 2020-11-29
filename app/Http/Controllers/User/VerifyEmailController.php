@@ -42,13 +42,12 @@ class VerifyEmailController extends Controller
     public function verifyEmail(EmailVerificationRequest $request): JsonResponse
     {
         $markEmailAsVerifiedResult = $this->userService->markEmailAsVerified($request->route('id'));
-
         return $this->responseBuilder->ok([
             'markEmailAsVerified' => $markEmailAsVerifiedResult,
         ]);
     }
 
-    public function resendEmail(ResendEmailVerificationRequest $request)
+    public function resendEmail(ResendEmailVerificationRequest $request): JsonResponse
     {
         $this->user = Auth::user();
         $this->user->sendEmailVerificationNotification();

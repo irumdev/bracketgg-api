@@ -10,6 +10,7 @@ use App\Http\Requests\Team\UpdateInfoWithOutBannerRequest;
 use App\Models\Team\Team;
 use App\Services\TeamService;
 use App\Helpers\ResponseBuilder;
+use Illuminate\Http\JsonResponse;
 
 class UpdateInformationController extends Controller
 {
@@ -26,7 +27,7 @@ class UpdateInformationController extends Controller
     {
     }
 
-    public function updateInfo(Team $team, UpdateInfoWithOutBannerRequest $request)
+    public function updateInfo(Team $team, UpdateInfoWithOutBannerRequest $request): JsonResponse
     {
         $validatedResult = $request->validated();
 

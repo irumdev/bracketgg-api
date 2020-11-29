@@ -9,6 +9,7 @@ use App\Http\Requests\Team\CreateRequest as CreateTeamRequest;
 use App\Services\TeamService;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseBuilder;
+use Illuminate\Http\JsonResponse;
 
 class CreateTeamController extends Controller
 {
@@ -19,7 +20,7 @@ class CreateTeamController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function createTeam(CreateTeamRequest $request)
+    public function createTeam(CreateTeamRequest $request): JsonResponse
     {
         $createTeam = $this->teamService->createTeam(array_merge($request->validated(), [
             'is_public' => 0,

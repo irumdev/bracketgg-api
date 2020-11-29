@@ -23,9 +23,9 @@ class UserLogoutController extends Controller
      * @param   Illuminate\Http\Request $request 요청 객체
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
-     * @return JsonResponse 204 status를 클라이언트에게 리턴합니다.
+     * @return Illuminate\Http\Response 204 status를 클라이언트에게 리턴합니다.
      */
-    public function logout(Request $request)
+    public function logout(Request $request): Response
     {
         $user = $request->user();
         $user->tokens()->where(

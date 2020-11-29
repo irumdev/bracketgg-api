@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Is\EmailDuplicateRequest as UserEmailDuplicateCheckRequest;
 use App\Helpers\ResponseBuilder;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 이메일 중복여부를 알려주는 컨트롤러 입니다.
@@ -35,7 +36,7 @@ class CheckEmailDuplicateController extends Controller
      * @version 1.0.0
      * @return JsonResponse 이메일 중복여부
      */
-    public function getUserEmailDuplicate(UserEmailDuplicateCheckRequest $request)
+    public function getUserEmailDuplicate(UserEmailDuplicateCheckRequest $request): JsonResponse
     {
         return $this->responseBuilder->ok([
             'isDuplicate' => false,

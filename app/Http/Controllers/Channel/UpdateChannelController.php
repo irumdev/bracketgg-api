@@ -10,6 +10,7 @@ use App\Http\Requests\Channel\UpdateRequest as UpdateChannelRequest;
 use App\Services\ChannelService;
 use App\Helpers\ResponseBuilder;
 use App\Models\Channel\Channel;
+use Illuminate\Http\JsonResponse;
 
 class UpdateChannelController extends Controller
 {
@@ -25,7 +26,7 @@ class UpdateChannelController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function updateChannelInfoWithOutImage(UpdateChannelRequest $request, Channel $channel)
+    public function updateChannelInfoWithOutImage(UpdateChannelRequest $request, Channel $channel): JsonResponse
     {
         $updateResult = $this->channelService->updateChannelInfoWithOutImage(
             $channel,
