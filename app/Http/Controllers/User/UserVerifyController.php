@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserVerifyRequest;
+use App\Http\Requests\User\VerifyRequest as UserVerifyRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use App\Helpers\ResponseBuilder;

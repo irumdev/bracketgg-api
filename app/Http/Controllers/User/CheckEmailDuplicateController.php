@@ -6,7 +6,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserEmailDuplicateCheckRequest;
+use App\Http\Requests\User\Is\EmailDuplicateRequest as UserEmailDuplicateCheckRequest;
 use App\Helpers\ResponseBuilder;
 
 /**

@@ -4,14 +4,11 @@ namespace Tests\Feature\Channel;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+
 use Tests\TestCase;
-
-use App\Http\Requests\CreateChannelRequest;
-
 use App\Models\User;
-use App\Models\Channel\Channel;
-
 use Laravel\Sanctum\Sanctum;
+use App\Models\Channel\Channel;
 
 class CreateTest extends TestCase
 {

@@ -5,15 +5,15 @@ namespace Tests\Feature\Channel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use Illuminate\Support\Str;
-use App\Http\Requests\UpdateChannelRequest;
+use Laravel\Sanctum\Sanctum;
 use App\Models\Channel\Slug as ChannelSlug;
 use Illuminate\Http\UploadedFile;
 use App\Models\Channel\Channel;
-use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
+use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
+use App\Http\Requests\Channel\UpdateRequest as UpdateChannelRequest;
 
 class UpdateInformationTest extends TestCase
 {

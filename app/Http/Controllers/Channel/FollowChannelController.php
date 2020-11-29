@@ -12,9 +12,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\FollowChannelRequest;
-use App\Http\Requests\UnFollowRequest;
-use App\Http\Requests\CheckUserFollowChannelRequest;
+use App\Http\Requests\Channel\UnFollowRequest;
+use App\Http\Requests\User\Is\FollowChannelRequest as CheckUserFollowChannelRequest;
+use App\Http\Requests\Channel\FollowRequest as FollowChannelRequest;
 
 /**
  * 채널을 팔로우 또는 언팔로우 하는 컨트롤러 입니다.

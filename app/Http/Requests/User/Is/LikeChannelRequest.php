@@ -2,19 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User\Is;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-class ResendEmailVerificationRequest extends FormRequest
+class LikeChannelRequest extends FormRequest
 {
-    private User $user;
-    public function __construct()
-    {
-        $this->user = Auth::user();
-    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -22,7 +15,7 @@ class ResendEmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user && $this->user->hasVerifiedEmail() === false;
+        return true;
     }
 
     /**

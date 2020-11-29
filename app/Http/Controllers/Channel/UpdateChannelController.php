@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Channel;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateChannelRequest;
+use App\Http\Requests\Channel\UpdateRequest as UpdateChannelRequest;
 
 use App\Services\ChannelService;
 use App\Helpers\ResponseBuilder;
@@ -25,9 +25,9 @@ class UpdateChannelController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function updateChannelInfo(UpdateChannelRequest $request, Channel $channel)
+    public function updateChannelInfoWithOutImage(UpdateChannelRequest $request, Channel $channel)
     {
-        $updateResult = $this->channelService->updateChannelInfo(
+        $updateResult = $this->channelService->updateChannelInfoWithOutImage(
             $channel,
             $request->validated()
         );

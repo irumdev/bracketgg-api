@@ -2,22 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Channel;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
-
-use Symfony\Component\HttpFoundation\Response;
-
 
 use App\Models\User;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
-class CreateChannelRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     public const CAN_NOT_CREATE_CHANNEL = 1;
     public const HAS_NOT_VERIFY_EMAIL = 2;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Channel;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LikeChannelRequest;
-use App\Http\Requests\UnLikeChannelRequest;
+use App\Http\Requests\Channel\LikeRequest as LikeChannelRequest;
+use App\Http\Requests\Channel\UnLikeRequest as UnLikeChannelRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
 use App\Models\Channel\Fan as ChannelFan;
 use App\Models\Channel\Channel;
-use App\Http\Requests\CheckUserLikeChannelRequest;
+use App\Http\Requests\User\Is\LikeChannelRequest as CheckUserLikeChannelRequest;
 
 /**
  * 채널을 좋아요 또는 좋아요 취소 하는 컨트롤러 입니다.

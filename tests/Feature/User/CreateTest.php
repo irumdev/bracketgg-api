@@ -9,7 +9,7 @@ use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\User\StoreRequest as UserStoreRequest;
 
 class CreateTest extends TestCase
 {

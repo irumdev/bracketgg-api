@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmailVerificationRequest;
-use App\Http\Requests\ResendEmailVerificationRequest;
+use App\Http\Requests\User\EmailVerificationRequest;
+use App\Http\Requests\User\ResendEmailVerificationRequest;
 
 use App\Services\UserService;
 use App\Helpers\ResponseBuilder;

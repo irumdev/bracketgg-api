@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -17,7 +17,7 @@ use App\Helpers\ValidMessage;
  * @author  dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class UserVerifyRequest extends FormRequest
+class VerifyRequest extends FormRequest
 {
     /**
      * @var ResponseBuilder $response 리스폰스 인스턴스

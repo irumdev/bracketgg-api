@@ -63,9 +63,9 @@ class ChannelService
         return $this->info($createdChannel);
     }
 
-    public function updateChannelInfo(Channel $channel, array $updateInfo)
+    public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo)
     {
-        $updateResult = $this->channelRepostiroy->updateChannelInfo($channel, $updateInfo);
+        $updateResult = $this->channelRepostiroy->updateChannelInfoWithOutImage($channel, $updateInfo);
         throw_unless($updateResult, new DBtransActionFail());
         return $this->info($channel);
     }

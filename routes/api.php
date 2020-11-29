@@ -61,7 +61,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'channel'], function () {
             Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
-            Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfo'])->name('updateChannelInfo');
+            Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfoWithOutImage'])->name('updateChannelInfo');
 
             Route::get('{slug}/followers', [ShowUserChannelController::class, 'getFollower'])->name('getFollower');
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');

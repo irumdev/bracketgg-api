@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User\Is;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
 
-class EmailVerificationRequest extends FormRequest
+class FollowChannelRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -17,18 +15,8 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $requestUser = User::findOrFail($this->route('id'));
-        if ($requestUser->email_verified_at !== null) {
-            return false;
-        }
-
-        return hash_equals(
-            $this->route('hash'),
-            sha1($requestUser->getEmailForVerification())
-        );
+        return true;
     }
-
-
 
     /**
      * Get the validation rules that apply to the request.

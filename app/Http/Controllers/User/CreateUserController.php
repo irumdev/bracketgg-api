@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\UnauthorizedException;
 use App\Helpers\ResponseBuilder;
 use App\Services\UserService;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\User\StoreRequest as UserStoreRequest;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

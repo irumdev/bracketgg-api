@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Services\ChannelService;
 
-use App\Http\Requests\CreateChannelRequest;
+use App\Http\Requests\Channel\CreateRequest as CreateChannelRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 

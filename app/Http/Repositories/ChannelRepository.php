@@ -56,7 +56,7 @@ class ChannelRepository extends ChannelInfoFactory
         });
     }
 
-    public function updateChannelInfo(Channel $channel, array $updateInfo): bool
+    public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo): bool
     {
         return DB::transaction(function () use ($channel, $updateInfo) {
             $this->slug($channel, data_get($updateInfo, 'slug'));

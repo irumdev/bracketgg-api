@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User\Is;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ use App\Helpers\ValidMessage;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserEmailDuplicateCheckRequest extends FormRequest
+class EmailDuplicateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

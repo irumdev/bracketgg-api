@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Channel;
 
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -22,7 +22,7 @@ use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
 
-class UpdateChannelRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     private ResponseBuilder $responseBuilder;
     private User $user;
