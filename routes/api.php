@@ -63,6 +63,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
             Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfoWithOutImage'])->name('updateChannelInfo');
 
+            Route::post('{slug}/update-banner', [UpdateChannelController::class, 'updateBannerImage'])->name('updateChannelBanner');
+            Route::post('{slug}/update-logo', [UpdateChannelController::class, 'updateLogoImage'])->name('updateChannelLogo');
+
             Route::get('{slug}/followers', [ShowUserChannelController::class, 'getFollower'])->name('getFollower');
             Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
 
@@ -81,6 +84,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
             Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
+
+            Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
+            Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');

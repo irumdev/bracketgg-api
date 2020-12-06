@@ -6,18 +6,25 @@ namespace App\Repositories;
 
 use App\Models\Channel\Channel;
 use App\Models\User;
-use App\Factories\ChannelInfoFactory;
-
+use App\Factories\ChannelInfoUpdateFactory;
+use App\Factories\Update\ImageUpdateFactory;
+use App\Wrappers\UpdateTypeWrapper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class ChannelRepository extends ChannelInfoFactory
+class ChannelRepository extends ChannelInfoUpdateFactory
 {
     private Channel $channel;
     public function __construct(Channel $channel)
     {
         $this->channel = $channel;
+    }
+
+    public function followers(Channel $channel): HasManyThrough
+    {
+        return $channel->followers();
     }
 
     public function findByUserId(string $userId): Builder
@@ -60,21 +67,29 @@ class ChannelRepository extends ChannelInfoFactory
     {
         return DB::transaction(function () use ($channel, $updateInfo) {
             $this->slug($channel, data_get($updateInfo, 'slug'));
-
-            $filteredBannerInfo = array_filter([
-                'bannerImage' => $updateInfo['banner_image'] ?? '',
-                'id' => $updateInfo['banner_image_id'] ?? ''
-            ], fn ($item) => empty($item) === false);
-
-            $this->bannerImage($channel, $filteredBannerInfo);
-            $updateInfo['logo_image'] = $this->logoImage($channel, data_get($updateInfo, 'logo_image'));
-
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
     }
 
-    public function followers(Channel $channel): HasManyThrough
+    public function createImage(string $type, array $attribute): bool
     {
-        return $channel->followers();
+        return DB::transaction(function () use ($type, $attribute) {
+            return $this->resolveUpdateFactory($type, $attribute)->create();
+        });
+    }
+
+    public function updateImage(string $type = null, array $attribute): bool
+    {
+        return DB::transaction(function () use ($type, $attribute) {
+            return $this->resolveUpdateFactory($type, $attribute)->update();
+        });
+    }
+
+    private function resolveUpdateFactory(string $type, array $attribute): ImageUpdateFactory
+    {
+        return new ImageUpdateFactory(
+            new UpdateTypeWrapper('channel', $type),
+            $attribute
+        );
     }
 }

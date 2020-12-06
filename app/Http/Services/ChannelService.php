@@ -13,6 +13,7 @@ use App\Repositories\ChannelRepository;
 use App\Exceptions\DBtransActionFail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class ChannelService
 {
@@ -63,14 +64,38 @@ class ChannelService
         return $this->info($createdChannel);
     }
 
-    public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo)
+    public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo): bool
     {
         $updateResult = $this->channelRepostiroy->updateChannelInfoWithOutImage($channel, $updateInfo);
         throw_unless($updateResult, new DBtransActionFail());
-        return $this->info($channel);
+        return $updateResult;
     }
 
-    public function followers(Channel $channel)
+    public function createBannerImage(array $bannerInfo, Channel $channel): bool
+    {
+        return $this->channelRepostiroy->createImage('banner', [
+            'channel' => $channel,
+            'updateInfo' => $bannerInfo
+        ]);
+    }
+
+    public function updateBannerImage(array $bannerInfo, Channel $channel): bool
+    {
+        return $this->channelRepostiroy->updateImage('banner', [
+            'channel' => $channel,
+            'updateInfo' => $bannerInfo
+        ]);
+    }
+
+    public function updateLogoImage(array $logoInfo, Channel $channel): bool
+    {
+        return $this->channelRepostiroy->updateImage('logo', [
+            'channel' => $channel,
+            'updateInfo' => $logoInfo
+        ]);
+    }
+
+    public function followers(Channel $channel): HasManyThrough
     {
         return $this->channelRepostiroy->followers($channel);
     }
@@ -79,7 +104,7 @@ class ChannelService
     {
         return [
             'id' => $channel->id,
-            'channelName' => $channel->name,
+            'name' => $channel->name,
             'logoImage' => $channel->logo_image,
             'followerCount' => $channel->follwer_count,
             'likeCount' => $channel->like_count,

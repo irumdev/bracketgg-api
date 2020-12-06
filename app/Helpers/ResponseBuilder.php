@@ -50,7 +50,7 @@ class ResponseBuilder
      * @version 1.0.0
      * @return JsonResponse 성공 리스폰스
      */
-    public function ok($message, int $httpStatus = Response::HTTP_OK): JsonResponse
+    public function ok($message = null, int $httpStatus = Response::HTTP_OK): JsonResponse
     {
         return $this->setOk(true)
                     ->setHttpStatus($httpStatus)

@@ -26,6 +26,30 @@ class TeamService
         return $this->info($createdTeam);
     }
 
+    public function updateLogoImage(Team $team, array $updateInfo)
+    {
+        return $this->teamRepository->updateImage('logo', [
+            'team' => $team,
+            'updateInfo' => $updateInfo,
+        ]);
+    }
+
+    public function updateBannerImage(Team $team, array $updateInfo)
+    {
+        return $this->teamRepository->updateImage('banner', [
+            'team' => $team,
+            'updateInfo' => $updateInfo,
+        ]);
+    }
+
+    public function createBannerImage(Team $team, array $updateInfo)
+    {
+        return $this->teamRepository->createImage('banner', [
+            'team' => $team,
+            'updateInfo' => $updateInfo,
+        ]);
+    }
+
     public function updateInfo(Team $team, array $updateInfo): array
     {
         $updateTeamResult = $this->teamRepository->update($team, $updateInfo);
@@ -43,7 +67,7 @@ class TeamService
     {
         return [
             'id' => $team->id,
-            'teamName' => $team->name,
+            'name' => $team->name,
             'logoImage' => $team->logo_image,
             'bannerImages' => $team->bannerImages->map(fn (TeamBannerImages $image) => $image->banner_image),
             'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [

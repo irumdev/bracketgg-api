@@ -77,6 +77,8 @@ return [
             'failUpdateBannerImageWhenUploadBannerImageButBannerImageIsEmpty' => '배너이미지 이미지 올랄때 배너 아이디 안올려서 채널정보 업데이트에 실패하라',
             'failUpdateBannerImageWhenBannerImageIdIsInvalid' => '배너이미지 이미지 올랄때 배너 아이디 이상한거 올려서 채널정보 업데이트에 실패하라',
             'successUpdateBannerImage' => '배너이미지 이미지 업데이트에 성공하라',
+            'successCreateBannerImage' => '배너이미지 생성에 성공하라',
+            'failCreateBannerImageWhenBannerAlreadyExists' => '이미 배너이미지가 존재하여 생성에 실패하라'
         ],
 
         'UnFollowTest' => [
@@ -113,6 +115,22 @@ return [
             'failUpdateTeamSlugWhenGameCategoryIsNotArray' => '팀 게임종목을 array로 안보내서 팀정보 변경에 실패하라',
             'failUpdateTeamSlugWhenGameCategoryItemIsLong' => '팀 게임종목이 길어서  팀정보 변경에 실패하라',
             'successUpdateAllItem' => '모든 팀정보 변경에 성공',
+            'failUpdateBannerImageWhenTryAnotherTeam' => 'A채널이 B채널의 배너이미지 변경에 실패하라',
+            'failCreateBannerWhenBannerIsNotFile' => '업로드한 배너파일이 다 업로드가 안되어 생성에 실패하라',
+            'failCreateBannerWhenBannerIsNotImage' => '업로드한 배너파일이 이미지가 아니여서 생성에 실패하라',
+            'failCreateBannerWhenBannerIsLarge' => '배너이미지가 용량이 최대(2048kb)를 넘어서 생성에 실패하라',
+            'failCreateBannerWhenAlreadyHasBanner' => '이미 배너이미지가 있어서 생성에 실패하라',
+            'successCreateBannerImage' => '배너이미지 생성에 성공하라',
+            'failUpdateBannerImageWhenBannerIdIsInvalid' => '올바른 배너인덱스가 아니여서 배너 업데이트에 실패하라',
+            'failUpdateBannerImageWhenBannerIdIsNotNumeric' => '배너인덱스가 숫자가 아니여서 배너 업데이트에 실패하라',
+            'failUpdateBannerImageIsNotAttached' => '배너파일을 첨부하지 않아서 업데이트에 실패하라',
+            'successUpdateBannerImage' => '배너 업데이트에 성공하라',
+            'failUpdateLogoImageIsNotAttached' => '로고이미지를 첨부하지 않아 로고 업데이트에 실패하라',
+            'failUpdateLogoImageIsNotFile' => '첨부한 로고이미지가 파일이 아니여서 로고 업데이트에 실패하라',
+            'failUpdateLogoImageIsLarge' => '첨부한 로고이미지가 최대용량(2048kb)를 넘어서 로고 업데이트에 실패하라',
+            'failUpdateWhenLogoImageMimeIsWrong' => '첨부한 로고이미지가 MIME가 올바르지 않아서 로고 업데이트에 실패하라',
+            'successUpdateLogoImage' => '로고이미지가 업데이트에 성공하라',
+
         ]
     ],
     'User' => [

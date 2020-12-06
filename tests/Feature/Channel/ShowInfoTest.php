@@ -36,7 +36,7 @@ class ShowInfoTest extends TestCase
         $message = $response['messages'];
         $channel = Channel::find($channel->id);
         $this->assertEquals($channelId, $message['id']);
-        $this->assertEquals($channel->name, $message['channelName']);
+        $this->assertEquals($channel->name, $message['name']);
         $this->assertEquals($channel->owner, $message['owner']);
 
         $this->assertEquals($channel->fans()->count(), $message['likeCount']);
@@ -91,7 +91,7 @@ class ShowInfoTest extends TestCase
         $message = $response['messages'];
 
         $this->assertEquals($channelId, $message['id']);
-        $this->assertEquals($channel->name, $message['channelName']);
+        $this->assertEquals($channel->name, $message['name']);
         $this->assertEquals($channel->owner, $message['owner']);
 
         $this->assertEquals($channel->fans()->count(), $message['likeCount']);

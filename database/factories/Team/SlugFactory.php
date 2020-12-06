@@ -26,7 +26,7 @@ class SlugFactory extends Factory
     {
         return [
             //
-            'slug' => Str::lower(Str::random(random_int(4, 14)))
+            'slug' => 'a' . Str::lower(Str::random(random_int(4, 13)))
         ];
     }
 }

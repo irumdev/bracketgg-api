@@ -118,7 +118,7 @@ class CreateTest extends TestCase
         $this->assertTrue($tryCreateChannel['isValid']);
 
         $this->assertEquals($dbChannel->id, $channel['id']);
-        $this->assertEquals($dbChannel->name, $channel['channelName']);
+        $this->assertEquals($dbChannel->name, $channel['name']);
         $this->assertEquals($dbChannel->owner, $channel['owner']);
         $this->assertEquals([], $channel['bannerImages']);
         $this->assertEquals([], $channel['broadCastAddress']);

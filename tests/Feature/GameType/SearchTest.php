@@ -16,6 +16,7 @@ class SearchTest extends TestCase
     /** @test */
     public function failSearchItemWhenQueryIsEmpty(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $trySearchGameTypes = $this->getJson(route('getGameTypeByKeyword', [
             'query' => '',
@@ -30,6 +31,7 @@ class SearchTest extends TestCase
     /** @test */
     public function failSearchItemWhenQueryIsNotFound(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $trySearchGameTypes = $this->getJson(route('getGameTypeByKeyword', [
             'query' => \Illuminate\Support\Str::random(256),
@@ -43,6 +45,7 @@ class SearchTest extends TestCase
     /** @test */
     public function successSearchGameTypes(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $items = collect([
             'test_1', 'test_2', 'test_3',

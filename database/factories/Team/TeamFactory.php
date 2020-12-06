@@ -22,7 +22,7 @@ $factory->define(Team::class, function (Faker $faker) {
 });
 
 $factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team, Faker $faker) {
-    factory(BannerImage::class, random_int(1, 10))->create([
+    factory(BannerImage::class)->create([
         'team_id' => $team->id,
     ]);
 });

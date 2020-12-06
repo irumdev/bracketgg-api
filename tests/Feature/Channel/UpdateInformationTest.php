@@ -14,6 +14,8 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
 use App\Http\Requests\Channel\UpdateRequest as UpdateChannelRequest;
+use App\Http\Requests\Channel\UpdateLogoImageRequest;
+use App\Http\Requests\Channel\UpdateBannerImageRequest;
 
 class UpdateInformationTest extends TestCase
 {
@@ -40,7 +42,7 @@ class UpdateInformationTest extends TestCase
         );
         $this->assertEquals(
             $dbChannel->name,
-            $channel['channelName']
+            $channel['name']
         );
 
         $this->assertEquals(
@@ -81,8 +83,7 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeSlug['ok']);
         $this->assertTrue($tryChangeSlug['isValid']);
-        $this->assertEquals($rand, $tryChangeSlug['messages']['slug']);
-        $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
+        $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
         $getChannelUrl = route('findChannelBySlug', [
             'slug' => $rand
@@ -112,8 +113,7 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeSlug['ok']);
         $this->assertTrue($tryChangeSlug['isValid']);
-        $this->assertEquals($rand, $tryChangeSlug['messages']['slug']);
-        $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
+        $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
         $getChannelUrl = route('findChannelBySlug', [
             'slug' => $rand
@@ -233,11 +233,8 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeSlug['ok']);
         $this->assertTrue($tryChangeSlug['isValid']);
-
-        $this->assertTrue($tryChangeSlug['ok']);
-        $this->assertTrue($tryChangeSlug['isValid']);
-        $this->assertEquals($name, $tryChangeSlug['messages']['channelName']);
-        $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
+        $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
+        $this->assertEquals(Channel::find($channel->id)->name, $name);
     }
 
     /** @test */
@@ -302,10 +299,7 @@ class UpdateInformationTest extends TestCase
         $this->assertTrue($tryChangeSlug['ok']);
         $this->assertTrue($tryChangeSlug['isValid']);
 
-        $this->assertTrue($tryChangeSlug['ok']);
-        $this->assertTrue($tryChangeSlug['isValid']);
-        $this->assertEquals($desc, $tryChangeSlug['messages']['description']);
-        $this->assertEquals($activeUser->id, $tryChangeSlug['messages']['owner']);
+        $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
         $getChannelUrl = route('findChannelBySlug', [
             'slug' => $channel->slug
@@ -323,7 +317,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -335,7 +329,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateChannelRequest::PROFILE_UPLOAD_FILE_IS_NOT_IMAGE,
+            UpdateLogoImageRequest::PROFILE_UPLOAD_FILE_IS_NOT_IMAGE,
             $tryChangeLogo['messages']['code']
         );
     }
@@ -348,7 +342,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -360,7 +354,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateChannelRequest::PROFILE_UPLOAD_FILE_IS_LARGE,
+            UpdateLogoImageRequest::PROFILE_UPLOAD_FILE_IS_LARGE,
             $tryChangeLogo['messages']['code']
         );
     }
@@ -380,7 +374,7 @@ class UpdateInformationTest extends TestCase
         $this->assertNull(Channel::find($channel->id)->logo_image);
 
         $activeUser = $tryCreateChannel['user'];
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -390,8 +384,8 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeLogo['ok']);
         $this->assertTrue($tryChangeLogo['isValid']);
+        $this->assertTrue($tryChangeLogo['messages']['isSuccess']);
         $this->assertNotNull(Channel::find($channel->id)->logo_image);
-        $this->assertIsString($tryChangeLogo['messages']['logoImage']);
     }
 
 
@@ -414,7 +408,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -427,7 +421,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateChannelRequest::BANNER_UPLOAD_FILE_IS_NOT_IMAGE,
+            UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_NOT_IMAGE,
             $tryChangeLogo['messages']['code']
         );
     }
@@ -450,7 +444,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -463,44 +457,10 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateChannelRequest::BANNER_UPLOAD_FILE_IS_LARGE,
+            UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_LARGE,
             $tryChangeLogo['messages']['code']
         );
     }
-
-    /** @test */
-    public function failUpdateBannerImageWhenUploadBannerImageButBannerImageIsEmpty(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $tryCreateChannel = $this->createChannel();
-        $channel = $tryCreateChannel['channel'];
-        $activeUser = $tryCreateChannel['user'];
-
-        $banerImage = ChannelBannerImage::create([
-            'banner_image' => 'test',
-            'channel_id' => $channel->id
-        ]);
-
-        $this->assertEquals(
-            'test',
-            $channel->bannerImages->first()->banner_image
-        );
-
-        $testUrl = route('updateChannelInfo', [
-            'slug' => $channel->slug
-        ]);
-
-        $tryChangeLogo = $this->postJson($testUrl, [
-            'banner_image' => UploadedFile::fake()->create('test.png', 1900),
-            // 'banner_image_id' => $banerImage->id,
-        ])->assertStatus(422);
-
-        $this->assertEquals(
-            UpdateChannelRequest::BANNER_ID_IS_EMPTY,
-            $tryChangeLogo['messages']['code']
-        );
-    }
-
 
     /** @test */
     public function failUpdateBannerImageWhenBannerImageIdIsInvalid(): void
@@ -520,7 +480,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -530,7 +490,7 @@ class UpdateInformationTest extends TestCase
         ])->assertStatus(422);
 
         $this->assertEquals(
-            UpdateChannelRequest::BANNER_ID_IS_NOT_EXISTS,
+            UpdateBannerImageRequest::BANNER_IMAGE_ID_IS_NOT_EXISTS,
             $tryChangeLogo['messages']['code']
         );
     }
@@ -553,7 +513,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('updateChannelBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -564,8 +524,69 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeLogo['ok']);
         $this->assertTrue($tryChangeLogo['isValid']);
-        foreach ($tryChangeLogo['messages']['bannerImages'] as $image) {
-            $this->assertFalse('test' === $image);
-        }
+        $this->assertTrue($tryChangeLogo['messages']['isSuccess']);
+
+        $this->assertTrue($channel->bannerImages()->first()->banner_image !== 'test');
+    }
+
+
+    /** @test */
+    public function successCreateBannerImage(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $tryCreateChannel = $this->createChannel();
+        $channel = $tryCreateChannel['channel'];
+        $activeUser = $tryCreateChannel['user'];
+
+        $testUrl = route('updateChannelBanner', [
+            'slug' => $channel->slug
+        ]);
+
+        $tryChangeLogo = $this->postJson($testUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.jpg', 2000),
+            // 'banner_image_id' => $banerImage->id,
+        ])->assertOk();
+
+        $this->assertTrue($tryChangeLogo['ok']);
+        $this->assertTrue($tryChangeLogo['isValid']);
+        $this->assertTrue($tryChangeLogo['messages']['isSuccess']);
+
+        $this->assertIsString($channel->bannerImages()->first()->banner_image);
+    }
+
+
+    /** @test */
+    public function failCreateBannerImageWhenBannerAlreadyExists(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $tryCreateChannel = $this->createChannel();
+        $channel = $tryCreateChannel['channel'];
+        $activeUser = $tryCreateChannel['user'];
+
+        $banerImage = ChannelBannerImage::create([
+            'banner_image' => 'test',
+            'channel_id' => $channel->id
+        ]);
+
+        $this->assertEquals(
+            'test',
+            $channel->bannerImages->first()->banner_image
+        );
+
+        $testUrl = route('updateChannelBanner', [
+            'slug' => $channel->slug
+        ]);
+
+        $tryChangeLogo = $this->postJson($testUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.jpg', 2000),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryChangeLogo['ok']);
+        $this->assertFalse($tryChangeLogo['isValid']);
+
+        $this->assertEquals(
+            UpdateBannerImageRequest::BANNER_UPLOAD_FILE_HAS_MANY_BANNER,
+            $tryChangeLogo['messages']['code']
+        );
     }
 }

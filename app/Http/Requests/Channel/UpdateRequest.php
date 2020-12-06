@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Requests\Channel;
 
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use Symfony\Component\HttpFoundation\Response;
 
 use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\Slug as ChannelSlug;
-use App\Models\Channel\BannerImage as ChannelBannerImage;
 
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
@@ -33,19 +31,6 @@ class UpdateRequest extends FormRequest
     public const SLUG_IS_LONG = 8;
     public const SLUG_PATTERN_IS_WRONG = 9;
     public const DESCRIPTION_IS_NOT_STRING = 10;
-
-    public const PROFILE_UPLOAD_FILE_IS_NOT_IMAGE = 11;
-    public const PROFILE_UPLOAD_FILE_MIME_IS_NOT_MATCH = 12;
-    public const PROFILE_UPLOAD_FILE_IS_LARGE = 13;
-    public const PROFILE_UPLOAD_IS_NOT_FULL_UPLOADED_FILE = 14;
-
-    public const BANNER_UPLOAD_FILE_IS_NOT_IMAGE = 15;
-    public const BANNER_UPLOAD_FILE_MIME_IS_NOT_MATCH = 16;
-    public const BANNER_UPLOAD_FILE_IS_LARGE = 17;
-    public const BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE = 18;
-
-    public const BANNER_ID_IS_EMPTY = 19;
-    public const BANNER_ID_IS_NOT_EXISTS = 20;
 
     public const SLUG_IS_NOT_UNIQUE = 21;
 
@@ -67,6 +52,16 @@ class UpdateRequest extends FormRequest
             $this->channel,
         ]);
     }
+
+    protected function failedAuthorization(): void
+    {
+        throw new HttpResponseException(
+            $this->responseBuilder->fail([
+                'code' => Response::HTTP_UNAUTHORIZED,
+            ], Response::HTTP_UNAUTHORIZED)
+        );
+    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -90,14 +85,6 @@ class UpdateRequest extends FormRequest
             ],
             'name' => array_replace(explode('|', $channelNameRule), [0 => 'nullable']),
             'description' => 'nullable|string',
-            'logo_image' => 'nullable|file|image|mimes:jpeg,jpg,png|max:2048',
-            'banner_image' => 'nullable|file|image|mimes:jpeg,jpg,png|max:2048',
-            'banner_image_id' => [
-                'required_with:banner_image',
-                Rule::exists((new ChannelBannerImage())->getTable(), 'id')->where(function (Builder $query) {
-                    $query->where('channel_id', $this->channel->id);
-                }),
-            ],
         ];
     }
 
@@ -119,19 +106,6 @@ class UpdateRequest extends FormRequest
             'slug.unique' => json_encode(['code' => self::SLUG_IS_NOT_UNIQUE]),
 
             'description.string' => json_encode(['code' => self::DESCRIPTION_IS_NOT_STRING]),
-
-            'logo_image.image' => json_encode(['code' => self::PROFILE_UPLOAD_FILE_IS_NOT_IMAGE]),
-            'logo_image.file' => json_encode(['code' => self::PROFILE_UPLOAD_IS_NOT_FULL_UPLOADED_FILE]),
-            'logo_image.mimes' => json_encode(['code' => self::PROFILE_UPLOAD_FILE_MIME_IS_NOT_MATCH]),
-            'logo_image.max' => json_encode(['code' => self::PROFILE_UPLOAD_FILE_IS_LARGE]),
-
-            'banner_image_id.required_with' => json_encode(['code' => self::BANNER_ID_IS_EMPTY]),
-            'banner_image_id.exists' => json_encode(['code' => self::BANNER_ID_IS_NOT_EXISTS]),
-            'banner_image.image' => json_encode(['code' => self::BANNER_UPLOAD_FILE_IS_NOT_IMAGE]),
-            'banner_image.file' => json_encode(['code'  => self::BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE]),
-            'banner_image.mimes' => json_encode(['code' => self::BANNER_UPLOAD_FILE_MIME_IS_NOT_MATCH]),
-            'banner_image.max' => json_encode(['code'   => self::BANNER_UPLOAD_FILE_IS_LARGE]),
-
         ]);
     }
 }

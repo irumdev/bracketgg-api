@@ -12,6 +12,9 @@ use App\Models\Team\Broadcast as TeamBroadCast;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Http\Requests\Team\UpdateInfoWithOutBannerRequest;
+use App\Http\Requests\Team\UpdateBannerImageRequest;
+use Illuminate\Http\UploadedFile;
+use App\Http\Requests\Team\UpdateLogoImageRequest;
 
 class UpdateInformationTest extends TestCase
 {
@@ -197,5 +200,365 @@ class UpdateInformationTest extends TestCase
         collect($gameTypes)->each(fn (string $gameType) => $this->assertTrue(
             in_array($gameType, $tryCreateTeam['messages']['operateGames'])
         ));
+    }
+
+
+
+    /** @test */
+    public function failUpdateBannerImageWhenTryAnotherTeam(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $anotehrUser = factory(User::class)->create();
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $anotehrTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $anotehrTeam->owner = $anotehrUser->id;
+        $anotehrTeam->save();
+
+        $anotehrTeam = Team::find($anotehrTeam->id);
+
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $anotehrTeam->slug,
+        ]);
+
+        // dd($team->bannerImages->first()->id);
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+            // 'banner_image_id' => 'abcd'
+        ])->assertStatus(401);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => 401], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failCreateBannerWhenBannerIsNotFile(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => 'asdf',
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failCreateBannerWhenBannerIsNotImage(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.asdf', 250),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_NOT_IMAGE], $tryUpdateTeamBanner['messages']);
+    }
+
+
+    /** @test */
+    public function failCreateBannerWhenBannerIsLarge(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2049),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_LARGE], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failCreateBannerWhenAlreadyHasBanner(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBannerImage' ,'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_HAS_MANY_BANNER], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function successCreateBannerImage(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+        ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeamBanner['ok']);
+        $this->assertTrue($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['isSuccess' => true], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failUpdateBannerImageWhenBannerIdIsInvalid(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        // dd($team->bannerImages->first()->id);
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+            'banner_image_id' => -24
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_IMAGE_ID_IS_NOT_EXISTS], $tryUpdateTeamBanner['messages']);
+    }
+
+
+    /** @test */
+    public function failUpdateBannerImageWhenBannerIdIsNotNumeric(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        // dd($team->bannerImages->first()->id);
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+            'banner_image_id' => 'abcd'
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_IMAGE_ID_IS_NOT_NUMERIC], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failUpdateBannerImageIsNotAttached(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        // dd($team->bannerImages->first()->id);
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            // 'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+            // 'banner_image_id' => 'abcd'
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamBanner['ok']);
+        $this->assertFalse($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_NOT_ATTACHED], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function successUpdateBannerImage(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamBanner', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBanner = $this->postJson($requestUrl, [
+            'banner_image' => UploadedFile::fake()->create('test.png', 2048),
+            'banner_image_id' => $team->bannerImages->first()->id
+        ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeamBanner['ok']);
+        $this->assertTrue($tryUpdateTeamBanner['isValid']);
+
+        $this->assertEquals(['isSuccess' => true], $tryUpdateTeamBanner['messages']);
+    }
+
+    /** @test */
+    public function failUpdateLogoImageIsNotAttached(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamLogo', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamLogo['ok']);
+        $this->assertFalse($tryUpdateTeamLogo['isValid']);
+
+        $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_NOT_ATTACHED], $tryUpdateTeamLogo['messages']);
+    }
+
+
+    /** @test */
+    public function failUpdateLogoImageIsNotFile(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamLogo', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+            'logo_image' => 'sfd',
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamLogo['ok']);
+        $this->assertFalse($tryUpdateTeamLogo['isValid']);
+
+        $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_NOT_FILE], $tryUpdateTeamLogo['messages']);
+    }
+
+    /** @test @deprecate */
+    // public function failUpdateLogoImageIsNotImage(): void
+    // {
+    //     $this->setName($this->getCurrentCaseKoreanName());
+    //     $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+    //     $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+    //     $requestUrl = route('updateTeamLogo', [
+    //         'teamSlug' => $team->slug,
+    //     ]);
+
+    //     $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+    //         'logo_image' => UploadedFile::fake()->create('test.asdf', 2048),
+    //     ])->assertStatus(422);
+
+    //     $this->assertFalse($tryUpdateTeamLogo['ok']);
+    //     $this->assertFalse($tryUpdateTeamLogo['isValid']);
+
+    //     $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_NOT_IMAGE], $tryUpdateTeamLogo['messages']);
+    // }
+
+    /** @test */
+    public function failUpdateLogoImageIsLarge(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamLogo', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+            'logo_image' => UploadedFile::fake()->create('test.png', 2049),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamLogo['ok']);
+        $this->assertFalse($tryUpdateTeamLogo['isValid']);
+
+        $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_IMAGE_IS_LARGE], $tryUpdateTeamLogo['messages']);
+    }
+
+    /** @test */
+    public function failUpdateWhenLogoImageMimeIsWrong(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamLogo', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+            'logo_image' => UploadedFile::fake()->create('test.jpg', 2048, 'application/octet-stream'),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeamLogo['ok']);
+        $this->assertFalse($tryUpdateTeamLogo['isValid']);
+
+        $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_MIME_IS_NOT_MATCH], $tryUpdateTeamLogo['messages']);
+    }
+
+    /** @test */
+    public function successUpdateLogoImage(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $requestUrl = route('updateTeamLogo', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $before = $team->logo_image;
+
+        $tryUpdateTeamLogo = $this->postJson($requestUrl, [
+            'logo_image' => UploadedFile::fake()->create('test.png', 2048),
+        ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeamLogo['ok']);
+        $this->assertTrue($tryUpdateTeamLogo['isValid']);
+        $this->assertEquals(['isSuccess' => true], $tryUpdateTeamLogo['messages']);
+        $this->assertFalse($before === Team::find($team->id)->logo_image);
     }
 }

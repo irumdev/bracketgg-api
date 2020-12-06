@@ -96,10 +96,13 @@ class Handler extends ExceptionHandler
         $this->response = new ResponseBuilder();
         $renderObject = $this->response->fail('tryAgain', Response::HTTP_INTERNAL_SERVER_ERROR);
         $response = $this->buildClientResponse($exception);
-        if ($response['message']) {
+        if ($response['message'] !== null) {
             $renderObject = $this->response->fail($response['message'], $response['status']);
         } elseif (config('app.debug')) {
-            $renderObject = parent::render($request, $exception);
+            $renderObject = $this->response->fail(
+                (new ErrorFormatter($exception, request()))->errorInfo(),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
         return $renderObject;
     }
