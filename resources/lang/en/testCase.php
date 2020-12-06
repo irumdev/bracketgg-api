@@ -113,7 +113,7 @@ return [
             'failUpdateTeamSlugWhenSlugPatternIsNotMatch' => '팀 슬러그가 패턴에 맞지 않아(첫글자에 영어 소문자 포함, 이후에는 엉여 대소문자, 숫자, - 포함) 팀정보 변경에 실패하라',
             'failUpdateTeamSlugWhenPublicStatusIsNotBoolean' => '팀 공개여부가 bool이 아니여서 팀정보 변경에 실패하라',
             'failUpdateTeamSlugWhenGameCategoryIsNotArray' => '팀 게임종목을 array로 안보내서 팀정보 변경에 실패하라',
-            'failUpdateTeamSlugWhenGameCategoryItemIsLong' => '팀 게임종목이 길어서  팀정보 변경에 실패하라',
+            'failUpdateTeamSlugWhenGameCategoryItemIsLong' => '팀 게임종목이 길어서 팀정보 변경에 실패하라',
             'successUpdateAllItem' => '모든 팀정보 변경에 성공',
             'failUpdateBannerImageWhenTryAnotherTeam' => 'A채널이 B채널의 배너이미지 변경에 실패하라',
             'failCreateBannerWhenBannerIsNotFile' => '업로드한 배너파일이 다 업로드가 안되어 생성에 실패하라',

@@ -56,8 +56,6 @@ class Email
         throw_unless(isset($sendData['view']), self::setArgException('attach', 'view'));
 
         $baseInfo['receiver'] = array_map(function ($receiver) {
-
-            // throw_if(isset($receiver['name']) === false, self::getReceiverErrorMessage('name'));
             throw_unless(isset($receiver['email']), self::setArgException('receiver', 'email'));
 
             return array_merge($receiver, ['note' => '', 'mobile' => '']);

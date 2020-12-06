@@ -44,9 +44,9 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "app/Http/Repositories",
-            "app/Http/Models",
-            "app/Http/Services",
+            "app/Repositories",
+            "app/Models",
+            "app/Services",
             "app/Apis"
         ]
     },
