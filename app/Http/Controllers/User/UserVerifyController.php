@@ -22,14 +22,17 @@ use Illuminate\Http\JsonResponse;
 class UserVerifyController extends Controller
 {
     /**
-     * @var ResponseBuilder $response
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
      */
     private ResponseBuilder $response;
 
     /**
+     * 유저 서비스 레이어
      * @var UserService $userService
      */
     private UserService $userService;
+
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
     {
         $this->response = $responseBuilder;

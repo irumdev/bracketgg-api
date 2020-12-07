@@ -22,10 +22,15 @@ use Illuminate\Support\Facades\Storage;
 class ShowChannelController extends Controller
 {
     /**
-     * @var ResponseBuilder $responseBuilder
-     * @var ChannelService $channelService
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
      */
     private ResponseBuilder $response;
+
+    /**
+     * 채널 서비스 레이어
+     * @var ChannelService
+     */
     private ChannelService $channelService;
 
     public function __construct(ResponseBuilder $responseBuilder, ChannelService $channelService)

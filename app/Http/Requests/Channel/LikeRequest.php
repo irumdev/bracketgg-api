@@ -12,9 +12,23 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * 채널 좋아요 요청 검증을 위한 클래스 입니다.
+ *
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class LikeRequest extends FormRequest
 {
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
     private ResponseBuilder $responseBuilder;
+
+    /**
+     * @var User 유저 모델
+     */
     private User $user;
 
     public function __construct(ResponseBuilder $responseBuilder)
@@ -43,7 +57,14 @@ class LikeRequest extends FormRequest
         );
     }
 
-
+    /**
+     * 권한 없을 시, 권한에 관한 메세지를 빌드해주는 메소드 입니다.
+     *
+     * @param User $user 유저 모델
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return int $message 에러 코드
+     */
     private function buildAuthorizeErrorMessage(User $user): int
     {
         $message = ChannelFan::AUTORIZE_FAIL;

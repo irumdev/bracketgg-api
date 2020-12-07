@@ -22,12 +22,23 @@ use Illuminate\Http\JsonResponse;
 class ShowUserChannelController extends Controller
 {
     /**
-     * @var ResponseBuilder $responseBuilder
+     * 채널 서비스 레이어
      * @var ChannelService $channelService
      */
-    private ResponseBuilder $response;
     private ChannelService $channelService;
+
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
+    private ResponseBuilder $response;
+
+    /**
+     * 유저 서비스 레이어
+     * @var ChannelService $channelService
+     */
     private UserService $userService;
+
     public function __construct(ResponseBuilder $responseBuilder, ChannelService $channelService, UserService $userService)
     {
         $this->response = $responseBuilder;
@@ -42,7 +53,7 @@ class ShowUserChannelController extends Controller
      * @throws  Illuminate\Database\Eloquent\ModelNotFoundException 유저가 가진 채널이 없을때
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
-     * @return JsonResponse 성공 리스폰스
+     * @return JsonResponse 채널정보
      */
     public function getChannelsByUserId(string $userId): JsonResponse
     {
@@ -51,6 +62,14 @@ class ShowUserChannelController extends Controller
         );
     }
 
+    /**
+     * 채널에 해당하는 팔로워를 페이징 하여 조회하는 메소드 입니다.
+     *
+     * @param Channel $channel 조회 할 채널 객체
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 팔로워 유저 리스트
+     */
     public function getFollower(Channel $channel): JsonResponse
     {
         $channelFollowers = $this->channelService->followers($channel)->simplePaginate();

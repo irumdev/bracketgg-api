@@ -20,18 +20,57 @@ use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
 
+/**
+ * 채널정보 업데이트를 위한 요청 검증 클래스 입니다.
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class UpdateRequest extends FormRequest
 {
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
     private ResponseBuilder $responseBuilder;
+
+    /**
+     * @var User 유저 모델
+     */
     private User $user;
+
+    /**
+     * @var Channel 채널 모델
+     */
     private Channel $channel;
 
+    /**
+     * @var int 슬러그 형태가 스트링이 아님
+     */
     public const SLUG_IS_NOT_STRING = 6;
+
+    /**
+     * @var int 슬러그가 짧음
+     */
     public const SLUG_IS_SHORT = 7;
+
+    /**
+     * @var int 슬러그 자리수 초괴
+     */
     public const SLUG_IS_LONG = 8;
+
+    /**
+     * @var int 슬러그 패턴 일치하지 않음
+     */
     public const SLUG_PATTERN_IS_WRONG = 9;
+
+    /**
+     * @var int 채널설명이 문자열이 아님
+     */
     public const DESCRIPTION_IS_NOT_STRING = 10;
 
+    /**
+     * @var int 슬러그기 중복됨
+     */
     public const SLUG_IS_NOT_UNIQUE = 21;
 
     public function __construct(ResponseBuilder $responseBuilder)

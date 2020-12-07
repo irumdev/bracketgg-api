@@ -28,10 +28,15 @@ use App\Http\Requests\User\Is\LikeChannelRequest as CheckUserLikeChannelRequest;
 class LikeChannelController extends Controller
 {
     /**
+     * 유저 서비스 레이어
      * @var UserService $userService
-     * @var ResponseBuilder $responseBuilder
      */
     public UserService $userService;
+
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
     public ResponseBuilder $responseBuilder;
 
     public function __construct(ResponseBuilder $responseBuilder, UserService $userService)
@@ -92,6 +97,15 @@ class LikeChannelController extends Controller
         }
     }
 
+    /**
+     * 채널에 좋아요했는지 여부를 알려주는 메소드 입니다.
+     *
+     * @param CheckUserLikeChannelRequest $request 요청 객체
+     * @param Channel $channel 좋아요 여부를 판단할 채널
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 채널 좋아요 여부
+     */
     public function isLike(CheckUserLikeChannelRequest $request, Channel $channel): JsonResponse
     {
         $channnelIsLike =  $this->userService->isAlreadyLike(Auth::user(), $channel);

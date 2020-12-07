@@ -12,34 +12,57 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Channel\Follower as ChannelFollower;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * 채널 팔로우 요청을 검증하는 클래스 입니다
+ *
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class FollowRequest extends FormRequest
 {
-    private User $user;
-    private ResponseBuilder $response;
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
+    private ResponseBuilder $responseBuilder;
 
-    public function __construct(ResponseBuilder $response)
+    /**
+     * @var User 유저 모델
+     */
+    private User $user;
+
+    public function __construct(ResponseBuilder $responseBuilder)
     {
         $this->user = Auth::user();
-        $this->response = $response;
+        $this->responseBuilder = $responseBuilder;
     }
 
     public function authorize(): bool
     {
         $user = $this->user;
         return $user &&
-               $user->can('followChannel') &&
+               $this->user->can('followChannel') &&
                $user->id !== $this->route('slug')->owner;
     }
 
     protected function failedAuthorization(): void
     {
         throw new HttpResponseException(
-            $this->response->fail([
+            $this->responseBuilder->fail([
                 'code' => $this->buildAuthorizeErrorMessage($this->user),
             ], Response::HTTP_UNAUTHORIZED)
         );
     }
 
+    /**
+     * 권한 없을 시, 권한에 관한 메세지를 빌드해주는 메소드 입니다.
+     *
+     * @todo 공통화
+     * @param User $user 유저 모델
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return int $message 에러 코드
+     */
     private function buildAuthorizeErrorMessage(User $user): int
     {
         $message = ChannelFollower::AUTORIZE_FAIL;

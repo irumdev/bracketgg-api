@@ -39,7 +39,7 @@ class ErrorFormatter
      *
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
-     * @return array
+     * @return array 에러정보
      */
     public function errorInfo(): array
     {
@@ -56,6 +56,12 @@ class ErrorFormatter
         ];
     }
 
+    /**
+     * 에러 포맷을 한글 형태로 리턴합니다.
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return string 에러 포맷
+     */
     public function format(): string
     {
         return join("\n", [

@@ -58,6 +58,24 @@ class Image
         return $baseUrl . $url;
     }
 
+    /**
+     * fake이미지를 생성하는 메소드 입니다.
+     *
+     * @param string $dir 저장할 경로
+     * @param int $width 페이크 이미지 넓이
+     * @param int $height 페이크 이미지 높이
+     * @param string $category 페이크 이미지 카테고리
+     * @param bool $fullPath 리턴값을 절대경로 받을지 여부
+     * @param string $randomize 페이크 이미지 다운받을 시 랜덤 쿼리스트링 여부
+     * @param string $word (사용 안함)
+     * @param string $gray 페이크 이미지 그레이스케일 여부
+     * @throws \InvalidArgumentException 경로에 작성을 못할 경우 throw됩니다.
+     * @throws \RuntimeException 이미지서버가 동작 안할경우 throw됩니다.
+     * @throws \RuntimeException fopen시 url을 허용 안할경우 (php.ini 확인 바랍니다)
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return string 페이크 이미지 저장 경로
+     */
     public static function create($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false)
     {
         $dir = is_null($dir) ? sys_get_temp_dir() : $dir;

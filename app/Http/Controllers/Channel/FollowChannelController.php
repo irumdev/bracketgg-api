@@ -25,10 +25,15 @@ use App\Http\Requests\Channel\FollowRequest as FollowChannelRequest;
 class FollowChannelController extends Controller
 {
     /**
+     * 유저 서비스레이어
      * @var UserService $userService
-     * @var ResponseBuilder $responseBuilder
      */
     private UserService $userService;
+
+    /**
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
+     */
     private ResponseBuilder $responseBuilder;
 
     public function __construct(UserService $userService, ResponseBuilder $responseBuilder)

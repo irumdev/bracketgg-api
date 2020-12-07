@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Factories;
 
+/**
+ * 방송국 정보를 저장하는 타입 입니다.
+ *
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class BroadcastFactory
 {
     public const YOUTUBE = 1;

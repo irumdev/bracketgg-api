@@ -19,10 +19,13 @@ use App\Exceptions\InvalidEmailArgumentException;
 class Email
 {
     /**
+     * 성공시 리스폰스 입니다.
      * @var string
      */
     private const OK = '0';
+
     /**
+     * 재시도 횟수 입니다.
      * @var int
      */
     private const RETRY_COUNT = 10;
@@ -69,7 +72,7 @@ class Email
     }
 
     /**
-     * exception instance를 리턴합니다.
+     * 이메일 보낼 시 빠진 어트리뷰트가 있을때 익셉션 인스턴스를 리턴합니다.
      *
      * @param string lang의 키 값
      * @param string 빠진 속성
@@ -100,7 +103,7 @@ class Email
     }
 
     /**
-     * request 요청을 합니다.
+     * post 요청을 합니다.
      *
      * @param array 보낼 데이터
      * @author dhtmdgkr123 <osh12201@gmail.com>

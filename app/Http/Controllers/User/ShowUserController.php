@@ -21,11 +21,13 @@ use Illuminate\Http\Request;
 class ShowUserController extends Controller
 {
     /**
-     * @var ResponseBuilder $responseBuilder
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
      */
     private ResponseBuilder $responseBuilder;
 
     /**
+     * 유저 서비스 레이어
      * @var UserService $userService
      */
     private UserService $userService;
@@ -53,11 +55,11 @@ class ShowUserController extends Controller
 
     /**
      * 유저 인덱스를 가지고 유저 정보를 조회하는 메소드 입니다.
+     * @deprecated
      *
      * @author  dhtmdgkr123 <osh12201@gmail.com>
      * @version 1.0.0
      * @param User $user
-     * @deprecated
      */
     public function getById(User $user): JsonResponse
     {

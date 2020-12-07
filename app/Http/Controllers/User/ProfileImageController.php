@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * 프로필 이미지를 조회하는 컨트롤러 클래스 입니다.
+ *
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class ProfileImageController extends Controller
 {
     /**

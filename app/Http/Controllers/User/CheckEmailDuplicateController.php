@@ -19,7 +19,8 @@ use Illuminate\Http\JsonResponse;
 class CheckEmailDuplicateController extends Controller
 {
     /**
-     * @var ResponseBuilder $responseBuilder
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
      */
     private ResponseBuilder $responseBuilder;
 
