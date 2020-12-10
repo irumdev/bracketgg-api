@@ -7,6 +7,9 @@ namespace App\Models\Channel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @todo 여기부터 주석 다시 달기
+ */
 class Follower extends Model
 {
     use SoftDeletes;

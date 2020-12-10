@@ -44,6 +44,9 @@ class Kernel extends HttpKernel
 
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
+            /**
+             * @todo 쓰로틀링 주기 결정하기
+             */
             // 'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

@@ -20,19 +20,29 @@ use App\Helpers\ValidMessage;
 class VerifyRequest extends FormRequest
 {
     /**
-     * @var ResponseBuilder $response 리스폰스 인스턴스
+     * 응답 정형화를 위하여 사용되는 객체
+     * @var ResponseBuilder 응답 정형화 객체
      */
     private ResponseBuilder $response;
 
     /**
-     * @var int EMAIL_REQUIRED 이메일 값을 안보냄
-     * @var int EMAIL_NOT_VALID 유효하지 않은 이메일
-     * @var int NOT_EXISTS_EMAIL 이메일이 존재하지 않음
-     * @var int PASSWORD_REQUIRED 비밀번호를 입력하지 않음
+     * @var int 이메일 값을 안보냄
      */
     private const EMAIL_REQUIRED = 1;
+
+    /**
+     * @var int 유효하지 않은 이메일
+     */
     private const EMAIL_NOT_VALID = 2;
+
+    /**
+     * @var int 이메일이 존재하지 않음
+     */
     private const NOT_EXISTS_EMAIL = 3;
+
+    /**
+     * @var int 비밀번호를 입력하지 않음
+     */
     private const PASSWORD_REQUIRED = 4;
 
 
@@ -40,6 +50,7 @@ class VerifyRequest extends FormRequest
     {
         $this->response = $response;
     }
+
     /**
      * Determine if the user is authorized to make this request.
      *

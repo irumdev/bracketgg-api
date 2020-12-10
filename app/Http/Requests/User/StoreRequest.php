@@ -11,42 +11,127 @@ use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ValidMessage;
 
+/**
+ * 유저 회원가입 전 데이터 유효성 검증 클래스 입니다.
+ *
+ * @author dhtmdgkr123 <osh12201@gmail.com>
+ * @version 1.0.0
+ */
 class StoreRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
+     * @var int 이메일을 작성안함
      */
     public const REQUIRE_EMAIL = 1;
+
+    /**
+     * @var int 닉네임을 작성 안함
+     */
     public const REQUIRE_NICKNAME = 2;
+
+    /**
+     * @var int 비밀번호를 작성 안함
+     */
     public const REQUIRE_PASSWORD = 3;
+
+    /**
+     * @var int 비밀번호 재입력란을 작성 안함
+     */
     public const REQUIRE_RE_ENTER_PASSWORD = 4;
 
+    /**
+     * @var int 닉네임이 스트링이 아님
+     */
     public const NOT_STRING_NICK_NAME = 5;
+
+    /**
+     * @var int 이메일이 스트링이 아님
+     */
     public const NOT_STRING_EMAIL = 6;
+
+    /**
+     * @var int 비밀번호가 스트링이 아님
+     */
     public const NOT_STRING_PASSWORD = 7;
+
+    /**
+     * @var int 비밀번호 재입력란이 스트링이 아님
+     */
     public const NOT_STRING_RE_ENTER_PASSWORD = 8;
 
+    /**
+     * @var int 이메일 패턴이 일치하지 않음
+     */
     public const EMAIL_PATTERN_NOT_MATCH = 9;
+
+    /**
+     * @var int 비밀번호 최소자리수 미달
+     */
     public const PASSWORD_MIN_LENGTH = 10;
+
+    /**
+     * @var int 비밀번호 재입력란 최소자리수 미달
+     */
     public const PASSWORD_RE_ENTER_MIN_LEN_ERROR = 11;
+
+    /**
+     * @var int 비밀번호 재입력란이 비밀번호와 일치하지 않음
+     */
     public const PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD = 12;
+
+    /**
+     * @var int 이메일이 이미 존재
+     */
     public const EMAIL_ALREADY_EXISTS = 13;
 
+    /**
+     * @var int 약관동의란에 값을 넣지 않음
+     */
     public const REQUIRE_POLICY_AGREE = 14;
+
+    /**
+     * @var int 개인정보 처리방침에 아무 값을 넣지 않음
+     */
     public const REQUIRE_PRIVACY_AGREE = 15;
 
+    /**
+     * @var int 약괸동의 값에 1이 아님
+     */
     public const NOT_EQUAL_ONE_POLICY_AGREE = 16;
+
+    /**
+     * @var int 개인정보 처리방침에 값이 1이 아님
+     */
     public const NOT_EQUAL_ONE_PRIVACT_AGREE = 17;
 
+    /**
+     * @var int 닉네임 최소 자리수 미달
+     */
     public const NICKNAME_MIN_LENGTH = 18;
+
+    /**
+     * @var int 닉네임 최대 자리수 초과
+     */
     public const NICKNAME_MAX_LENGTH = 19;
 
+    /**
+     * @var int 비밀번호 최대 자리수 초과
+     */
     public const PASSWORD_MAX_LENGTH = 20;
+
+    /**
+     * @var int 비밀번호 재입력란 최대 자리수 초과
+     */
     public const PASSWORD_RE_ENTER_MAX_LENGTH = 21;
 
+    /**
+     * @var int 프로필이미자 란이 이미지가 아님
+     */
     public const PROFILE_IMAGE_NOT_IMAGE = 22;
+
+    /**
+     * @var int 프로필 이미지 최대용량 초과
+     */
     public const PROFILE_IMAGE_MAX_SIZE = 23;
 
     public function __construct(ResponseBuilder $response)
@@ -54,6 +139,11 @@ class StoreRequest extends FormRequest
         $this->response = $response;
     }
 
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;

@@ -38,6 +38,7 @@ class UserEmailVerifyNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
+     * @deprecated
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
@@ -50,6 +51,9 @@ class UserEmailVerifyNotification extends Notification
                 ->subject('이메일 입니다!');
     }
 
+    /**
+     * @deprecated
+     */
     private function verificationUrl($notifiable)
     {
         return URL::signedRoute('verifyEmail', [

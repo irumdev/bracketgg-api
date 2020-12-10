@@ -36,6 +36,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
     }
 
     /**
+     * @deprecated
      * @todo 곧 쓸 메서드
      * 아직 안쓰는 메소드
      */
