@@ -12,6 +12,7 @@ use App\Models\Channel\Channel;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * 채널 아이디로 채널의 정보들을 보여주는 컨트롤러 입니다.
@@ -68,7 +69,7 @@ class ShowChannelController extends Controller
     public function getChannelLogoImage(string $logoImage): BinaryFileResponse
     {
         $path = sprintf("app/profileImages/%s", $logoImage);
-        abort_if(Storage::missing(sprintf("profileImages/%s", $logoImage)), 404);
+        abort_if(Storage::missing(sprintf("profileImages/%s", $logoImage)), Response::HTTP_NOT_FOUND);
         return response()->file(storage_path($path));
     }
 }

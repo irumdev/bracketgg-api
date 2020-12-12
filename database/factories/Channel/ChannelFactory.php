@@ -11,21 +11,26 @@ use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Slug as ChannelSlug;
 
 use Faker\Generator as Faker;
-use App\Helpers\Image;
+use App\Helpers\Fake\Image as FakeImage;
 
 $factory->define(Channel::class, function (Faker $faker) {
-    return [
-        'logo_image' => Image::fakeUrl(),
+    $channelData = [
         'follwer_count' => 0,
         'like_count' => 0,
         'owner' => factory(User::class)->states(['addProfileImage'])->create(),
         'description' => $faker->sentence(),
         'name' => \Illuminate\Support\Str::random(15),
     ];
+    if (config('app.test.useRealImage')) {
+        $channelData['logo_image'] = FakeImage::create(storage_path('app/channelLogos'), 640, 480, null, false);
+    } else {
+        $channelData['logo_image'] = FakeImage::url();
+    }
+    return $channelData;
 });
 
 $factory->afterCreatingState(Channel::class, 'addBannerImage', function (Channel $channel, Faker $faker) {
-    factory(ChannelBannerImage::class, random_int(1, 10))->create([
+    factory(ChannelBannerImage::class, random_int(1, 3))->create([
         'channel_id' => $channel->id,
     ]);
 });

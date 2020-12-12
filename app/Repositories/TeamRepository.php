@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Team\Team;
+use App\Models\Team\Member as TeamMember;
 
 use App\Models\User;
 use App\Factories\Update\ImageUpdateFactory;
@@ -30,6 +31,9 @@ class TeamRepository
         return DB::transaction(function () use ($teamInfo) {
             $createdTeam = Team::create($teamInfo);
             $this->createUniqueSlug($createdTeam);
+            $teamMember = TeamMember::create(['team_id' => $createdTeam->id, 'user_id' => $createdTeam->owner]);
+            $teamMember->role = Team::OWNER;
+            $teamMember->save();
             return $createdTeam;
         });
     }

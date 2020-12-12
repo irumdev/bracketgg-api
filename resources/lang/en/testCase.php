@@ -94,6 +94,14 @@ return [
         ],
     ],
     'Team' => [
+        'ShowInfoTest' => [
+            'failLookupTeamInfoWhenTeamIsPrivateButUserIsNotLogin' => '로그인이 안되어 프라이빗 팀 조회에 실패하라',
+            'failLookupTeamInfoWhenTeamIsPrivateButUseIsNotTeamMember' => '팀 멤버가 아닌데 프라이빗 팀 조회에 실패하라',
+            'failLookupTeamInfoWhenTeamIsNotExists' => '없는 팀 조회에 실패하라',
+            'successLookupPrivateTeamInfo' => '프라이빗 팀 조회에 성공하라',
+            'successLookupPublicTeamInfo' => '팀 조회에 성공하라',
+            'successLookupPublicTeamInfoWithoutLogin' => '로그인 안하고 팀 조회에 성공하라'
+        ],
         'DuplicateNameCheckTest' => [
             'getTrueWhenTeamNameIsExists' => '팀 이름이 이미 존재하여 true 리턴 받는다',
             'getFalseWhenTeamNameIsNotExists' => '팀이름이 존재하지 않아 false 리턴 받는다',

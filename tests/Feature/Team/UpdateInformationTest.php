@@ -223,7 +223,6 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $anotehrTeam->slug,
         ]);
 
-        // dd($team->bannerImages->first()->id);
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
             'banner_image' => UploadedFile::fake()->create('test.png', 2048),
             // 'banner_image_id' => 'abcd'
@@ -352,7 +351,6 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        // dd($team->bannerImages->first()->id);
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
             'banner_image' => UploadedFile::fake()->create('test.png', 2048),
             'banner_image_id' => -24
@@ -376,7 +374,6 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        // dd($team->bannerImages->first()->id);
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
             'banner_image' => UploadedFile::fake()->create('test.png', 2048),
             'banner_image_id' => 'abcd'
@@ -399,7 +396,6 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        // dd($team->bannerImages->first()->id);
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
             // 'banner_image' => UploadedFile::fake()->create('test.png', 2048),
             // 'banner_image_id' => 'abcd'

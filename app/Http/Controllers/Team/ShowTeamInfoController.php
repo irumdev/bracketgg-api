@@ -10,6 +10,8 @@ use App\Helpers\ResponseBuilder;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
+use App\Http\Requests\Team\ShowInfoRequest;
+
 /**
  * 팀정보를 조회하는 컨트롤러 클래스 입니다.
  *
@@ -43,7 +45,7 @@ class ShowTeamInfoController extends Controller
      * @version 1.0.0
      * @return JsonResponse 팀 정보
      */
-    public function getInfo(Team $team): JsonResponse
+    public function getInfo(ShowInfoRequest $request, Team $team): JsonResponse
     {
         return $this->responseBuilder->ok($this->teamService->get($team));
     }

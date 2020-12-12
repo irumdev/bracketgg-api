@@ -329,7 +329,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateLogoImageRequest::PROFILE_UPLOAD_FILE_IS_NOT_IMAGE,
+            UpdateLogoImageRequest::LOGO_UPLOAD_FILE_IS_NOT_IMAGE,
             $tryChangeLogo['messages']['code']
         );
     }
@@ -354,7 +354,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryChangeLogo['isValid']);
 
         $this->assertEquals(
-            UpdateLogoImageRequest::PROFILE_UPLOAD_FILE_IS_LARGE,
+            UpdateLogoImageRequest::LOGO_UPLOAD_FILE_IS_LARGE,
             $tryChangeLogo['messages']['code']
         );
     }

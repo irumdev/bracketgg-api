@@ -68,8 +68,13 @@ class TeamService
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'logoImage' => $team->logo_image,
-            'bannerImages' => $team->bannerImages->map(fn (TeamBannerImages $image) => $image->banner_image),
+            'memberCount' => $team->team_member_count,
+            'logoImage' => $team->logo_image ? route('teamLogoImage', [
+                'logoImage' => $team->logo_image
+            ]) : null,
+            'bannerImages' => $team->bannerImages->map(fn (TeamBannerImages $image) => $image->bannerImage ? route('teamBannerImage', [
+                'bannerImage' => $image->bannerImage,
+            ]) : null),
             'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,
                 'platform' => $teamBroadcast->platform,

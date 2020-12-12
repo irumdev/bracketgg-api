@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Team;
+use App\Models\Team\Member as TeamMember;
 use App\Models\User;
 
 class CreateTest extends TestCase
@@ -114,7 +115,6 @@ class CreateTest extends TestCase
         ])->assertOk();
 
         $team = Team::where('owner', $user->id)->first();
-
         $message = $tryCreateTeam['messages'];
 
         $this->assertTrue($tryCreateTeam['ok']);
@@ -128,6 +128,17 @@ class CreateTest extends TestCase
         $this->assertNull($team->logo_image);
         $this->assertNull($message['logoImage']);
         $this->assertEquals($user->id, $message['owner']);
+        $this->assertTrue(
+            $team->members->map(fn (User $member) => $member->id)->contains($user->id)
+        );
+
+        $this->assertTrue(
+            TeamMember::where([
+                ['user_id', '=', $team->owner],
+                ['team_id', '=', $team->id],
+
+            ])->exists()
+        );
         $this->assertIsString($message['slug']);
     }
 }

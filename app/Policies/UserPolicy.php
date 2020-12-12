@@ -58,6 +58,14 @@ class UserPolicy
         return $user->id === $team->owner;
     }
 
+    public function viewTeam(User $user, Team $team): bool
+    {
+        /**
+         * --optimize tunnig query!
+         */
+        return $team->members->map(fn (User $member) => $member->id)->contains($user->id);
+    }
+
     private function getLimitCreateTeamCountFrom(User $user): int
     {
         return $user->create_team_limit;

@@ -10,6 +10,7 @@ use App\Models\Team\Broadcast;
 use App\Models\User;
 use App\Models\GameType;
 use App\Models\Team\OperateGame;
+use App\Models\Team\Member as TeamMember;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -36,7 +37,8 @@ class Team extends Model
         'operateGames:name'
     ];
 
-
+    public const OWNER = 1;
+    public const NORMAL_USER = 2;
 
     public function bannerImages(): HasMany
     {
@@ -73,6 +75,18 @@ class Team extends Model
             'id',
             'id',
             'game_type_id'
+        );
+    }
+
+    public function members(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            User::class,
+            TeamMember::class,
+            'team_id',
+            'id',
+            'id',
+            'user_id'
         );
     }
 

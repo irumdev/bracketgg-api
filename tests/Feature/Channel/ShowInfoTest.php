@@ -44,15 +44,24 @@ class ShowInfoTest extends TestCase
 
         $this->assertEquals($channel->followers()->count(), $message['followerCount']);
         $this->assertEquals($channel->follwer_count, $message['followerCount']);
-        $this->assertEquals($channel->logo_image, $message['logoImage']);
+        $this->assertEquals(route('channelLogoImage', [
+            'logoImage' => $channel->logo_image,
+        ]), $message['logoImage']);
 
         $this->assertEquals($channel->description, $message['description']);
 
 
         $this->assertEquals(
-            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => $banner->banner_image)->toArray(),
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => route('channelBannerImage', [
+                'bannerImage' => $banner->banner_image,
+            ]))->toArray(),
             $message['bannerImages']
         );
+
+        if (config('app.test.useRealImage')) {
+            array_map(fn ($image) => $this->get($image)->assertOk(), $message['bannerImages']);
+            $this->get($message['logoImage'])->assertOk();
+        }
 
         $this->assertEquals(
             $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
@@ -99,15 +108,25 @@ class ShowInfoTest extends TestCase
 
         $this->assertEquals($channel->followers()->count(), $message['followerCount']);
         $this->assertEquals($channel->follwer_count, $message['followerCount']);
-        $this->assertEquals($channel->logo_image, $message['logoImage']);
+        $this->assertEquals(route('channelLogoImage', [
+            'logoImage' => $channel->logo_image
+        ]), $message['logoImage']);
 
         $this->assertEquals($channel->description, $message['description']);
 
 
         $this->assertEquals(
-            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => $banner->banner_image)->toArray(),
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => route('channelBannerImage', [
+                'bannerImage' => $banner->banner_image,
+            ]))->toArray(),
             $message['bannerImages']
         );
+
+
+        if (config('app.test.useRealImage')) {
+            $this->get($message['logoImage'])->assertOk();
+            collect($message['bannerImages'])->map(fn ($bannerImage) => $this->get($bannerImage));
+        }
 
         $this->assertEquals(
             $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [

@@ -3,11 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\Response;
-
-use App\Http\Controllers\Channel\UpdateChannelController;
-
-use App\Http\Controllers\User\ProfileImageController;
+use App\Http\Controllers\ShowImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +16,14 @@ use App\Http\Controllers\User\ProfileImageController;
 |
 */
 
-Route::get('profile-image/{profileImage}', [ProfileImageController::class, 'getProfileImage'])->name('profileImage');
-Route::get('logo-image/{channelLogoImage}', [UpdateChannelController::class, 'getChannelLogoImage'])->name('channelLogoImage');
+Route::get('profile-image/{profileImage}', [ShowImageController::class, 'getUserProfile'])->name('profileImage');
+
+Route::group(['prefix' => 'channel'], function () {
+    Route::get('banner/{bannerImage}', [ShowImageController::class, 'getChannelBanner'])->name('channelBannerImage');
+    Route::get('logo/{logoImage}', [ShowImageController::class, 'getChannelLogo'])->name('channelLogoImage');
+});
+
+Route::group(['prefix' => 'team'], function () {
+    Route::get('banner/{bannerImage}', [ShowImageController::class, 'getTeamBanner'])->name('teamBannerImage');
+    Route::get('logo/{logoImage}', [ShowImageController::class, 'getTeamLogo'])->name('teamLogoImage');
+});

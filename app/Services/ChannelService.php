@@ -106,11 +106,15 @@ class ChannelService
         return [
             'id' => $channel->id,
             'name' => $channel->name,
-            'logoImage' => $channel->logo_image,
+            'logoImage' => $channel->logo_image ? route('channelLogoImage', [
+                'logoImage' => $channel->logo_image,
+            ]) : null,
             'followerCount' => $channel->follwer_count,
             'likeCount' => $channel->like_count,
             'description' => $channel->description,
-            'bannerImages' => $channel->bannerImages->map(fn (ChannelBannerImage $image) => $image->banner_image),
+            'bannerImages' => $channel->bannerImages->map(fn (ChannelBannerImage $image) => $image->banner_image ? route('channelBannerImage', [
+                'bannerImage' => $image->banner_image,
+            ]) : null),
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
             ])),

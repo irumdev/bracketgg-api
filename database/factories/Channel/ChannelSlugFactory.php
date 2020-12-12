@@ -24,7 +24,7 @@ class SlugFactory extends Factory
     {
         return [
             //
-            'slug' => Str::lower(Str::random(random_int(3, 20)))
+            'slug' => preg_replace('/[^A-Za-z0-9\-]/', '', Str::lower(Str::random(random_int(5, 20))))
         ];
     }
 }

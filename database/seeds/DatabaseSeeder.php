@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'addBannerImage',
             'addBroadcasts',
             'addOperateGame',
+            'addMembers',
         ])->create();
 
         factory(Channel::class, 20)->states([

@@ -42,9 +42,11 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::group(['prefix' => 'email'], function () {
+        Route::post('resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
         Route::get('duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
         Route::get('verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])->middleware('signed')->name('verifyEmail');
     });
+
     Route::group(['prefix' => 'user'], function () {
         Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');
         Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
@@ -56,7 +58,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
     });
 
+    Route::group(['prefix' => 'team'], function () {
+        Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
+    });
+
     Route::group(['middleware' => ['auth:sanctum']], function () {
+        /**
+         * 로그아웃 테스트 안되어있음
+         */
         Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
 
         Route::group(['prefix' => 'channel'], function () {
@@ -82,7 +91,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'team'], function () {
             Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
             Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
-            Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
 
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
@@ -90,7 +98,5 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
-
-        Route::post('email/resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
     });
 });
