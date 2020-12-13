@@ -78,7 +78,7 @@ class UpdateInformationTest extends TestCase
         ]);
 
         $tryChangeSlug = $this->postJson($testUrl, [
-            'slug' => $rand =  'a' . strtolower(Str::random(10))
+            'slug' => $rand = Str::bracketGGslug(ChannelSlug::MIN_SLUG_LENGTH, ChannelSlug::MAX_SLUG_LENGTH)
         ])->assertOk();
 
         $this->assertTrue($tryChangeSlug['ok']);
@@ -202,6 +202,10 @@ class UpdateInformationTest extends TestCase
             '1' . strtolower(Str::random(ChannelSlug::MAX_SLUG_LENGTH - 1)),
             '+' . strtolower(Str::random(ChannelSlug::MAX_SLUG_LENGTH - 2)),
             'A' . strtoupper(Str::random(ChannelSlug::MAX_SLUG_LENGTH - 2)),
+            '1asdfasdfasdf',
+            'ㅁㄴㅇㄹㅁㄴㅇㄹ',
+            'Asdf1-23',
+            // 'sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23', // filter by ChannelSlug::SLUG_IS_LONG
         ])->each(function ($lilleagleSlug) use ($testUrl) {
             $tryChangeSlug = $this->postJson($testUrl, [
                 'slug' => $lilleagleSlug

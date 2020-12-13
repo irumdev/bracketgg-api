@@ -12,6 +12,7 @@ use App\Models\Team\Slug as TeamSlug;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use App\Http\Requests\Rules\Slug;
 
 /**
  * 이미지를 제외한 팀 정보 업데이트 데이터 검증 클래스 입니다.
@@ -117,7 +118,7 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
                  * 패턴은 첫글자에 영어 소문자 포함
                  * 이후에는 엉여 대소문자, 숫자, - 포함
                  */
-                'regex:/^(([a-z]{1}).*(\-?)*(\d*))/',
+                'regex:' . Slug::PATTERN,
                 'unique:App\Models\Team\Slug,slug'
             ],
             'is_public' => 'nullable|boolean',

@@ -25,8 +25,7 @@ class SlugFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            'slug' => 'a' . Str::lower(Str::random(random_int(4, 13)))
+            'slug' => Str::bracketGGslug(Slug::MIN_SLUG_LENGTH, Slug::MAX_SLUG_LENGTH),
         ];
     }
 }

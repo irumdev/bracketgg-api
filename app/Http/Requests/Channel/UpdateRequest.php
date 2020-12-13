@@ -19,6 +19,7 @@ use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
 use App\Helpers\ValidMessage;
 use App\Helpers\ResponseBuilder;
+use App\Http\Requests\Rules\Slug;
 
 /**
  * 채널정보 업데이트를 위한 요청 검증 클래스 입니다.
@@ -119,7 +120,7 @@ class UpdateRequest extends FormRequest
                  * 패턴은 첫글자에 영어 소문자 포함
                  * 이후에는 엉여 대소문자, 숫자, - 포함
                  */
-                'regex:/^(([a-z]{1}).*(\-?)*(\d*))/',
+                'regex:' . Slug::PATTERN,
                 'unique:App\Models\Channel\Slug,slug'
             ],
             'name' => array_replace(explode('|', $channelNameRule), [0 => 'nullable']),

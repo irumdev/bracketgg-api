@@ -24,7 +24,7 @@ class ArrayMixin
      */
     public function changeKey(): callable
     {
-        return function (array $target, string $oldKey, string $newKey) {
+        return function (array $target, string $oldKey, string $newKey): array {
             $tmp = $target[$oldKey];
             $target[$newKey] = $tmp;
             unset($target[$oldKey]);

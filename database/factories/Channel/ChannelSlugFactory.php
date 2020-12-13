@@ -23,8 +23,7 @@ class SlugFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            'slug' => preg_replace('/[^A-Za-z0-9\-]/', '', Str::lower(Str::random(random_int(5, 20))))
+            'slug' => Str::bracketGGslug(ChannelSlug::MIN_SLUG_LENGTH, ChannelSlug::MAX_SLUG_LENGTH),
         ];
     }
 }

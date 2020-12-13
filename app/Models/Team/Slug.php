@@ -31,7 +31,7 @@ class Slug extends Model
     public function unique(): string
     {
         do {
-            $randomSlug = strtolower(Str::random(self::MAX_SLUG_LENGTH));
+            $randomSlug = Str::bracketGGslug(self::MIN_SLUG_LENGTH, self::MAX_SLUG_LENGTH);
         } while (self::where('slug', $randomSlug)->exists());
         return $randomSlug;
     }
