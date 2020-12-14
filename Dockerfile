@@ -317,8 +317,8 @@ RUN echo '' >> /usr/local/etc/php/conf.d/php-uploadFile.ini && \
     echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/php-memory-limit.ini && \
     /usr/local/bin/composer install --optimize-autoloader --no-dev && \
     cd /var/www && \
-    chown -R www-data:www-data /var/www && \
-    chmod -R 755 /var/www/storage
+    chown -R www-data:www-data /var/www
+    # chmod -R 755 /var/www/storage
 
 CMD [ "php-fpm" ]
 # ENTRYPOINT [ "/" ]
