@@ -26,7 +26,7 @@ function stepOne() {
 
 function stepTwo() {
     useFakeUrl && \
-    echo "✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
     echo "STEP - 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
     echo "now migrate..." && \
     php artisan migrate:fresh --seed > /dev/null && clear && \
@@ -35,8 +35,8 @@ function stepTwo() {
 
 function stepThree() {
     useRealImage && \
-    echo "✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
-    echo "✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
+    echo " ✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
     echo "STEP 3/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh" && \
     echo "now migrate..." && \
     php artisan migrate:fresh > /dev/null && \
@@ -45,9 +45,9 @@ function stepThree() {
 
 function stepFour() {
     useRealImage && \
-    echo "✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
-    echo "✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
-    echo "✓ [PASS] STEP 3/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
+    echo " ✓ [PASS] STEP 3/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh" && \
     echo "STEP 4/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh --seed" && \
     echo "now migrate..." && \
     php artisan migrate:fresh --seed > /dev/null && \
@@ -56,10 +56,10 @@ function stepFour() {
 
 function completeInfo() {
     clear && \
-    echo "✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
-    echo "✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
-    echo "✓ [PASS] STEP 3/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh" && \
-    echo "✓ [PASS] STEP 4/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh --seed"
+    echo " ✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
+    echo " ✓ [PASS] STEP 3/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh" && \
+    echo " ✓ [PASS] STEP 4/4 : TEST_USE_REAL_IMAGE=true / migrate:fresh --seed"
 }
 
 

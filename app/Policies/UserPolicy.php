@@ -60,10 +60,7 @@ class UserPolicy
 
     public function viewTeam(User $user, Team $team): bool
     {
-        /**
-         * --optimize tunnig query!
-         */
-        return $team->members->map(fn (User $member) => $member->id)->contains($user->id);
+        return $team->members()->where('user_id', $user->id)->exists();
     }
 
     private function getLimitCreateTeamCountFrom(User $user): int
