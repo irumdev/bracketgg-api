@@ -51,7 +51,10 @@ class ErrorFormatter
             'requestParam' =>  $this->request->all(),
             'requestMethod' => $this->request->getMethod(),
             'requestIp' =>  $this->request->ip(),
-            'errorTrase' => $this->exception->getTrace(),
+            /**
+             * @todo 에러트레이스 제이슨 직렬화
+             */
+            // 'errorTrase' => $this->exception->getTrace(),
             'errorTraseAsString' => $this->exception->getTraceAsString(),
         ];
     }
