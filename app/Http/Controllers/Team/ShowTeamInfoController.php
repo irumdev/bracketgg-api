@@ -49,4 +49,20 @@ class ShowTeamInfoController extends Controller
     {
         return $this->responseBuilder->ok($this->teamService->get($team));
     }
+
+    /**
+     * 유저가 가지고있는 팀들의 정보를 보여주는 메소드 입니다.
+     *
+     * @param   string 유저인덱스
+     * @throws  Illuminate\Database\Eloquent\ModelNotFoundException 유저가 가진 채널이 없을때
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 채널정보
+     */
+    public function getTeamssByUserId(string $userId)
+    {
+        return $this->responseBuilder->ok(
+            $this->teamService->findTeamsByUserId($userId)
+        );
+    }
 }

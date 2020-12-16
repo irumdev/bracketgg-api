@@ -95,6 +95,7 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
+            Route::get('owner/{user}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');

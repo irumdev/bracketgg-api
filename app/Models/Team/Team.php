@@ -34,7 +34,8 @@ class Team extends Model
     public const TEAM_RELATIONS = [
         'bannerImages:team_id,banner_image AS bannerImage',
         'broadcastAddress:team_id,broadcast_address AS broadcastAddress,platform',
-        'operateGames:name'
+        'operateGames:name',
+        'slug:id,slug'
     ];
 
     public const OWNER = 1;

@@ -7,9 +7,9 @@ namespace App\Repositories;
 use App\Models\Team\Team;
 use App\Models\Team\Member as TeamMember;
 
-use App\Models\User;
 use App\Factories\Update\ImageUpdateFactory;
 use App\Wrappers\UpdateTypeWrapper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class TeamRepository
@@ -73,5 +73,12 @@ class TeamRepository
         return DB::transaction(function () use ($type, $attribute) {
             return $this->resolveUpdateFactory($type, $attribute)->create();
         });
+    }
+
+    public function findByUserId(string $userId)
+    {
+        return Team::whereHas('user', function (Builder $query) use ($userId) {
+            $query->where('owner', $userId);
+        })->with(Team::TEAM_RELATIONS);
     }
 }
