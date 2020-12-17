@@ -15,7 +15,7 @@ use App\Models\Team\Member as TeamMember;
 
 $factory->define(Team::class, function (Faker $faker) {
     $teamData = [
-        'owner' => factory(User::class)->states(['addProfileImage'])->create(),
+        'owner' => factory(User::class)->create(),
         'name' => \Illuminate\Support\Str::random(15),
         'is_public' => random_int(0, 1) === 0,
     ];

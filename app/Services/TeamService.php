@@ -78,7 +78,7 @@ class TeamService
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'memberCount' => $team->team_member_count,
+            'memberCount' => $team->member_count,
             'logoImage' => $team->logo_image ? route('teamLogoImage', [
                 'logoImage' => $team->logo_image
             ]) : null,
