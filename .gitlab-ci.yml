@@ -24,7 +24,7 @@ dockerize-develop:
     - develop
 
 deploy-develop:
-  stage: deploy-develop
+  stage: deploy
 
   only:
     - develop
@@ -41,7 +41,7 @@ deploy-develop:
     - develop
 
 deploy-master:
-  stage: deploy-master
+  stage: deploy
 
   only:
     - master
