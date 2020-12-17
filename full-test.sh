@@ -63,9 +63,26 @@ function completeInfo() {
 }
 
 
+function cleanUp() {
+    cd /var/www &&
+    rm -rf ./storage/app/channelBanners/*.jpg && \
+    rm -rf ./storage/app/channelLogos/*.jpg && \
+    rm -rf ./storage/app/profileImages/*.jpg && \
+    rm -rf ./storage/app/teamBanners/*.jpg && \
+    rm -rf ./storage/app/teamLogos/*.jpg && \
+    rm -rf ./storage/app/channelBanners/*.png && \
+    rm -rf ./storage/app/channelLogos/*.png && \
+    rm -rf ./storage/app/profileImages/*.png && \
+    rm -rf ./storage/app/teamBanners/*.png && \
+    rm -rf ./storage/app/teamLogos/*.png && \
+    php artisan optimize:clear > /dev/null && php artisan optimize > /dev/null && \
+    sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env
+}
+
 init && \
 stepOne && \
 stepTwo && \
 stepThree && \
 stepFour && \
+cleanUp && \
 completeInfo
