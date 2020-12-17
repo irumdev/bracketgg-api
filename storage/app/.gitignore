@@ -1,3 +1,9 @@
 *
 !public/
+!profileImages/
+!channelLogos/
+!channelBanners/
+!channelBannerTrash/
+!teamLogos/
+!teamBanners/
 !.gitignore

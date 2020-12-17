@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -16,6 +18,8 @@ return [
     | one of the channels defined in the "channels" configuration array.
     |
     */
+
+    'isUseSlackNoti' => env('USE_SLACK_NOTI'),
 
     'default' => env('LOG_CHANNEL', 'stack'),
 
@@ -37,7 +41,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily', 'slack'],
             'ignore_exceptions' => false,
         ],
 
@@ -56,10 +60,10 @@ return [
 
         'slack' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => 'critical',
+            'url' => env('SLACK_WEBHOOK_URL'),
+            'username' => 'alert-bot',
+            'emoji' => 'https://avatars.slack-edge.com/2020-10-08/1428155402577_7e6a1aee33bd791a867d_48.jpg',
+            'level' => 'debug',
         ],
 
         'papertrail' => [

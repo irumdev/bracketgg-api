@@ -7,4 +7,22 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    public function refresh(): void
+    {
+        $this->artisan('migrate:fresh');
+    }
+
+    public function getCurrentCaseKoreanName(): string
+    {
+        $calledClassName = array_merge(array_filter(explode("Tests\\Feature\\", get_called_class())));
+
+        $calledMethodName = $this->getName();
+        $korCaseName = __(join('.', [
+            'testCase',
+            str_replace('\\', '.', $calledClassName[0]),
+            $calledMethodName,
+        ]));
+
+        return count(explode('testCase', $korCaseName)) >= 2 ? $calledMethodName : $korCaseName;
+    }
 }

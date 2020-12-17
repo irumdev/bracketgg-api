@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShowImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::fallback(function () {
-    return response()->json([
-        'ok' => false
-    ], 200);
+Route::get('profile-image/{profileImage}', [ShowImageController::class, 'getUserProfile'])->name('profileImage');
+
+Route::group(['prefix' => 'channel'], function () {
+    Route::get('banner/{bannerImage}', [ShowImageController::class, 'getChannelBanner'])->name('channelBannerImage');
+    Route::get('logo/{logoImage}', [ShowImageController::class, 'getChannelLogo'])->name('channelLogoImage');
+});
+
+Route::group(['prefix' => 'team'], function () {
+    Route::get('banner/{bannerImage}', [ShowImageController::class, 'getTeamBanner'])->name('teamBannerImage');
+    Route::get('logo/{logoImage}', [ShowImageController::class, 'getTeamLogo'])->name('teamLogoImage');
 });

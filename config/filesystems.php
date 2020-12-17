@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -51,7 +53,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -63,6 +65,27 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+        ],
+
+        'profileImage' => [
+            'driver' => 'local',
+            'root' => storage_path('app/profileImages'),
+            'url' => env('APP_URL') . '/profileImage',
+            'visibility' => 'public',
+        ],
+
+        'channelLogo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/channelLogos'),
+            'url' => env('APP_URL') . '/channelLogo',
+            'visibility' => 'public',
+        ],
+
+        'channelBanners' => [
+            'driver' => 'local',
+            'root' => storage_path('app/channelBanners'),
+            'url' => env('APP_URL') . '/channelBanners',
+            'visibility' => 'public',
         ],
 
     ],

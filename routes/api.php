@@ -1,8 +1,29 @@
 <?php
 
-use Illuminate\Http\Request;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Response;
+
+use App\Http\Controllers\User\UserLogoutController;
+use App\Http\Controllers\User\CheckEmailDuplicateController;
+use App\Http\Controllers\User\CreateUserController;
+use App\Http\Controllers\User\ShowUserController;
+use App\Http\Controllers\User\UserVerifyController;
+use App\Http\Controllers\User\VerifyEmailController;
+
+use App\Http\Controllers\Channel\FollowChannelController;
+use App\Http\Controllers\Channel\LikeChannelController;
+use App\Http\Controllers\Channel\ShowChannelController;
+use App\Http\Controllers\Channel\ShowUserChannelController;
+use App\Http\Controllers\Channel\CreateChannelController;
+use App\Http\Controllers\Channel\UpdateChannelController;
+
+use App\Http\Controllers\Team\CreateTeamController;
+use App\Http\Controllers\Team\CheckTeamNameExistsController;
+use App\Http\Controllers\Team\UpdateInformationController;
+use App\Http\Controllers\Team\ShowTeamInfoController;
+
+use App\Http\Controllers\Game\FindTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +38,66 @@ use Illuminate\Http\Response;
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('auth', function(){
-        return response()->json(['ok' => true, 'message' => 'hello world!'], Response::HTTP_OK);
-    });
-});
+    Route::post('auth', [UserVerifyController::class, 'verifyUser'])->name('verify');
 
-Route::fallback(function () {
-    return response()->json([
-        'ok' => false,
-        'message' => 'fallback'
-    ], Response::HTTP_NOT_FOUND);
+
+    Route::group(['prefix' => 'email'], function () {
+        Route::post('resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
+        Route::get('duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
+        Route::get('verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])->middleware('signed')->name('verifyEmail');
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('', [CreateUserController::class, 'createUser'])->name('createUser');
+        Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
+                                                                ->middleware('auth:sanctum');
+    });
+
+    Route::group(['prefix' => 'channel'], function () {
+        Route::get('slug/{slug}', [ShowChannelController::class, 'getChannelById'])->name('findChannelBySlug');
+        Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
+    });
+
+    Route::group(['prefix' => 'team'], function () {
+        Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
+    });
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        /**
+         * 로그아웃 테스트 안되어있음
+         */
+        Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
+
+        Route::group(['prefix' => 'channel'], function () {
+            Route::post('', [CreateChannelController::class, 'createChannel'])->name('createChannel');
+            Route::post('{slug}', [UpdateChannelController::class, 'updateChannelInfoWithOutImage'])->name('updateChannelInfo');
+
+            Route::post('{slug}/update-banner', [UpdateChannelController::class, 'updateBannerImage'])->name('updateChannelBanner');
+            Route::post('{slug}/update-logo', [UpdateChannelController::class, 'updateLogoImage'])->name('updateChannelLogo');
+
+            Route::get('{slug}/followers', [ShowUserChannelController::class, 'getFollower'])->name('getFollower');
+            Route::get('owner/{user}', [ShowUserChannelController::class, 'getChannelsByUserId'])->name('showChannelByOwnerId');
+
+            Route::get('{slug}/isfollow', [FollowChannelController::class, 'isFollow'])->name('channelIsFollow');
+            Route::get('{slug}/islike', [LikeChannelController::class, 'isLike'])->name('isLikeChannel');
+
+            Route::patch('{slug}/follow', [FollowChannelController::class, 'followChannel'])->name('followChannel');
+            Route::patch('{slug}/unfollow', [FollowChannelController::class, 'unFollowChannel'])->name('unFollowChannel');
+
+            Route::patch('{slug}/like', [LikeChannelController::class, 'likeChannel'])->name('likeChannel');
+            Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
+        });
+
+        Route::group(['prefix' => 'team'], function () {
+            Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
+            Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
+            Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
+
+            Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
+            Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
+            Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
+        });
+
+        Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
+    });
 });

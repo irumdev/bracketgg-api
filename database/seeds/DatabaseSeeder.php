@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Models\User;
+use App\Models\Channel\Channel;
+use App\Models\Team\Team;
 
 class DatabaseSeeder extends Seeder
 {
@@ -9,8 +12,20 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // $this->call(UserSeeder::class);
+        factory(Team::class, 20)->states([
+            'addSlug',
+            'addBannerImage',
+            'addBroadcasts',
+            'addOperateGame',
+            'addMembers',
+        ])->create();
+
+        factory(Channel::class, 20)->states([
+            'addSlug',
+            'addBannerImage','hasFollower',
+            'addBroadcasts', 'hasLike'
+        ])->create();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -53,6 +55,8 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'frontEndUrl' => env('FRONT_END_URL', null),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -228,5 +232,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    'test' => [
+
+        'useRealImage' => env('TEST_USE_REAL_IMAGE', false)
+    ]
 
 ];

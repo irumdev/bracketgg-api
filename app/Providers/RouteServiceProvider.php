@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use App\Models\Channel\Slug as ChannelSlug;
+use App\Models\Channel\Channel;
+use App\Models\Team\Slug as TeamSlug;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,9 +35,19 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('slug', function ($channelSlug) {
+            return ChannelSlug::where('slug', $channelSlug)->firstOrFail()->channel;
+        });
+
+        Route::bind('name', function ($channelName) {
+            return Channel::where('name', $channelName)->firstOrFail();
+        });
+
+        Route::bind('teamSlug', function ($teamSlug) {
+            return TeamSlug::where('slug', $teamSlug)->firstOrFail()->team;
+        });
     }
 
     /**
