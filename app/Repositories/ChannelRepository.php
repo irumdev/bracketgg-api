@@ -29,7 +29,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
 
     public function findByUserId(string $userId): Builder
     {
-        return Channel::whereHas('user', function ($query) use ($userId) {
+        return Channel::whereHas('user', function (Builder $query) use ($userId) {
             $query->where('owner', $userId);
         })->with(User::$channelsInfo);
         // return User::findOrFail($userId)->channels()->with(User::$channelsInfo)->get();

@@ -11,6 +11,9 @@ use App\Repositories\TeamRepository;
 use App\Models\Team\BannerImage as TeamBannerImages;
 use App\Models\Team\Broadcast as TeamBroadCast;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
+
 class TeamService
 {
     private TeamRepository $teamRepository;
@@ -42,6 +45,13 @@ class TeamService
         ]);
     }
 
+    public function findTeamsByUserId(string $userId): Collection
+    {
+        $getTeamsByOwnerId = $this->teamRepository->findByUserId($userId)->get();
+        throw_if($getTeamsByOwnerId->count() <= 0, (new ModelNotFoundException())->setModel(Team::class));
+        return $getTeamsByOwnerId->map(fn (Team $team) => $this->info($team));
+    }
+
     public function createBannerImage(Team $team, array $updateInfo)
     {
         return $this->teamRepository->createImage('banner', [
@@ -68,7 +78,7 @@ class TeamService
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'memberCount' => $team->team_member_count,
+            'memberCount' => $team->member_count,
             'logoImage' => $team->logo_image ? route('teamLogoImage', [
                 'logoImage' => $team->logo_image
             ]) : null,
