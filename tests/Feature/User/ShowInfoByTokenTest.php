@@ -27,7 +27,8 @@ class ShowInfoByTokenTest extends TestCase
                 'email' => $activeUser->email,
                 'profileImage' => $userProfileImageUrl = route('profileImage', [
                     'profileImage' => $activeUser->profile_image
-                ])
+                ]),
+                'createdAt' => $activeUser->created_at,
             ],
             $response['messages'],
         );
@@ -53,6 +54,7 @@ class ShowInfoByTokenTest extends TestCase
                 'nickName' => $activeUser->nick_name,
                 'email' => $activeUser->email,
                 'profileImage' => null,
+                'createdAt' => $activeUser->created_at,
             ],
             $response['messages'],
         );
