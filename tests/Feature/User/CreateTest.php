@@ -377,6 +377,7 @@ class CreateTest extends TestCase
         $this->assertEquals($tryCreateUser['messages']['nick_name'], $user->nick_name);
         $this->assertEquals($tryCreateUser['messages']['is_policy_agree'], $user->is_policy_agree);
         $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
+        $this->assertEquals($tryCreateUser['messages']['createdAt'], $user->created_at);
     }
 
     /** @test */
@@ -415,6 +416,7 @@ class CreateTest extends TestCase
             $this->assertEquals($tryCreateUser['messages']['nick_name'], $user->nick_name);
             $this->assertEquals($tryCreateUser['messages']['is_policy_agree'], $user->is_policy_agree);
             $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
+            $this->assertEquals($tryCreateUser['messages']['createdAt'], $user->created_at);
         });
     }
 
@@ -444,5 +446,7 @@ class CreateTest extends TestCase
         $this->assertEquals($tryCreateUser['messages']['nick_name'], $user->nick_name);
         $this->assertEquals($tryCreateUser['messages']['is_policy_agree'], $user->is_policy_agree);
         $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
+        $this->assertEquals($tryCreateUser['messages']['createdAt'], $user->created_at);
+
     }
 }

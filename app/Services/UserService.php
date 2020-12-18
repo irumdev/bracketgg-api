@@ -90,6 +90,7 @@ class UserService
             'profileImage' => empty($user->profile_image) ? null : route('profileImage', [
                 'profileImage' => $user->profile_image
             ]),
+            'createdAt' => $user->created_at,
         ];
     }
 
