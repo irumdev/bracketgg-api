@@ -12,7 +12,7 @@ use App\Models\Channel\Fan as ChannelFan;
 use App\Repositories\UserRepository;
 
 use App\Exceptions\FileSaveFailException;
-
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -90,6 +90,7 @@ class UserService
             'profileImage' => empty($user->profile_image) ? null : route('profileImage', [
                 'profileImage' => $user->profile_image
             ]),
+            'createdAt' => Carbon::parse($user->created_at)->format('Y-m-d H:i:s'),
         ];
     }
 

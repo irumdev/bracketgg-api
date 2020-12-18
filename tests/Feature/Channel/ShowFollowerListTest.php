@@ -8,6 +8,8 @@ use Tests\TestCase;
 use App\Models\Channel\Channel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+use App\Properties\Paginate;
+use Illuminate\Support\Carbon;
 
 class ShowFollowerListTest extends TestCase
 {
@@ -75,7 +77,9 @@ class ShowFollowerListTest extends TestCase
             array_map(function ($follower) use ($followerIds) {
                 $user = User::find($follower['id']);
                 $this->assertNotNull($user);
-                $this->assertTrue($followerIds->contains($user->id));
+                $userInfo = $followerIds->search($user->id);
+                $this->assertTrue($userInfo !== false);
+                $this->assertEquals(Carbon::parse($user->create_at)->format('Y-m-d H:i:s'), $follower['createdAt']);
             }, $responseFollowers);
             $current += 1;
         } while ($tryLookUpFollowersList['messages']['meta']['hasMorePage']);
