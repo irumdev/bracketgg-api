@@ -127,6 +127,9 @@ class Channel extends Model
             'id',
             'id',
             'user_id'
-        );
+        )->select([
+            'channel_followers.created_at as followedAt',
+            'users.*',
+        ]);
     }
 }

@@ -79,6 +79,7 @@ function cleanUp() {
     sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env
 }
 
+cleanUp && \
 init && \
 stepOne && \
 stepTwo && \
