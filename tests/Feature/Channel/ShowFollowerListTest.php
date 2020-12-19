@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Channel\Channel;
 use App\Models\User;
+use App\Models\Channel\Follower as ChannelFollower;
 use Laravel\Sanctum\Sanctum;
 use App\Properties\Paginate;
 use Illuminate\Support\Carbon;
@@ -56,6 +57,12 @@ class ShowFollowerListTest extends TestCase
             'addBannerImage','hasManyFollower','addBroadcasts', 'addSlug', 'hasLike'
         ])->create();
 
+        ChannelFollower::where('channel_id', $channel->id)->get()->map(function ($key) {
+            $key->created_at = $key->created_at->addDays(2);
+            $key->updated_at = $key->updated_at->addDays(2);
+            $key->save();
+        });
+
         $activedUser = Sanctum::actingAs(factory(User::class)->create());
         $current = 1;
 
@@ -74,12 +81,17 @@ class ShowFollowerListTest extends TestCase
             $responseFollowers = $tryLookUpFollowersList['messages']['followers'];
 
             $followerIds = collect($channel->followers->map(fn ($follower) => $follower->id));
-            array_map(function ($follower) use ($followerIds) {
+            array_map(function ($follower) use ($followerIds, $channel) {
                 $user = User::find($follower['id']);
                 $this->assertNotNull($user);
+                $followedAt = \App\Models\Channel\Follower::where([
+                    ['channel_id', '=', $channel->id],
+                    ['user_id', '=', $user->id],
+                ])->first()->created_at;
                 $userInfo = $followerIds->search($user->id);
                 $this->assertTrue($userInfo !== false);
-                $this->assertEquals(Carbon::parse($user->create_at)->format('Y-m-d H:i:s'), $follower['createdAt']);
+                $this->assertEquals(Carbon::parse($user->created_at)->format('Y-m-d H:i:s'), $follower['createdAt']);
+                $this->assertEquals(Carbon::parse($followedAt)->format('Y-m-d H:i:s'), $follower['followedAt']);
             }, $responseFollowers);
             $current += 1;
         } while ($tryLookUpFollowersList['messages']['meta']['hasMorePage']);
