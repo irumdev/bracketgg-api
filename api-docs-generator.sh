@@ -71,5 +71,5 @@ function cleanUp() {
 cd /var/www && \
 php artisan enlighten:migrate:fresh > /dev/null && \
 cleanUp && \
-php artisan test && \
+php artisan test > /dev/null && \
 php artisan enlighten:export

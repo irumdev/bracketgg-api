@@ -93,7 +93,33 @@
                                         x-on:click="open = !open"
                                         type="button" name="toggle panel"
                                             class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                        Other Modules
+                                        Team
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-team-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-team-duplicate-name-check.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Duplicate Name Check
+                                            </a>
+                                                                                    <a href="/feature-team-show-info.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info
+                                            </a>
+                                                                                    <a href="/feature-team-update-information.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Update Information
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Channel
                                     </button>
                                     <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-channel-check-follow.html"
@@ -136,25 +162,19 @@
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Update Information
                                             </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Other Modules
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-game-type-search.html"
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Search
-                                            </a>
-                                                                                    <a href="/feature-team-create.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Create
-                                            </a>
-                                                                                    <a href="/feature-team-duplicate-name-check.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Duplicate Name Check
-                                            </a>
-                                                                                    <a href="/feature-team-show-info.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Show Info
-                                            </a>
-                                                                                    <a href="/feature-team-update-information.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Update Information
                                             </a>
                                                                             </div>
                                 </div>
@@ -176,7 +196,7 @@
                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
  
                 </span>
-                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-88&quot;,&quot;head&quot;:&quot;33b1a62&quot;,&quot;modified&quot;:1,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
+                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-83&quot;,&quot;head&quot;:&quot;021597e&quot;,&quot;modified&quot;:1,&quot;created_at&quot;:&quot;2020-12-25T16:10:29.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:29.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:29.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:29.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:30.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:30.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:31.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:31.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:32.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:32.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:35.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:35.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:40.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:52.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:52.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:54.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:54.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:56.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:56.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:10:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:10:59.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:04.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:04.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:05.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:05.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:06.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:06.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:07.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:07.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:08.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:08.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:18.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:18.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:20.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:20.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:22.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:22.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:25.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T16:11:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T16:11:25.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
      x-data='{
          open: true,
          results: [],
@@ -213,9 +233,9 @@
  
                                                     <div class="ml-4 flex items-center md:ml-6">
                                             <div class="text-gray-200 font-light px-4 flex justify-center">
-                            <strong>bracketgg-88</strong>
+                            <strong>bracketgg-83</strong>
                                                             <span class="text-red-500 text-lg px-2">*</span>
-                                                        33b1a62
+                                                        021597e
                         </div>
                                         <a href="https://github.com/StydeNet/enlighten"
                        class="text-gray-100 hover:text-gray-500 focus:outline-none" aria-label="Notifications">
@@ -300,7 +320,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/team/tO5vRmTh</td>
+                > api/v1/team/bMmE7KlT</td>
             </tr>
             </table>
 </div>
@@ -335,7 +355,7 @@
                     <tr>
                 <td class="px-4 py-2 font-thin text-gray-200">slug</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
-                                            aXkTl21vQvv
+                                            afnPc4JWVTF
                                     </td>
             </tr>
                     <tr>
@@ -348,9 +368,9 @@
                 <td class="px-4 py-2 font-thin text-gray-200">games</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
                                             [
-    &quot;e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY&quot;,
-    &quot;Miss Jana Corkery&quot;,
-    &quot;sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM&quot;
+    &quot;MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ&quot;,
+    &quot;Leatha Homenick&quot;,
+    &quot;nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij&quot;
 ]
                                     </td>
             </tr>
@@ -392,7 +412,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 155</td>
+                > 153</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -429,7 +449,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">date: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Fri, 25 Dec 2020 08:18:53 GMT</td>
+                > Fri, 25 Dec 2020 16:11:11 GMT</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -453,45 +473,30 @@
     &quot;ok&quot;: true,
     &quot;isValid&quot;: true,
     &quot;messages&quot;: {
-        &quot;id&quot;: 101,
-        &quot;name&quot;: &quot;W1Zh8IUSXRqTt8B&quot;,
+        &quot;id&quot;: 19,
+        &quot;name&quot;: &quot;LL0PH8rrC1gfmJi&quot;,
         &quot;memberCount&quot;: 1,
-        &quot;logoImage&quot;: &quot;http:\/\/localhost\/team\/logo\/https:\/\/placeimg.com\/640\/480?914&quot;,
+        &quot;logoImage&quot;: &quot;http:\/\/localhost\/team\/logo\/https:\/\/placeimg.com\/640\/480?836&quot;,
         &quot;bannerImages&quot;: [],
         &quot;broadCastAddress&quot;: [
             {
-                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?65041&quot;,
+                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?74001&quot;,
                 &quot;platform&quot;: 7,
                 &quot;platformKr&quot;: &quot;카카오 TV&quot;
             },
             {
-                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?27326&quot;,
-                &quot;platform&quot;: 4,
-                &quot;platformKr&quot;: &quot;인스타그램&quot;
-            },
-            {
-                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?98673&quot;,
-                &quot;platform&quot;: 2,
-                &quot;platformKr&quot;: &quot;트위치&quot;
-            },
-            {
-                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?33303&quot;,
-                &quot;platform&quot;: 1,
-                &quot;platformKr&quot;: &quot;유튜브&quot;
-            },
-            {
-                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?32739&quot;,
-                &quot;platform&quot;: 2,
-                &quot;platformKr&quot;: &quot;트위치&quot;
+                &quot;broadcastAddress&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?36317&quot;,
+                &quot;platform&quot;: 7,
+                &quot;platformKr&quot;: &quot;카카오 TV&quot;
             }
         ],
         &quot;isPublic&quot;: true,
-        &quot;owner&quot;: 1835,
-        &quot;slug&quot;: &quot;aXkTl21vQvv&quot;,
+        &quot;owner&quot;: 391,
+        &quot;slug&quot;: &quot;afnPc4JWVTF&quot;,
         &quot;operateGames&quot;: [
-            &quot;Miss Jana Corkery&quot;,
-            &quot;e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY&quot;,
-            &quot;sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM&quot;
+            &quot;Leatha Homenick&quot;,
+            &quot;MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ&quot;,
+            &quot;nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij&quot;
         ]
     }
 }</code></pre>
@@ -517,7 +522,7 @@
                 <div class="flex flex-col space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 4.63</h3>
+        <h3 class="text-base text-gray-300">Time: 35.78</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -533,17 +538,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Nadia Hilpert</td>
+                > Liliane Hane</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > tsgsztDlYcDGQOMzxWSR@rQNF79C8TmdaR4F9PeYu.I4M</td>
+                > XL7QQ5DX7NlEAAk1G5BJ@l8QqVlAidfpXoJ8f61cu.9lf</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:52</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -563,12 +568,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$fQ6zA/sAjAnj0vQ05wRDOuFYVn3YV2Ilwzhw6ln0FQoFeQx85TH.y</td>
+                > $2y$10$VPc5Di9mSx5uPi5eeFOhduQTz51fBk.RbEjj1LJIGpLFnuiiz6m1a</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > OIbmt9Xzp6</td>
+                > fRKerCIStc</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -583,12 +588,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -596,7 +601,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 29.06</h3>
+        <h3 class="text-base text-gray-300">Time: 2.36</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -612,17 +617,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Payton Ward II</td>
+                > Gerda Beatty</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > pY3UpjAvA4ep0LusVi25@rFeL9V4bg6agaYsDaakl.kSe</td>
+                > XiOAf0qf1QXswO6oppJw@yCrmPJ0LqQ9jeEE5uL9x.KW9</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -642,12 +647,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$7SQbpPICkULVPSAH6dDrKuu.pntdlfXNQCjvypSk8610JzmfHCpQK</td>
+                > $2y$10$s1wT6IbOibMyuzqahLTQtuA0ZR1sZ/IPAmF0pj8xF06SzRpkk.Pju</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > GMgS3fY0fc</td>
+                > h7IksY9hJe</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -662,12 +667,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -675,7 +680,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 6.04</h3>
+        <h3 class="text-base text-gray-300">Time: 2</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -691,12 +696,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1835</td>
+                > 391</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > W1Zh8IUSXRqTt8B</td>
+                > LL0PH8rrC1gfmJi</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
@@ -706,17 +711,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://placeimg.com/640/480?914</td>
+                > https://placeimg.com/640/480?836</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -724,7 +729,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.69</h3>
+        <h3 class="text-base text-gray-300">Time: 1.89</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -740,679 +745,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > tO5vRmTh</td>
+                > bMmE7KlT</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.66</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Vincent Hegmann</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.71</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 483</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.66</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Quinten Abbott</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.56</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 484</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.76</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Prof. Vincenza Lehner</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.1</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 485</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.95</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Miss Jana Corkery</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.73</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 486</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.77</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Grace Welch Jr.</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.78</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 487</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.79</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Prof. Abel Altenwerth DDS</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.85</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 488</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.64</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Lottie Wehner</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.97</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 489</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.63</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Jacinthe Murray</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.6</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 490</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.41</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Nora Renner</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.2</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 491</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -1436,17 +784,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Mr. Conrad Hammes DVM</td>
+                > Prof. Kattie Green</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -1454,7 +802,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.67</h3>
+        <h3 class="text-base text-gray-300">Time: 1.43</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1470,22 +818,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 492</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:10</td>
             </tr>
             </table>
 </div>
@@ -1493,7 +841,664 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.12</h3>
+        <h3 class="text-base text-gray-300">Time: 1.72</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Rudy Flatley</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.62</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 20</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.82</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Pierce Hill</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.47</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 21</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.81</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Eleanore Boyer</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.84</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 22</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.67</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Abe Raynor IV</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.61</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 23</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.48</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Leatha Homenick</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.57</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 24</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.79</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Mateo Friesen DDS</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.86</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 25</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.51</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Marty Runte</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.54</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 26</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.5</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Kale Adams</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.68</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 27</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:10</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.44</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Rubie Dach</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.57</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 28</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.82</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1509,7 +1514,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://lorempixel.com/640/480/?65041</td>
+                > https://lorempixel.com/640/480/?74001</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
@@ -1519,17 +1524,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
             </table>
 </div>
@@ -1537,7 +1542,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.76</h3>
+        <h3 class="text-base text-gray-300">Time: 1.54</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1553,27 +1558,27 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://lorempixel.com/640/480/?27326</td>
+                > https://lorempixel.com/640/480/?36317</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 4</td>
+                > 7</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
             </table>
 </div>
@@ -1581,139 +1586,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.06</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `team_broadcasts` (`broadcast_address`, `platform`, `team_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > https://lorempixel.com/640/480/?98673</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.41</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `team_broadcasts` (`broadcast_address`, `platform`, `team_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > https://lorempixel.com/640/480/?33303</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 3.76</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `team_broadcasts` (`broadcast_address`, `platform`, `team_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > https://lorempixel.com/640/480/?32739</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.56</h3>
+        <h3 class="text-base text-gray-300">Time: 0.96</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1729,7 +1602,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1737,7 +1610,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.99</h3>
+        <h3 class="text-base text-gray-300">Time: 1.02</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1753,7 +1626,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1774,7 +1647,7 @@
                 <div class="flex flex-col md:col-span-2 space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.95</h3>
+        <h3 class="text-base text-gray-300">Time: 0.86</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1790,7 +1663,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > tO5vRmTh</td>
+                > bMmE7KlT</td>
             </tr>
             </table>
 </div>
@@ -1798,7 +1671,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.92</h3>
+        <h3 class="text-base text-gray-300">Time: 1.49</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1814,7 +1687,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1822,7 +1695,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.75</h3>
+        <h3 class="text-base text-gray-300">Time: 0.86</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1838,7 +1711,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > aXkTl21vQvv</td>
+                > afnPc4JWVTF</td>
             </tr>
             </table>
 </div>
@@ -1846,7 +1719,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.87</h3>
+        <h3 class="text-base text-gray-300">Time: 0.85</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1862,17 +1735,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > aXkTl21vQvv</td>
+                > afnPc4JWVTF</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1880,7 +1753,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.96</h3>
+        <h3 class="text-base text-gray-300">Time: 0.98</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1896,7 +1769,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1904,7 +1777,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.68</h3>
+        <h3 class="text-base text-gray-300">Time: 1.14</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1920,12 +1793,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 483</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -1933,7 +1806,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.66</h3>
+        <h3 class="text-base text-gray-300">Time: 0.89</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1949,244 +1822,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 484</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.61</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 485</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.6</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 487</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.69</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 488</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.57</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 489</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.67</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 490</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.63</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 491</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.75</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 492</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.64</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select * from `game_types` where `name` = ? and (`name` = ?) limit 1</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY</td>
+                > 20</td>
             </tr>
             </table>
 </div>
@@ -2199,7 +1840,7 @@
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
 </div> 
                                                              <div>
              <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
@@ -2210,17 +1851,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 21</td>
             </tr>
             </table>
 </div>
@@ -2228,12 +1864,12 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.7</h3>
+        <h3 class="text-base text-gray-300">Time: 0.76</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select * from `operate_games` where (`team_id` = ? and `game_type_id` = ?) and (`team_id` = ? and `game_type_id` = ?) limit 1</code></pre>
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
 </div> 
                                                              <div>
              <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
@@ -2244,22 +1880,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 493</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 493</td>
+                > 22</td>
             </tr>
             </table>
 </div>
@@ -2267,12 +1893,12 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.59</h3>
+        <h3 class="text-base text-gray-300">Time: 0.81</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
 </div> 
                                                              <div>
              <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
@@ -2283,22 +1909,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 493</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 23</td>
             </tr>
             </table>
 </div>
@@ -2306,7 +1922,123 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.79</h3>
+        <h3 class="text-base text-gray-300">Time: 0.94</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 25</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.88</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 26</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.78</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 27</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.64</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">delete from `operate_games` where (`team_id` = ? and `game_type_id` = ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 28</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.78</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2322,12 +2054,192 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Miss Jana Corkery</td>
+                > MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Miss Jana Corkery</td>
+                > MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.03</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `game_types` (`name`, `updated_at`, `created_at`) values (?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.84</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">select * from `operate_games` where (`team_id` = ? and `game_type_id` = ?) and (`team_id` = ? and `game_type_id` = ?) limit 1</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.94</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `operate_games` (`team_id`, `game_type_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-25 16:11:11</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.78</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">select * from `game_types` where `name` = ? and (`name` = ?) limit 1</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Leatha Homenick</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Leatha Homenick</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.78</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">select * from `operate_games` where (`team_id` = ? and `game_type_id` = ?) and (`team_id` = ? and `game_type_id` = ?) limit 1</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 24</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 19</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 24</td>
             </tr>
             </table>
 </div>
@@ -2340,45 +2252,6 @@
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select * from `operate_games` where (`team_id` = ? and `game_type_id` = ?) and (`team_id` = ? and `game_type_id` = ?) limit 1</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 486</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 486</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.57</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
     ><code class="language-sql">select * from `game_types` where `name` = ? and (`name` = ?) limit 1</code></pre>
 </div> 
                                                              <div>
@@ -2390,12 +2263,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM</td>
+                > nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM</td>
+                > nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij</td>
             </tr>
             </table>
 </div>
@@ -2403,7 +2276,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.59</h3>
+        <h3 class="text-base text-gray-300">Time: 0.86</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2419,17 +2292,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM</td>
+                > nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
             </table>
 </div>
@@ -2437,7 +2310,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.68</h3>
+        <h3 class="text-base text-gray-300">Time: 1.15</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2453,22 +2326,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 494</td>
+                > 30</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 494</td>
+                > 30</td>
             </tr>
             </table>
 </div>
@@ -2476,7 +2349,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.61</h3>
+        <h3 class="text-base text-gray-300">Time: 0.87</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2492,22 +2365,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 494</td>
+                > 30</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
             </table>
 </div>
@@ -2515,7 +2388,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.52</h3>
+        <h3 class="text-base text-gray-300">Time: 0.75</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2536,12 +2409,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:53</td>
+                > 2020-12-25 16:11:11</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -2549,7 +2422,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.87</h3>
+        <h3 class="text-base text-gray-300">Time: 1.05</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2565,7 +2438,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -2573,51 +2446,51 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.69</h3>
+        <h3 class="text-base text-gray-300">Time: 0.86</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select `team_id`, `banner_image` as `bannerImage` from `team_banner_images` where `team_banner_images`.`team_id` in (101)</code></pre>
+    ><code class="language-sql">select `team_id`, `banner_image` as `bannerImage` from `team_banner_images` where `team_banner_images`.`team_id` in (19)</code></pre>
 </div>
 </div>
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.68</h3>
+        <h3 class="text-base text-gray-300">Time: 0.9</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select `team_id`, `broadcast_address` as `broadcastAddress`, `platform` from `team_broadcasts` where `team_broadcasts`.`team_id` in (101)</code></pre>
+    ><code class="language-sql">select `team_id`, `broadcast_address` as `broadcastAddress`, `platform` from `team_broadcasts` where `team_broadcasts`.`team_id` in (19)</code></pre>
 </div>
 </div>
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.8</h3>
+        <h3 class="text-base text-gray-300">Time: 1.03</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select `name`, `operate_games`.`team_id` as `laravel_through_key` from `game_types` inner join `operate_games` on `operate_games`.`game_type_id` = `game_types`.`id` where `operate_games`.`team_id` in (101)</code></pre>
+    ><code class="language-sql">select `name`, `operate_games`.`team_id` as `laravel_through_key` from `game_types` inner join `operate_games` on `operate_games`.`game_type_id` = `game_types`.`id` where `operate_games`.`team_id` in (19)</code></pre>
 </div>
 </div>
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.77</h3>
+        <h3 class="text-base text-gray-300">Time: 0.9</h3>
     </span>
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">select `id`, `slug` from `team_slugs` where `team_slugs`.`team_id` in (101)</code></pre>
+    ><code class="language-sql">select `id`, `slug` from `team_slugs` where `team_slugs`.`team_id` in (19)</code></pre>
 </div>
 </div>
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.84</h3>
+        <h3 class="text-base text-gray-300">Time: 0.98</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2633,7 +2506,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>
@@ -2662,7 +2535,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/team/tO5vRmTh</td>
+                > api/v1/team/bMmE7KlT</td>
             </tr>
             </table>
 </div>
@@ -2697,7 +2570,7 @@
                     <tr>
                 <td class="px-4 py-2 font-thin text-gray-200">slug</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
-                                            aXkTl21vQvv
+                                            afnPc4JWVTF
                                     </td>
             </tr>
                     <tr>
@@ -2710,9 +2583,9 @@
                 <td class="px-4 py-2 font-thin text-gray-200">games</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
                                             [
-    &quot;e029R0MjdEj9RWHL4a9TASTW3TNnO4KNorii4GZY&quot;,
-    &quot;Miss Jana Corkery&quot;,
-    &quot;sVMDCLDkfdY0cnUdxv1N599qvt6k385LUzSVlcIM&quot;
+    &quot;MesAbDoCc4lQJ8pTxj32lzUGjdXVrJ39b2VgdqyZ&quot;,
+    &quot;Leatha Homenick&quot;,
+    &quot;nmyh5gczoap60Y4i88XFjS6ro2IjZeJXyrPS8mij&quot;
 ]
                                     </td>
             </tr>
@@ -2754,7 +2627,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 155</td>
+                > 153</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -2782,7 +2655,7 @@
                 <div class="flex flex-col space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.83</h3>
+        <h3 class="text-base text-gray-300">Time: 0.97</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2798,7 +2671,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 101</td>
+                > 19</td>
             </tr>
             </table>
 </div>

@@ -70,7 +70,7 @@ return [
     ],
 
     // Configure a default view for the panel. Options: features, modules and endpoints.
-    'area_view' => 'features',
+    'area_view' => 'endpoints',
 
     // Customise the name and view template of each area that will be shown in the panel.
     // By default, each area slug will represent a "test suite" in the tests directory.
@@ -100,7 +100,23 @@ return [
         [
             'name' => 'Users',
             'classes' => ['*User*'],
-            'routes' => ['users/*'],
+            'routes' => ['api/v1/users*', 'api/v1/user*', 'api/v1/auth*'],
+        ],
+        [
+            'name' => 'Team',
+            'classes' => ['*Team*'],
+            'routes' => ['api/v1/teams*','api/v1/team*'],
+        ],
+        [
+            'name' => 'Email',
+            'classes' => ['*Email*'],
+            'routes' => ['api/v1/email*'],
+        ],
+
+        [
+            'name' => 'Channel',
+            'classes' => ['*Channel*'],
+            'routes' => ['*channel/*', '*channels/*'],
         ],
         [
             'name' => 'Other Modules',
