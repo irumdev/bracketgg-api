@@ -8,15 +8,20 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use Tests\TestCase;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class VerifyEmailTest extends TestCase
 {
+    use EnlightenSetup;
+
     private const UN_DEFINED_USER = -1;
     private string $testUrl;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->setUpEnlighten();
+
         $this->testUrl = route('createUser');
         Http::fake([
             'directsend.co.kr/*' => Http::response(['status' => '0'])

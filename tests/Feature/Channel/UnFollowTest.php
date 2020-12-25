@@ -10,10 +10,22 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Channel\Channel;
 use App\Models\User;
 use App\Models\Channel\Follower as ChannelFollower;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class UnFollowTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUnFollowChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -41,7 +53,10 @@ class UnFollowTest extends TestCase
         $this->assertEquals(ChannelFollower::UNFOLLOW_OK, $tryUnFollow['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUnFolllowChannelWhenUserEmailIsNotVerified(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -71,7 +86,10 @@ class UnFollowTest extends TestCase
         $this->assertEquals(ChannelFollower::AUTORIZE_FAIL, $tryUnFollow['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUnFolllowChannelWhenUserAlreadyUnfollowChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

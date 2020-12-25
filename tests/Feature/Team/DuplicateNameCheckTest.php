@@ -10,10 +10,22 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Team\Team;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class DuplicateNameCheckTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function getTrueWhenTeamNameIsExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -28,7 +40,10 @@ class DuplicateNameCheckTest extends TestCase
         $this->assertTrue($tryCheckTeamNameIsDuplicate['messages']['isDuplicate']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getFalseWhenTeamNameIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

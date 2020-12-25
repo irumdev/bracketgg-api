@@ -10,10 +10,22 @@ use App\Models\Channel\Channel;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel\Fan as ChannelFan;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class UnLikeTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUnLikeChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -40,7 +52,10 @@ class UnLikeTest extends TestCase
         $this->assertEquals(Channel::find($channel->id)->like_count, 0);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUnLikeChannelWhenChannelHasNotLikeUser(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -56,7 +71,10 @@ class UnLikeTest extends TestCase
         $this->assertEquals(ChannelFan::ALREADY_UNLIKE, $tryLikeToChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUnLikeChannelWhenUserEmailIsNotVerified(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
