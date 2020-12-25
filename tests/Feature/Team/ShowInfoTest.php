@@ -13,10 +13,22 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowInfoTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamInfoWhenTeamIsPrivateButUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -36,7 +48,10 @@ class ShowInfoTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamInfoWhenTeamIsPrivateButUseIsNotTeamMember(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -58,7 +73,10 @@ class ShowInfoTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamInfoWhenTeamIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -75,7 +93,10 @@ class ShowInfoTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupPrivateTeamInfo(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -141,7 +162,10 @@ class ShowInfoTest extends TestCase
         $this->assertIsString($team->slug, $message['slug']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupPublicTeamInfo(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -207,7 +231,10 @@ class ShowInfoTest extends TestCase
         $this->assertIsString($team->slug, $message['slug']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupPublicTeamInfoWithoutLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

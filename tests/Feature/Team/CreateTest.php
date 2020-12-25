@@ -11,10 +11,22 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Team;
 use App\Models\Team\Member as TeamMember;
 use App\Models\User;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class CreateTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreatTeamWhenTeamNameIsNotUnique(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -36,7 +48,10 @@ class CreateTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreatTeamWhenUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -51,7 +66,10 @@ class CreateTest extends TestCase
         $this->assertEquals(['code' => 401], $tryCreateTeam['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreatTeamWhenTeamNameIsLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -68,7 +86,10 @@ class CreateTest extends TestCase
         $this->assertEquals(['code' => 4], $tryCreateTeam['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreatTeamWhenTeamNameIsEmpty(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -81,7 +102,10 @@ class CreateTest extends TestCase
         $this->assertEquals(['code' => 1], $tryCreateTeam['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreatTeamWhenUserHasManyTeams(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -103,7 +127,10 @@ class CreateTest extends TestCase
         $this->assertEquals(['code' => 1], $tryCreateTeam['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successCreateTeam(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

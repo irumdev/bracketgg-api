@@ -16,8 +16,8 @@ dockerize-develop:
     - develop
 
   script:
-    - docker build --build-arg uploadMaxSize=$UPLOAD_MAX_SIZE -f ./Dockerfile -t $IMAGE_TAG .
-    - docker build --build-arg uploadMaxSize=$UPLOAD_MAX_SIZE -f ./nginx/Dockerfile -t $NGINX_TAG .
+    - docker build --build-arg uploadMaxSize=$UPLOAD_MAX_SIZE -f ./infra/php/Dockerfile -t $IMAGE_TAG .
+    - docker build --build-arg uploadMaxSize=$UPLOAD_MAX_SIZE -f ./infra/nginx/Dockerfile -t $NGINX_TAG .
     - docker image prune -f
 
   tags:

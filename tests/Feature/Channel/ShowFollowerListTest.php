@@ -11,9 +11,18 @@ use App\Models\Channel\Follower as ChannelFollower;
 use Laravel\Sanctum\Sanctum;
 use App\Properties\Paginate;
 use Illuminate\Support\Carbon;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowFollowerListTest extends TestCase
 {
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
     /** @test */
     public function failLookUpFollowersWhenUserIsNotLogin(): void
     {

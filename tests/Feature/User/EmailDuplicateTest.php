@@ -8,9 +8,22 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\User;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class EmailDuplicateTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function getFalseWhenEmailIsNotDuplicate(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -23,7 +36,10 @@ class EmailDuplicateTest extends TestCase
         $this->assertFalse($tryCheckEmailDuplicate['messages']['isDuplicate']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getTrueWhenEmailIsDuplicate(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

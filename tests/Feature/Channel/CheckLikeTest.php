@@ -9,10 +9,22 @@ use Illuminate\Support\Str;
 use App\Models\Channel\Channel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class CheckLikeTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpChannelIsFanWhenChannelNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -43,7 +55,10 @@ class CheckLikeTest extends TestCase
         $this->assertEquals(['code' => 401], $tryCheckChannelIsLike['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getTrueWhenLikeChannelAndLookupChannelIsLike(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -69,7 +84,10 @@ class CheckLikeTest extends TestCase
         $this->assertTrue($tryCheckChannelIsLike['messages']['isLike']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getFalseWhenUnLikeChannelAndLookupChannelIsLike(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
