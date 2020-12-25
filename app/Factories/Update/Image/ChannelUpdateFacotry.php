@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Factories\Update\Image;
 
 use App\Exceptions\FileSaveFailException;
-use App\Contracts\ImageUpdateContract;
+use App\Contracts\Image\UpdateContract;
 
-class ChannelUpdateFacotry
+class ChannelUpdateFacotry implements UpdateContract
 {
     private string $type;
     private array $attribute;

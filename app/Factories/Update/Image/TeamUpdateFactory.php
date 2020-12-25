@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Factories\Update\Image;
 
 use App\Exceptions\FileSaveFailException;
+use App\Contracts\Image\UpdateContract;
 
-class TeamUpdateFactory
+class TeamUpdateFactory implements UpdateContract
 {
     private string $type;
     private array $attribute;
