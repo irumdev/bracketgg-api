@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-return [
+$appConfig = [
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +29,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'useDevPackage' => (bool) env('USE_DEV_PACKAGE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,9 +179,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Styde\Enlighten\Providers\EnlightenServiceProvider::class,
-
     ],
 
     /*
@@ -240,3 +238,11 @@ return [
     ]
 
 ];
+
+if ($appConfig['useDevPackage']) {
+    $appConfig['providers'] = array_merge($appConfig['providers'], [
+        Styde\Enlighten\Providers\EnlightenServiceProvider::class,
+    ]);
+}
+
+return $appConfig;
