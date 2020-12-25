@@ -9,13 +9,25 @@ use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-
 use App\Models\Channel\Channel;
 use App\Models\Channel\Follower as ChannelFollower;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class CheckFollowTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failFollowChannelWhenChannelIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -29,7 +41,10 @@ class CheckFollowTest extends TestCase
         $this->assertEquals(['code' => 404], $tryCheckChannelIsAlreadyFollow['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupChannelIsFollowingWhenUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -42,7 +57,10 @@ class CheckFollowTest extends TestCase
         $this->assertEquals(['code' => 401], $tryCheckChannelIsAlreadyFollow['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getTrueWhenChannelAlreadyFollow(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -66,7 +84,10 @@ class CheckFollowTest extends TestCase
         $this->assertTrue($tryCheckChannelIsAlreadyFollow['messages']['isFollow']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function getFalseWhenChannelUnFollow(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

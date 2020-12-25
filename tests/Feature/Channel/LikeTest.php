@@ -9,10 +9,22 @@ use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\Fan as ChannelFan;
 use Laravel\Sanctum\Sanctum;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class LikeTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function likeChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -46,7 +58,10 @@ class LikeTest extends TestCase
         $this->assertEquals(ChannelFan::LIKE_OK, $tryLikeToChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLikeChannelWhenTryUserEmailIsNotVerified(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -72,7 +87,10 @@ class LikeTest extends TestCase
         $this->assertEquals(ChannelFan::AUTORIZE_FAIL, $tryLikeToChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLikeChannelWhenChannelIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -98,7 +116,10 @@ class LikeTest extends TestCase
         $this->assertEquals(404, $tryLikeToChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLikeChannelWhenTryUserAlreadyLike(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

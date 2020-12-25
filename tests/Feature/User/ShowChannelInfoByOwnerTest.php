@@ -12,9 +12,22 @@ use App\Services\ChannelService;
 use App\Repositories\ChannelRepository;
 use App\Helpers\ResponseBuilder;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class ShowChannelInfoByOwnerTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpChannelWhenChannelHasBannerImageAndFollowers(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -43,7 +56,10 @@ class ShowChannelInfoByOwnerTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpChannelWhenChannelHasBannerImageAndFollowersAndBroadcastAddress(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -71,7 +87,10 @@ class ShowChannelInfoByOwnerTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpChannelWhenChannelHasBannerImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -99,7 +118,10 @@ class ShowChannelInfoByOwnerTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpChannelWhenUserDontHaveChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

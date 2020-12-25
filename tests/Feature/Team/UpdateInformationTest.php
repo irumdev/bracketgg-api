@@ -15,10 +15,22 @@ use App\Http\Requests\Team\UpdateInfoWithOutBannerRequest;
 use App\Http\Requests\Team\UpdateBannerImageRequest;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\Team\UpdateLogoImageRequest;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class UpdateInformationTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenSlugIsNotUnique(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -39,7 +51,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_NOT_UNIQUE, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenSlugIsLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -58,7 +73,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_LONG, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenSlugIsShort(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -77,7 +95,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_SHORT, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenSlugPatternIsNotMatch(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -101,7 +122,10 @@ class UpdateInformationTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenPublicStatusIsNotBoolean(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -121,7 +145,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::PUBLIC_STATUS_IS_NOT_BOOLEAN, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenGameCategoryIsNotArray(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -141,7 +168,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_IS_NOT_ARRAY, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenGameCategoryItemIsLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -161,7 +191,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_ITEM_IS_LONG, $tryCreateTeam['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateAllItem(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -204,7 +237,10 @@ class UpdateInformationTest extends TestCase
 
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenTryAnotherTeam(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -234,7 +270,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => 401], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateBannerWhenBannerIsNotFile(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -255,7 +294,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateBannerWhenBannerIsNotImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -277,7 +319,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateBannerWhenBannerIsLarge(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -298,7 +343,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_LARGE], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateBannerWhenAlreadyHasBanner(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -319,7 +367,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_HAS_MANY_BANNER], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successCreateBannerImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -340,7 +391,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['isSuccess' => true], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenBannerIdIsInvalid(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -363,7 +417,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenBannerIdIsNotNumeric(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -385,7 +442,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_IMAGE_ID_IS_NOT_NUMERIC], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageIsNotAttached(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -407,7 +467,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateBannerImageRequest::BANNER_UPLOAD_FILE_IS_NOT_ATTACHED], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateBannerImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -429,7 +492,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['isSuccess' => true], $tryUpdateTeamBanner['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateLogoImageIsNotAttached(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -451,7 +517,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateLogoImageIsNotFile(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -493,7 +562,10 @@ class UpdateInformationTest extends TestCase
     //     $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_NOT_IMAGE], $tryUpdateTeamLogo['messages']);
     // }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateLogoImageIsLarge(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -514,7 +586,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_IS_IMAGE_IS_LARGE], $tryUpdateTeamLogo['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateWhenLogoImageMimeIsWrong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -535,7 +610,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(['code' => UpdateLogoImageRequest::LOGO_MIME_IS_NOT_MATCH], $tryUpdateTeamLogo['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateLogoImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
