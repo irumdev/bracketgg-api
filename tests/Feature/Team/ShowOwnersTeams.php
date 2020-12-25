@@ -11,10 +11,22 @@ use App\Models\User;
 use App\Models\Team\Team;
 use App\Models\Team\BannerImage;
 use App\Models\Team\Broadcast;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowOwnersTeams extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupTeamInfoWhenLogin(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
@@ -85,7 +97,10 @@ class ShowOwnersTeams extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamInfoWhenNotLogin(): void
     {
         $owner = factory(User::class)->create();
@@ -108,7 +123,10 @@ class ShowOwnersTeams extends TestCase
         $this->assertEquals(['code' => 401], $tryLookupTeamInfo['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamInfoWhenOwnerHasNoTeam(): void
     {
         $activeUser = Sanctum::actingAs(factory(User::class)->create());

@@ -16,9 +16,19 @@ use App\Http\Requests\Rules\CreateChannel as RulesCreateChannel;
 use App\Http\Requests\Channel\UpdateRequest as UpdateChannelRequest;
 use App\Http\Requests\Channel\UpdateLogoImageRequest;
 use App\Http\Requests\Channel\UpdateBannerImageRequest;
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 
 class UpdateInformationTest extends TestCase
 {
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
     public function createChannel(): array
     {
         $user = Sanctum::actingAs(
@@ -64,7 +74,10 @@ class UpdateInformationTest extends TestCase
         ];
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateChannelSlug(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -94,7 +107,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateChannelSlugWhenSlugLengthIsBoundaries(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -123,7 +139,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals($channel->id, $tryGetChannelInfo['messages']['id']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelSlugWhenSlugIsTooShort(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -144,7 +163,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateChannelRequest::SLUG_IS_SHORT, $tryChangeSlug['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelSlugWhenSlugIsNotUnique(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -165,7 +187,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateChannelRequest::SLUG_IS_NOT_UNIQUE, $tryChangeSlug['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelSlugWhenSlugIsTooLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -186,7 +211,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(UpdateChannelRequest::SLUG_IS_LONG, $tryChangeSlug['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelSlugWhenSlugPatterlIsWrong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -218,7 +246,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateChannelName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -241,7 +272,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(Channel::find($channel->id)->name, $name);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelNameWhenChannelNameIsTooLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -262,7 +296,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(RulesCreateChannel::NAME_LENGTH_LONG, $tryChangeName['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateChannelNameWhenChannelNameIsDuplicate(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -283,7 +320,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals(RulesCreateChannel::NAME_IS_NOT_UNIQUE, $tryChangeName['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateChannelDescription(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -313,7 +353,10 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals($channel->id, $tryGetChannelInfo['messages']['id']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateLogoImageWhenLogoImageIsNotImageFile(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -338,7 +381,10 @@ class UpdateInformationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateLogoImageWhenLogoImageIsTooLarge(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -363,7 +409,10 @@ class UpdateInformationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateLogoImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -393,7 +442,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenBannerImageIsNotImageFile(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -430,7 +482,10 @@ class UpdateInformationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenBannerImageIsTooLarge(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -466,7 +521,10 @@ class UpdateInformationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateBannerImageWhenBannerImageIdIsInvalid(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -499,7 +557,10 @@ class UpdateInformationTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateBannerImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -534,7 +595,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successCreateBannerImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -559,7 +623,10 @@ class UpdateInformationTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateBannerImageWhenBannerAlreadyExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

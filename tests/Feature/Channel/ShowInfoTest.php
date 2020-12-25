@@ -10,10 +10,22 @@ use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowInfoTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupExistsChannelInfoFromSlug(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -75,7 +87,10 @@ class ShowInfoTest extends TestCase
         $this->assertEquals($channel->slug, $message['slug']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpExistsChannelInfoFromName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -140,7 +155,10 @@ class ShowInfoTest extends TestCase
         $this->assertEquals($channel->slug, $message['slug']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpNotExistsChannelInfoFromSlug(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -159,7 +177,10 @@ class ShowInfoTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpNotExistsChannelInfoFromName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

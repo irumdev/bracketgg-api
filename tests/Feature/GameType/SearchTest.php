@@ -10,10 +10,22 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\GameType;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class SearchTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failSearchItemWhenQueryIsEmpty(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -28,7 +40,10 @@ class SearchTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failSearchItemWhenQueryIsNotFound(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -42,7 +57,10 @@ class SearchTest extends TestCase
         $this->assertEquals(['code' => 404], $trySearchGameTypes['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successSearchGameTypes(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
