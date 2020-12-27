@@ -11,7 +11,6 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Channel\Channel;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-
 class CreateTest extends TestCase
 {
     use EnlightenSetup;

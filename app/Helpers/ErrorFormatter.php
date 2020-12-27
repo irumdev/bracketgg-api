@@ -74,7 +74,7 @@ class ErrorFormatter
             "에러 url : %s",
             "요청 메소드 : %s",
             "요청 ip : %s",
-            "요청 파라미터 : {\n    %s\n}",
+            "요청 파라미터(JSON 직렬화 되어있습니다) : %s",
             "에러 트레이스 : \n%s",
         ]);
     }
@@ -97,7 +97,7 @@ class ErrorFormatter
             $errorInfo['routeName'],
             $errorInfo['requestMethod'],
             $errorInfo['requestIp'],
-            collect($errorInfo['requestParam'])->map(fn ($key, $value) => $key . " : " . $value)->join("\n"),
+            collect($errorInfo['requestParam'])->toJson(),
             $errorInfo['errorTraseAsString']
         );
     }
