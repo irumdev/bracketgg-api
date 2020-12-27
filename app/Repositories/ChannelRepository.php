@@ -8,7 +8,7 @@ use App\Models\Channel\Channel;
 use App\Models\User;
 use App\Factories\ChannelInfoUpdateFactory;
 use App\Factories\Update\ImageUpdateFactory;
-use App\Wrappers\UpdateTypeWrapper;
+use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
@@ -68,6 +68,11 @@ class ChannelRepository extends ChannelInfoUpdateFactory
     {
         return DB::transaction(function () use ($channel, $updateInfo) {
             $this->slug($channel, data_get($updateInfo, 'slug'));
+            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']) && count($updateInfo['broadcasts']) >= 1;
+            if ($canCreateOrUpdateBroadCasts) {
+                $this->updateBroadcast($channel, $updateInfo['broadcasts']);
+            }
+
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
     }
@@ -89,7 +94,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
     private function resolveUpdateFactory(string $type, array $attribute): ImageUpdateFactory
     {
         return new ImageUpdateFactory(
-            new UpdateTypeWrapper('channel', $type),
+            new UpdateImageTypeWrapper('channel', $type),
             $attribute
         );
     }

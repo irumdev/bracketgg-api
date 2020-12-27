@@ -14,7 +14,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\Rules\Slug;
-use Illuminate\Support\Arr;
+use App\Http\Requests\Rules\Broadcast as BroadcastRules;
+use App\Wrappers\UpdateBroadcastTypeWrapper;
 
 /**
  * 이미지를 제외한 팀 정보 업데이트 데이터 검증 클래스 입니다.
@@ -70,49 +71,6 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
     public const GAME_CATEGORY_ITEM_IS_LONG = 9;
 
     /**
-     * @var int 이미 존재하는 방송국 주소
-     */
-    public const BROADCAST_URL_IS_NOT_UNIQUE = 10;
-
-    /**
-     * @var int 방송국 주소가 배열이 아님
-     */
-    public const BROADCAST_IS_NOT_ARRAY = 11;
-
-    /**
-     * @var int 방송국 플랫폼을 지정하지 않음
-     */
-    public const BROADCAST_ADDRESS_HAS_NOT_PLATFORM = 12;
-
-    /**
-     * @var int 방송국 주소를 첨부하지 않음
-     */
-    public const BROADCAST_ADDRESS_HAS_NOT_URL = 13;
-
-
-    /**
-     * @var int 방송국 플랫폼이 올바르지 않음
-     */
-    public const BROADCAST_PLATFORM_IS_INVALID = 14;
-
-
-    /**
-     * @var int 방송국 아이디가 숫자가 아님
-     */
-    public const BROADCAST_ID_IS_NOT_NUMERIC = 15;
-
-
-    /**
-     * @var int 방송국 주소가 문자열 아님
-     */
-    public const BROADCAST_URL_IS_NOT_STRING = 16;
-
-    /**
-     * @var int 방송국 주소가 문자열 아님
-     */
-    public const BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM = 17;
-
-    /**
      * @var User 유저 인스턴스
      */
     private User $user;
@@ -154,26 +112,12 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'broadcasts' => 'nullable|array',
-            'broadcasts.*.url' => [
-                'bail',
-                'string',
-                'required_with:broadcasts.*.platform',
-                'unique:team_broadcasts,broadcast_address'
-            ],
-            'broadcasts.*.platform' => [
-                'bail',
-                'numeric',
-                'required_with:broadcasts.*.url',
-                'in:' . collect(TeamBroadcast::$platforms)->keys()->implode(',')
-            ],
-            'broadcasts.*.id' => [
-                'bail',
-                'nullable',
-                'numeric',
-                'isMyTeamBroadcast',
-            ],
+        $broadcastRules = BroadcastRules::broadcastRules(new UpdateBroadcastTypeWrapper(
+            TeamBroadcast::$platforms,
+            'isMyTeamBroadcast',
+            'team_broadcasts'
+        ));
+        return array_merge($broadcastRules, [
             'slug' => [
                 'nullable', 'string',
                 'min:' . TeamSlug::MIN_SLUG_LENGTH,
@@ -188,8 +132,7 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
             'is_public' => 'nullable|boolean',
             'games' => 'nullable|array',
             'games.*' => 'string|min:1|max:255',
-
-        ];
+        ]);
     }
 
     /**
@@ -207,7 +150,7 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
 
     public function messages(): array
     {
-        return [
+        return array_merge([
             'slug.min' => $this->toErrStructure(self::SLUG_IS_SHORT),
             'slug.max' => $this->toErrStructure(self::SLUG_IS_LONG),
             'slug.unique' =>$this->toErrStructure(self::SLUG_IS_NOT_UNIQUE),
@@ -219,21 +162,7 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
             'games.*.string' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_NOT_STRING),
             'games.*.min' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_SHORT),
             'games.*.max' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_LONG),
-
-            'broadcasts.array' => $this->toErrStructure(self::BROADCAST_IS_NOT_ARRAY),
-
-            'broadcasts.*.url.required_with' => $this->toErrStructure(self::BROADCAST_ADDRESS_HAS_NOT_PLATFORM),
-            'broadcasts.*.url.unique' => $this->toErrStructure(self::BROADCAST_URL_IS_NOT_UNIQUE),
-            'broadcasts.*.url.string' => $this->toErrStructure(self::BROADCAST_URL_IS_NOT_STRING),
-
-            'broadcasts.*.platform.required_with' => $this->toErrStructure(self::BROADCAST_ADDRESS_HAS_NOT_URL),
-            'broadcasts.*.platform.in' => $this->toErrStructure(self::BROADCAST_PLATFORM_IS_INVALID),
-            'broadcasts.*.platform.numeric' => $this->toErrStructure(self::BROADCAST_PLATFORM_IS_INVALID),
-
-            'broadcasts.*.id.numeric' => $this->toErrStructure(self::BROADCAST_ID_IS_NOT_NUMERIC),
-            'broadcasts.*.id.is_my_team_broadcast' => $this->toErrStructure(self::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM),
-
-        ];
+        ], BroadcastRules::messages());
     }
 
     protected function failedValidation(ValidContract $validator): void
