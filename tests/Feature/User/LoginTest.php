@@ -7,9 +7,22 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class LoginTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLoginWithoutEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -22,7 +35,10 @@ class LoginTest extends TestCase
         $this->assertEquals(1, $response['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLoginWithoutPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -36,7 +52,10 @@ class LoginTest extends TestCase
         $this->assertEquals(4, $response['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLoginWithInvalidEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -51,7 +70,10 @@ class LoginTest extends TestCase
         $this->assertEquals(2, $response['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLoginWithWrongPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -66,7 +88,10 @@ class LoginTest extends TestCase
         $this->assertEquals(401, $response['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLoginWithNotExistsEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -81,7 +106,10 @@ class LoginTest extends TestCase
         $this->assertEquals(3, $response['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -102,12 +130,16 @@ class LoginTest extends TestCase
             'email' => $user->email,
             'profileImage' => route('profileImage', [
                 'profileImage' => $user->profile_image
-            ])
+            ]),
+            'createdAt' => $user->created_at,
         ], $tmpMessages);
         $this->assertIsString($response['messages']['token']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLoginWithUndefinedProfileUser(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -127,7 +159,8 @@ class LoginTest extends TestCase
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
-            'profileImage' => null
+            'profileImage' => null,
+            'createdAt' => $user->created_at,
         ], $tmpMessages);
         $this->assertIsString($response['messages']['token']);
     }

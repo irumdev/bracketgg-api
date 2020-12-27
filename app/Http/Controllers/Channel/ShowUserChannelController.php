@@ -11,6 +11,7 @@ use App\Services\ChannelService;
 use App\Services\UserService;
 use App\Models\Channel\Channel;
 use App\Models\User;
+use App\Properties\Paginate;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -72,10 +73,10 @@ class ShowUserChannelController extends Controller
      */
     public function getFollower(Channel $channel): JsonResponse
     {
-        $channelFollowers = $this->channelService->followers($channel)->simplePaginate();
+        $channelFollowers = $this->channelService->followers($channel)->simplePaginate(Paginate::PER);
         return $this->response->ok(
             $this->response->paginateMeta($channelFollowers)->merge([
-                'followers' => array_map(fn (User $fan) => $this->userService->info($fan), $channelFollowers->items())
+                'followers' => array_map(fn (User $fan) => array_merge($this->userService->info($fan), ['followedAt' => $fan->followedAt]), $channelFollowers->items())
             ])
         );
     }

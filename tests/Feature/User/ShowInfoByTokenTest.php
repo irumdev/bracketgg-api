@@ -8,9 +8,22 @@ use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class ShowInfoByTokenTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpUserInfoWithBearerToken(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -27,7 +40,8 @@ class ShowInfoByTokenTest extends TestCase
                 'email' => $activeUser->email,
                 'profileImage' => $userProfileImageUrl = route('profileImage', [
                     'profileImage' => $activeUser->profile_image
-                ])
+                ]),
+                'createdAt' => $activeUser->created_at,
             ],
             $response['messages'],
         );
@@ -36,7 +50,10 @@ class ShowInfoByTokenTest extends TestCase
         }
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookUpDonthaveProfileImageUserInfoWithBearerToken(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -53,12 +70,16 @@ class ShowInfoByTokenTest extends TestCase
                 'nickName' => $activeUser->nick_name,
                 'email' => $activeUser->email,
                 'profileImage' => null,
+                'createdAt' => $activeUser->created_at,
             ],
             $response['messages'],
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpUserInfoWithOutLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

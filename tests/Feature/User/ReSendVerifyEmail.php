@@ -12,19 +12,28 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use Symfony\Component\HttpFoundation\Response;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class ReSendVerifyEmail extends TestCase
 {
+    use EnlightenSetup;
+
     private string $testUrl;
     public function setUp(): void
     {
         parent::setUp();
+        $this->setUpEnlighten();
+
         $this->testUrl = route('resendVerifyEmail');
         Http::fake([
             'directsend.co.kr/*' => Http::response(['status' => '0'])
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successSendVerifyEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -43,7 +52,10 @@ class ReSendVerifyEmail extends TestCase
         $this->assertTrue($tryResendEmailVerification['messages']['sendEmailVerification']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failSendVerifyEmailWhenAlreadyUserVerifyEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

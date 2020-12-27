@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,13 +13,18 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use App\Http\Requests\User\StoreRequest as UserStoreRequest;
 
+use Styde\Enlighten\Tests\EnlightenSetup;
+
 class CreateTest extends TestCase
 {
+    use EnlightenSetup;
+
     private string $testUrl;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->setUpEnlighten();
         $this->testUrl = route('createUser');
         Http::fake([
             'directsend.co.kr/*' => Http::response(['status' => '0'])
@@ -43,7 +50,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithOutAnyInfo(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -55,7 +65,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithoutEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -69,7 +82,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithDuplicateEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -92,7 +108,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithoutNickName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -105,7 +124,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithEmptyNickName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -119,7 +141,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithLargeNickName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -133,7 +158,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithOutPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -147,7 +175,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPasswordIsShort(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -162,7 +193,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPasswordIsLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -177,7 +211,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWithOutPasswordReEnter(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -193,7 +230,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPasswordeEnterIsToShort(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -210,7 +250,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPasswordeEnterIsToLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -227,7 +270,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPassworReEnterIsNotEqualsPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -244,7 +290,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserUnAgreePolicy(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -261,7 +310,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhebAgreePolicyValueIsInValud(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -278,7 +330,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPrivacyPolicyNotAgree(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -295,7 +350,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserWhenPrivacyPolicyValueInvalid(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -314,7 +372,10 @@ class CreateTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserProfileImageIsNotImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -334,7 +395,10 @@ class CreateTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failRegisterUserProfileImageIsLarge(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -353,7 +417,10 @@ class CreateTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successRegisterUserWithoutProfileImage(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -379,7 +446,10 @@ class CreateTest extends TestCase
         $this->assertEquals($tryCreateUser['messages']['is_privacy_agree'], $user->is_privacy_agree);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successRegisterUserWithoutProfileImageWithSpecificEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -418,7 +488,10 @@ class CreateTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successRegisterUser(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

@@ -10,10 +10,22 @@ use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\Follower as ChannelFollower;
 use Illuminate\Support\Str;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class FollowTest extends TestCase
 {
-    /** @test */
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successFollowChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -37,7 +49,10 @@ class FollowTest extends TestCase
         $this->assertEquals($activeUser->email, $channel->followers->find($activeUser->id)->email);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function ownerFailFollowChannelWhenFollowMyChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -56,7 +71,10 @@ class FollowTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failFollowChannelWhenUserEmailIsNotVerified(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -77,7 +95,10 @@ class FollowTest extends TestCase
         $this->assertEquals(ChannelFollower::AUTORIZE_FAIL, $tryFollow['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failFollowChannelWhelAlreadyChannelFollowed(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -105,7 +126,10 @@ class FollowTest extends TestCase
         $this->assertEquals(ChannelFollower::ALREADY_FOLLOW, $secondTry['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failFollowChannelWhenChannelNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

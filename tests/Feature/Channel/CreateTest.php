@@ -9,18 +9,24 @@ use Tests\TestCase;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use App\Models\Channel\Channel;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class CreateTest extends TestCase
 {
+    use EnlightenSetup;
     private string $testUrl;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->setUpEnlighten();
         $this->testUrl = route('createChannel');
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateChannelWithoutChannelName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -35,7 +41,10 @@ class CreateTest extends TestCase
         $this->assertEquals(1, $tryCreateChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateChannelWhenChannelNameIsLong(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -51,7 +60,10 @@ class CreateTest extends TestCase
         $this->assertEquals(4, $tryCreateChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateChannelWhenChannelNameIsDuplicate(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -72,7 +84,10 @@ class CreateTest extends TestCase
         $this->assertEquals(5, $tryCreateChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failCreateChannelWhenChannelCreateCountIsExceed(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -98,7 +113,10 @@ class CreateTest extends TestCase
         $this->assertEquals(1, $tryCreateChannel['messages']['code']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successCreateChannel(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
