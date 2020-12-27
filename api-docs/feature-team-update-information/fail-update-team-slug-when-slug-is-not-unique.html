@@ -93,7 +93,33 @@
                                         x-on:click="open = !open"
                                         type="button" name="toggle panel"
                                             class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                        Other Modules
+                                        Team
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-team-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-team-duplicate-name-check.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Duplicate Name Check
+                                            </a>
+                                                                                    <a href="/feature-team-show-info.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info
+                                            </a>
+                                                                                    <a href="/feature-team-update-information.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Update Information
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Channel
                                     </button>
                                     <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-channel-check-follow.html"
@@ -136,25 +162,19 @@
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Update Information
                                             </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Other Modules
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-game-type-search.html"
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Search
-                                            </a>
-                                                                                    <a href="/feature-team-create.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Create
-                                            </a>
-                                                                                    <a href="/feature-team-duplicate-name-check.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Duplicate Name Check
-                                            </a>
-                                                                                    <a href="/feature-team-show-info.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Show Info
-                                            </a>
-                                                                                    <a href="/feature-team-update-information.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Update Information
                                             </a>
                                                                             </div>
                                 </div>
@@ -176,7 +196,7 @@
                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
  
                 </span>
-                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-88&quot;,&quot;head&quot;:&quot;33b1a62&quot;,&quot;modified&quot;:1,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
+                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-83&quot;,&quot;head&quot;:&quot;9ae2b01&quot;,&quot;modified&quot;:0,&quot;created_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:25.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:26.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:27.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:27.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:30.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:30.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:35.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:35.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:47.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:47.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:49.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:51.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:51.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:54.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:54.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:01.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:02.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:02.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:03.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:19.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:19.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:22.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:22.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
      x-data='{
          open: true,
          results: [],
@@ -213,9 +233,8 @@
  
                                                     <div class="ml-4 flex items-center md:ml-6">
                                             <div class="text-gray-200 font-light px-4 flex justify-center">
-                            <strong>bracketgg-88</strong>
-                                                            <span class="text-red-500 text-lg px-2">*</span>
-                                                        33b1a62
+                            <strong>bracketgg-83</strong>
+                                                        9ae2b01
                         </div>
                                         <a href="https://github.com/StydeNet/enlighten"
                        class="text-gray-100 hover:text-gray-500 focus:outline-none" aria-label="Notifications">
@@ -300,7 +319,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/team/ireTAm</td>
+                > api/v1/team/dDVp7</td>
             </tr>
             </table>
 </div>
@@ -335,7 +354,7 @@
                     <tr>
                 <td class="px-4 py-2 font-thin text-gray-200">slug</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
-                                            ireTAm
+                                            dDVp7
                                     </td>
             </tr>
             </tbody>
@@ -376,7 +395,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 17</td>
+                > 16</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -413,7 +432,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">date: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Fri, 25 Dec 2020 08:18:51 GMT</td>
+                > Sun, 27 Dec 2020 10:08:03 GMT</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -462,7 +481,7 @@
                 <div class="flex flex-col space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 4.56</h3>
+        <h3 class="text-base text-gray-300">Time: 6.95</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -478,17 +497,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Laila Zboncak</td>
+                > Lucile Zulauf II</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > X7ICqmQKYRNCXJIuFL5o@703tabQsKTUELnZPFFLS.Pxs</td>
+                > wsztekWASXSQDKtbYP90@j1Ntlmf3SYNxT5eHNaKS.WJf</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -508,12 +527,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$OydSuveschzO1FSbUeDAF.3IZYWqpujthjdls8FJR9Mv5e6yhKg7y</td>
+                > $2y$10$FtxY4xZECgcALxiMBT3Cr..xKzZioi13mwjPLu84PW8npepWIH1wa</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > UGtZtW2MoG</td>
+                > UMzxWQey5v</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -528,12 +547,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
             </table>
 </div>
@@ -541,7 +560,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.95</h3>
+        <h3 class="text-base text-gray-300">Time: 2.41</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -557,17 +576,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Edgardo Ratke</td>
+                > Xander McClure</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > aU7vwAWpqhDC0SRz9FBw@dadl5mHLeozvk94I5vqz.BZk</td>
+                > aCqZ3ix2e8giZ6HCKOiC@NThaNCU5PgaHLU1AylwS.LZR</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -587,12 +606,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$lX4qnd8vWMxMtG7GlZqGteJ48/fQbodPK.IpHBzKhVX56465Qgtci</td>
+                > $2y$10$gnCiFxdI4l2oaatT4MIh6eFRQAZSaMagK7lC9588xUn2jcSbMEXeG</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > addEsPlfPj</td>
+                > 5P1mYBJVxD</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -607,12 +626,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
             </table>
 </div>
@@ -620,7 +639,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.68</h3>
+        <h3 class="text-base text-gray-300">Time: 1.83</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -636,12 +655,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1822</td>
+                > 1407</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Dezcgv0cER7cprN</td>
+                > 8mvnwF1YFqUW2SL</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
@@ -651,17 +670,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://placeimg.com/640/480?481</td>
+                > https://placeimg.com/640/480?816</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
             </table>
 </div>
@@ -669,7 +688,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.5</h3>
+        <h3 class="text-base text-gray-300">Time: 1.98</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -685,22 +704,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > ireTAm</td>
+                > dDVp7</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 94</td>
+                > 80</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
             </table>
 </div>
@@ -708,7 +727,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.39</h3>
+        <h3 class="text-base text-gray-300">Time: 1.7</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -724,17 +743,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1821</td>
+                > 1406</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:51</td>
+                > 2020-12-27 10:08:03</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 94</td>
+                > 80</td>
             </tr>
             </table>
 </div>
@@ -742,7 +761,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.65</h3>
+        <h3 class="text-base text-gray-300">Time: 0.91</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -758,7 +777,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 94</td>
+                > 80</td>
             </tr>
             </table>
 </div>
@@ -766,7 +785,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.74</h3>
+        <h3 class="text-base text-gray-300">Time: 0.75</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -782,7 +801,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 94</td>
+                > 80</td>
             </tr>
             </table>
 </div>
@@ -803,7 +822,7 @@
                 <div class="flex flex-col md:col-span-2 space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.68</h3>
+        <h3 class="text-base text-gray-300">Time: 0.88</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -819,7 +838,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > ireTAm</td>
+                > dDVp7</td>
             </tr>
             </table>
 </div>
@@ -827,7 +846,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.64</h3>
+        <h3 class="text-base text-gray-300">Time: 0.63</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -843,7 +862,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 94</td>
+                > 80</td>
             </tr>
             </table>
 </div>
@@ -851,7 +870,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.62</h3>
+        <h3 class="text-base text-gray-300">Time: 0.81</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -867,7 +886,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > ireTAm</td>
+                > dDVp7</td>
             </tr>
             </table>
 </div>
@@ -896,7 +915,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/team/ireTAm</td>
+                > api/v1/team/dDVp7</td>
             </tr>
             </table>
 </div>
@@ -931,7 +950,7 @@
                     <tr>
                 <td class="px-4 py-2 font-thin text-gray-200">slug</td>
                 <td class="px-4 py-2 font-thin text-teal-300 break-all">
-                                            ireTAm
+                                            dDVp7
                                     </td>
             </tr>
             </tbody>
@@ -972,7 +991,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 17</td>
+                > 16</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>

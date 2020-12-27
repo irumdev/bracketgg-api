@@ -16,6 +16,8 @@ use App\Http\Requests\Team\UpdateBannerImageRequest;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\Team\UpdateLogoImageRequest;
 use Styde\Enlighten\Tests\EnlightenSetup;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class UpdateInformationTest extends TestCase
 {
@@ -248,15 +250,15 @@ class UpdateInformationTest extends TestCase
 
         $anotehrUser = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $anotehrTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $anotherTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $anotehrTeam->owner = $anotehrUser->id;
-        $anotehrTeam->save();
+        $anotherTeam->owner = $anotehrUser->id;
+        $anotherTeam->save();
 
-        $anotehrTeam = Team::find($anotehrTeam->id);
+        $anotherTeam = Team::find($anotherTeam->id);
 
         $requestUrl = route('updateTeamBanner', [
-            'teamSlug' => $anotehrTeam->slug,
+            'teamSlug' => $anotherTeam->slug,
         ]);
 
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
@@ -634,5 +636,428 @@ class UpdateInformationTest extends TestCase
         $this->assertTrue($tryUpdateTeamLogo['isValid']);
         $this->assertEquals(['isSuccess' => true], $tryUpdateTeamLogo['messages']);
         $this->assertFalse($before === Team::find($team->id)->logo_image);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenUrlIsEmpty(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'platform' => Arr::random(array_keys(TeamBroadCast::$platforms)),
+
+                ]
+            ],
+        ])->assertStatus(422);
+
+
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ADDRESS_HAS_NOT_PLATFORM], $tryUpdateTeamBroadCast['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenBroadCastIsNotArray(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => 'asdf',
+        ])->assertStatus(422);
+
+
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(['code' => UpdateInfoWithOutBannerRequest::BROADCAST_IS_NOT_ARRAY], $tryUpdateTeamBroadCast['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenPlatformIsEmpty(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => 'https://' . Str::random(20) . '.com',
+
+                ]
+            ],
+        ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ADDRESS_HAS_NOT_URL],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenUrlIsNotString(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => false,
+                    'platform' => Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ]
+            ],
+        ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_URL_IS_NOT_STRING],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenUrlIsNotUnique(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => $team->broadcastAddress->first()->broadcast_address,
+                    'platform' => Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ]
+            ],
+        ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_URL_IS_NOT_UNIQUE],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenPlatformIsNotNumeric(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => 'https://' . Str::random(20) . '.com',
+                    'platform' => 'asdf',
+                ]
+            ],
+        ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_PLATFORM_IS_INVALID],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failCreateBroadcastWhenPlatformIsInvalid(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => 'https://' . Str::random(20) . '.com',
+                    'platform' => -3,
+                ]
+            ],
+        ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_PLATFORM_IS_INVALID],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successCreateBoradCast(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => [
+                [
+                    'url' => $randUrl = 'https://' . Str::random(20) . '.com',
+                    'platform' => $randPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ]
+            ],
+        ])->assertOk();
+        $this->assertTrue($tryUpdateTeamBroadCast['ok']);
+        $this->assertTrue($tryUpdateTeamBroadCast['isValid']);
+
+        $teamBroadCast = Team::find($team->id)->broadcastAddress;
+
+        $teamBroadcastUrls = $teamBroadCast->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $teamBroadCast->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+
+        $this->assertTrue($teamBroadcastUrls->contains($randUrl));
+        $this->assertTrue($teamBroadcastPlatforms->contains($randPlatform));
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failUpdateBroadcastWhenPlatformIdIsNotNumeric(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+           'teamSlug' => $team->slug,
+       ]);
+
+        $randKey = Arr::random(array_keys($team->broadcastAddress->keys()->toArray()));
+
+        $randTeamBroadCast = $team->broadcastAddress->get($randKey);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+           'broadcasts' => [
+               [
+                   'url' => 'https://' . Str::random(20) . '.com',
+                   'platform' => $randPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                   'id' => 'asdf',
+               ]
+           ],
+       ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ID_IS_NOT_NUMERIC],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failUpdateBroadcastWhenTryUpdateAnotherTeamPlatform(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $anotherTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+           'teamSlug' => $team->slug,
+        ]);
+
+        $targetTeamRandKey = Arr::random(array_keys($team->broadcastAddress->keys()->toArray()));
+        $anotherTeamRandKey = Arr::random(array_keys($anotherTeam->broadcastAddress->keys()->toArray()));
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+           'broadcasts' => [
+               [
+                   'url' => 'https://' . Str::random(20) . '.com',
+                   'platform' => $randPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                   'id' => $anotherTeam->broadcastAddress->get($anotherTeamRandKey)->id,
+               ]
+           ],
+       ])->assertStatus(422);
+        $this->assertFalse($tryUpdateTeamBroadCast['ok']);
+        $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
+        $this->assertEquals(
+            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM],
+            $tryUpdateTeamBroadCast['messages']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successUpdateBroadcast(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+           'teamSlug' => $team->slug,
+        ]);
+
+        $targetTeamRandKey = Arr::random(array_keys($team->broadcastAddress->keys()->toArray()));
+
+        $targetRandTeamBroadCast = $team->broadcastAddress->get($targetTeamRandKey);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+           'broadcasts' => [
+               [
+                   'url' => $randUrl = 'https://' . Str::random(20) . '.com',
+                   'platform' => $randPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                   'id' => $targetRandTeamBroadCast->id,
+               ]
+           ],
+       ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeamBroadCast['ok']);
+        $this->assertTrue($tryUpdateTeamBroadCast['isValid']);
+
+        $changedTeamBroadcastAddress = Team::find($team->id)->broadcastAddress;
+
+        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+
+        $this->assertTrue($teamBroadcastUrls->contains($randUrl));
+        $this->assertTrue($teamBroadcastPlatforms->contains($randPlatform));
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successUpdateAndCreateBroadcast(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+           'teamSlug' => $team->slug,
+        ]);
+
+        $targetTeamRandKey = Arr::random(array_keys($team->broadcastAddress->keys()->toArray()));
+
+        $targetRandTeamBroadCast = $team->broadcastAddress->get($targetTeamRandKey);
+
+        $tryUpdateTeamBroadCast = $this->postJson($requestUrl, [
+           'broadcasts' => [
+                [
+                   'url' => $updateRandUrl = 'https://' . Str::random(20) . '.com',
+                   'platform' => $updateRandPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                   'id' => $targetRandTeamBroadCast->id,
+                ],
+                [
+                    'url' => $createRandUrl = 'https://' . Str::random(20) . '.com',
+                    'platform' => $createRandPlatform = Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ]
+           ],
+       ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeamBroadCast['ok']);
+        $this->assertTrue($tryUpdateTeamBroadCast['isValid']);
+
+        $changedTeamBroadcastAddress = Team::find($team->id)->broadcastAddress;
+
+        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+
+        $this->assertTrue($teamBroadcastUrls->contains($createRandUrl));
+        $this->assertTrue($teamBroadcastPlatforms->contains($createRandPlatform));
+
+        $this->assertEquals(
+            Team::find($team->id)->broadcastAddress()
+                                 ->where('id', '=', $targetRandTeamBroadCast->id)
+                                 ->first()
+                                 ->broadcast_address,
+            $updateRandUrl
+        );
+
+        $this->assertEquals(
+            Team::find($team->id)->broadcastAddress()
+                                 ->where('id', '=', $targetRandTeamBroadCast->id)
+                                 ->first()
+                                 ->platform,
+            $updateRandPlatform
+        );
     }
 }

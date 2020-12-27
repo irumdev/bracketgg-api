@@ -18,6 +18,9 @@ class TeamService
 {
     private TeamRepository $teamRepository;
 
+    private const USE_UPDATE = true;
+    private const USE_CREATE = ! self::USE_UPDATE;
+
     public function __construct(TeamRepository $teamRepository)
     {
         $this->teamRepository = $teamRepository;
@@ -31,7 +34,7 @@ class TeamService
 
     public function updateLogoImage(Team $team, array $updateInfo)
     {
-        return $this->teamRepository->updateImage('logo', [
+        return $this->teamRepository->updateOrCreateImage(self::USE_UPDATE, 'logo', [
             'team' => $team,
             'updateInfo' => $updateInfo,
         ]);
@@ -39,7 +42,7 @@ class TeamService
 
     public function updateBannerImage(Team $team, array $updateInfo)
     {
-        return $this->teamRepository->updateImage('banner', [
+        return $this->teamRepository->updateOrCreateImage(self::USE_UPDATE, 'banner', [
             'team' => $team,
             'updateInfo' => $updateInfo,
         ]);
@@ -54,7 +57,7 @@ class TeamService
 
     public function createBannerImage(Team $team, array $updateInfo)
     {
-        return $this->teamRepository->createImage('banner', [
+        return $this->teamRepository->updateOrCreateImage(self::USE_CREATE, 'banner', [
             'team' => $team,
             'updateInfo' => $updateInfo,
         ]);

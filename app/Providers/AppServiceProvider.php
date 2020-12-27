@@ -33,8 +33,26 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('channelHasOnlyOneBanner', fn () => $this->canUpdateBanner('slug'));
         Validator::extend('teamHasOnlyOneBanner', fn () => $this->canUpdateBanner('teamSlug'));
+        Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', $param));
+
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
+    }
+
+    /**
+     * 방송국 주소 업데이트 가능여부 판단 메소드 입니다.
+     * @param string $slugType 라우터에서 찾을 슬러그 타입
+     * @param int $boradCastId 업데이트 할 방송국 아이디
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return bool 방송국 주소 업데이트 가능여부
+     */
+    private function canUpdateBroadCast(string $slugType, int $boradCastId): bool
+    {
+        $request = request();
+        $requestSlug = $request->route($slugType);
+
+        return $requestSlug->broadcastAddress()->where('id', '=', $boradCastId)->exists();
     }
 
     /**
