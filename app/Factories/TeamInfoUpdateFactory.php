@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Factories;
 
 use App\Factories\Update\ImageUpdateFactory;
-use App\Wrappers\UpdateTypeWrapper;
+use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Support\Facades\DB;
 use App\Contracts\TeamInfoUpdateContract;
 use App\Models\Team\Team;
@@ -15,7 +15,7 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
     private function resolveUpdateFactory(string $type, array $attribute): ImageUpdateFactory
     {
         return new ImageUpdateFactory(
-            new UpdateTypeWrapper('team', $type),
+            new UpdateImageTypeWrapper('team', $type),
             $attribute
         );
     }

@@ -78,7 +78,22 @@ return [
             'failUpdateBannerImageWhenBannerImageIdIsInvalid' => '배너이미지 이미지 올랄때 배너 아이디 이상한거 올려서 채널정보 업데이트에 실패하라',
             'successUpdateBannerImage' => '배너이미지 이미지 업데이트에 성공하라',
             'successCreateBannerImage' => '배너이미지 생성에 성공하라',
-            'failCreateBannerImageWhenBannerAlreadyExists' => '이미 배너이미지가 존재하여 생성에 실패하라'
+            'failCreateBannerImageWhenBannerAlreadyExists' => '이미 배너이미지가 존재하여 생성에 실패하라',
+
+            'failCreateBroadcastWhenUrlIsEmpty' => '방송국 주소 입력하지 않고 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenPlatformIsEmpty' => '어떤 플랫폼인지 입력하지 않고 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenBroadCastIsNotArray' => '방송국 주소 파라미터를 배열로 안해서 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenUrlIsNotString' => '방송국 주소가 문자열이 아니라서 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenUrlIsNotUnique' => '방송국 주소가 고유하지 않아서 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenPlatformIsNotNumeric' => '방송국 플랫폼을 숫자로 안줘서 방송국 생성에 실패하라',
+            'failCreateBroadcastWhenPlatformIsInvalid' => '올바르지 않은 방송국 플랫폼이여서 방송국 생성에 실패하라',
+            'failUpdateBroadcastWhenPlatformIdIsNotNumeric' => '업데이트 할 방송국 id가 숫자가 아니라서 업데이트에 실패하라',
+            'failUpdateBroadcastWhenTryUpdateAnotherChannelPlatform' => '타 채널의 방송국 주소 업데이트를 하려고 해서 업데이트에 실패하라',
+            'successUpdateBroadcast' => '방송국 주소 업데이트에 성공하라',
+            'successCreateBroadcast' => '방송국 주소 생성 성공하라',
+            'successUpdateAndCreateBroadcast' => '방송국 주소 업데이트, 생성을 동시에 성공하라',
+
+
         ],
 
         'UnFollowTest' => [

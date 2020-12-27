@@ -16,5 +16,6 @@ use App\Factories\BroadcastFactory;
 class Broadcast extends Model
 {
     protected $table = 'channel_broadcasts';
+    protected $fillable = ['channel_id', 'broadcast_address', 'platform'];
     public static array $platforms = BroadcastFactory::PLATFORMS;
 }
