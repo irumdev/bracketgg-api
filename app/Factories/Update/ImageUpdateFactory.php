@@ -6,15 +6,15 @@ namespace App\Factories\Update;
 
 use App\Factories\Update\Image\ChannelUpdateFacotry;
 use App\Factories\Update\Image\TeamUpdateFactory;
-use App\Wrappers\UpdateTypeWrapper;
+use App\Wrappers\UpdateImageTypeWrapper;
 
 class ImageUpdateFactory
 {
-    private UpdateTypeWrapper $updateType;
+    private UpdateImageTypeWrapper $updateType;
     private ChannelUpdateFacotry $channelUpdateFactory;
     private TeamUpdateFactory $teamUpdateFactory;
 
-    public function __construct(UpdateTypeWrapper $updateType, array $attribute)
+    public function __construct(UpdateImageTypeWrapper $updateType, array $attribute)
     {
         $this->updateType = $updateType;
         $this->channelUpdateFactory = new ChannelUpdateFacotry(

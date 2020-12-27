@@ -33,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('channelHasOnlyOneBanner', fn () => $this->canUpdateBanner('slug'));
         Validator::extend('teamHasOnlyOneBanner', fn () => $this->canUpdateBanner('teamSlug'));
-        Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', $param));
+        Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', (int)$param));
+        Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
 
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());

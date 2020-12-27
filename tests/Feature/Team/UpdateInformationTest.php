@@ -18,6 +18,7 @@ use App\Http\Requests\Team\UpdateLogoImageRequest;
 use Styde\Enlighten\Tests\EnlightenSetup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use App\Http\Requests\Rules\Broadcast as BroadcastRules;
 
 class UpdateInformationTest extends TestCase
 {
@@ -666,7 +667,7 @@ class UpdateInformationTest extends TestCase
 
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
-        $this->assertEquals(['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ADDRESS_HAS_NOT_PLATFORM], $tryUpdateTeamBroadCast['messages']);
+        $this->assertEquals(['code' => BroadcastRules::BROADCAST_ADDRESS_HAS_NOT_PLATFORM], $tryUpdateTeamBroadCast['messages']);
     }
 
     /**
@@ -692,7 +693,7 @@ class UpdateInformationTest extends TestCase
 
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
-        $this->assertEquals(['code' => UpdateInfoWithOutBannerRequest::BROADCAST_IS_NOT_ARRAY], $tryUpdateTeamBroadCast['messages']);
+        $this->assertEquals(['code' => BroadcastRules::BROADCAST_IS_NOT_ARRAY], $tryUpdateTeamBroadCast['messages']);
     }
 
     /**
@@ -722,7 +723,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ADDRESS_HAS_NOT_URL],
+            ['code' => BroadcastRules::BROADCAST_ADDRESS_HAS_NOT_URL],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -754,7 +755,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_URL_IS_NOT_STRING],
+            ['code' => BroadcastRules::BROADCAST_URL_IS_NOT_STRING],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -785,7 +786,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_URL_IS_NOT_UNIQUE],
+            ['code' => BroadcastRules::BROADCAST_URL_IS_NOT_UNIQUE],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -816,7 +817,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_PLATFORM_IS_INVALID],
+            ['code' => BroadcastRules::BROADCAST_PLATFORM_IS_INVALID],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -847,7 +848,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_PLATFORM_IS_INVALID],
+            ['code' => BroadcastRules::BROADCAST_PLATFORM_IS_INVALID],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -918,7 +919,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ID_IS_NOT_NUMERIC],
+            ['code' => BroadcastRules::BROADCAST_ID_IS_NOT_NUMERIC],
             $tryUpdateTeamBroadCast['messages']
         );
     }
@@ -933,7 +934,7 @@ class UpdateInformationTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $anotherTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
+        $anotherTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => factory(User::class)->create()->id, 'is_public' => false]);
 
         $requestUrl = route('updateTeamInfoWithoutImage', [
            'teamSlug' => $team->slug,
@@ -954,7 +955,7 @@ class UpdateInformationTest extends TestCase
         $this->assertFalse($tryUpdateTeamBroadCast['ok']);
         $this->assertFalse($tryUpdateTeamBroadCast['isValid']);
         $this->assertEquals(
-            ['code' => UpdateInfoWithOutBannerRequest::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM],
+            ['code' => BroadcastRules::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM],
             $tryUpdateTeamBroadCast['messages']
         );
     }
