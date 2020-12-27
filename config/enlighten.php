@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'enabled' => true,
 
@@ -98,7 +100,23 @@ return [
         [
             'name' => 'Users',
             'classes' => ['*User*'],
-            'routes' => ['users/*'],
+            'routes' => ['api/v1/users*', 'api/v1/user*', 'api/v1/auth*'],
+        ],
+        [
+            'name' => 'Team',
+            'classes' => ['*Team*'],
+            'routes' => ['api/v1/teams*','api/v1/team*'],
+        ],
+        [
+            'name' => 'Email',
+            'classes' => ['*Email*'],
+            'routes' => ['api/v1/email*'],
+        ],
+
+        [
+            'name' => 'Channel',
+            'classes' => ['*Channel*'],
+            'routes' => ['*channel/*', '*channels/*'],
         ],
         [
             'name' => 'Other Modules',

@@ -93,7 +93,33 @@
                                         x-on:click="open = !open"
                                         type="button" name="toggle panel"
                                             class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                        Other Modules
+                                        Team
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-team-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-team-duplicate-name-check.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Duplicate Name Check
+                                            </a>
+                                                                                    <a href="/feature-team-show-info.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info
+                                            </a>
+                                                                                    <a href="/feature-team-update-information.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Update Information
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Channel
                                     </button>
                                     <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-channel-check-follow.html"
@@ -136,25 +162,19 @@
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Update Information
                                             </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Other Modules
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
                                                                                     <a href="/feature-game-type-search.html"
                                                class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
                                                 Search
-                                            </a>
-                                                                                    <a href="/feature-team-create.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Create
-                                            </a>
-                                                                                    <a href="/feature-team-duplicate-name-check.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Duplicate Name Check
-                                            </a>
-                                                                                    <a href="/feature-team-show-info.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Show Info
-                                            </a>
-                                                                                    <a href="/feature-team-update-information.html"
-                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                                Update Information
                                             </a>
                                                                             </div>
                                 </div>
@@ -176,7 +196,7 @@
                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
  
                 </span>
-                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-88&quot;,&quot;head&quot;:&quot;33b1a62&quot;,&quot;modified&quot;:1,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:15.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:16.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:18.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:20.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:25.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:37.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:38.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:40.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:43.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:47.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:48.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:49.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:50.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:51.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:18:59.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:01.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:03.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:06.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-25T08:19:07.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
+                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-83&quot;,&quot;head&quot;:&quot;9ae2b01&quot;,&quot;modified&quot;:0,&quot;created_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:24.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:25.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:25.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:26.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:27.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:27.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:30.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:30.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:35.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:35.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:47.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:47.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:49.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:51.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:51.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:54.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:54.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:07:59.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:01.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:01.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:02.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:02.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:03.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:19.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:19.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:21.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:22.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:22.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T10:08:26.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
      x-data='{
          open: true,
          results: [],
@@ -213,9 +233,8 @@
  
                                                     <div class="ml-4 flex items-center md:ml-6">
                                             <div class="text-gray-200 font-light px-4 flex justify-center">
-                            <strong>bracketgg-88</strong>
-                                                            <span class="text-red-500 text-lg px-2">*</span>
-                                                        33b1a62
+                            <strong>bracketgg-83</strong>
+                                                        9ae2b01
                         </div>
                                         <a href="https://github.com/StydeNet/enlighten"
                        class="text-gray-100 hover:text-gray-500 focus:outline-none" aria-label="Notifications">
@@ -314,7 +333,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/channel/pTMAxnG/follow</td>
+                > api/v1/channel/qKyCJ5932AjHL42/follow</td>
             </tr>
             </table>
 </div>
@@ -410,7 +429,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">date: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Fri, 25 Dec 2020 08:18:20 GMT</td>
+                > Sun, 27 Dec 2020 10:07:29 GMT</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -466,7 +485,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/channel/pTMAxnG/follow</td>
+                > api/v1/channel/qKyCJ5932AjHL42/follow</td>
             </tr>
             </table>
 </div>
@@ -562,7 +581,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">date: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Fri, 25 Dec 2020 08:18:20 GMT</td>
+                > Sun, 27 Dec 2020 10:07:29 GMT</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
@@ -611,7 +630,7 @@
                 <div class="flex flex-col space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 4.61</h3>
+        <h3 class="text-base text-gray-300">Time: 5.02</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -627,17 +646,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Xander Bergstrom</td>
+                > Ms. Yasmine Goodwin III</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 0h67LgriBm7UNtcDIOq8@i2CX5nZdmBgaIa7c5shJ.k41</td>
+                > hyoiNLnAOlazkjxi4wxZ@eamxqEh7n99Yofa8Szke.5qG</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -657,12 +676,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$PiJdP81I/Rl7mm4in.Bswu2T.guvYpL1kmu7/ABkZzETILk1lNPUK</td>
+                > $2y$10$/b7RXQ3m2Dt3H6M4uaFY/.PVsm/TuCmnxcDxC6ZB95oavC5bkMehC</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > qjJFiaBq6x</td>
+                > BtKzloLKAS</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -677,12 +696,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -690,7 +709,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.65</h3>
+        <h3 class="text-base text-gray-300">Time: 22.11</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -706,17 +725,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Coy Prohaska</td>
+                > Ms. Christy Daniel</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > x4eHUpInrHqXoqSDYzSt@tkRGhuAAtn9w6uYnGW5S.pvJ</td>
+                > 171vVcxJT2FiCEMSlzEC@TGDtipnD7t8pyUrNEvOw.j2t</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -736,12 +755,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$vRXSXDEp/f.VXIwSIR8xVOMwb8X94zW0PnqwV5y4uWoFHkUxSA4Yi</td>
+                > $2y$10$R54WMmpHY4SDNP8w.ZjYIOn8f1/GXqkgyctyztXWJqHHxBetgvD8a</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > LMarJj9bAE</td>
+                > yzVJ4u5qqu</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -756,12 +775,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -769,7 +788,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.29</h3>
+        <h3 class="text-base text-gray-300">Time: 2.01</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -785,17 +804,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://placeimg.com/640/480?584</td>
+                > https://placeimg.com/640/480?547</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1477</td>
+                > 1082</td>
             </tr>
             </table>
 </div>
@@ -803,7 +822,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.28</h3>
+        <h3 class="text-base text-gray-300">Time: 4.49</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -829,32 +848,111 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1477</td>
+                > 1082</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Dolores consequatur explicabo ex incidunt quia est.</td>
+                > Voluptatem ipsum odio quis et odit est.</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2hW1nwoXdtjQch1</td>
+                > z7aDFCPjcVhIAde</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > https://placeimg.com/640/480?981</td>
+                > https://placeimg.com/640/480?840</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.94</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Braulio Blanda I</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > tKs4P3EhzWxyJKJQCl4A@GulJNz09DvxLeTeQhprm.SxV</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > </td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > $2y$10$E6zCbFvhl9Uy4v4wudbe7uUGX17kXa99XfvBZdhJvlqj2SPdRArLO</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > JlfVhYO0Xw</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 3</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -867,6 +965,45 @@
     <div >
     <pre style="margin:0;"
          class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 93</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1083</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 2.08</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
     ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
 </div> 
                                                              <div>
@@ -878,17 +1015,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Mr. Preston Watsica</td>
+                > Angela Bins</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > vvmnMPxbNwJBUeD0HuBd@CrQcORUXYvUpyCSvSEmW.3Lx</td>
+                > OU9nHsugrDw98DvLp8cb@Gk6Yi4xFsfS8RH0keIKB.MGV</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -908,12 +1045,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$8zqn6Kc0J9y9x10Ks10RheQsqhkYGdxqJVjnaL9C75uOek5Q.lg/C</td>
+                > $2y$10$QXP7j4PmLbx8opebkabmm.QfMWEIaMjVew3vGQyLcsvzCbn2KbPtG</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > N3tCvhnU6K</td>
+                > QawAngA71e</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -928,12 +1065,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -941,7 +1078,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.45</h3>
+        <h3 class="text-base text-gray-300">Time: 1.26</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -957,494 +1094,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1478</td>
+                > 1084</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.59</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Ilene Grady MD</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > gN0XQY5Parsu4kXnA1nz@Moif8t6ylOt4bi9liwtt.Khf</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$0CfEBtnLa1FBTT23GarTuetjukxJBtbNZ8caukgCGXBmWjcimzzPO</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > SmMV8uamxx</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.27</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1479</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.76</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Mr. Furman Stamm MD</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > IGFJeE7HfrhXEfshvCVd@MdvItDDVr1jLUHXYq3un.VrZ</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$ZHBucHVd9RumFulTRy8hU.1CU.kGL7HLOV9u4B1apN3ogcSeq0n/m</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > afkf6JBzXf</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.31</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1480</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.4</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Carolanne Quitzon IV</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > GqlTN9T3sFGPDeNR4jqq@UQADa1kEVouCzsYU5QHX.urg</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$Ipcqz19ML3.1b.fv.5mMlOm.6jh8xGhbkr728/65iEz5rMuGO0sOO</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > hssOIBSte1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.61</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1481</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.73</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Norberto Prohaska</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Qtz6FwdnA4wQY0WJ9Wkv@0X8CTrpLCUySJPQv92LL.oQm</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$ZrgkBFsHyPZYim5onZdU.OOKY/a1SVaUC5OdRxZj9avaRignaIExK</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Rl0DByO3Cl</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.39</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1482</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -1468,17 +1133,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Kayden Renner I</td>
+                > Mr. Trevion Huels DDS</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > gclhqaTLoN7AAlhIHhdD@7cqxXPzWPNqbdYQ5Si9S.L7f</td>
+                > vVtIJbWX3P8UpmC6R56V@3t4PpEk2Kk1eMW4SgBms.lZu</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -1498,12 +1163,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$fiCoO641HOiecXvtn5zyLedGD2VGy6H3qTNyR1CQ5rLU77HFp4vsK</td>
+                > $2y$10$MfNdjq3dBsf71aWlu5f1S.x1RqbpvPIsdT23hu7UEZ7U/wv3aQOEi</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > p05MRYeeTJ</td>
+                > oPYSAy8cDi</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -1518,12 +1183,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -1531,7 +1196,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 37.58</h3>
+        <h3 class="text-base text-gray-300">Time: 1.54</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1547,22 +1212,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1483</td>
+                > 1085</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -1570,7 +1235,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 3.62</h3>
+        <h3 class="text-base text-gray-300">Time: 1.82</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1586,17 +1251,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Prof. Woodrow Beahan Sr.</td>
+                > Darren Witting</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > zaoVMsh2ik2J6anV0cQK@0VTAIaCGwTBs0SetyPeS.810</td>
+                > lWk1sXgkIzyWZIJn06XB@vRqZcll03eh7Xaoy7jht.chD</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -1616,12 +1281,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$jWQ.7Cqbp8MPmULiZVN.XeN0/MTswJgzy5noBYCCA0q0sFxigUYoS</td>
+                > $2y$10$hrxkmwhTKLi9T8DwzFabH.TQUdDHYxjRS0fBOWVW1UqHG2fDMM8sy</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > j81NlQtyGq</td>
+                > ea0m0jpVN7</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -1636,12 +1301,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -1649,7 +1314,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 5.31</h3>
+        <h3 class="text-base text-gray-300">Time: 1.25</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1665,22 +1330,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1484</td>
+                > 1086</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -1688,7 +1353,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.76</h3>
+        <h3 class="text-base text-gray-300">Time: 1.81</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -1704,17 +1369,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > Dr. Floyd Hermiston</td>
+                > Jenifer Turcotte</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 8YRXaCPlXNlHbdynCCh6@iVDYfRmD5gHegC3VJzOl.Y54</td>
+                > 79UmheU5BuT4wZVPZJnA@MatD0ShLIPrSJ7CT89vi.ceV</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
@@ -1734,12 +1399,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$AESbPY47FFO7gPdNVafQI.PYq2oX0f0tx6WZxcTQcPdr2QQGqpgEy</td>
+                > $2y$10$rCqae32cA4CQj58MrqiaB.D2H8EhCzckdU5eOz8UtjzYgMj1mf0rS</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > lL2HeNNjP9</td>
+                > vV1h9aZnTF</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
@@ -1754,248 +1419,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.69</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1485</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 2.09</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Minnie Tromp</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > jPgkg20RKKLqrMs5v09x@p0CpM88N3XbRs6oQHm42.HET</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:19</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$97rA/2g5vtRwf/jiPEMxOOz.UcJEII31j7bE1KR4iEtKbdcKnXBF2</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 09f0LzIwxA</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.43</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1486</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-            </table>
-</div>
-</div>
- 
-                                             <div class="bg-gray-800 rounded-md overflow-hidden">
-    <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.45</h3>
-    </span>
-    <div >
-    <pre style="margin:0;"
-         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
-    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
-</div> 
-                                                             <div>
-             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
->Bindings</span>
- 
-    
-    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Breanne Nienow</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > qSDXhxN9gs4w6I8TU34m@PUfvmzEsmnC6YFXizYqI.phU</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > </td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 1</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > $2y$10$xPJcz/q.wY3QsAjeRunyl.GAXpyZXCHwz9GRlZLYg7Y9jCke2vjFO</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > Uhz48tlWqk</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 5</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 3</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
-            </tr>
-                    <tr>
-                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
-                <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -2019,22 +1448,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1487</td>
+                > 1087</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -2042,7 +1471,361 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.28</h3>
+        <h3 class="text-base text-gray-300">Time: 2.45</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Kiera Padberg</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > CJ58sunGVjxzweCwY1yQ@hMzhxeEjHQ5j0r8ufkdC.mJu</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > </td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > $2y$10$ponB3XXx/douCx5/1VUfO.RtXb0oGaIMSnHz9uYu/0wUOPzglx6MC</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > JfDNcTV4em</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 3</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.46</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 93</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1088</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.75</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Prof. Taylor Connelly Jr.</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1vkIa6u0W33ioKlSIcnq@fG37g008VcluuXReOiHK.TDH</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > </td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > $2y$10$6Oc/tReuHbGO6oLqEolPg.9ywNQSyJUNkw.80F0EMsFhVHFQKvl06</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > DFBwQnGOOV</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 3</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.4</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 93</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1089</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 2.16</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Mr. Lloyd Balistreri</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1ke3hdFKFqq5jLqaBmDa@q7Wn0FHtdFiBHTblM3co.LpQ</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > </td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > $2y$10$33LVhlFYfkSnQZ4Dx4T92O1cvAUwCZIcAaQhYKd3MF7Ex6rncM8v.</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > fR2soyAQ0s</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 3</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 1.8</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `channel_followers` (`channel_id`, `user_id`, `updated_at`, `created_at`) values (?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 93</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1090</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 10:07:29</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 2.29</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2058,17 +1841,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 10</td>
+                > 8</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2076,7 +1859,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 1.22</h3>
+        <h3 class="text-base text-gray-300">Time: 1.48</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2092,22 +1875,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > pTMAxnG</td>
+                > qKyCJ5932AjHL42</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -2115,7 +1898,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.72</h3>
+        <h3 class="text-base text-gray-300">Time: 0.8</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2131,7 +1914,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2152,7 +1935,7 @@
                 <div class="flex flex-col md:col-span-2 space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.63</h3>
+        <h3 class="text-base text-gray-300">Time: 0.62</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2168,7 +1951,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > pTMAxnG</td>
+                > qKyCJ5932AjHL42</td>
             </tr>
             </table>
 </div>
@@ -2176,7 +1959,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.58</h3>
+        <h3 class="text-base text-gray-300">Time: 0.69</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2192,7 +1975,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2200,7 +1983,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.67</h3>
+        <h3 class="text-base text-gray-300">Time: 1.01</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2216,12 +1999,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1476</td>
+                > 1081</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2229,7 +2012,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.57</h3>
+        <h3 class="text-base text-gray-300">Time: 0.73</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2245,17 +2028,17 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 11</td>
+                > 9</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2263,7 +2046,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.56</h3>
+        <h3 class="text-base text-gray-300">Time: 0.74</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2279,12 +2062,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1476</td>
+                > 1081</td>
             </tr>
             </table>
 </div>
@@ -2292,7 +2075,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.5</h3>
+        <h3 class="text-base text-gray-300">Time: 0.66</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2308,22 +2091,22 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1476</td>
+                > 1081</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 2020-12-25 08:18:20</td>
+                > 2020-12-27 10:07:29</td>
             </tr>
             </table>
 </div>
@@ -2352,7 +2135,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/channel/pTMAxnG/follow</td>
+                > api/v1/channel/qKyCJ5932AjHL42/follow</td>
             </tr>
             </table>
 </div>
@@ -2439,7 +2222,7 @@
                 <div class="flex flex-col space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.85</h3>
+        <h3 class="text-base text-gray-300">Time: 0.92</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2455,7 +2238,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2463,7 +2246,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.72</h3>
+        <h3 class="text-base text-gray-300">Time: 0.71</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2479,7 +2262,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2500,7 +2283,7 @@
                 <div class="flex flex-col md:col-span-2 space-y-4">
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.62</h3>
+        <h3 class="text-base text-gray-300">Time: 0.8</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2516,7 +2299,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > pTMAxnG</td>
+                > qKyCJ5932AjHL42</td>
             </tr>
             </table>
 </div>
@@ -2524,7 +2307,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.58</h3>
+        <h3 class="text-base text-gray-300">Time: 0.86</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2540,7 +2323,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2548,7 +2331,7 @@
  
                                              <div class="bg-gray-800 rounded-md overflow-hidden">
     <span class="block w-full bg-gray-700 px-4 py-2">
-        <h3 class="text-base text-gray-300">Time: 0.67</h3>
+        <h3 class="text-base text-gray-300">Time: 0.96</h3>
     </span>
     <div >
     <pre style="margin:0;"
@@ -2564,12 +2347,12 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 1476</td>
+                > 1081</td>
             </tr>
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > 144</td>
+                > 93</td>
             </tr>
             </table>
 </div>
@@ -2598,7 +2381,7 @@
                     <tr>
                 <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
                 <td class="font-thin break-all text-teal-300 pr-4"
-                > api/v1/channel/pTMAxnG/follow</td>
+                > api/v1/channel/qKyCJ5932AjHL42/follow</td>
             </tr>
             </table>
 </div>

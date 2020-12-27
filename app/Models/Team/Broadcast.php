@@ -15,5 +15,7 @@ class Broadcast extends Model
      */
     protected $table = 'team_broadcasts';
 
+    protected $fillable = ['team_id', 'broadcast_address', 'platform'];
+
     public static array $platforms = BroadcastFactory::PLATFORMS;
 }

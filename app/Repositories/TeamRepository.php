@@ -7,12 +7,12 @@ namespace App\Repositories;
 use App\Models\Team\Team;
 use App\Models\Team\Member as TeamMember;
 
-use App\Factories\Update\ImageUpdateFactory;
-use App\Wrappers\UpdateTypeWrapper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class TeamRepository
+use App\Factories\TeamInfoUpdateFactory;
+
+class TeamRepository extends TeamInfoUpdateFactory
 {
     private Team $team;
 
@@ -38,19 +38,16 @@ class TeamRepository
         });
     }
 
-    private function resolveUpdateFactory(string $type, array $attribute): ImageUpdateFactory
-    {
-        return new ImageUpdateFactory(
-            new UpdateTypeWrapper('team', $type),
-            $attribute
-        );
-    }
-
     public function update(Team $team, array $updateInfo): Team
     {
-        return DB::transaction(fn () => $team->update($updateInfo))->with(Team::TEAM_RELATIONS)
-                                                                  ->where('id', $team->id)
-                                                                  ->first();
+        return DB::transaction(function () use ($team, $updateInfo) {
+            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']) && count($updateInfo['broadcasts']) >= 1;
+            if ($canCreateOrUpdateBroadCasts) {
+                $this->updateBroadCast($team, $updateInfo['broadcasts']);
+            }
+
+            return $team->update($updateInfo);
+        })->with(Team::TEAM_RELATIONS)->find($team->id);
     }
 
     public function createUniqueSlug(Team $team)
@@ -61,18 +58,13 @@ class TeamRepository
         ]);
     }
 
-    public function updateImage(string $type, array $attribute): bool
+    public function updateOrCreateImage(bool $isUpdate, string $type, array $attribute): bool
     {
-        return DB::transaction(function () use ($type, $attribute) {
-            return $this->resolveUpdateFactory($type, $attribute)->update();
-        });
-    }
-
-    public function createImage(string $type, array $attribute): bool
-    {
-        return DB::transaction(function () use ($type, $attribute) {
-            return $this->resolveUpdateFactory($type, $attribute)->create();
-        });
+        return $this->updateOrCreateTeamImage(
+            $isUpdate,
+            $type,
+            $attribute
+        );
     }
 
     public function findByUserId(string $userId)

@@ -18,7 +18,6 @@ use App\Http\Requests\Channel\UpdateLogoImageRequest;
 use App\Http\Requests\Channel\UpdateBannerImageRequest;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-
 class UpdateInformationTest extends TestCase
 {
     use EnlightenSetup;
