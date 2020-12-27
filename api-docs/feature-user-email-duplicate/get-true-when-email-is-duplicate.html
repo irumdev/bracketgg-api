@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="noindex,nofollow">
+    <title>BRACKET.GG API DOCUMENT</title>
+    <link rel="stylesheet" href="/assets/css/app.css?0.2.0">
+</head>
+<body class="bg-gray-900 overflow-hidden flex absolute">
+
+    <div class="w-screen h-screen block  overflow-hidden top-0 ">
+         <div class="h-screen flex overflow-hidden bg-gray-100" x-data="{open: false}">
+    <div >
+        <div x-show="open" x-cloak class="fixed inset-0 flex z-40">
+            <div x-show="open" x-cloak class="fixed inset-0"
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 xtransition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+            >
+                <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
+            </div>
+            <div x-show="open" x-cloak
+                 x-transition:enter="transition ease-in-out duration-300 transform"
+                 xtransition:enter-start="-translate-x-full"
+                 x-transition:enter-end="translate-x-0"
+                 x-transition:leave="transition ease-in-out duration-300 transform"
+                 x-transition:leave-start="translate-x-0"
+                 x-transition:leave-end="-translate-x-full"
+                 class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800">
+                <div class="absolute top-0 right-0 -mr-14 p-1">
+                    <button x-on:click="open = !open" class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600" aria-label="Close sidebar">
+                        <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-shrink-0 flex items-center px-4">
+                    <span class="rounded-full text-teal-800 bg-teal-500 p-1">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+ 
+                    </span>
+                    <span class="font-bold text-gray-100 text-2xl pl-4">Enlighten</span>
+                </div>
+                <div class="mt-5 flex-1 h-0 overflow-y-auto">
+                    <nav class="px-2 space-y-1">
+                        
+                                                    <a href="/areas/feature.html" class=" group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                                Features
+                            </a>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Users
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-user-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-user-email-duplicate.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Email Duplicate
+                                            </a>
+                                                                                    <a href="/feature-user-login.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Login
+                                            </a>
+                                                                                    <a href="/feature-user-show-channel-info-by-owner.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Channel Info By Owner
+                                            </a>
+                                                                                    <a href="/feature-user-show-info-by-token.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info By Token
+                                            </a>
+                                                                                    <a href="/feature-user-verify-email.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Verify Email
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Team
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-team-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-team-duplicate-name-check.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Duplicate Name Check
+                                            </a>
+                                                                                    <a href="/feature-team-show-info.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info
+                                            </a>
+                                                                                    <a href="/feature-team-update-information.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Update Information
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Channel
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-channel-check-follow.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Check Follow
+                                            </a>
+                                                                                    <a href="/feature-channel-check-like.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Check Like
+                                            </a>
+                                                                                    <a href="/feature-channel-create.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Create
+                                            </a>
+                                                                                    <a href="/feature-channel-follow.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Follow
+                                            </a>
+                                                                                    <a href="/feature-channel-like.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Like
+                                            </a>
+                                                                                    <a href="/feature-channel-show-follower-list.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Follower List
+                                            </a>
+                                                                                    <a href="/feature-channel-show-info.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Show Info
+                                            </a>
+                                                                                    <a href="/feature-channel-un-follow.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Un Follow
+                                            </a>
+                                                                                    <a href="/feature-channel-un-like.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Un Like
+                                            </a>
+                                                                                    <a href="/feature-channel-update-information.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Update Information
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                            <div class="flex flex-col space-y-2" x-data="{open: false}">
+                                    <button
+                                        x-on:click="open = !open"
+                                        type="button" name="toggle panel"
+                                            class="group flex w-full text-left items-center px-2 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                        Other Modules
+                                    </button>
+                                    <div class="w-full" x-cloak x-show="open">
+                                                                                    <a href="/feature-game-type-search.html"
+                                               class="group flex items-center px-4 py-1 text-sm leading-6 font-light rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                                Search
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                                        </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+            <button x-on:click="open = ! open" class="px-4 border-r border-gray-700 text-gray-500 focus:outline-none bg-gray-900 focus:bg-gray-800 focus:text-gray-600" aria-label="Open sidebar">
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+            </button>
+            <div class="flex-1 px-4 space-x-4 flex justify-end items-center bg-gray-800">
+                <span class="rounded-full text-teal-100 bg-teal-500 p-1  hidden md:flex">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+ 
+                </span>
+                                                             <div run="{&quot;id&quot;:1,&quot;branch&quot;:&quot;bracketgg-68&quot;,&quot;head&quot;:&quot;496301e&quot;,&quot;modified&quot;:0,&quot;created_at&quot;:&quot;2020-12-27T17:08:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:37.000000Z&quot;,&quot;groups&quot;:[{&quot;id&quot;:1,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckFollowTest&quot;,&quot;title&quot;:&quot;Check Follow&quot;,&quot;slug&quot;:&quot;feature-channel-check-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:37.000000Z&quot;},{&quot;id&quot;:2,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CheckLikeTest&quot;,&quot;title&quot;:&quot;Check Like&quot;,&quot;slug&quot;:&quot;feature-channel-check-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:38.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:38.000000Z&quot;},{&quot;id&quot;:3,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-channel-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:39.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:39.000000Z&quot;},{&quot;id&quot;:4,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\FollowTest&quot;,&quot;title&quot;:&quot;Follow&quot;,&quot;slug&quot;:&quot;feature-channel-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:41.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:41.000000Z&quot;},{&quot;id&quot;:5,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\LikeTest&quot;,&quot;title&quot;:&quot;Like&quot;,&quot;slug&quot;:&quot;feature-channel-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:43.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:43.000000Z&quot;},{&quot;id&quot;:6,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowFollowerListTest&quot;,&quot;title&quot;:&quot;Show Follower List&quot;,&quot;slug&quot;:&quot;feature-channel-show-follower-list&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:08:49.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:08:49.000000Z&quot;},{&quot;id&quot;:7,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-channel-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:00.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:00.000000Z&quot;},{&quot;id&quot;:8,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnFollowTest&quot;,&quot;title&quot;:&quot;Un Follow&quot;,&quot;slug&quot;:&quot;feature-channel-un-follow&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:03.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:03.000000Z&quot;},{&quot;id&quot;:9,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UnLikeTest&quot;,&quot;title&quot;:&quot;Un Like&quot;,&quot;slug&quot;:&quot;feature-channel-un-like&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:06.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:06.000000Z&quot;},{&quot;id&quot;:10,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Channel\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-channel-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:08.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:08.000000Z&quot;},{&quot;id&quot;:11,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\GameType\\SearchTest&quot;,&quot;title&quot;:&quot;Search&quot;,&quot;slug&quot;:&quot;feature-game-type-search&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:16.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:16.000000Z&quot;},{&quot;id&quot;:12,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-team-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:17.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:17.000000Z&quot;},{&quot;id&quot;:13,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\DuplicateNameCheckTest&quot;,&quot;title&quot;:&quot;Duplicate Name Check&quot;,&quot;slug&quot;:&quot;feature-team-duplicate-name-check&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:18.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:18.000000Z&quot;},{&quot;id&quot;:14,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\ShowInfoTest&quot;,&quot;title&quot;:&quot;Show Info&quot;,&quot;slug&quot;:&quot;feature-team-show-info&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:19.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:19.000000Z&quot;},{&quot;id&quot;:15,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\Team\\UpdateInformationTest&quot;,&quot;title&quot;:&quot;Update Information&quot;,&quot;slug&quot;:&quot;feature-team-update-information&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:20.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:20.000000Z&quot;},{&quot;id&quot;:16,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\CreateTest&quot;,&quot;title&quot;:&quot;Create&quot;,&quot;slug&quot;:&quot;feature-user-create&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:33.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:33.000000Z&quot;},{&quot;id&quot;:17,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\EmailDuplicateTest&quot;,&quot;title&quot;:&quot;Email Duplicate&quot;,&quot;slug&quot;:&quot;feature-user-email-duplicate&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:35.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:35.000000Z&quot;},{&quot;id&quot;:18,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\LoginTest&quot;,&quot;title&quot;:&quot;Login&quot;,&quot;slug&quot;:&quot;feature-user-login&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:35.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:35.000000Z&quot;},{&quot;id&quot;:19,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowChannelInfoByOwnerTest&quot;,&quot;title&quot;:&quot;Show Channel Info By Owner&quot;,&quot;slug&quot;:&quot;feature-user-show-channel-info-by-owner&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:37.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:37.000000Z&quot;},{&quot;id&quot;:20,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\ShowInfoByTokenTest&quot;,&quot;title&quot;:&quot;Show Info By Token&quot;,&quot;slug&quot;:&quot;feature-user-show-info-by-token&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:40.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:40.000000Z&quot;},{&quot;id&quot;:21,&quot;run_id&quot;:1,&quot;class_name&quot;:&quot;Tests\\Feature\\User\\VerifyEmailTest&quot;,&quot;title&quot;:&quot;Verify Email&quot;,&quot;slug&quot;:&quot;feature-user-verify-email&quot;,&quot;description&quot;:null,&quot;area&quot;:&quot;feature&quot;,&quot;order_num&quot;:9999,&quot;created_at&quot;:&quot;2020-12-27T17:09:41.000000Z&quot;,&quot;updated_at&quot;:&quot;2020-12-27T17:09:41.000000Z&quot;}]}" class="hidden md:flex relative flex-1"
+     x-data='{
+         open: true,
+         results: [],
+         index: {}
+    }'
+     x-on:data-loaded="index = $event.detail"
+     x-init="
+        fetch('/search.json')
+            .then(response => response.json().then(response => { $dispatch('data-loaded', response.items) }))
+        ">
+    <input
+        x-on:input.debounce="
+            results = index.filter(el => `${el.title} ${el.section}`.toLowerCase().includes($event.target.value.toLowerCase())).slice(0, 5);
+            open = true;"
+        class="bg-gray-900 w-full text-sm placeholder-gray-300 focus:placeholder-gray-600 text-gray-300 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-800 px-3 py-3"
+        placeholder="Search"
+        type="text"
+        role="search"
+        name="Search">
+    <div x-cloak x-ref="dropdown" x-show-="open" x-on:click.away="open = false"class="absolute block w-full my-1">
+        <ul class="origin-top-right bg-white rounded-md shadow-md block divide-y divide-gray-300 overflow-hidden">
+            <template x-for="(item, index) in results" :key="index">
+                <li>
+                    <a x-on:click="open = false;" x-bind:href="item.url"
+                       class="block text-sm px-3 py-3 text-gray-700 hover:bg-gray-100">
+                        <span class="font-semibold block" x-text="item.section"></span>
+                        <span x-text="item.title"></span>
+                    </a>
+                </li>
+            </template>
+        </ul>
+    </div>
+</div>
+ 
+                                                    <div class="ml-4 flex items-center md:ml-6">
+                                            <div class="text-gray-200 font-light px-4 flex justify-center">
+                            <strong>bracketgg-68</strong>
+                                                        496301e
+                        </div>
+                                        <a href="https://github.com/StydeNet/enlighten"
+                       class="text-gray-100 hover:text-gray-500 focus:outline-none" aria-label="Notifications">
+                        <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-4.466 19.59c-.405.078-.534-.171-.534-.384v-2.195c0-.747-.262-1.233-.55-1.481 1.782-.198 3.654-.875 3.654-3.947 0-.874-.312-1.588-.823-2.147.082-.202.356-1.016-.079-2.117 0 0-.671-.215-2.198.82-.64-.18-1.324-.267-2.004-.271-.68.003-1.364.091-2.003.269-1.528-1.035-2.2-.82-2.2-.82-.434 1.102-.16 1.915-.077 2.118-.512.56-.824 1.273-.824 2.147 0 3.064 1.867 3.751 3.645 3.954-.229.2-.436.552-.508 1.07-.457.204-1.614.557-2.328-.666 0 0-.423-.768-1.227-.825 0 0-.78-.01-.055.487 0 0 .525.246.889 1.17 0 0 .463 1.428 2.688.944v1.489c0 .211-.129.459-.528.385-3.18-1.057-5.472-4.056-5.472-7.59 0-4.419 3.582-8 8-8s8 3.581 8 8c0 3.533-2.289 6.531-5.466 7.59z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <main class="flex-1 relative overflow-y-auto focus:outline-none bg-gray-900" tabindex="0">
+            <span id="top"></span>
+            <div class="pt-2 pb-6">
+                <div class="max-w-7xl mx-auto px-4">
+                    <ul class="flex space-x-2 mt-4">
+            <li>
+            <a href="/areas/feature.html" class="text-gray-500 hover:text-gray-300 transition-all ease-in-out duration-100 flex items-center">
+                Feature
+                                <svg class="w-4 h-4 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </a>
+        </li>
+            <li>
+            <a href="/feature-user-email-duplicate.html" class="text-gray-500 hover:text-gray-300 transition-all ease-in-out duration-100 flex items-center">
+                Email Duplicate
+                            </a>
+        </li>
+    </ul>
+                     <div class="flex items-center justify-center space-x-4">
+                        <h3 class="text-gray-100 text-xl mt-6 mb-4 pb-4 w-full border-b border-gray-700"><div class="flex">
+             <span class="text-success-500 items-center text-sm justify-center rounded-lg flex">
+            <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </span>
+ 
+            이메일이 중복되어 true를 받아라
+              
+        </div></h3>
+                    </div>
+                    <div x-data="{active: 'requests'}" class="flex flex-col h-full py-2 px-2">
+                    <div class="flex space-x-4 mb-4 bg-gray-800">
+                                                        <button
+                            x-on:click="active='requests'"
+                            x-bind:class="{
+                                'border-teal-300': (active === 'requests'),
+                                'border-gray-800': (active !== 'requests')
+                            }"
+                            class="mx-2 text-gray-100 px-2 py-3 border-b-2 text-sm focus:outline-none hover:border-teal-500 transition-all ease-in-out duration-100"
+                    >Requests</button>
+                                                                            <button
+                            x-on:click="active='database'"
+                            x-bind:class="{
+                                'border-teal-300': (active === 'database'),
+                                'border-gray-800': (active !== 'database')
+                            }"
+                            class="mx-2 text-gray-100 px-2 py-3 border-b-2 text-sm focus:outline-none hover:border-teal-500 transition-all ease-in-out duration-100"
+                    >Database</button>
+                                                                                    </div>
+        
+        <div class="w-full h-full">
+                                                 <div x-cloak x-show="active === 'requests' " class="h-full">
+                         <div x-data="{active: 'response_185'}" class="flex flex-col h-full">
+        
+        <div class="w-full h-full">
+                                                 <div x-cloak x-show="active === 'response_185' " class="h-full">
+                         <div class="grid md:grid-cols-2 space-y-8 md:space-y-0 md:space-x-6 w-full h-full">
+                        <div>
+                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Request</h3>
+    </span>
+    <div>
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Method: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > GET</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Route: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > api/v1/email/duplicate</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > api/v1/email/duplicate?email=WYsE3eg73MlfoRmjCFiJ%40T2W8CRqIgvI5bNv8Yzaf.IbJ</td>
+            </tr>
+            </table>
+</div>
+ 
+
+    
+    
+             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Request Headers</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">host: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > localhost</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">user-agent: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Symfony</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > application/json</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept-language: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > en-us,en;q=0.5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept-charset: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > ISO-8859-1,utf-8;q=0.7,*;q=0.7</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > application/json</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+ 
+                            <span class="mb-8 w-full block"></span>
+
+                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Response</h3>
+    </span>
+    <div class="p-4 space-x-4">
+        <span class="p-1 bg-warning-200 text-warning-700">422</span>
+        <span class="text-gray-100">JSON</span>
+    </div>
+
+             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Response Headers</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">cache-control: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > no-cache, private</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">date: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Sun, 27 Dec 2020 17:09:35 GMT</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > application/json</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+ 
+                            <span class="mb-8 w-full block"></span>
+
+                                                    </div>
+                        <div class="h-full relative">
+                                                             <div class="h-full">
+             <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-json">{
+    &quot;ok&quot;: false,
+    &quot;isValid&quot;: false,
+    &quot;messages&quot;: {
+        &quot;isDuplicate&quot;: true
+    }
+}</code></pre>
+</div> 
+    </div>
+ 
+                                                    </div>
+                    </div>
+                     </div>
+                                    </div>
+</div>
+                     </div>
+                                                                 <div x-cloak x-show="active === 'database' " class="h-full">
+                         <div x-data="{
+            open: 0
+        }">
+        <label x-on:click="open = !open"  class="flex items-center space-x-2 cursor-pointer text-gray-300 hover:text-gray-100 mb-6 mt-2 text-xl">
+            <span>Test Queries</span>
+            <svg x-cloak x-show="open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            <svg x-cloak x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </label>
+                    <div class="grid grid-cols-1 gap-4 mb-8" x-cloak x-show="open">
+                <div class="flex flex-col space-y-4">
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 4.81</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">insert into `users` (`nick_name`, `email`, `email_verified_at`, `profile_image`, `is_policy_agree`, `is_privacy_agree`, `password`, `remember_token`, `create_channel_limit`, `create_team_limit`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Clementine Bruen</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">1: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > WYsE3eg73MlfoRmjCFiJ@T2W8CRqIgvI5bNv8Yzaf.IbJ</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">2: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 17:09:35</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">3: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > </td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">4: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">5: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 1</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">6: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > $2y$10$37/wW0qSGy0fgdJtvdOFRus44Knr7my9sO8WVWD1qxB5PhuHbuSLK</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">7: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > eRbb906ZlI</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">8: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">9: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 3</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">10: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 17:09:35</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">11: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2020-12-27 17:09:35</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                    </div>
+            </div>
+            </div>
+    <div x-data="{
+            open: 1
+        }">
+        <label x-on:click="open = !open"  class="flex items-center space-x-2 cursor-pointer text-gray-300 hover:text-gray-100 mb-6 mt-2 text-xl">
+            <span>Request Queries</span>
+            <svg x-cloak x-show="open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            <svg x-cloak x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8" x-cloak x-show="open">
+                <div class="flex flex-col md:col-span-2 space-y-4">
+                                             <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Time: 0.65</h3>
+    </span>
+    <div >
+    <pre style="margin:0;"
+         class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"
+    ><code class="language-sql">select count(*) as aggregate from `users` where `email` = ?</code></pre>
+</div> 
+                                                             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Bindings</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">0: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > WYsE3eg73MlfoRmjCFiJ@T2W8CRqIgvI5bNv8Yzaf.IbJ</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+                                    </div>
+                <div class="relative h-full">
+                    <div class="sticky top-0">
+                         <div class="bg-gray-800 rounded-md overflow-hidden">
+    <span class="block w-full bg-gray-700 px-4 py-2">
+        <h3 class="text-base text-gray-300">Request</h3>
+    </span>
+    <div>
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Method: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > GET</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Route: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > api/v1/email/duplicate</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">Example: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > api/v1/email/duplicate?email=WYsE3eg73MlfoRmjCFiJ%40T2W8CRqIgvI5bNv8Yzaf.IbJ</td>
+            </tr>
+            </table>
+</div>
+ 
+
+    
+    
+             <div>
+             <span class="block bg-gray-500 py-2 text-sm text-left text-gray-800 px-4 text-sm font-normal w-full"
+>Request Headers</span>
+ 
+    
+    <table class="bg-gray-800 p-4 rounded-lg text-gray-100 my-4">
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">host: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > localhost</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">user-agent: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > Symfony</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > application/json</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept-language: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > en-us,en;q=0.5</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">accept-charset: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > ISO-8859-1,utf-8;q=0.7,*;q=0.7</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-length: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > 2</td>
+            </tr>
+                    <tr>
+                <td class="font-thin whitespace-no-wrap text-gray-200 px-4">content-type: </td>
+                <td class="font-thin break-all text-teal-300 pr-4"
+                > application/json</td>
+            </tr>
+            </table>
+</div>
+</div>
+ 
+ 
+                    </div>
+                </div>
+            </div>
+            </div>
+                     </div>
+                                                                </div>
+</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+ 
+    </div>
+    <script src="/assets/js/build.js"></script>
+
+</body>
+</html>
+ 
+
