@@ -856,7 +856,7 @@ class UpdateInformationTest extends TestCase
      * @test
      * @enlighten
      */
-    public function successCreateBoradCast(): void
+    public function successCreateBroadcast(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
