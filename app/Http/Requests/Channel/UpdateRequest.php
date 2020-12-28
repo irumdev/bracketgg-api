@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\Slug as ChannelSlug;
-
+use App\Models\Channel\Broadcast as ChannelBroadCast;
+use App\Http\Requests\Rules\Broadcast as BroadcastRules;
+use App\Wrappers\UpdateBroadcastTypeWrapper;
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
 use App\Helpers\ValidMessage;
@@ -102,7 +104,6 @@ class UpdateRequest extends FormRequest
         );
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -111,7 +112,14 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         $channelNameRule = CreateChannelRule::rules()['name'];
-        return [
+
+        $broadcastRules = BroadcastRules::broadcastRules(new UpdateBroadcastTypeWrapper(
+            ChannelBroadCast::$platforms,
+            'isMyChannelBroadcast',
+            'channel_broadcasts'
+        ));
+
+        return array_merge($broadcastRules, [
             'slug' => [
                 'nullable', 'string',
                 'min:' . ChannelSlug::MIN_SLUG_LENGTH,
@@ -125,7 +133,7 @@ class UpdateRequest extends FormRequest
             ],
             'name' => array_replace(explode('|', $channelNameRule), [0 => 'nullable']),
             'description' => 'nullable|string',
-        ];
+        ]);
     }
 
     protected function failedValidation(ValidContract $validator): void
@@ -138,7 +146,7 @@ class UpdateRequest extends FormRequest
     public function messages(): array
     {
         $channelNameRuleRequireToNullable = Arr::changeKey(CreateChannelRule::messages(), 'name.required', 'name.nullable');
-        return array_merge($channelNameRuleRequireToNullable, [
+        return array_merge($channelNameRuleRequireToNullable, BroadcastRules::messages(), [
             'slug.string' => json_encode(['code' => self::SLUG_IS_NOT_STRING]),
             'slug.min' => json_encode(['code' => self::SLUG_IS_SHORT]),
             'slug.max' => json_encode(['code' => self::SLUG_IS_LONG]),

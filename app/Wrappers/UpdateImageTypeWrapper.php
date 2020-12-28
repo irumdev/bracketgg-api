@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Wrappers;
 
-class UpdateTypeWrapper
+class UpdateImageTypeWrapper
 {
     public const LOGO_IMAGE = 'logo';
     public const BASE = 'base';

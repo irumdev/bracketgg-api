@@ -28,4 +28,24 @@ class ChannelInfoUpdateFactory implements ChannelUpdateInfoContract
             ]);
         }
     }
+
+    public function updateBroadcast(Channel $channel, array $broadCasts)
+    {
+        $channelBroadCasts = $channel->broadcastAddress();
+        collect($broadCasts)->each(function ($broadCast) use ($channelBroadCasts, $channel) {
+            $createItem = [
+                'channel_id' => $channel->id,
+                'broadcast_address' => $broadCast['url'],
+                'platform' => $broadCast['platform']
+            ];
+            if (isset($broadCast['id'])) {
+                $channelBroadCasts->updateOrCreate(
+                    ['id' => $broadCast['id']],
+                    $createItem
+                );
+            } else {
+                $channelBroadCasts->create($createItem);
+            }
+        });
+    }
 }
