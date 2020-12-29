@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         factory(Team::class, 20)->states([
+            'addSignedMembers',
             'addSlug',
             'addBannerImage',
             'addBroadcasts',
             'addOperateGame',
-            'addMembers',
         ])->create();
 
         factory(Channel::class, 20)->states([

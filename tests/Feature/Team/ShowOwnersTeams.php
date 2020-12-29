@@ -32,7 +32,7 @@ class ShowOwnersTeams extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
-            'addSlug', 'addMembers', 'addBannerImage',
+            'addSlug', 'addSignedMembers', 'addBannerImage',
             'addBroadcasts', 'addOperateGame'
         ])->create([
             'owner' => $activeUser->id
@@ -106,7 +106,7 @@ class ShowOwnersTeams extends TestCase
         $owner = factory(User::class)->create();
 
         $teams = collect(range(0, $owner->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
-            'addSlug', 'addMembers', 'addBannerImage',
+            'addSlug', 'addSignedMembers', 'addBannerImage',
             'addBroadcasts', 'addOperateGame'
         ])->create([
             'owner' => $owner->id
