@@ -12,6 +12,7 @@ use App\Models\Team\Broadcast;
 use App\Models\Team\OperateGame;
 use App\Models\Team\BannerImage;
 use App\Models\Team\Member as TeamMember;
+use Illuminate\Support\Carbon;
 
 $factory->define(Team::class, function (Faker $faker) {
     $teamData = [
@@ -29,12 +30,13 @@ $factory->define(Team::class, function (Faker $faker) {
     return $teamData;
 });
 
-$factory->afterCreatingState(Team::class, 'addMembers', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $team, Faker $faker) {
     $createCnt = range(1, random_int(2, 10));
     $len = count($createCnt);
     TeamMember::factory()->create([
         'user_id' => $team->owner,
-        'team_id' => $team->id
+        'team_id' => $team->id,
+        'role' => Team::OWNER,
     ]);
 
     foreach ($createCnt as $_) {

@@ -21,7 +21,6 @@ use Styde\Enlighten\Tests\EnlightenSetup;
 use Illuminate\Support\Arr;
 use App\Http\Requests\Rules\Broadcast as BroadcastRules;
 
-
 class UpdateInformationTest extends TestCase
 {
     use EnlightenSetup;
