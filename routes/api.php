@@ -42,7 +42,6 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::group(['prefix' => 'email'], function () {
-        Route::post('resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
         Route::get('duplicate', [CheckEmailDuplicateController::class, 'getUserEmailDuplicate'])->name('checkEmailDuplicate');
         Route::get('verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])->middleware('signed')->name('verifyEmail');
     });
@@ -66,6 +65,10 @@ Route::group(['prefix' => 'v1'], function () {
         /**
          * 로그아웃 테스트 안되어있음
          */
+        Route::group(['prefix' => 'email'], function () {
+            Route::post('resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
+        });
+
         Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
 
         Route::group(['prefix' => 'channel'], function () {
