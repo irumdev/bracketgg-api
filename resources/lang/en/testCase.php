@@ -216,6 +216,7 @@ return [
         ],
 
         'ReSendVerifyEmail' => [
+            'failSendVerifyEmailWhenUserIsNotLogined' => '로그인 안한경우 이메일 요청에 실패하라',
             'successSendVerifyEmail' => '이메일 재발송에 성공하라',
             'failSendVerifyEmailWhenAlreadyUserVerifyEmail' => '이미 인증한 유저가 이메일 요청에 실패하라',
         ],
