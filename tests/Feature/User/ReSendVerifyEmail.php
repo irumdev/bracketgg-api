@@ -70,4 +70,21 @@ class ReSendVerifyEmail extends TestCase
         $this->assertFalse($tryResendEmailVerification['isValid']);
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $tryResendEmailVerification['messages']['code']);
     }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failSendVerifyEmailWhenUserIsNotLogined(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $user = factory(User::class)->create();
+        $this->assertNotNull($user->email_verified_at);
+
+        $tryResendEmailVerification = $this->postJson($this->testUrl)->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        $this->assertFalse($tryResendEmailVerification['ok']);
+        $this->assertFalse($tryResendEmailVerification['isValid']);
+        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $tryResendEmailVerification['messages']['code']);
+    }
 }
