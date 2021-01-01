@@ -15,7 +15,7 @@ use App\Properties\Paginate;
 use Illuminate\Http\JsonResponse;
 
 /**
- * 유자가 가진 채널들의 정보를 보여주는 컨트롤러 입니다.
+ * 유저가 가진 채널들의 정보를 보여주는 컨트롤러 입니다.
  *
  * @author  dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
