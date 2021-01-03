@@ -69,7 +69,7 @@ class CheckFollowTest extends TestCase
 
         $tryFollowChannel = $this->patchJson(route('followChannel', [
             'slug' => $channel->slug
-        ]));
+        ]))->assertCreated();
 
         $this->assertTrue($tryFollowChannel['ok']);
         $this->assertTrue($tryFollowChannel['isValid']);

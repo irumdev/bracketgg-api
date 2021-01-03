@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ErrorFormatter;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 모든 exception들을 처리하는 클래스 입니다.
@@ -91,7 +92,7 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $exception): JsonResponse
     {
         $this->response = new ResponseBuilder();
         $renderObject = $this->response->fail('tryAgain', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -107,7 +108,7 @@ class Handler extends ExceptionHandler
         return $renderObject;
     }
 
-    private function buildClientResponse(Throwable $exception)
+    private function buildClientResponse(Throwable $exception): array
     {
         $message = null;
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;

@@ -32,7 +32,7 @@ class TeamService
         return $this->info($createdTeam);
     }
 
-    public function updateLogoImage(Team $team, array $updateInfo)
+    public function updateLogoImage(Team $team, array $updateInfo): bool
     {
         return $this->teamRepository->updateOrCreateImage(self::USE_UPDATE, 'logo', [
             'team' => $team,
@@ -40,7 +40,7 @@ class TeamService
         ]);
     }
 
-    public function updateBannerImage(Team $team, array $updateInfo)
+    public function updateBannerImage(Team $team, array $updateInfo): bool
     {
         return $this->teamRepository->updateOrCreateImage(self::USE_UPDATE, 'banner', [
             'team' => $team,
@@ -55,7 +55,7 @@ class TeamService
         return $getTeamsByOwnerId->map(fn (Team $team) => $this->info($team));
     }
 
-    public function createBannerImage(Team $team, array $updateInfo)
+    public function createBannerImage(Team $team, array $updateInfo): bool
     {
         return $this->teamRepository->updateOrCreateImage(self::USE_CREATE, 'banner', [
             'team' => $team,

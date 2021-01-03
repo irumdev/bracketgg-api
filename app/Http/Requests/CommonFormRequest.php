@@ -27,14 +27,14 @@ class CommonFormRequest extends FormRequest
         );
     }
 
-    protected function throwUnProcessableEntityException(int $message)
+    protected function throwUnProcessableEntityException(int $message): void
     {
         $this->throwResponseException(
             $this->toErrorStructure($message)
         );
     }
 
-    protected function throwUnAuthorizedException(int $message)
+    protected function throwUnAuthorizedException(int $message): void
     {
         $this->throwResponseException(
             $this->toErrorStructure($message),
@@ -42,7 +42,7 @@ class CommonFormRequest extends FormRequest
         );
     }
 
-    protected function throwForbidenException(int $message)
+    protected function throwForbidenException(int $message): void
     {
         $this->throwResponseException(
             $this->toErrorStructure($message),

@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\GameType;
 use App\Repositories\GameTypeRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class GameTypeService
 {
@@ -17,7 +18,7 @@ class GameTypeService
         $this->gameTypeRepository = $gameTypeRepository;
     }
 
-    public function findByKeyword(string $query)
+    public function findByKeyword(string $query): Paginator
     {
         $searchResult = $this->gameTypeRepository->findByKeyword($query)->simplePaginate();
         throw_unless($searchResult->isNotEmpty(), (new ModelNotFoundException())->setModel(GameType::class));
