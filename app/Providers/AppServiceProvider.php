@@ -10,8 +10,6 @@ use Illuminate\Support\Str;
 use App\Helpers\Macros\ArrayMixin;
 use App\Helpers\Macros\StringMixin;
 
-use App\Models\Team\InvitationCard;
-use App\Models\Team\Member;
 use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,8 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('teamHasOnlyOneBanner', fn () => $this->canUpdateBanner('teamSlug'));
         Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', (int)$param));
         Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
-        Validator::extend('alreadyInvite', fn ($attribute, $param, $value) => $this->alreadyInvite());
-        Validator::extend('isNotTeamMember', fn ($attribute, $param, $value) => $this->isNotTeamMember());
+
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
     }
@@ -77,30 +74,5 @@ class AppServiceProvider extends ServiceProvider
             return $request->route($slugType)->bannerImages->count() === 0;
         }
         return true;
-    }
-
-
-    private function alreadyInvite(): bool
-    {
-        $request = request();
-        $inviteUser = $request->route('userIdx');
-        $team = $request->route('teamSlug');
-
-        return InvitationCard::where([
-            ['team_id', '=', $team->id],
-            ['user_id', '=', $inviteUser->id],
-        ])->exists() === false;
-    }
-
-    private function isNotTeamMember(): bool
-    {
-        $request = request();
-        $inviteUser = $request->route('userIdx');
-        $team = $request->route('teamSlug');
-
-        return Member::where([
-            ['team_id', '=', $team->id],
-            ['user_id', '=', $inviteUser->id],
-        ])->exists() === false;
     }
 }

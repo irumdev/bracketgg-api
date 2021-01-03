@@ -1,5 +1,4 @@
 <?php
-
 return [
     'directSend' => [
         'receiver' => 'must add receiver :attribute',

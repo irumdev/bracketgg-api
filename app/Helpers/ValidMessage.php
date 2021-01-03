@@ -6,7 +6,6 @@ namespace App\Helpers;
 
 use Illuminate\Contracts\Validation\Validator;
 use App\Helpers\ValidJson;
-use Exception;
 
 /**
  * 밸러데이션에 통과하지 못한 값에 대한 에러코드를 가져오는
@@ -39,7 +38,6 @@ class ValidMessage
         );
         $firstError = $error->first();
 
-
         do {
             $error = array_shift($firstError);
             if (ValidJson::isJson($error)) {
@@ -48,12 +46,6 @@ class ValidMessage
             }
         } while (count($firstError) !== self::NOT_EXISTS);
 
-        if (is_array($error) === false) {
-            $errorDataJson = collect(
-                $validator->errors()
-            )->toJson();
-            throw new \TypeError(sprintf('Invalid Type / %s / %s', $error, $errorDataJson));
-        }
         return $error;
     }
 }

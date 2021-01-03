@@ -63,11 +63,6 @@ class TeamService
         ]);
     }
 
-    public function sendInviteCard(Team $team, User $user): bool
-    {
-        return $this->teamRepository->sendInviteCard($team, $user);
-    }
-
     public function updateInfo(Team $team, array $updateInfo): array
     {
         $updateTeamResult = $this->teamRepository->update($team, $updateInfo);

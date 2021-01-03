@@ -165,15 +165,7 @@ return [
             'successUpdateBroadcast' => '방송국 주소 업데이트에 성공하라',
             'successCreateBroadcast' => '방송국 주소 생성 성공하라',
             'successUpdateAndCreateBroadcast' => '방송국 주소 업데이트, 생성을 동시에 성공하라',
-        ],
-        'InviteMemberTest' => [
-            'failInviteWhenReceiverUserIsAlreadyMember' => '이미 팀원이라서 초대장 발송에 실패하라',
-            'failInviteWhenSendToTeamOwner' => '초대장 받는사람이 팀 오너 본인이라 초대장 발송에 실패하라',
-            'failInviteWhenSendTeamSlugIsNotExists' => '존재하지 않는 팀이라 초대장 발송에 실패하라',
-            'failInviteWhenSendTargetUserIsNotExists' => '존재하지 않는 유저라서 초대장 발송에 실패하라',
-            'failInviteWhenSendUserIsNotLogin' => '로그인 하지 않아 초대장 발송에 실패하라',
-            'failInviteWhenAlreadySendInviteCardToTargetUser' => '이미 초대장을 보내서 초대장 발송에 실패하라',
-            'successSendInviteCard' => '초대장 발송에 성공하라',
+
         ]
     ],
     'User' => [
