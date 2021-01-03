@@ -8,6 +8,7 @@ use App\Models\Team\Team;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\InvitationCard;
 use App\Models\User;
+use App\Models\Team\Slug;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ class TeamRepository extends TeamInfoUpdateFactory
         })->with(Team::TEAM_RELATIONS)->find($team->id);
     }
 
-    public function createUniqueSlug(Team $team)
+    public function createUniqueSlug(Team $team): Slug
     {
         return $team->slug()->create([
             'team_id' => $team->id,

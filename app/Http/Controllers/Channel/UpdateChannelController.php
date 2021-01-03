@@ -87,7 +87,7 @@ class UpdateChannelController extends Controller
      * @version 1.0.0
      * @return JsonResponse 로고이미지 업데이트 성공 여부
      */
-    public function updateLogoImage(UpdateLogoImageRequest $request, Channel $channel)
+    public function updateLogoImage(UpdateLogoImageRequest $request, Channel $channel): JsonResponse
     {
         $result = $this->channelService->updateLogoImage($request->validated(), $channel);
         return $this->successResponse($result);

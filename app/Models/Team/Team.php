@@ -134,7 +134,7 @@ class Team extends Model
         return $this;
     }
 
-    public function removeUnOperateGames(Collection $removeGames)
+    public function removeUnOperateGames(Collection $removeGames): bool
     {
         return $removeGames->map(fn (GameType $removeGame) => OperateGame::where([
             ['team_id', '=', $this->id],
@@ -147,7 +147,7 @@ class Team extends Model
         $this->slug()->update(['slug' => $slug]);
     }
 
-    private function createOperateGames(Collection $gameNames)
+    private function createOperateGames(Collection $gameNames): void
     {
         $gameTypeRelation = $this->operateGames()->getRelated();
         $gameNames->each(function (string $gameName) use ($gameTypeRelation) {
