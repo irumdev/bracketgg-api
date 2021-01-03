@@ -13,6 +13,7 @@ use App\Exceptions\DBtransActionFail;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserRepository
 {
@@ -42,7 +43,7 @@ class UserRepository
         ];
     }
 
-    private function findFollowerCondition(User $user, Channel $channel)
+    private function findFollowerCondition(User $user, Channel $channel): Builder
     {
         return ChannelFollower::where($this->isAlreadyLikeOrFollowCondition($user, $channel));
     }

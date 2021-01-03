@@ -55,7 +55,7 @@ class Broadcast
      */
     public const BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM = 37;
 
-    public static function broadcastRules(UpdateBroadcastTypeWrapper $attribute)
+    public static function broadcastRules(UpdateBroadcastTypeWrapper $attribute): array
     {
         self::$attribute = $attribute;
         return [

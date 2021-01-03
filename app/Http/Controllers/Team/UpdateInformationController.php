@@ -72,7 +72,7 @@ class UpdateInformationController extends Controller
      * @version 1.0.0
      * @return JsonResponse 팀 로고이미지 업데이트 성공 여부
      */
-    public function updateLogoImage(UpdateLogoImageRequest $request, Team $team)
+    public function updateLogoImage(UpdateLogoImageRequest $request, Team $team): JsonResponse
     {
         $validData = $request->validated();
         $updateResult = $this->teamService->updateLogoImage($team, $validData);

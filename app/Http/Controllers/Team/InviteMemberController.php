@@ -9,6 +9,7 @@ use App\Services\TeamService;
 use App\Models\Team\Team;
 use App\Models\User;
 use App\Http\Requests\Team\SendInveitationCardRequest;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 팀원 초대, 수락, 거절 관련 컨트롤러 클랴스 입니다.
@@ -36,10 +37,11 @@ class InviteMemberController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function sendInviteCard(Team $team, User $user, SendInveitationCardRequest $request)
+    public function sendInviteCard(Team $team, User $user, SendInveitationCardRequest $request): JsonResponse
     {
         return $this->responseBuilder->ok([
             'sendInviteCard' => $this->teamService->sendInviteCard($team, $user),
         ]);
     }
+
 }

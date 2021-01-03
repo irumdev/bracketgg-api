@@ -29,7 +29,7 @@ class ChannelInfoUpdateFactory implements ChannelUpdateInfoContract
         }
     }
 
-    public function updateBroadcast(Channel $channel, array $broadCasts)
+    public function updateBroadcast(Channel $channel, array $broadCasts): void
     {
         $channelBroadCasts = $channel->broadcastAddress();
         collect($broadCasts)->each(function ($broadCast) use ($channelBroadCasts, $channel) {

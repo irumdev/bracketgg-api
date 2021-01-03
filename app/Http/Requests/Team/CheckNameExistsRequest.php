@@ -126,7 +126,7 @@ class CheckNameExistsRequest extends CommonFormRequest
      * @override
      * @see Illuminate\Http\Concerns\InteractsWithInput
      */
-    public function all($keys = null)
+    public function all($keys = null): array
     {
         return array_merge(request()->all(), [
             'name' => $this->route('teamName')
