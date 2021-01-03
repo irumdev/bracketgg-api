@@ -22,6 +22,7 @@ use App\Http\Controllers\Team\CreateTeamController;
 use App\Http\Controllers\Team\CheckTeamNameExistsController;
 use App\Http\Controllers\Team\UpdateInformationController;
 use App\Http\Controllers\Team\ShowTeamInfoController;
+use App\Http\Controllers\Team\InviteMemberController;
 
 use App\Http\Controllers\Game\FindTypeController;
 
@@ -95,6 +96,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
             Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
+
+            Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCard'])->name('inviteTeamMember');
 
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');

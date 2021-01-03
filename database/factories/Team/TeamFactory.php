@@ -11,8 +11,9 @@ use Faker\Generator as Faker;
 use App\Models\Team\Broadcast;
 use App\Models\Team\OperateGame;
 use App\Models\Team\BannerImage;
+use App\Models\Team\InvitationCard;
 use App\Models\Team\Member as TeamMember;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Arr;
 
 $factory->define(Team::class, function (Faker $faker) {
     $teamData = [
@@ -76,4 +77,46 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
             'game_type_id' => $type->id,
         ]);
     }
+});
+
+
+$factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Team $team, Faker $faker) {
+    collect(range(0, 19))->each(function (int $item) use ($team, $faker) {
+        $statusSet = [
+            InvitationCard::PENDING,
+            InvitationCard::ACCEPT,
+            InvitationCard::REJECT,
+        ];
+
+        InvitationCard::factory()->create([
+            'team_id' => $team->id,
+            'user_id' => factory(User::class)->create()->id,
+            'status' => Arr::random($statusSet),
+        ]);
+    });
+});
+
+
+$factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (Team $team, Faker $faker) {
+    InvitationCard::factory()->create([
+        'team_id' => $team->id,
+        'user_id' => factory(User::class)->create()->id,
+        'status' => InvitationCard::REJECT,
+    ]);
+});
+
+$factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (Team $team, Faker $faker) {
+    InvitationCard::factory()->create([
+        'team_id' => $team->id,
+        'user_id' => factory(User::class)->create()->id,
+        'status' => InvitationCard::ACCEPT,
+    ]);
+});
+
+$factory->afterCreatingState(Team::class, 'addPendingInvitationCard', function (Team $team, Faker $faker) {
+    InvitationCard::factory()->create([
+        'team_id' => $team->id,
+        'user_id' => factory(User::class)->create()->id,
+        'status' => InvitationCard::PENDING,
+    ]);
 });
