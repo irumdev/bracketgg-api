@@ -7,6 +7,7 @@ namespace App\Http\Requests\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use App\Http\Requests\CommonFormRequest;
 
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ValidMessage;
@@ -17,7 +18,7 @@ use App\Helpers\ValidMessage;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class StoreRequest extends FormRequest
+class StoreRequest extends CommonFormRequest
 {
     /**
      * @var int 이메일을 작성안함
@@ -134,11 +135,6 @@ class StoreRequest extends FormRequest
      */
     public const PROFILE_IMAGE_MAX_SIZE = 23;
 
-    public function __construct(ResponseBuilder $response)
-    {
-        $this->response = $response;
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -177,44 +173,43 @@ class StoreRequest extends FormRequest
     {
         return [
 
-            'nick_name.required' => json_encode(['code' => self::REQUIRE_NICKNAME]),
-            'email.required' => json_encode(['code' => self::REQUIRE_EMAIL]),
-            'password.required' => json_encode(['code' => self::REQUIRE_PASSWORD]),
-            'confirmedPassword.required' => json_encode(['code' => self::REQUIRE_RE_ENTER_PASSWORD]),
+            'nick_name.required' => self::REQUIRE_NICKNAME,
+            'email.required' => self::REQUIRE_EMAIL,
+            'password.required' => self::REQUIRE_PASSWORD,
+            'confirmedPassword.required' => self::REQUIRE_RE_ENTER_PASSWORD,
 
-            'nick_name.string' => json_encode(['code' => self::NOT_STRING_NICK_NAME]),
-            'email.string' => json_encode(['code' => self::NOT_STRING_EMAIL]),
-            'password.string' => json_encode(['code' => self::NOT_STRING_PASSWORD]),
-            'confirmedPassword.string' => json_encode(['code' => self::NOT_STRING_RE_ENTER_PASSWORD]),
+            'nick_name.string' => self::NOT_STRING_NICK_NAME,
+            'email.string' => self::NOT_STRING_EMAIL,
+            'password.string' => self::NOT_STRING_PASSWORD,
+            'confirmedPassword.string' => self::NOT_STRING_RE_ENTER_PASSWORD,
 
-            'email.regex' => json_encode(['code' => self::EMAIL_PATTERN_NOT_MATCH]),
-            'email.unique' => json_encode(['code' => self::EMAIL_ALREADY_EXISTS]),
-            'password.min' => json_encode(['code' => self::PASSWORD_MIN_LENGTH]),
-            'confirmedPassword.min' =>  json_encode(['code' => self::PASSWORD_RE_ENTER_MIN_LEN_ERROR]),
-            'confirmedPassword.same' => json_encode(['code' => self::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD]),
+            'email.regex' => self::EMAIL_PATTERN_NOT_MATCH,
+            'email.unique' => self::EMAIL_ALREADY_EXISTS,
+            'password.min' => self::PASSWORD_MIN_LENGTH,
+            'confirmedPassword.min' =>  self::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
+            'confirmedPassword.same' => self::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD,
 
-            'is_policy_agree.required'  => json_encode(['code' => self::REQUIRE_POLICY_AGREE]),
-            'is_privacy_agree.required' => json_encode(['code' => self::REQUIRE_PRIVACY_AGREE]),
+            'is_policy_agree.required'  => self::REQUIRE_POLICY_AGREE,
+            'is_privacy_agree.required' => self::REQUIRE_PRIVACY_AGREE,
 
-            'is_policy_agree.in'  => json_encode(['code' => self::NOT_EQUAL_ONE_POLICY_AGREE]),
-            'is_privacy_agree.in' => json_encode(['code' => self::NOT_EQUAL_ONE_PRIVACT_AGREE]),
+            'is_policy_agree.in'  => self::NOT_EQUAL_ONE_POLICY_AGREE,
+            'is_privacy_agree.in' => self::NOT_EQUAL_ONE_PRIVACT_AGREE,
 
-            'nick_name.min' => json_encode(['code' => self::NICKNAME_MIN_LENGTH]),
-            'nick_name.max' => json_encode(['code' => self::NICKNAME_MAX_LENGTH]),
+            'nick_name.min' => self::NICKNAME_MIN_LENGTH,
+            'nick_name.max' => self::NICKNAME_MAX_LENGTH,
 
-            'password.max'          => json_encode(['code' => self::PASSWORD_MAX_LENGTH]),
-            'confirmedPassword.max' => json_encode(['code' => self::PASSWORD_RE_ENTER_MAX_LENGTH]),
+            'password.max' => self::PASSWORD_MAX_LENGTH,
+            'confirmedPassword.max' => self::PASSWORD_RE_ENTER_MAX_LENGTH,
 
-            'profile_image.mimes' => json_encode(['code' => self::PROFILE_IMAGE_NOT_IMAGE]),
-            'profile_image.max'   => json_encode(['code' => self::PROFILE_IMAGE_MAX_SIZE]),
+            'profile_image.image' => self::PROFILE_IMAGE_NOT_IMAGE,
+            'profile_image.mimes' => self::PROFILE_IMAGE_NOT_IMAGE,
+            'profile_image.max' => self::PROFILE_IMAGE_MAX_SIZE,
 
         ];
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
-        throw new HttpResponseException(
-            $this->response->fail(ValidMessage::first($validator))
-        );
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 }

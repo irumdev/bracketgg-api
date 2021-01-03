@@ -6,13 +6,11 @@ namespace App\Http\Requests\Channel;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\CommonFormRequest;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 
 use App\Models\User;
 use App\Helpers\ValidMessage;
-use App\Helpers\ResponseBuilder;
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
 /**
@@ -21,7 +19,7 @@ use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class CreateRequest extends FormRequest
+class CreateRequest extends CommonFormRequest
 {
     /**
      * @var int 채널생성조건에 불충분
@@ -34,19 +32,12 @@ class CreateRequest extends FormRequest
     public const HAS_NOT_VERIFY_EMAIL = 2;
 
     /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-    /**
      * @var User 유저 모델
      */
     private User $user;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->user = Auth::user();
     }
 
@@ -77,18 +68,14 @@ class CreateRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => $this->buildAuthorizeErrorMessage($this->user),
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            $this->buildAuthorizeErrorMessage($this->user)
         );
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail(ValidMessage::first($validator))
-        );
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 
     /**

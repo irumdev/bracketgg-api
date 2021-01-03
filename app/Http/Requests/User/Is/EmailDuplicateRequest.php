@@ -10,6 +10,7 @@ use App\Helpers\ResponseBuilder;
 use App\Helpers\ValidMessage;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 이메일 중복여부 데이터 유효성 검증 클래스 입니다.
@@ -55,19 +56,9 @@ class EmailDuplicateRequest extends FormRequest
     protected function failedValidation(ValidContract $validator): void
     {
         throw new HttpResponseException(
-            $this->responseBuilder->fail(ValidMessage::first($validator))
+            $this->responseBuilder->fail([
+                'isDuplicate' => true
+            ])
         );
-    }
-
-    public function messages(): array
-    {
-        $duplicateResult = json_encode([
-            'isDuplicate' => true
-        ]);
-        return [
-            'email.unique' => $duplicateResult,
-            'email.required' => $duplicateResult,
-            'email.email' => $duplicateResult,
-        ];
     }
 }
