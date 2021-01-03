@@ -6,6 +6,8 @@ namespace App\Repositories;
 
 use App\Models\Team\Team;
 use App\Models\Team\Member as TeamMember;
+use App\Models\Team\InvitationCard;
+use App\Models\User;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +23,21 @@ class TeamRepository extends TeamInfoUpdateFactory
         $this->team = $team;
     }
 
-    public function getByModel(Team $team)
+    public function sendInviteCard(Team $team, User $user): bool
+    {
+        return DB::transaction(function () use ($team, $user) {
+            $card = InvitationCard::where([
+                ['team_id', '=', $team->id],
+                ['user_id', '=', $user->id],
+            ])->firstOrCreate([
+                'team_id' => $team->id,
+                'user_id' => $user->id
+            ]);
+            return $card !== null;
+        });
+    }
+
+    public function getByModel(Team $team): Builder
     {
         return $team->with(Team::TEAM_RELATIONS)->where('id', $team->id);
     }
