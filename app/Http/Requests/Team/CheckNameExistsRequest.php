@@ -13,6 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 팀 이름 존재여부 유효성 검증 클래스 입니다.
@@ -20,7 +21,7 @@ use Illuminate\Contracts\Validation\Validator as ValidContract;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class CheckNameExistsRequest extends FormRequest
+class CheckNameExistsRequest extends CommonFormRequest
 {
     /**
      * @var int 팀 생성 권한 없음
@@ -46,11 +47,11 @@ class CheckNameExistsRequest extends FormRequest
      * 응답 정형화를 위하여 사용되는 객체
      * @var ResponseBuilder 응답 정형화 객체
      */
-    private ResponseBuilder $responseBuilder;
+    private ResponseBuilder $response;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct(ResponseBuilder $response)
     {
-        $this->responseBuilder = $responseBuilder;
+        $this->response = $response;
         $this->user = Auth::user();
     }
 
@@ -80,26 +81,17 @@ class CheckNameExistsRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => $this->buildAuthorizeErrorMessage($this->user),
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            $this->buildAuthorizeErrorMessage($this->user)
         );
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.unique' => json_encode([
-                'isDuplicate' => true
-            ]),
-        ];
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
         throw new HttpResponseException(
-            $this->responseBuilder->fail(ValidMessage::first($validator))
+            $this->response->fail([
+                'isDuplicate' => true,
+            ])
         );
     }
 

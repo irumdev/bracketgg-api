@@ -68,11 +68,11 @@ class CreateChannel
     public static function messages(): array
     {
         return [
-            'name.required' => json_encode(['code' => self::NAME_IS_EMPTY]),
-            'name.string' => json_encode(['code' => self::NAME_IS_NOT_STRING]),
-            'name.min' => json_encode(['code' => self::NAME_LENGTH_SHORT]),
-            'name.max' => json_encode(['code' => self::NAME_LENGTH_LONG]),
-            'name.unique' => json_encode(['code' => self::NAME_IS_NOT_UNIQUE]),
+            'name.required' => self::NAME_IS_EMPTY,
+            'name.string' => self::NAME_IS_NOT_STRING,
+            'name.min' => self::NAME_LENGTH_SHORT,
+            'name.max' => self::NAME_LENGTH_LONG,
+            'name.unique' => self::NAME_IS_NOT_UNIQUE,
         ];
     }
 }

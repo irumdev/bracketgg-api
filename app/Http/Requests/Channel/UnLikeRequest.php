@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Requests\Channel;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
-use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Channel\Fan as ChannelFan;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 채널 좋아요 취소 요청 검증 클래스 입니다.
@@ -20,22 +16,15 @@ use App\Models\Channel\Fan as ChannelFan;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class UnLikeRequest extends FormRequest
+class UnLikeRequest extends CommonFormRequest
 {
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
     /**
      * @var User 유저 모델
      */
     private User $user;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->user = Auth::user();
     }
 
@@ -52,10 +41,8 @@ class UnLikeRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => $this->buildAuthorizeErrorMessage($this->user),
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            $this->buildAuthorizeErrorMessage($this->user)
         );
     }
 

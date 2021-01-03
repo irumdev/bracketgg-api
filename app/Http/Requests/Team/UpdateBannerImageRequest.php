@@ -8,21 +8,19 @@ use App\Models\User;
 use App\Models\Team\Team;
 use App\Helpers\ValidMessage;
 use Illuminate\Validation\Rule;
-use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Team\BannerImage as TeamBannerImage;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 팀 베너 업데이트 전 데이터 유효성 검증 클래스 입니다.
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class UpdateBannerImageRequest extends FormRequest
+class UpdateBannerImageRequest extends CommonFormRequest
 {
     /**
      * @var int 업로드한 파일이 이미지가 아님
@@ -75,19 +73,12 @@ class UpdateBannerImageRequest extends FormRequest
     private bool $canUpdate = false;
 
     /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-    /**
      * @var Team 팀 인스턴스
      */
     private Team $team;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->user = Auth::user();
     }
 
@@ -105,14 +96,14 @@ class UpdateBannerImageRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        $this->errorResponse([
-            'code' => Response::HTTP_UNAUTHORIZED,
-        ], Response::HTTP_UNAUTHORIZED);
+        $this->throwUnAuthorizedException(
+            Response::HTTP_UNAUTHORIZED
+        );
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
-        $this->errorResponse(ValidMessage::first($validator));
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 
     /**
@@ -144,33 +135,16 @@ class UpdateBannerImageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'banner_image.required' => json_encode(['code' => self::BANNER_UPLOAD_FILE_IS_NOT_ATTACHED]),
-            'banner_image.file' => json_encode(['code' => self::BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE]),
-            'banner_image.image' => json_encode(['code' => self::BANNER_UPLOAD_FILE_IS_NOT_IMAGE]),
-            'banner_image.mimes' => json_encode(['code' => self::BANNER_UPLOAD_FILE_MIME_IS_NOT_MATCH]),
-            'banner_image.max' => json_encode(['code' => self::BANNER_UPLOAD_FILE_IS_LARGE]),
-            'banner_image.team_has_only_one_banner' => json_encode(['code' => self::BANNER_UPLOAD_FILE_HAS_MANY_BANNER]),
+            'banner_image.required' => self::BANNER_UPLOAD_FILE_IS_NOT_ATTACHED,
+            'banner_image.file' => self::BANNER_UPLOAD_IS_NOT_FULL_UPLOADED_FILE,
+            'banner_image.image' => self::BANNER_UPLOAD_FILE_IS_NOT_IMAGE,
+            'banner_image.mimes' => self::BANNER_UPLOAD_FILE_MIME_IS_NOT_MATCH,
+            'banner_image.max' => self::BANNER_UPLOAD_FILE_IS_LARGE,
+            'banner_image.team_has_only_one_banner' => self::BANNER_UPLOAD_FILE_HAS_MANY_BANNER,
 
-            'banner_image_id.numeric' => json_encode(['code' => self::BANNER_IMAGE_ID_IS_NOT_NUMERIC]),
-            'banner_image_id.exists' => json_encode(['code' => self::BANNER_IMAGE_ID_IS_NOT_EXISTS]),
+            'banner_image_id.numeric' => self::BANNER_IMAGE_ID_IS_NOT_NUMERIC,
+            'banner_image_id.exists' => self::BANNER_IMAGE_ID_IS_NOT_EXISTS,
 
         ];
-    }
-
-    /**
-     * 클라이언트한테 에러메세지를 리턴하기 위한 코드 입니다.
-     *
-     * @param mixed $errorMessage 클라이언트한테 리턴할 에러메세지
-     * @param int $httpStatus 리턴할 http status code
-     * @throws HttpResponseException
-     * @author dhtmdgkr123 <osh12201@gmail.com>
-     * @version 1.0.0
-     * @return void
-     */
-    private function errorResponse($errorMessage, int $httpStatus = Response::HTTP_UNPROCESSABLE_ENTITY): void
-    {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail($errorMessage, $httpStatus)
-        );
     }
 }

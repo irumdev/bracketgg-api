@@ -5,23 +5,16 @@ namespace App\Http\Requests\Team;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Helpers\ResponseBuilder;
 use App\Models\Team\Team;
-use App\Models\Team\Member as TeamMember;
 use App\Helpers\ValidMessage;
-use Illuminate\Validation\Rule;
-use Illuminate\Database\Query\Builder;
-
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
+use App\Http\Requests\CommonFormRequest;
 
-class SendInveitationCardRequest extends FormRequest
+class SendInveitationCardRequest extends CommonFormRequest
 {
     private User $user;
     private User $inviteUser;
     private Team $team;
-    private ResponseBuilder $responseBuilder;
 
     /**
      * @var int 이미 초대장을 보낸 상황
@@ -33,9 +26,8 @@ class SendInveitationCardRequest extends FormRequest
      */
     public const RECEIVER_ALREADY_TEAM_MEMBER = 2;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->user = Auth::user();
     }
 
@@ -71,16 +63,9 @@ class SendInveitationCardRequest extends FormRequest
         ];
     }
 
-    private function throwHttpException($message, int $httpStatus = Response::HTTP_UNPROCESSABLE_ENTITY)
-    {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail($message, $httpStatus)
-        );
-    }
-
     protected function failedValidation(ValidContract $validator): void
     {
-        $this->throwHttpException(ValidMessage::first($validator));
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 
     /**
@@ -99,8 +84,8 @@ class SendInveitationCardRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user.already_invite' => json_encode(['code' => self::ALREADY_SEND_INVITE_CARD]),
-            'inviteUserId.is_not_team_member' => json_encode(['code' => self::RECEIVER_ALREADY_TEAM_MEMBER])
+            'user.already_invite' => self::ALREADY_SEND_INVITE_CARD,
+            'inviteUserId.is_not_team_member' => self::RECEIVER_ALREADY_TEAM_MEMBER
         ];
     }
 }

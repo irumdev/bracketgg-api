@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Team;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 use App\Models\User;
 use App\Models\Team\Team;
-use App\Helpers\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\CommonFormRequest;
 
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Auth;
-
-class ShowInfoRequest extends FormRequest
+class ShowInfoRequest extends CommonFormRequest
 {
     /**
      * @var User 유저 인스턴스
@@ -25,17 +20,6 @@ class ShowInfoRequest extends FormRequest
      * @var Team 팀 인스턴스
      */
     private Team $team;
-
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-    public function __construct(ResponseBuilder $responseBuilder)
-    {
-        $this->responseBuilder = $responseBuilder;
-    }
 
     /**
      * Determine if the user is authorized to make this request.
@@ -60,10 +44,8 @@ class ShowInfoRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            Response::HTTP_UNAUTHORIZED
         );
     }
 
