@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Channel;
 use App\Models\Team\Slug as TeamSlug;
-use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -34,24 +33,20 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         parent::boot();
 
-        Route::bind('slug', function (string $channelSlug) {
+        Route::bind('slug', function ($channelSlug) {
             return ChannelSlug::where('slug', $channelSlug)->firstOrFail()->channel;
         });
 
-        Route::bind('name', function (string $channelName) {
+        Route::bind('name', function ($channelName) {
             return Channel::where('name', $channelName)->firstOrFail();
         });
 
-        Route::bind('teamSlug', function (string $teamSlug) {
+        Route::bind('teamSlug', function ($teamSlug) {
             return TeamSlug::where('slug', $teamSlug)->firstOrFail()->team;
-        });
-
-        Route::bind('userIdx', function (string $userIdx) {
-            return User::findOrFail($userIdx);
         });
     }
 
@@ -60,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map(): void
+    public function map()
     {
         $this->mapApiRoutes();
 
@@ -76,7 +71,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes(): void
+    protected function mapWebRoutes()
     {
         Route::middleware('web')
             ->namespace($this->namespace)
@@ -90,7 +85,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes(): void
+    protected function mapApiRoutes()
     {
         Route::prefix('api')
             ->middleware('api')
