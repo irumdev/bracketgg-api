@@ -83,34 +83,21 @@ class Broadcast
         ];
     }
 
-    /**
-     * 기존 젱슨 에러 형태로 전환해주는 메소드 입니다.
-     *
-     * @param int $code 에러코드
-     * @author dhtmdgkr123 <osh12201@gmail.com>
-     * @version 1.0.0
-     * @return string 제이슨 형태의 에러구조
-     */
-    private static function toErrStructure(int $code): string
-    {
-        return json_encode(['code' => $code]);
-    }
-
     public static function messages(): array
     {
         return [
-            'broadcasts.array' => self::toErrStructure(self::BROADCAST_IS_NOT_ARRAY),
+            'broadcasts.array' => self::BROADCAST_IS_NOT_ARRAY,
 
-            'broadcasts.*.url.required_with' => self::toErrStructure(self::BROADCAST_ADDRESS_HAS_NOT_PLATFORM),
-            'broadcasts.*.url.unique' => self::toErrStructure(self::BROADCAST_URL_IS_NOT_UNIQUE),
-            'broadcasts.*.url.string' => self::toErrStructure(self::BROADCAST_URL_IS_NOT_STRING),
+            'broadcasts.*.url.required_with' => self::BROADCAST_ADDRESS_HAS_NOT_PLATFORM,
+            'broadcasts.*.url.unique' => self::BROADCAST_URL_IS_NOT_UNIQUE,
+            'broadcasts.*.url.string' => self::BROADCAST_URL_IS_NOT_STRING,
 
-            'broadcasts.*.platform.required_with' => self::toErrStructure(self::BROADCAST_ADDRESS_HAS_NOT_URL),
-            'broadcasts.*.platform.in' => self::toErrStructure(self::BROADCAST_PLATFORM_IS_INVALID),
-            'broadcasts.*.platform.numeric' => self::toErrStructure(self::BROADCAST_PLATFORM_IS_INVALID),
+            'broadcasts.*.platform.required_with' => self::BROADCAST_ADDRESS_HAS_NOT_URL,
+            'broadcasts.*.platform.in' => self::BROADCAST_PLATFORM_IS_INVALID,
+            'broadcasts.*.platform.numeric' => self::BROADCAST_PLATFORM_IS_INVALID,
 
-            'broadcasts.*.id.numeric' => self::toErrStructure(self::BROADCAST_ID_IS_NOT_NUMERIC),
-            'broadcasts.*.id.' . Str::snake(self::$attribute->filterType) => self::toErrStructure(self::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM),
+            'broadcasts.*.id.numeric' => self::BROADCAST_ID_IS_NOT_NUMERIC,
+            'broadcasts.*.id.' . Str::snake(self::$attribute->filterType) => self::BROADCAST_ID_IS_NOT_BELONGS_TO_MY_TEAM,
 
         ];
     }

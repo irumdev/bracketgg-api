@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\Validator as ValidContract;
 
 use App\Helpers\ResponseBuilder;
 use App\Helpers\ValidMessage;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 로그인 요청 값 검증 클래스 입니다.
@@ -17,14 +18,8 @@ use App\Helpers\ValidMessage;
  * @author  dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class VerifyRequest extends FormRequest
+class VerifyRequest extends CommonFormRequest
 {
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $response;
-
     /**
      * @var int 이메일 값을 안보냄
      */
@@ -44,12 +39,6 @@ class VerifyRequest extends FormRequest
      * @var int 비밀번호를 입력하지 않음
      */
     private const PASSWORD_REQUIRED = 4;
-
-
-    public function __construct(ResponseBuilder $response)
-    {
-        $this->response = $response;
-    }
 
     /**
      * Determine if the user is authorized to make this request.
@@ -77,28 +66,15 @@ class VerifyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => json_encode([
-                'code' => self::EMAIL_REQUIRED,
-            ]),
-
-            'email.exists' => json_encode([
-                'code' => self::NOT_EXISTS_EMAIL,
-            ]),
-
-            'password.required' => json_encode([
-                'code' => self::PASSWORD_REQUIRED,
-            ]),
-
-            'email.email' =>  json_encode([
-                'code' => self::EMAIL_NOT_VALID,
-            ]),
+            'email.required' => self::EMAIL_REQUIRED,
+            'email.exists' => self::NOT_EXISTS_EMAIL,
+            'password.required' => self::PASSWORD_REQUIRED,
+            'email.email' => self::EMAIL_NOT_VALID,
         ];
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
-        throw new HttpResponseException(
-            $this->response->fail(ValidMessage::first($validator))
-        );
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 }

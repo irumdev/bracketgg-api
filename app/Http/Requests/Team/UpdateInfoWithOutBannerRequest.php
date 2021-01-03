@@ -6,16 +6,14 @@ namespace App\Http\Requests\Team;
 
 use App\Models\User;
 use App\Helpers\ValidMessage;
-use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team\Slug as TeamSlug;
 use App\Models\Team\Broadcast as TeamBroadcast;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\Rules\Slug;
 use App\Http\Requests\Rules\Broadcast as BroadcastRules;
 use App\Wrappers\UpdateBroadcastTypeWrapper;
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 이미지를 제외한 팀 정보 업데이트 데이터 검증 클래스 입니다.
@@ -23,7 +21,7 @@ use App\Wrappers\UpdateBroadcastTypeWrapper;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class UpdateInfoWithOutBannerRequest extends FormRequest
+class UpdateInfoWithOutBannerRequest extends CommonFormRequest
 {
     /**
      * @var int 슬러그 중복
@@ -80,16 +78,8 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
      */
     private bool $canUpdate = false;
 
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->canUpdate = false;
         $this->user = Auth::user();
     }
@@ -135,40 +125,25 @@ class UpdateInfoWithOutBannerRequest extends FormRequest
         ]);
     }
 
-    /**
-     * 기존 젱슨 에러 형태로 전환해주는 메소드 입니다.
-     *
-     * @param int $code 에러코드
-     * @author dhtmdgkr123 <osh12201@gmail.com>
-     * @version 1.0.0
-     * @return string 제이슨 형태의 에러구조
-     */
-    private function toErrStructure(int $code): string
-    {
-        return json_encode(['code' => $code]);
-    }
-
     public function messages(): array
     {
         return array_merge([
-            'slug.min' => $this->toErrStructure(self::SLUG_IS_SHORT),
-            'slug.max' => $this->toErrStructure(self::SLUG_IS_LONG),
-            'slug.unique' =>$this->toErrStructure(self::SLUG_IS_NOT_UNIQUE),
-            'slug.regex' => $this->toErrStructure(self::SLUG_PATTERN_IS_NOT_MATCH),
+            'slug.min' => self::SLUG_IS_SHORT,
+            'slug.max' => self::SLUG_IS_LONG,
+            'slug.unique' =>self::SLUG_IS_NOT_UNIQUE,
+            'slug.regex' => self::SLUG_PATTERN_IS_NOT_MATCH,
 
-            'is_public.boolean' => $this->toErrStructure(self::PUBLIC_STATUS_IS_NOT_BOOLEAN),
+            'is_public.boolean' => self::PUBLIC_STATUS_IS_NOT_BOOLEAN,
 
-            'games.array' => $this->toErrStructure(self::GAME_CATEGORY_IS_NOT_ARRAY),
-            'games.*.string' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_NOT_STRING),
-            'games.*.min' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_SHORT),
-            'games.*.max' => $this->toErrStructure(self::GAME_CATEGORY_ITEM_IS_LONG),
+            'games.array' => self::GAME_CATEGORY_IS_NOT_ARRAY,
+            'games.*.string' => self::GAME_CATEGORY_ITEM_IS_NOT_STRING,
+            'games.*.min' => self::GAME_CATEGORY_ITEM_IS_SHORT,
+            'games.*.max' => self::GAME_CATEGORY_ITEM_IS_LONG,
         ], BroadcastRules::messages());
     }
 
     protected function failedValidation(ValidContract $validator): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail(ValidMessage::first($validator))
-        );
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 }

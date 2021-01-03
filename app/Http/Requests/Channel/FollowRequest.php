@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Requests\Channel;
 
 use App\Models\User;
-use App\Helpers\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\CommonFormRequest;
 use App\Models\Channel\Follower as ChannelFollower;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 /**
  * 채널 팔로우 요청을 검증하는 클래스 입니다
@@ -18,39 +15,30 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class FollowRequest extends FormRequest
+class FollowRequest extends CommonFormRequest
 {
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
     /**
      * @var User 유저 모델
      */
     private User $user;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
         $this->user = Auth::user();
-        $this->responseBuilder = $responseBuilder;
     }
 
     public function authorize(): bool
     {
         $user = $this->user;
         return $user &&
-               $this->user->can('followChannel') &&
+               $user->can('followChannel') &&
                $user->id !== $this->route('slug')->owner;
     }
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => $this->buildAuthorizeErrorMessage($this->user),
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            $this->buildAuthorizeErrorMessage($this->user)
         );
     }
 

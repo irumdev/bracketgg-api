@@ -32,28 +32,13 @@ class ValidMessage
      * @version 1.0.0
      * @return array 에러정보를 담은 array
      */
-    public static function first(Validator $validator): array
+    public static function first(Validator $validator): int
     {
         $error = collect(
             $validator->errors()
         );
         $firstError = $error->first();
 
-
-        do {
-            $error = array_shift($firstError);
-            if (ValidJson::isJson($error)) {
-                $error = json_decode($error, true);
-                break;
-            }
-        } while (count($firstError) !== self::NOT_EXISTS);
-
-        if (is_array($error) === false) {
-            $errorDataJson = collect(
-                $validator->errors()
-            )->toJson();
-            throw new \TypeError(sprintf('Invalid Type / %s / %s', $error, $errorDataJson));
-        }
-        return $error;
+        return (int)$firstError[0];
     }
 }
