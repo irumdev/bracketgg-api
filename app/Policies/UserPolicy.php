@@ -77,4 +77,11 @@ class UserPolicy
     {
         return $user->id === $channel->owner;
     }
+
+    public function inviteMember(User $user, Team $team, User $invitedUser): bool
+    {
+        return $user->id === $team->owner && (
+            $invitedUser->id !== $user->id
+        );
+    }
 }

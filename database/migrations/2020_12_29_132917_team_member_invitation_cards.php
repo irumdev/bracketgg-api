@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Team\InvitationCard;
 
 class TeamMemberInvitationCards extends Migration
 {
@@ -19,7 +20,7 @@ class TeamMemberInvitationCards extends Migration
 
             $table->foreignId('user_id')->comment('가입신청한 유저');
             $table->foreignId('team_id')->comment('가입신청 결정할 팀');
-            $table->tinyInteger('status')->default(0)->comment('수락 상태');
+            $table->tinyInteger('status')->default(InvitationCard::PENDING)->comment('수락 상태');
 
             $table->timestamps();
             $table->softDeletes();
