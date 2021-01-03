@@ -68,9 +68,10 @@ class ErrorFormatter
     public function format(): string
     {
         return join("\n", [
-            "%s 파일에서",
-            "%s 번째 줄에 에러가 발생 했습니다.",
-            "에러메세지 :  %s",
+            "장애 발생 시각 : %s",
+            "에러파일 : %s",
+            "에러 발생 줄번호 : %s",
+            "에러 메세지 :  %s",
             "에러 url : %s",
             "요청 메소드 : %s",
             "요청 ip : %s",
@@ -91,6 +92,7 @@ class ErrorFormatter
         $errorInfo = $this->errorInfo();
         return sprintf(
             $this->format(),
+            now()->format('Y-m-d H:i:s'),
             $errorInfo['errorFile'],
             $errorInfo['errorLine'],
             $errorInfo['errorMessage'],
