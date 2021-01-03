@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\GameType;
 use App\Models\Team\OperateGame;
 use App\Models\Team\Member as TeamMember;
+use App\Models\Team\InvitationCard;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -67,6 +68,16 @@ class Team extends Model
         return $this->hasOne(Slug::class, 'team_id', 'id');
     }
 
+    public function invitationCards(): HasMany
+    {
+        return $this->hasMany(InvitationCards::class, 'team_id', 'id');
+    }
+
+    public function invitationUsers(): HasManyThrough
+    {
+        return $this->hasManyThroughUsers(InvitationCards::class);
+    }
+
     public function operateGames(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -81,9 +92,14 @@ class Team extends Model
 
     public function members(): HasManyThrough
     {
+        return $this->hasManyThroughUsers(TeamMember::class);
+    }
+
+    private function hasManyThroughUsers(string $throyghClass): HasManyThrough
+    {
         return $this->hasManyThrough(
             User::class,
-            TeamMember::class,
+            $throyghClass,
             'team_id',
             'id',
             'id',
