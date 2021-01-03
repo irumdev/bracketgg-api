@@ -23,10 +23,6 @@ class InviteMemberTest extends TestCase
     {
         parent::setUp();
         $this->setUpEnlighten();
-
-        /**
-         * @todo 이미 팀원한 사람한테 초대장 전송에 실패하라
-         */
     }
 
     /**

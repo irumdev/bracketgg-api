@@ -6,8 +6,6 @@ namespace App\Http\Requests\Channel;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,22 +18,17 @@ use App\Wrappers\UpdateBroadcastTypeWrapper;
 use App\Http\Requests\Rules\CreateChannel as CreateChannelRule;
 
 use App\Helpers\ValidMessage;
-use App\Helpers\ResponseBuilder;
 use App\Http\Requests\Rules\Slug;
+
+use App\Http\Requests\CommonFormRequest;
 
 /**
  * 채널정보 업데이트를 위한 요청 검증 클래스 입니다.
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class UpdateRequest extends FormRequest
+class UpdateRequest extends CommonFormRequest
 {
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
     /**
      * @var User 유저 모델
      */
@@ -76,9 +69,8 @@ class UpdateRequest extends FormRequest
      */
     public const SLUG_IS_NOT_UNIQUE = 21;
 
-    public function __construct(ResponseBuilder $responseBuilder)
+    public function __construct()
     {
-        $this->responseBuilder = $responseBuilder;
         $this->user = Auth::user();
     }
 
@@ -97,10 +89,8 @@ class UpdateRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail([
-                'code' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED)
+        $this->throwUnAuthorizedException(
+            Response::HTTP_UNAUTHORIZED
         );
     }
 
@@ -138,22 +128,20 @@ class UpdateRequest extends FormRequest
 
     protected function failedValidation(ValidContract $validator): void
     {
-        throw new HttpResponseException(
-            $this->responseBuilder->fail(ValidMessage::first($validator))
-        );
+        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 
     public function messages(): array
     {
         $channelNameRuleRequireToNullable = Arr::changeKey(CreateChannelRule::messages(), 'name.required', 'name.nullable');
         return array_merge($channelNameRuleRequireToNullable, BroadcastRules::messages(), [
-            'slug.string' => json_encode(['code' => self::SLUG_IS_NOT_STRING]),
-            'slug.min' => json_encode(['code' => self::SLUG_IS_SHORT]),
-            'slug.max' => json_encode(['code' => self::SLUG_IS_LONG]),
-            'slug.regex' => json_encode(['code' => self::SLUG_PATTERN_IS_WRONG]),
-            'slug.unique' => json_encode(['code' => self::SLUG_IS_NOT_UNIQUE]),
+            'slug.string' => self::SLUG_IS_NOT_STRING,
+            'slug.min' => self::SLUG_IS_SHORT,
+            'slug.max' => self::SLUG_IS_LONG,
+            'slug.regex' => self::SLUG_PATTERN_IS_WRONG,
+            'slug.unique' => self::SLUG_IS_NOT_UNIQUE,
 
-            'description.string' => json_encode(['code' => self::DESCRIPTION_IS_NOT_STRING]),
+            'description.string' => self::DESCRIPTION_IS_NOT_STRING,
         ]);
     }
 }
