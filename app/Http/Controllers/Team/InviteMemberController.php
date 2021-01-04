@@ -8,7 +8,8 @@ use App\Helpers\ResponseBuilder;
 use App\Services\TeamService;
 use App\Models\Team\Team;
 use App\Models\User;
-use App\Http\Requests\Team\SendInveitationCardRequest;
+use App\Http\Requests\Team\Invite\InviteRequest;
+use App\Http\Requests\Team\Invite\AcceptRequest;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -37,11 +38,17 @@ class InviteMemberController extends Controller
         $this->responseBuilder = $responseBuilder;
     }
 
-    public function sendInviteCard(Team $team, User $user, SendInveitationCardRequest $request): JsonResponse
+    public function sendInviteCard(Team $team, User $user, InviteRequest $request): JsonResponse
     {
         return $this->responseBuilder->ok([
             'sendInviteCard' => $this->teamService->sendInviteCard($team, $user),
         ]);
     }
 
+    public function acceptInviteCard(Team $team, AcceptRequest $request): JsonResponse
+    {
+        return $this->responseBuilder->ok([
+            'markTeamInvited' => $this->teamService->acceptInviteCard($team),
+        ]);
+    }
 }

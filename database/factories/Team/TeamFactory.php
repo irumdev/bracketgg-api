@@ -39,13 +39,10 @@ $factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $te
         'team_id' => $team->id,
         'role' => Team::OWNER,
     ]);
-
-    foreach ($createCnt as $_) {
-        TeamMember::factory()->create([
-            'user_id' => factory(User::class)->create()->id,
-            'team_id' => $team->id
-        ]);
-    }
+    collect($createCnt)->each(fn () => TeamMember::factory()->create([
+        'user_id' => factory(User::class)->create()->id,
+        'team_id' => $team->id
+    ]));
 
     $team->member_count = ($len + 1);
     $team->save();
@@ -70,13 +67,10 @@ $factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team,
 });
 
 $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker) {
-    foreach (range(0, 9) as $_) {
-        $type = GameType::factory()->create();
-        OperateGame::factory()->create([
-            'team_id' => $team->id,
-            'game_type_id' => $type->id,
-        ]);
-    }
+    collect(range(0, 9))->each(fn () => OperateGame::factory()->create([
+        'team_id' => $team->id,
+        'game_type_id' =>  GameType::factory()->create()->id,
+    ]));
 });
 
 

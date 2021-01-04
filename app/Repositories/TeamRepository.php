@@ -12,6 +12,7 @@ use App\Models\Team\Slug;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Factories\TeamInfoUpdateFactory;
 
@@ -35,6 +36,29 @@ class TeamRepository extends TeamInfoUpdateFactory
                 'user_id' => $user->id
             ]);
             return $card !== null;
+        });
+    }
+
+    public function acceptInviteCard(Team $team): bool
+    {
+        return DB::transaction(function () use ($team) {
+            $willAcceptUser = Auth::id();
+
+            $card = InvitationCard::find($team->invitationCards()->where([
+                ['user_id', '=', $willAcceptUser],
+                ['status', '=', InvitationCard::PENDING],
+            ])->first()->id);
+
+            $member = TeamMember::create([
+                'team_id' => $team->id,
+                'user_id' => $willAcceptUser
+            ]);
+
+            $team->member_count += 1;
+
+
+            $card->status = InvitationCard::ACCEPT;
+            return $card->save() && $card->delete() && $team->save() && $member !== null;
         });
     }
 

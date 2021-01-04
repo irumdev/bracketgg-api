@@ -68,6 +68,11 @@ class TeamService
         return $this->teamRepository->sendInviteCard($team, $user);
     }
 
+    public function acceptInviteCard(Team $team): bool
+    {
+        return $this->teamRepository->acceptInviteCard($team);
+    }
+
     public function updateInfo(Team $team, array $updateInfo): array
     {
         $updateTeamResult = $this->teamRepository->update($team, $updateInfo);
