@@ -6,9 +6,13 @@ namespace App\Models\Team;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InvitationCard extends Model
 {
+    use SoftDeletes;
+    use HasFactory;
+
     /**
      * @var int 대기 상태
      */
@@ -24,10 +28,9 @@ class InvitationCard extends Model
      */
     public const REJECT = 2;
 
-    use HasFactory;
-
     protected $table = 'team_member_invitation_cards';
     protected $fillable = [
         'user_id', 'team_id'
     ];
+    protected $dates = ['deleted_at'];
 }
