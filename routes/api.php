@@ -104,6 +104,10 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
         });
 
+        Route::group(['prefix' => 'user'], function () {
+            Route::post('accept/team/{teamSlug}', [InviteMemberController::class, 'acceptInviteCard'])->name('acceptInvite');
+        });
+
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
     });
 });

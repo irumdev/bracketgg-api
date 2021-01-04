@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Team;
+declare(strict_types=1);
+
+namespace App\Http\Requests\Team\Invite;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
@@ -10,7 +12,7 @@ use App\Helpers\ValidMessage;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\CommonFormRequest;
 
-class SendInveitationCardRequest extends CommonFormRequest
+class InviteRequest extends CommonFormRequest
 {
     private User $user;
     private User $inviteUser;
