@@ -84,4 +84,9 @@ class UserPolicy
             $invitedUser->id !== $user->id
         );
     }
+
+    public function acceptInvite(User $willAcceptUser, Team $team): bool
+    {
+        return $team->invitationCards()->where('user_id', $willAcceptUser->id)->exists();
+    }
 }

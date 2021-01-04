@@ -20,12 +20,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model
 {
+    use SoftDeletes;
     protected $table = 'teams';
     protected $fillable = [
-        'logo_image', 'name', 'owner', 'is_public'
+        'logo_image', 'name', 'owner', 'is_public', 'member_count'
     ];
 
     protected $casts = [
