@@ -72,12 +72,12 @@ class Team extends Model
 
     public function invitationCards(): HasMany
     {
-        return $this->hasMany(InvitationCards::class, 'team_id', 'id');
+        return $this->hasMany(InvitationCard::class, 'team_id', 'id');
     }
 
     public function invitationUsers(): HasManyThrough
     {
-        return $this->hasManyThroughUsers(InvitationCards::class);
+        return $this->hasManyThroughUsers(InvitationCard::class);
     }
 
     public function operateGames(): HasManyThrough
