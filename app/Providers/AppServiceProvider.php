@@ -79,28 +79,29 @@ class AppServiceProvider extends ServiceProvider
         return true;
     }
 
-
-    private function alreadyInvite(): bool
+    private function teamRelatedAnotherIsNotExists(string $model, array $otherCondition = []): bool
     {
         $request = request();
         $inviteUser = $request->route('userIdx');
         $team = $request->route('teamSlug');
 
-        return InvitationCard::where([
+        $searchConditions = collect(array_merge($otherCondition, [
             ['team_id', '=', $team->id],
             ['user_id', '=', $inviteUser->id],
-        ])->exists() === false;
+        ]))->filter(fn($searchCondition) => count($searchCondition) >= 1)->toArray();
+        return $model::where($searchConditions)->exists() === false;
+    }
+
+
+    private function alreadyInvite(): bool
+    {
+        return $this->teamRelatedAnotherIsNotExists(InvitationCard::class, [
+            ['status', '=', InvitationCard::PENDING]
+        ]);
     }
 
     private function isNotTeamMember(): bool
     {
-        $request = request();
-        $inviteUser = $request->route('userIdx');
-        $team = $request->route('teamSlug');
-
-        return Member::where([
-            ['team_id', '=', $team->id],
-            ['user_id', '=', $inviteUser->id],
-        ])->exists() === false;
+        return $this->teamRelatedAnotherIsNotExists(Member::class);
     }
 }
