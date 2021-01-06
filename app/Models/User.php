@@ -31,8 +31,20 @@ class User extends Authenticatable
     use HasApiTokens;
     use MustVerifyEmail;
 
+    /**
+     * @var int 최대 채널 생성 갯수
+     */
     public const DEFAULT_CREATE_CHANNEL_LIMIT_COUNT = 5;
+
+    /**
+     * @var int 팀 최대 생성 갯수
+     */
     public const DEFAULT_CREATE_TEAM_LIMIT_COUNT = 3;
+
+    /**
+     * @var int 노티 안읽은 갯수 카운트 기본값
+     */
+    public const DEFAULT_UN_READ_BADGE_COUNT = 0;
 
     /**
      * The attributes that are mass assignable.
