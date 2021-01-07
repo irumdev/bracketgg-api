@@ -15,7 +15,11 @@ use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-class ShowInfoTest extends TestCase
+/**
+ * @todo 팀 배너 이미지 리턴시 배너아이디도 같이 리턴하는거 테스트코드 추가
+ */
+
+ class ShowInfoTest extends TestCase
 {
     use EnlightenSetup;
 
@@ -135,7 +139,6 @@ class ShowInfoTest extends TestCase
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
         ])->toArray(), $message['broadCastAddress']);
-
         $this->assertEquals(
             $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
                 'bannerImage' => $image->banner_image,
