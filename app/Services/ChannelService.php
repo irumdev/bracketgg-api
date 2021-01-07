@@ -112,9 +112,17 @@ class ChannelService
             'followerCount' => $channel->follwer_count,
             'likeCount' => $channel->like_count,
             'description' => $channel->description,
-            'bannerImages' => $channel->bannerImages->map(fn (ChannelBannerImage $image) => $image->banner_image ? route('channelBannerImage', [
-                'bannerImage' => $image->banner_image,
-            ]) : null),
+            'bannerImages' => $channel->bannerImages->map(function (ChannelBannerImage $channelBannerImage) {
+                if ($channelBannerImage->banner_image) {
+                    return [
+                        'id' => $channelBannerImage->id,
+                        'imageUrl' => route('channelBannerImage', [
+                            'bannerImage' => $channelBannerImage->banner_image,
+                        ])
+                    ];
+                }
+
+            }),
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
             ])),

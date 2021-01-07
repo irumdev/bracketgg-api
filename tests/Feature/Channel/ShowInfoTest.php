@@ -11,7 +11,9 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use Styde\Enlighten\Tests\EnlightenSetup;
-
+/**
+ * @todo 채널 배너 이미지 리턴시 배너아이디도 같이 리턴하는거 테스트코드 추가
+ */
 class ShowInfoTest extends TestCase
 {
     use EnlightenSetup;
@@ -45,7 +47,7 @@ class ShowInfoTest extends TestCase
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
-        $message = $response['messages'];
+        $message = $response['messages'];dd($message);
         $channel = Channel::find($channel->id);
         $this->assertEquals($channelId, $message['id']);
         $this->assertEquals($channel->name, $message['name']);

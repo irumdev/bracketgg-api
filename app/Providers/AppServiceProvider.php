@@ -88,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
         $searchConditions = collect(array_merge($otherCondition, [
             ['team_id', '=', $team->id],
             ['user_id', '=', $inviteUser->id],
-        ]))->filter(fn($searchCondition) => count($searchCondition) >= 1)->toArray();
+        ]))->filter(fn ($searchCondition) => count($searchCondition) >= 1)->toArray();
         return $model::where($searchConditions)->exists() === false;
     }
 
