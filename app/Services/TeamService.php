@@ -95,9 +95,17 @@ class TeamService
             'logoImage' => $team->logo_image ? route('teamLogoImage', [
                 'logoImage' => $team->logo_image
             ]) : null,
-            'bannerImages' => $team->bannerImages->map(fn (TeamBannerImages $image) => $image->bannerImage ? route('teamBannerImage', [
-                'bannerImage' => $image->bannerImage,
-            ]) : null),
+            'bannerImages' => $team->bannerImages->map(function (TeamBannerImages $bannerImage) {
+                if ($bannerImage->bannerImage) {
+                    return [
+                        'id' => $bannerImage->id,
+                        'imageUrl' => route('teamBannerImage', [
+                            'bannerImage' => $bannerImage->bannerImage,
+                        ])
+                    ];
+                }
+
+            }),
             'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,
                 'platform' => $teamBroadcast->platform,
