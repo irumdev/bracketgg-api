@@ -121,7 +121,6 @@ class ChannelService
                         ])
                     ];
                 }
-
             }),
             'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
