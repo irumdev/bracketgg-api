@@ -109,7 +109,6 @@ class TeamService
                         ])
                     ];
                 }
-
             }),
             'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,

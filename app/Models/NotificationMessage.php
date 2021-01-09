@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotificationMessage extends Model
 {
-    public const REJECT_ACCEPT_INVITE_TEAM = 1;
+    public const REJECT_INVITE_TEAM = 1;
+    public const ACCEPT_INVITE_TEAM = 2;
 
     use HasFactory;
 

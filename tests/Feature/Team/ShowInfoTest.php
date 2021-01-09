@@ -20,290 +20,290 @@ use Styde\Enlighten\Tests\EnlightenSetup;
  */
 
  class ShowInfoTest extends TestCase
-{
-    use EnlightenSetup;
+ {
+     use EnlightenSetup;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->setUpEnlighten();
-    }
+     protected function setUp(): void
+     {
+         parent::setUp();
+         $this->setUpEnlighten();
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failLookupTeamInfoWhenTeamIsPrivateButUserIsNotLogin(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $team = factory(Team::class)->states(['addSlug'])->create();
-        $team->is_public = false;
-        $team->save();
+     /**
+      * @test
+      * @enlighten
+      */
+     public function failLookupTeamInfoWhenTeamIsPrivateButUserIsNotLogin(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
+         $team = factory(Team::class)->states(['addSlug'])->create();
+         $team->is_public = false;
+         $team->save();
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => $team->slug
         ]))->assertUnauthorized();
 
-        $this->assertFalse($tryLookupTeam['ok']);
-        $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 401],
-            $tryLookupTeam['messages']
-        );
-    }
+         $this->assertFalse($tryLookupTeam['ok']);
+         $this->assertFalse($tryLookupTeam['isValid']);
+         $this->assertEquals(
+             ['code' => 401],
+             $tryLookupTeam['messages']
+         );
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failLookupTeamInfoWhenTeamIsPrivateButUseIsNotTeamMember(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+     /**
+      * @test
+      * @enlighten
+      */
+     public function failLookupTeamInfoWhenTeamIsPrivateButUseIsNotTeamMember(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
+         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $team = factory(Team::class)->states(['addSlug'])->create();
-        $team->is_public = false;
-        $team->save();
+         $team = factory(Team::class)->states(['addSlug'])->create();
+         $team->is_public = false;
+         $team->save();
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => $team->slug
         ]))->assertUnauthorized();
 
-        $this->assertFalse($tryLookupTeam['ok']);
-        $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 401],
-            $tryLookupTeam['messages']
-        );
-    }
+         $this->assertFalse($tryLookupTeam['ok']);
+         $this->assertFalse($tryLookupTeam['isValid']);
+         $this->assertEquals(
+             ['code' => 401],
+             $tryLookupTeam['messages']
+         );
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failLookupTeamInfoWhenTeamIsNotExists(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
+     /**
+      * @test
+      * @enlighten
+      */
+     public function failLookupTeamInfoWhenTeamIsNotExists(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => '-1213'
         ]))->assertNotFound();
 
-        $this->assertFalse($tryLookupTeam['ok']);
-        $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 404],
-            $tryLookupTeam['messages']
-        );
-    }
+         $this->assertFalse($tryLookupTeam['ok']);
+         $this->assertFalse($tryLookupTeam['isValid']);
+         $this->assertEquals(
+             ['code' => 404],
+             $tryLookupTeam['messages']
+         );
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function successLookupPrivateTeamInfo(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+     /**
+      * @test
+      * @enlighten
+      */
+     public function successLookupPrivateTeamInfo(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
+         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', ])->create();
-        $team->owner = $activeUser->id;
+         $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', ])->create();
+         $team->owner = $activeUser->id;
 
-        $team->is_public = false;
-        $team->save();
+         $team->is_public = false;
+         $team->save();
 
-        $team = Team::find($team->id);
-        TeamMember::factory()->create([
+         $team = Team::find($team->id);
+         TeamMember::factory()->create([
             'user_id' => $team->owner,
             'team_id' => $team->id
         ]);
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => $team->slug
         ]))->assertOk();
 
-        $this->assertTrue($tryLookupTeam['ok']);
-        $this->assertTrue($tryLookupTeam['isValid']);
+         $this->assertTrue($tryLookupTeam['ok']);
+         $this->assertTrue($tryLookupTeam['isValid']);
 
-        $message = $tryLookupTeam['messages'];
+         $message = $tryLookupTeam['messages'];
 
-        $this->assertEquals($team->id, $message['id']);
-        $this->assertEquals($team->name, $message['name']);
-        $this->assertEquals(route('teamLogoImage', [
+         $this->assertEquals($team->id, $message['id']);
+         $this->assertEquals($team->name, $message['name']);
+         $this->assertEquals(route('teamLogoImage', [
             'logoImage' => $team->logo_image
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+         $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
         ])->toArray(), $message['broadCastAddress']);
-        $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
+         $this->assertEquals(
+             $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
                 'bannerImage' => $image->banner_image,
             ]))->toArray(),
-            $message['bannerImages']
-        );
+             $message['bannerImages']
+         );
 
-        $this->assertEquals($activeUser->id, $message['owner']);
-        $this->assertEquals($team->is_public, $message['isPublic']);
+         $this->assertEquals($activeUser->id, $message['owner']);
+         $this->assertEquals($team->is_public, $message['isPublic']);
 
-        $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+         $this->assertTrue(
+             $team->members->map(fn (User $member) => $member->id)->contains(
                 $activeUser->id
             )
-        );
+         );
 
-        $this->assertTrue(
-            TeamMember::where([
+         $this->assertTrue(
+             TeamMember::where([
                 ['user_id', '=', $team->owner],
                 ['team_id', '=', $team->id],
 
             ])->exists()
-        );
-        $this->assertIsString($team->slug, $message['slug']);
-    }
+         );
+         $this->assertIsString($team->slug, $message['slug']);
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function successLookupPublicTeamInfo(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
+     /**
+      * @test
+      * @enlighten
+      */
+     public function successLookupPublicTeamInfo(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
 
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', ])->create();
+         $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', ])->create();
 
-        $team->is_public = true;
-        $team->save();
+         $team->is_public = true;
+         $team->save();
 
-        $team = Team::find($team->id);
-        TeamMember::factory()->create([
+         $team = Team::find($team->id);
+         TeamMember::factory()->create([
             'user_id' => $team->owner,
             'team_id' => $team->id
         ]);
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => $team->slug
         ]))->assertOk();
 
-        $this->assertTrue($tryLookupTeam['ok']);
-        $this->assertTrue($tryLookupTeam['isValid']);
+         $this->assertTrue($tryLookupTeam['ok']);
+         $this->assertTrue($tryLookupTeam['isValid']);
 
-        $message = $tryLookupTeam['messages'];
+         $message = $tryLookupTeam['messages'];
 
-        $this->assertEquals($team->id, $message['id']);
-        $this->assertEquals($team->name, $message['name']);
-        $this->assertEquals(route('teamLogoImage', [
+         $this->assertEquals($team->id, $message['id']);
+         $this->assertEquals($team->name, $message['name']);
+         $this->assertEquals(route('teamLogoImage', [
             'logoImage' => $team->logo_image
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+         $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
         ])->toArray(), $message['broadCastAddress']);
 
-        $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
+         $this->assertEquals(
+             $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
                 'bannerImage' => $image->banner_image,
             ]))->toArray(),
-            $message['bannerImages']
-        );
+             $message['bannerImages']
+         );
 
-        $this->assertEquals($team->owner, $message['owner']);
-        $this->assertEquals($team->is_public, $message['isPublic']);
+         $this->assertEquals($team->owner, $message['owner']);
+         $this->assertEquals($team->is_public, $message['isPublic']);
 
-        $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+         $this->assertTrue(
+             $team->members->map(fn (User $member) => $member->id)->contains(
                 $team->owner
             )
-        );
+         );
 
-        $this->assertTrue(
-            TeamMember::where([
+         $this->assertTrue(
+             TeamMember::where([
                 ['user_id', '=', $team->owner],
                 ['team_id', '=', $team->id],
 
             ])->exists()
-        );
-        $this->assertIsString($team->slug, $message['slug']);
-    }
+         );
+         $this->assertIsString($team->slug, $message['slug']);
+     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function successLookupPublicTeamInfoWithoutLogin(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
+     /**
+      * @test
+      * @enlighten
+      */
+     public function successLookupPublicTeamInfoWithoutLogin(): void
+     {
+         $this->setName($this->getCurrentCaseKoreanName());
 
-        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts',])->create();
+         $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts',])->create();
 
-        $team->is_public = true;
-        $team->save();
+         $team->is_public = true;
+         $team->save();
 
-        $team = Team::find($team->id);
-        TeamMember::factory()->create([
+         $team = Team::find($team->id);
+         TeamMember::factory()->create([
             'user_id' => $team->owner,
             'team_id' => $team->id
         ]);
 
-        $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
+         $tryLookupTeam = $this->getJson(route('getTeamInfoBySlug', [
             'teamSlug' => $team->slug
         ]))->assertOk();
 
-        $this->assertTrue($tryLookupTeam['ok']);
-        $this->assertTrue($tryLookupTeam['isValid']);
+         $this->assertTrue($tryLookupTeam['ok']);
+         $this->assertTrue($tryLookupTeam['isValid']);
 
-        $message = $tryLookupTeam['messages'];
+         $message = $tryLookupTeam['messages'];
 
-        $this->assertEquals($team->id, $message['id']);
-        $this->assertEquals($team->name, $message['name']);
-        $this->assertEquals(route('teamLogoImage', [
+         $this->assertEquals($team->id, $message['id']);
+         $this->assertEquals($team->name, $message['name']);
+         $this->assertEquals(route('teamLogoImage', [
             'logoImage' => $team->logo_image
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+         $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
         ])->toArray(), $message['broadCastAddress']);
 
-        $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
+         $this->assertEquals(
+             $team->bannerImages->map(fn (TeamBannerImages $image) => route('teamBannerImage', [
                 'bannerImage' => $image->banner_image,
             ]))->toArray(),
-            $message['bannerImages']
-        );
+             $message['bannerImages']
+         );
 
-        $this->assertEquals($team->owner, $message['owner']);
-        $this->assertEquals($team->is_public, $message['isPublic']);
+         $this->assertEquals($team->owner, $message['owner']);
+         $this->assertEquals($team->is_public, $message['isPublic']);
 
-        $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+         $this->assertTrue(
+             $team->members->map(fn (User $member) => $member->id)->contains(
                 $team->owner
             )
-        );
+         );
 
-        $this->assertTrue(
-            TeamMember::where([
+         $this->assertTrue(
+             TeamMember::where([
                 ['user_id', '=', $team->owner],
                 ['team_id', '=', $team->id],
 
             ])->exists()
-        );
-        $this->assertIsString($team->slug, $message['slug']);
+         );
+         $this->assertIsString($team->slug, $message['slug']);
 
 
-        if (config('app.test.useRealImage')) {
-            $this->get($message['logoImage'])->assertOk();
-            collect($message['bannerImages'])->map(fn ($bannerImage) => $this->get($bannerImage));
-        }
-    }
-}
+         if (config('app.test.useRealImage')) {
+             $this->get($message['logoImage'])->assertOk();
+             collect($message['bannerImages'])->map(fn ($bannerImage) => $this->get($bannerImage));
+         }
+     }
+ }
