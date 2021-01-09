@@ -95,6 +95,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'team'], function () {
             Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
             Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
+
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
 
             Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCard'])->name('inviteTeamMember');
@@ -102,6 +103,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
             Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
+
+            Route::get('{teamSlug}/request-join-user', [ShowTeamInfoController::class, 'getRequestJoinUserList'])->name('getRequestJoinUserList');
         });
 
         Route::group(['prefix' => 'user'], function () {

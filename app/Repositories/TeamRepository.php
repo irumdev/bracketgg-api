@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Factories\TeamInfoUpdateFactory;
 
 use App\Models\NotificationMessage;
+use Illuminate\Database\Eloquent\Collection;
 
 class TeamRepository extends TeamInfoUpdateFactory
 {
@@ -155,5 +156,15 @@ class TeamRepository extends TeamInfoUpdateFactory
         return Team::whereHas('user', function (Builder $query) use ($userId) {
             $query->where('owner', $userId);
         })->with(Team::TEAM_RELATIONS);
+    }
+
+    public function getRequestJoinUsers(Team $team): Builder
+    {
+        return User::whereHas('invitationCards', function (Builder $query) use ($team) {
+            $query->where([
+                ['status', '=', InvitationCard::PENDING],
+                ['team_id', '=', $team->id],
+            ]);
+        });
     }
 }

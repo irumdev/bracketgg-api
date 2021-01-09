@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 
 use App\Models\Channel\Channel;
 use App\Models\Team\Team;
+use App\Models\Team\InvitationCard;
 
 /**
  * 유저 모델 입니다.
@@ -110,6 +111,11 @@ class User extends Authenticatable
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class, 'owner', 'id');
+    }
+
+    public function invitationCards(): HasMany
+    {
+        return $this->hasMany(InvitationCard::class, 'user_id', 'id');
     }
 
     public function sendEmailVerificationNotification(): void

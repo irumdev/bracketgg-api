@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Team;
 
 use App\Models\Team\Team;
+use App\Models\User;
 use App\Services\TeamService;
+use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
 use App\Http\Requests\Team\ShowInfoRequest;
+use App\Http\Requests\Team\ShowWantJoinUserListRequest;
 
 /**
  * 팀정보를 조회하는 컨트롤러 클래스 입니다.
@@ -32,9 +35,16 @@ class ShowTeamInfoController extends Controller
      */
     private TeamService $teamService;
 
-    public function __construct(TeamService $teamService, ResponseBuilder $responseBuilder)
+    /**
+     * 유저 서비스 레이어
+     * @var TeamService 팀 서비스 레이어
+     */
+    private UserService $userService;
+
+    public function __construct(UserService $userService, TeamService $teamService, ResponseBuilder $responseBuilder)
     {
         $this->teamService = $teamService;
+        $this->userService = $userService;
         $this->responseBuilder = $responseBuilder;
     }
 
@@ -63,6 +73,20 @@ class ShowTeamInfoController extends Controller
     {
         return $this->responseBuilder->ok(
             $this->teamService->findTeamsByUserId($userId)
+        );
+    }
+
+    /**
+     * @todo 하단 API 테스트
+     * @todo 소유주가 나만 조회 가능
+     */
+    public function getRequestJoinUserList(ShowWantJoinUserListRequest $request, Team $team): JsonResponse
+    {
+        $paginatedWantJoinToTeamUsers = $this->teamService->getRequestJoinUsers($team);
+        return $this->responseBuilder->ok(
+            $this->responseBuilder->paginateMeta($paginatedWantJoinToTeamUsers)->merge([
+                'requestUsers' => array_map(fn (User $wantJoinUser) => $this->userService->info($wantJoinUser), $paginatedWantJoinToTeamUsers->items())
+            ])
         );
     }
 }
