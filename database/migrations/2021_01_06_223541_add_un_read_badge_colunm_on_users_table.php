@@ -15,9 +15,7 @@ class AddUnReadBadgeColunmOnUsersTable extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-
             $table->tinyInteger('un_read_notification_count')->after('remember_token')->default(User::DEFAULT_UN_READ_BADGE_COUNT)->comment('안읽은 뱃지');
-
         });
     }
 

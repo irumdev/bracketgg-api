@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
@@ -10,6 +12,7 @@ use App\Models\Team\Team;
 use App\Models\User;
 use App\Http\Requests\Team\Invite\InviteRequest;
 use App\Http\Requests\Team\Invite\AcceptRequest;
+use App\Http\Requests\Team\Invite\RejectRequest;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -49,6 +52,13 @@ class InviteMemberController extends Controller
     {
         return $this->responseBuilder->ok([
             'markTeamInvited' => $this->teamService->acceptInviteCard($team),
+        ]);
+    }
+
+    public function rejectInviteCard(Team $team, RejectRequest $request): JsonResponse
+    {
+        return $this->responseBuilder->ok([
+            'markTeamOperRejected' => $this->teamService->rejectInviteCard($team),
         ]);
     }
 }
