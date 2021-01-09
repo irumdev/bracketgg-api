@@ -11,8 +11,11 @@ use App\Repositories\TeamRepository;
 use App\Models\Team\BannerImage as TeamBannerImages;
 use App\Models\Team\Broadcast as TeamBroadCast;
 
+use App\Properties\Paginate;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class TeamService
 {
@@ -82,6 +85,11 @@ class TeamService
     {
         $updateTeamResult = $this->teamRepository->update($team, $updateInfo);
         return $this->info($updateTeamResult);
+    }
+
+    public function getRequestJoinUsers(Team $team): Paginator
+    {
+        return $this->teamRepository->getRequestJoinUsers($team)->simplePaginate(Paginate::PER);
     }
 
     public function get(Team $team): array
