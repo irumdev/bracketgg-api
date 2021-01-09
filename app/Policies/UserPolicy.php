@@ -87,6 +87,31 @@ class UserPolicy
 
     public function acceptInvite(User $willAcceptUser, Team $team): bool
     {
-        return $team->invitationCards()->where('user_id', $willAcceptUser->id)->exists();
+        /**
+         * @var bool $hasInviteCard 초대장이 존재하는지 여부, 초대장은 반드시 있어야 함
+         */
+        $hasInviteCard = $team->invitationCards()->where('user_id', $willAcceptUser->id)->exists();
+
+        /**
+         * @var bool $acceptedUserIsNotTeamMember 팀원이 아니여야 함
+         */
+        $acceptedUserIsNotTeamMember = $team->members()->where('user_id', $willAcceptUser->id)->exists() === false;
+
+        return $hasInviteCard && $acceptedUserIsNotTeamMember;
+    }
+
+    public function rejectInvite(User $willRejectUser, Team $team): bool
+    {
+        /**
+         * @var bool $hasInviteCard 초대장이 존재하는지 여부, 초대장은 반드시 있어야 함
+         */
+        $hasInviteCard = $team->invitationCards()->where('user_id', $willRejectUser->id)->exists();
+
+        /**
+         * @var bool $acceptedUserIsNotTeamMember 팀원이 아니여야 함
+         */
+        $rejectUserIsNotTeamMember = $team->members()->where('user_id', $willRejectUser->id)->exists() === false;
+
+        return $hasInviteCard && $rejectUserIsNotTeamMember;
     }
 }

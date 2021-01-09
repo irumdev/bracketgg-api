@@ -15,6 +15,12 @@ use Tests\TestCase;
 use App\Http\Requests\Team\Invite\InviteRequest;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @todo 팀원 초대 시 초대장 없는케이스 테스팅 추가
+ * @todo 팀원 오퍼 거절 시
+ *  ㄴ 초대장 존재안할 시 401 여부 테스트
+ *  ㄴ 이미 팀원 일 시 태스트
+ */
 class InviteMemberTest extends TestCase
 {
     use EnlightenSetup;
@@ -306,5 +312,30 @@ class InviteMemberTest extends TestCase
         $this->assertFalse($tryAcceptInviteCard['ok']);
         $this->assertFalse($tryAcceptInviteCard['isValid']);
         $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $tryAcceptInviteCard['messages']);
+    }
+
+    /** @test */
+    public function rejectTeamOper()
+    {
+        $this->assertTrue(true);
+        $teamOwner = factory(User::class)->create();
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $teamOwner->id,
+            'member_count' => 1
+        ]);
+
+
+        $targetUser = factory(User::class)->create();
+
+        Sanctum::actingAs($teamOwner);
+        $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+            'userIdx' => $targetUser->id,
+            'teamSlug' => $team->slug,
+        ]))->assertOk();
+
+
+        Sanctum::actingAs($targetUser);
+
+        $reject = $this->postJson(route('rejectInvite', ['teamSlug' => $team->slug]));
     }
 }

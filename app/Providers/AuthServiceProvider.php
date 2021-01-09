@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,30 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+    private array $registerPolicies = [
+        'followChannel'   => [UserPolicy::class, 'followChannel'],
+        'unFollowChannel' => [UserPolicy::class, 'unFollowChannel'],
+
+        'likeChannel' =>   [UserPolicy::class, 'likeChannel'],
+        'unLikeChannel' => [UserPolicy::class, 'unLikeChannel'],
+
+        'createChannel' => [UserPolicy::class, 'createChannel'],
+        'updateChannel' => [UserPolicy::class, 'updateChannel'],
+
+        'createTeam' => [UserPolicy::class, 'createTeam'],
+        'updateTeam' => [UserPolicy::class, 'updateTeam'],
+        'viewTeam' =>   [UserPolicy::class, 'viewTeam'],
+
+        'inviteMember' => [UserPolicy::class, 'inviteMember'],
+        'acceptInvite' => [UserPolicy::class, 'acceptInvite'],
+        'rejectInvite' => [UserPolicy::class, 'rejectInvite'],
+    ];
+
+    private function registerCustomPolicies(): void
+    {
+        collect($this->registerPolicies)->each(fn ($policyMethod, $policyKey) => Gate::define($policyKey, $policyMethod[0] . '@' . $policyMethod[1]));
+    }
+
     /**
      * Register any authentication / authorization services.
      *
@@ -26,21 +51,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-        Gate::define('followChannel', 'App\Policies\UserPolicy@followChannel');
-        Gate::define('unFollowChannel', 'App\Policies\UserPolicy@unFollowChannel');
-
-        Gate::define('likeChannel', 'App\Policies\UserPolicy@likeChannel');
-        Gate::define('unLikeChannel', 'App\Policies\UserPolicy@unLikeChannel');
-
-        Gate::define('createChannel', 'App\Policies\UserPolicy@createChannel');
-
-        Gate::define('updateChannel', 'App\Policies\UserPolicy@updateChannel');
-
-        Gate::define('createTeam', 'App\Policies\UserPolicy@createTeam');
-        Gate::define('updateTeam', 'App\Policies\UserPolicy@updateTeam');
-        Gate::define('viewTeam', 'App\Policies\UserPolicy@viewTeam');
-
-        Gate::define('inviteMember', 'App\Policies\UserPolicy@inviteMember');
-        Gate::define('acceptInvite', 'App\Policies\UserPolicy@acceptInvite');
+        $this->registerCustomPolicies();
     }
 }
