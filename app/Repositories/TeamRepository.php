@@ -57,10 +57,24 @@ class TeamRepository extends TeamInfoUpdateFactory
             ]);
 
             $team->member_count += 1;
-
-
             $card->status = InvitationCard::ACCEPT;
-            return $card->save() && $card->delete() && $team->save() && $member !== null;
+
+            $notificationMessage = NotificationMessage::create([
+                'user_id' => $team->owner,
+                'type' => NotificationMessage::ACCEPT_INVITE_TEAM,
+                'message' => [
+                    'team_id' => $team->id,
+                    'user_id' => $willAcceptUser
+                ]
+            ]);
+
+            $cardDataHandelReusult = $card->save() && $card->delete();
+            $teamDataHandelResult = $team->save();
+            $createMemberAndNotificationMessageResult = $notificationMessage !== null && $member !== null;
+
+            $isSuccess = $cardDataHandelReusult && $teamDataHandelResult && $createMemberAndNotificationMessageResult;
+
+            return $isSuccess;
         });
     }
 
@@ -78,7 +92,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
             $notificationMessage = NotificationMessage::create([
                 'user_id' => $team->owner,
-                'type' => NotificationMessage::REJECT_ACCEPT_INVITE_TEAM,
+                'type' => NotificationMessage::REJECT_INVITE_TEAM,
                 'message' => [
                     'team_id' => $team->id,
                     'user_id' => $willRejectUser
