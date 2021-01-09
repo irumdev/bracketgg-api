@@ -19,7 +19,7 @@ class TeamService
     private TeamRepository $teamRepository;
 
     private const USE_UPDATE = true;
-    private const USE_CREATE = ! self::USE_UPDATE;
+    private const USE_CREATE = false;
 
     public function __construct(TeamRepository $teamRepository)
     {
@@ -71,6 +71,11 @@ class TeamService
     public function acceptInviteCard(Team $team): bool
     {
         return $this->teamRepository->acceptInviteCard($team);
+    }
+
+    public function rejectInviteCard(Team $team): bool
+    {
+        return $this->teamRepository->rejectInviteCard($team);
     }
 
     public function updateInfo(Team $team, array $updateInfo): array

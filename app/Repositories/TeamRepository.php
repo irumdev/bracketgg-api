@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Factories\TeamInfoUpdateFactory;
 
+use App\Models\NotificationMessage;
+
 class TeamRepository extends TeamInfoUpdateFactory
 {
     private Team $team;
@@ -59,6 +61,32 @@ class TeamRepository extends TeamInfoUpdateFactory
 
             $card->status = InvitationCard::ACCEPT;
             return $card->save() && $card->delete() && $team->save() && $member !== null;
+        });
+    }
+
+    public function rejectInviteCard(Team $team): bool
+    {
+        return DB::transaction(function () use ($team) {
+            $willRejectUser = Auth::id();
+
+            $card = InvitationCard::find($team->invitationCards()->where([
+                ['user_id', '=', $willRejectUser],
+                ['status', '=', InvitationCard::PENDING],
+            ])->first()->id);
+
+            $card->status = InvitationCard::REJECT;
+
+            $notificationMessage = NotificationMessage::create([
+                'user_id' => $team->owner,
+                'type' => NotificationMessage::REJECT_ACCEPT_INVITE_TEAM,
+                'message' => [
+                    'team_id' => $team->id,
+                    'user_id' => $willRejectUser
+                ]
+            ]);
+
+
+            return $card->save() && $card->delete() && $notificationMessage !== null;
         });
     }
 

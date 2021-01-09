@@ -106,6 +106,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'user'], function () {
             Route::post('accept/team/{teamSlug}', [InviteMemberController::class, 'acceptInviteCard'])->name('acceptInvite');
+            Route::post('reject/team/{teamSlug}', [InviteMemberController::class, 'rejectInviteCard'])->name('rejectInvite');
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
