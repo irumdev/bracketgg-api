@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 use App\Models\Team\Team;
 
-class CreateTeamMember extends Migration
+class CreateTeamMemberTable extends Migration
 {
     /**
      * Run the migrations.

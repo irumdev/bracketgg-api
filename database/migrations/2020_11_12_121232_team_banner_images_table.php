@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TeamBannerImages extends Migration
+class TeamBannerImagesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('team_banner_images', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('팀 배너이미지 id');
             $table->string('banner_image')->comment('채널 배너 이미지');
             $table->foreignId('team_id')->comment('채널장');
             $table->softDeletes();
@@ -29,7 +29,7 @@ class TeamBannerImages extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_banner_images');
     }

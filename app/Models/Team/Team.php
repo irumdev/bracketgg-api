@@ -44,6 +44,8 @@ class Team extends Model
     public const OWNER = 1;
     public const NORMAL_USER = 2;
 
+    public const DEFAULT_BOARD_CATEGORY_COUNT_LIMIT = 3;
+
     public function bannerImages(): HasMany
     {
         return $this->hasMany(BannerImage::class, 'team_id', 'id');

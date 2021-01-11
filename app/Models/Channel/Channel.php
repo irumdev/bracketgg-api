@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Channel extends Model
 {
+    public const DEFAULT_BOARD_CATEGORY_COUNT = 3;
+
     protected $table = 'channels';
     protected $fillable = [
         'logo_image', 'follwer_count',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GameEvents extends Migration
+class CreateGameTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class GameEvents extends Migration
      */
     public function up(): void
     {
-        Schema::create('game_events', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->comment('게임 종목 이름');
+        // 게임종목 종류
+        Schema::create('game_types', function (Blueprint $table) {
+            $table->id()->comment('게임 종목 아이디');
+            $table->string('name')->unique()->comment('게임 종목 이름');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class GameEvents extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('game_events');
+        Schema::dropIfExists('game_types');
     }
 }
