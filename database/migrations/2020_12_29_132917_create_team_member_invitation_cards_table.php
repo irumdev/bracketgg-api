@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Team\InvitationCard;
 
-class TeamMemberInvitationCards extends Migration
+class CreateTeamMemberInvitationCardsTable extends Migration
 {
     /**
      * Run the migrations.

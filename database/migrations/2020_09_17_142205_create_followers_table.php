@@ -4,15 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Followers extends Migration
+class CreateFollowersTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
+        // 채널 팔로우 유저
         Schema::create('channel_followers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('channel_id')->comment('채널장');
