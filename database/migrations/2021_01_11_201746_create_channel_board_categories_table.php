@@ -26,7 +26,6 @@ class CreateChannelBoardCategoriesTable extends Migration
             $table->softDeletes();
 
             $table->foreign('channel_id')->on('channels')->references('id')->cascadeOnDelete();
-
         });
     }
 
