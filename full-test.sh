@@ -6,7 +6,7 @@ function init() {
     php artisan optimize:clear > /dev/null && \
     clear
 }
-function useFakeUrl() {
+function useFakeImage() {
     sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env && \
     init
 }
@@ -17,7 +17,7 @@ function useRealImage() {
 ############################ util ############################
 
 function stepOne() {
-    useFakeUrl && \
+    useFakeImage && \
     echo "STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
     echo "now migrate..." && \
     php artisan migrate:fresh > /dev/null && \
@@ -25,11 +25,11 @@ function stepOne() {
 }
 
 function stepTwo() {
-    useFakeUrl && \
+    useFakeImage && \
     echo " ✓ [PASS] STEP 1/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh" && \
     echo "STEP - 2/4 : TEST_USE_REAL_IMAGE=false / migrate:fresh --seed" && \
     echo "now migrate..." && \
-    php artisan migrate:fresh --seed > /dev/null && clear && \
+    php artisan migrate:fresh --seed > /dev/null && \
     php artisan test
 }
 
@@ -75,8 +75,8 @@ function cleanUp() {
     rm -rf ./storage/app/profileImages/*.png && \
     rm -rf ./storage/app/teamBanners/*.png && \
     rm -rf ./storage/app/teamLogos/*.png && \
-    php artisan optimize:clear > /dev/null && php artisan optimize > /dev/null && \
-    sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env
+    sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env && \
+    php artisan optimize:clear > /dev/null && php artisan optimize > /dev/null
 }
 
 cleanUp && \
