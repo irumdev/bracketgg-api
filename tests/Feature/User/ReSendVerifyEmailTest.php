@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-class ReSendVerifyEmail extends TestCase
+class ReSendVerifyEmailTest extends TestCase
 {
     use EnlightenSetup;
 
