@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Team;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +15,7 @@ use App\Models\Team\BannerImage;
 use App\Models\Team\Broadcast;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-class ShowOwnersTeams extends TestCase
+class GetOwnersTeamInfosTest extends TestCase
 {
     use EnlightenSetup;
 
@@ -29,6 +31,7 @@ class ShowOwnersTeams extends TestCase
      */
     public function successLookupTeamInfoWhenLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
@@ -62,9 +65,12 @@ class ShowOwnersTeams extends TestCase
             ]) : null;
 
 
-            $teamBannerImages = $team->bannerImages->map(fn (BannerImage $image) => $image->banner_image ? route('teamBannerImage', [
-                'bannerImage' => $image->banner_image,
-            ]) : null)->toArray();
+            $teamBannerImages = $team->bannerImages->map(fn (BannerImage $image) => [
+                'id' => $image->id,
+                'imageUrl' => route('teamBannerImage', [
+                    'bannerImage' => $image->banner_image,
+                ]),
+            ])->toArray();
 
             $broadCasts = $team->broadcastAddress->map(fn (Broadcast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcast_address,
@@ -89,8 +95,8 @@ class ShowOwnersTeams extends TestCase
             $this->assertEquals($team->is_public, $compareTeam['isPublic']);
 
             if (config('app.test.useRealImage')) {
-                collect($teamBannerImages)->each(function ($bannerImage) {
-                    $this->get($bannerImage)->assertOk();
+                collect($compareTeam['bannerImages'])->each(function ($bannerImage) {
+                    $this->get($bannerImage['imageUrl'])->assertOk();
                 });
                 $this->get($teamLogoImage)->assertOk();
             }
@@ -103,6 +109,8 @@ class ShowOwnersTeams extends TestCase
      */
     public function failLookupTeamInfoWhenNotLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
+
         $owner = factory(User::class)->create();
 
         $teams = collect(range(0, $owner->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
@@ -129,6 +137,8 @@ class ShowOwnersTeams extends TestCase
      */
     public function failLookupTeamInfoWhenOwnerHasNoTeam(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
+
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $tryLookupTeamInfo = $this->getJson(route('showTeamByOwnerId', [
