@@ -93,6 +93,16 @@ $factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Te
     });
 });
 
+$factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function (Team $team, Faker $faker) {
+    collect(range(0, 19))->each(function (int $item) use ($team, $faker) {
+        InvitationCard::factory()->create([
+            'team_id' => $team->id,
+            'user_id' => factory(User::class)->create()->id,
+            'status' => InvitationCard::PENDING,
+        ]);
+    });
+});
+
 
 $factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (Team $team, Faker $faker) {
     InvitationCard::factory()->create([
