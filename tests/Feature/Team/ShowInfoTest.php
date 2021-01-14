@@ -15,10 +15,6 @@ use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
-/**
- * @todo 팀 배너 이미지 리턴시 배너아이디도 같이 리턴하는거 테스트코드 추가
- */
-
 class ShowInfoTest extends TestCase
 {
     use EnlightenSetup;
@@ -154,8 +150,8 @@ class ShowInfoTest extends TestCase
 
         $this->assertTrue(
             $team->members->map(fn (User $member) => $member->id)->contains(
-                 $activeUser->id
-             )
+                $activeUser->id
+            )
         );
 
         $this->assertTrue(
@@ -226,8 +222,8 @@ class ShowInfoTest extends TestCase
 
         $this->assertTrue(
             $team->members->map(fn (User $member) => $member->id)->contains(
-                 $team->owner
-             )
+                $team->owner
+            )
         );
 
         $this->assertTrue(
@@ -296,8 +292,8 @@ class ShowInfoTest extends TestCase
 
         $this->assertTrue(
             $team->members->map(fn (User $member) => $member->id)->contains(
-                 $team->owner
-             )
+                $team->owner
+            )
         );
 
         $this->assertTrue(
