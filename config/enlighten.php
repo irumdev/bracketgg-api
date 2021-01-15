@@ -9,7 +9,7 @@ return [
     // Add values to this array to hide certain sections from your views.
     // For all valid sections see the class \Styde\Enlighten\Section
     'hide' => [
-        // 'queries',
+        'queries',
         // 'html',
         // 'blade',
         // 'route_parameters',
@@ -26,7 +26,7 @@ return [
     'docs_base_url' => '/',
 
     // Display / hide quick access links to open your IDE from the UI
-    'developer_mode' => true,
+    'developer_mode' => false,
     'editor' => 'vscode', // phpstorm, vscode or sublime
 
     'tests' => [

@@ -109,6 +109,11 @@ return [
         ],
     ],
     'Team' => [
+        'GetOwnersTeamInfosTest' => [
+            'successLookupTeamInfoWhenLogin' => '팀 오너 인덱스로 팀들 정보룰 조회하라',
+            'failLookupTeamInfoWhenNotLogin' => '로그인을 안해서 팀정보를 실패하라',
+            'failLookupTeamInfoWhenOwnerHasNoTeam' => '팀이 없어서 팀 정보 조회에 실패하라',
+        ],
         'ShowInfoTest' => [
             'failLookupTeamInfoWhenTeamIsPrivateButUserIsNotLogin' => '로그인이 안되어 프라이빗 팀 조회에 실패하라',
             'failLookupTeamInfoWhenTeamIsPrivateButUseIsNotTeamMember' => '팀 멤버가 아닌데 프라이빗 팀 조회에 실패하라',
@@ -174,6 +179,16 @@ return [
             'failInviteWhenSendUserIsNotLogin' => '로그인 하지 않아 초대장 발송에 실패하라',
             'failInviteWhenAlreadySendInviteCardToTargetUser' => '이미 초대장을 보내서 초대장 발송에 실패하라',
             'successSendInviteCard' => '초대장 발송에 성공하라',
+            'successAcceptInvite' => '초대장 수락에 성공하라',
+            'failAcceptInviteWhenUserIsNotLogin' => '로그인을 안해서 초대장 수럭에 실패하라',
+            'failAcceptInviteWhenUserHasNotInviteCard' => '초대장이 없어서 초대장 수락에 실패하라',
+            'successRejectTeamOper' => '초대장 거절 성공하라',
+            'failRejectTeamOperWhenUserNotHaveInviteCard' => '초대장이 없어서 초대장 거절에 실패하라',
+            'failRejectTeamOperWhenUserIsAlreadyTeamMember' => '이미 팀원이라서 초대장 거절에 실패하라',
+        ],
+        'ShowWantJoinToTeamUsersTest' => [
+            'successLookUpJoinTeamRequestUsers' => '팀원 가입 신청한 유저리스트 조회에 성공하라',
+            'failLookUpRequestJoinUserWhenLookUpUserIsNotTeamOwner' => '팀 오너가 아니라서 팀원 가입 신청 유저 리스트 조회에 실패하라',
         ]
     ],
     'User' => [
@@ -223,7 +238,7 @@ return [
             'failLookUpUserInfoWithOutLogin' => '로그인 안한 유저의 정보조회에 실패하라',
         ],
 
-        'ReSendVerifyEmail' => [
+        'ReSendVerifyEmailTest' => [
             'failSendVerifyEmailWhenUserIsNotLogined' => '로그인 안한경우 이메일 요청에 실패하라',
             'successSendVerifyEmail' => '이메일 재발송에 성공하라',
             'failSendVerifyEmailWhenAlreadyUserVerifyEmail' => '이미 인증한 유저가 이메일 요청에 실패하라',

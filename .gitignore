@@ -13,3 +13,4 @@ yarn-error.log
 .php_cs.cache
 .env.prod
 .DS_Store
+/api-docs

@@ -234,6 +234,7 @@ class InviteMemberTest extends TestCase
      */
     public function successAcceptInvite(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $activeUser->id,
@@ -272,6 +273,7 @@ class InviteMemberTest extends TestCase
      */
     public function failAcceptInviteWhenUserIsNotLogin(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $inActiveUser = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $inActiveUser->id,
@@ -293,6 +295,7 @@ class InviteMemberTest extends TestCase
      */
     public function failAcceptInviteWhenUserHasNotInviteCard(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $activeUser->id,
@@ -314,6 +317,7 @@ class InviteMemberTest extends TestCase
      */
     public function successRejectTeamOper(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $teamOwner = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $teamOwner->id,
@@ -346,6 +350,7 @@ class InviteMemberTest extends TestCase
      */
     public function failRejectTeamOperWhenUserNotHaveInviteCard(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $teamOwner = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $teamOwner->id,
@@ -371,6 +376,7 @@ class InviteMemberTest extends TestCase
      */
     public function failRejectTeamOperWhenUserIsAlreadyTeamMember(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $teamOwner = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug'])->create([
             'owner' => $teamOwner->id,
