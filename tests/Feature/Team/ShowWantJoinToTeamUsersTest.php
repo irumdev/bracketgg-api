@@ -33,6 +33,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
      */
     public function failLookUpRequestJoinUserWhenLookUpUserIsNotTeamOwner(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->states(['addSlug'])->create();
         $tryLookupJoinRequestUsers = $this->getJson(route('getRequestJoinUserList', [
@@ -50,6 +51,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
      */
     public function successLookUpJoinTeamRequestUsers(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->states(['addSlug', 'addPendingInvitationCards'])->create([
             'owner' => $user->id,

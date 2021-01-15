@@ -63,9 +63,9 @@ function cleanUp() {
     rm -rf ./storage/app/teamBanners/*.png && \
     rm -rf ./storage/app/teamLogos/*.png && \
     rm -rf ./api-docs && \
+    sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env && \
     php artisan optimize:clear > /dev/null && \
-    php artisan optimize > /dev/null && \
-    sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env
+    php artisan optimize > /dev/null
 }
 
 cd /var/www && \
