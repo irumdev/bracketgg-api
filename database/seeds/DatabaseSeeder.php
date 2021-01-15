@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         ])->create();
 
         factory(Channel::class, 20)->states([
+            'addArticles', 'addArticlesWithSavedImages',
             'addSlug',
             'addBannerImage','hasFollower',
             'addBroadcasts', 'hasLike'

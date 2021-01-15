@@ -9,9 +9,13 @@ use App\Models\Channel\Follower as ChannelFollower;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Slug as ChannelSlug;
+use App\Models\Channel\Board\Category as ChannelBoardCategory;
+use App\Models\Channel\Board\Article as ChannelArticle;
+use App\Models\Channel\Board\ArticleImage as ChannelArticleImage;
 
 use Faker\Generator as Faker;
 use App\Helpers\Fake\Image as FakeImage;
+use Illuminate\Support\Arr;
 
 $factory->define(Channel::class, function (Faker $faker) {
     $channelData = [
@@ -78,8 +82,46 @@ $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $chann
     $channel->like_count = $fanCount;
     $channel->save();
 });
+
 $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {
     factory(ChannelBroadcast::class, random_int(1, 5))->create([
         'channel_id' => $channel->id,
     ]);
+});
+
+$factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $channel, Faker $faker) {
+    $categories = collect(range(0, 10))->map(function ($item) use ($channel, $faker) {
+        $category = ChannelBoardCategory::factory()->create([
+            'show_order' => $item,
+            'channel_id' => $channel->id,
+        ]);
+
+        return $category->id;
+    });
+
+    ChannelArticle::factory()->create([
+        'user_id' => $channel->owner,
+        'category_id' => Arr::random($categories->toArray())
+    ]);
+});
+
+
+$factory->afterCreatingState(Channel::class, 'addArticlesWithSavedImages', function (Channel $channel, Faker $faker) {
+    $categories = collect(range(0, 10))->map(function ($item) use ($channel, $faker) {
+        $category = ChannelBoardCategory::factory()->create([
+            'show_order' => $item,
+            'channel_id' => $channel->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $article = ChannelArticle::factory()->create([
+        'user_id' => $channel->owner,
+        'category_id' => Arr::random($categories->toArray())
+    ]);
+
+    collect(range(0, 3))->each(fn () => ChannelArticleImage::factory()->create([
+        'article_id' => $article->id
+    ]));
 });
