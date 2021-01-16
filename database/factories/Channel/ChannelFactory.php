@@ -90,7 +90,7 @@ $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel 
 });
 
 $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 10))->map(function ($item) use ($channel, $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -99,15 +99,25 @@ $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $c
         return $category->id;
     });
 
-    ChannelArticle::factory()->create([
-        'user_id' => $channel->owner,
-        'category_id' => Arr::random($categories->toArray())
-    ]);
+    $articleCnt = collect(range(0, 40));
+    $articleCnt->each(function($step) use ($channel, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $article = ChannelArticle::factory()->create([
+            'user_id' => $channel->owner,
+            'category_id' => $usedCategory
+        ]);
+
+        $c = ChannelBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+
+    });
+
 });
 
 
 $factory->afterCreatingState(Channel::class, 'addArticlesWithSavedImages', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 10))->map(function ($item) use ($channel, $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -116,12 +126,18 @@ $factory->afterCreatingState(Channel::class, 'addArticlesWithSavedImages', funct
         return $category->id;
     });
 
-    $article = ChannelArticle::factory()->create([
-        'user_id' => $channel->owner,
-        'category_id' => Arr::random($categories->toArray())
-    ]);
+    $articleCnt = collect(range(0, 40));
+    $articleCnt->each(function($step) use ($channel, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $article = ChannelArticle::factory()->create([
+            'user_id' => $channel->owner,
+            'category_id' => $usedCategory
+        ]);
 
-    collect(range(0, 3))->each(fn () => ChannelArticleImage::factory()->create([
-        'article_id' => $article->id
-    ]));
+        $c = ChannelBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+
+    });
+
 });

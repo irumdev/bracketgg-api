@@ -10,5 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleImageBuffer extends Model
 {
     use HasFactory;
+
     protected $table = 'channel_board_article_images_buffer';
+    protected $fillable = [
+        'buffer_image_path'
+    ];
 }
