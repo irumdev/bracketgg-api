@@ -12,4 +12,8 @@ class ArticleImage extends Model
     use HasFactory;
 
     protected $table = 'channel_board_article_images';
+    protected $fillable = [
+        'article_id',
+        'article_image',
+    ];
 }
