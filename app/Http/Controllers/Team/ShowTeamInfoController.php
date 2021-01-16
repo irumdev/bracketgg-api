@@ -76,10 +76,6 @@ class ShowTeamInfoController extends Controller
         );
     }
 
-    /**
-     * @todo 하단 API 테스트
-     * @todo 소유주가 나만 조회 가능
-     */
     public function getRequestJoinUserList(ShowWantJoinUserListRequest $request, Team $team): JsonResponse
     {
         $paginatedWantJoinToTeamUsers = $this->teamService->getRequestJoinUsers($team);
