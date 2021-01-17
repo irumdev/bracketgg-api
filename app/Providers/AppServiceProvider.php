@@ -12,6 +12,9 @@ use App\Helpers\Macros\StringMixin;
 
 use App\Models\Team\InvitationCard;
 use App\Models\Team\Member;
+
+use App\Models\Channel\Board\Category;
+
 use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,12 +36,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /**
+         * @todo 해당 콜백 클래스로 리턴
+         */
         Validator::extend('channelHasOnlyOneBanner', fn () => $this->canUpdateBanner('slug'));
         Validator::extend('teamHasOnlyOneBanner', fn () => $this->canUpdateBanner('teamSlug'));
         Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', (int)$param));
         Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
         Validator::extend('alreadyInvite', fn ($attribute, $param, $value) => $this->alreadyInvite());
         Validator::extend('isNotTeamMember', fn ($attribute, $param, $value) => $this->isNotTeamMember());
+        Validator::extend('hasCategory', fn ($attribute, $param, $value) => $this->hasCategory());
+
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
     }
@@ -103,5 +111,15 @@ class AppServiceProvider extends ServiceProvider
     private function isNotTeamMember(): bool
     {
         return $this->teamRelatedAnotherIsNotExists(Member::class);
+    }
+
+    private function hasCategory(): bool
+    {
+        $request = request();
+
+        return Category::where([
+            ['name', '=', $request->get('category')],
+            ['channel_id', '=', $request->route('slug')->id],
+        ])->exists();
     }
 }

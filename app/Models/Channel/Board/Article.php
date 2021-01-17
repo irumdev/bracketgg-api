@@ -22,5 +22,4 @@ class Article extends Model
         'category_id', 'see_count', 'like_count',
         'unlike_count', 'comment_count'
     ];
-
 }
