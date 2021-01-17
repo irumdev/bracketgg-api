@@ -17,6 +17,7 @@ use App\Http\Controllers\Channel\ShowChannelController;
 use App\Http\Controllers\Channel\ShowUserChannelController;
 use App\Http\Controllers\Channel\CreateChannelController;
 use App\Http\Controllers\Channel\UpdateChannelController;
+use App\Http\Controllers\Channel\Board\ShowArticleController as ShowChannelArticleController;
 
 use App\Http\Controllers\Team\CreateTeamController;
 use App\Http\Controllers\Team\CheckTeamNameExistsController;
@@ -56,6 +57,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'channel'], function () {
         Route::get('slug/{slug}', [ShowChannelController::class, 'getChannelById'])->name('findChannelBySlug');
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
+
+        Route::get('{slug}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
     });
 
     Route::group(['prefix' => 'team'], function () {

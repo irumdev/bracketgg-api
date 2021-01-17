@@ -9,6 +9,7 @@ use App\Models\Channel\Follower as ChannelFollower;
 use App\Models\Channel\Fan as ChannelFan;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use App\Models\Channel\Slug as ChannelSlug;
+use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -133,5 +134,10 @@ class Channel extends Model
             'channel_followers.created_at as followedAt',
             'users.*',
         ]);
+    }
+
+    public function boardCategories(): HasMany
+    {
+        return $this->hasMany(ChannelBoardCategory::class, 'channel_id');
     }
 }
