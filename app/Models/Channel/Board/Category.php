@@ -19,8 +19,12 @@ class Category extends Model
         'name', 'show_order', 'article_count', 'is_public', 'channel_id'
     ];
 
+    protected $casts = [
+        'is_public' => 'bool'
+    ];
+
     public function articles(): HasMany
     {
-        return $this->hasMany(Article::class, 'article_id', 'id');
+        return $this->hasMany(Article::class, 'category_id', 'id');
     }
 }
