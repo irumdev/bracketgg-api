@@ -14,6 +14,7 @@ use App\Repositories\UserRepository;
 use App\Exceptions\FileSaveFailException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\Image;
 
 class UserService
 {
@@ -87,7 +88,7 @@ class UserService
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
-            'profileImage' => empty($user->profile_image) ? null : route('profileImage', [
+            'profileImage' => empty($user->profile_image) ? null : Image::toStaticUrl('profileImage', [
                 'profileImage' => $user->profile_image
             ]),
             'createdAt' => Carbon::parse($user->created_at)->format('Y-m-d H:i:s'),
