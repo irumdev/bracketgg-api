@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Storage;
  */
 class Image
 {
+    public static function toStaticUrl(string $routeName, array $param): string
+    {
+        $parsedStaticUrl = parse_url(route($routeName, $param));
+        $base = config('app.staticUrl') . $parsedStaticUrl['path'];
+
+        $staticUrl = isset($parsedStaticUrl['query']) === false ? $base : (
+            $base . '?' . $parsedStaticUrl['query']
+        );
+        return $staticUrl;
+    }
+
     /**
      * 유저 프로필 이미지 찾아주거나 404를 띄워주는 메소드 입니다.
      *
