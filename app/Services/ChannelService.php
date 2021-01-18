@@ -14,6 +14,7 @@ use App\Exceptions\DBtransActionFail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Helpers\Image;
 
 class ChannelService
 {
@@ -106,7 +107,7 @@ class ChannelService
         return [
             'id' => $channel->id,
             'name' => $channel->name,
-            'logoImage' => $channel->logo_image ? route('channelLogoImage', [
+            'logoImage' => $channel->logo_image ? Image::toStaticUrl('channelLogoImage', [
                 'logoImage' => $channel->logo_image,
             ]) : null,
             'followerCount' => $channel->follwer_count,
@@ -116,7 +117,7 @@ class ChannelService
                 if ($channelBannerImage->banner_image) {
                     return [
                         'id' => $channelBannerImage->id,
-                        'imageUrl' => route('channelBannerImage', [
+                        'imageUrl' => Image::toStaticUrl('channelBannerImage', [
                             'bannerImage' => $channelBannerImage->banner_image,
                         ])
                     ];
