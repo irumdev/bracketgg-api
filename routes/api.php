@@ -102,6 +102,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
             Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
+<<<<<<< HEAD
+=======
+
+            Route::get('{teamSlug}/request-join-user', [ShowTeamInfoController::class, 'getRequestJoinUserList'])->name('getRequestJoinUserList');
+            Route::get('{teamSlug}/members', [ShowTeamInfoController::class, 'getTeamMemberList'])->name('getTeamMemberList');
+        });
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::post('accept/team/{teamSlug}', [InviteMemberController::class, 'acceptInviteCard'])->name('acceptInvite');
+            Route::post('reject/team/{teamSlug}', [InviteMemberController::class, 'rejectInviteCard'])->name('rejectInvite');
+>>>>>>> 7176d4b... [BRACKETGG-97] memberList-controller added
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');
