@@ -15,6 +15,9 @@ use App\Http\Requests\Team\ShowInfoRequest;
 =======
 use App\Http\Requests\Team\ShowWantJoinUserListRequest;
 use App\Http\Requests\Team\ShowTeamMemberListRequest;
+<<<<<<< HEAD
+>>>>>>> 7176d4b... [BRACKETGG-97] memberList-controller added
+=======
 >>>>>>> 7176d4b... [BRACKETGG-97] memberList-controller added
 
 /**
@@ -94,5 +97,8 @@ class ShowTeamInfoController extends Controller
             ])
         );
     }
+<<<<<<< HEAD
+>>>>>>> 7176d4b... [BRACKETGG-97] memberList-controller added
+=======
 >>>>>>> 7176d4b... [BRACKETGG-97] memberList-controller added
 }
