@@ -90,4 +90,26 @@ class TeamRepository extends TeamInfoUpdateFactory
             $query->where('owner', $userId);
         })->with(Team::TEAM_RELATIONS);
     }
+<<<<<<< HEAD
+=======
+
+    public function getRequestJoinUsers(Team $team): Builder
+    {
+        return User::whereHas('invitationCards', function (Builder $query) use ($team) {
+            $query->where([
+                ['status', '=', InvitationCard::PENDING],
+                ['team_id', '=', $team->id],
+            ]);
+        });
+    }
+
+    public function getTeamMembers(Team $team): Builder
+    {
+        return User::whereHas('members', function (Builder $query) use ($team) {
+            $query->where([
+                ['team_id', '=', $team->id]
+            ]);
+        });
+    }
+>>>>>>> a2f7e63... [BRACKETGG-97] functions for memberList Controller added
 }

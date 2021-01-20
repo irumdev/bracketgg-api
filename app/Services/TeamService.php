@@ -74,6 +74,19 @@ class TeamService
         return $this->info($updateTeamResult);
     }
 
+<<<<<<< HEAD
+=======
+    public function getRequestJoinUsers(Team $team): Paginator
+    {
+        return $this->teamRepository->getRequestJoinUsers($team)->simplePaginate(Paginate::PER);
+    }
+
+    public function getTeamMembers(Team $team): Paginator
+    {
+        return $this->teamRepository->getTeamMembers($team)->simplePaginate(Paginate::PER);
+    }
+
+>>>>>>> a2f7e63... [BRACKETGG-97] functions for memberList Controller added
     public function get(Team $team): array
     {
         return $this->info(
