@@ -18,6 +18,11 @@ use Illuminate\Support\Carbon;
 
 use App\Models\Channel\Channel;
 use App\Models\Team\Team;
+<<<<<<< HEAD
+=======
+use App\Models\Team\InvitationCard;
+use App\Models\Team\Member;
+>>>>>>> 75c35cb... [BRACKETGG-97] user model - function (returning members) added
 
 /**
  * 유저 모델 입니다.
@@ -100,6 +105,19 @@ class User extends Authenticatable
         return $this->hasMany(Team::class, 'owner', 'id');
     }
 
+<<<<<<< HEAD
+=======
+    public function members(): HasMany
+    {
+        return $this->hasMany(Member::class, 'user_id', 'id');
+    }
+
+    public function invitationCards(): HasMany
+    {
+        return $this->hasMany(InvitationCard::class, 'user_id', 'id');
+    }
+
+>>>>>>> 75c35cb... [BRACKETGG-97] user model - function (returning members) added
     public function sendEmailVerificationNotification(): void
     {
         $sendInfo = [
