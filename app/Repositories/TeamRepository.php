@@ -167,4 +167,13 @@ class TeamRepository extends TeamInfoUpdateFactory
             ]);
         });
     }
+
+    public function getTeamMembers(Team $team): Builder
+    {
+        return User::whereHas('members', function (Builder $query) use ($team) {
+            $query->where([
+                ['team_id', '=', $team->id]
+            ]);
+        });
+    }
 }
