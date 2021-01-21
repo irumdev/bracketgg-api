@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Channel\Channel;
+use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\User;
 use App\Factories\ChannelInfoUpdateFactory;
 use App\Factories\Update\ImageUpdateFactory;
 use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -75,6 +78,18 @@ class ChannelRepository extends ChannelInfoUpdateFactory
 
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
+    }
+
+    public function getArticleCategories(Channel $channel): Collection
+    {
+        return $channel->boardCategories;
+    }
+
+    public function getBoardArticlesByCategory(string $category, Channel $channel): HasMany
+    {
+        return $channel->boardCategories()->where('name', $category)->firstOr(function () {
+            throw (new ModelNotFoundException())->setModel(ChannelBoardCategory::class);
+        })->articles();
     }
 
     public function createImage(string $type, array $attribute): bool

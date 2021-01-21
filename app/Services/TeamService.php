@@ -16,6 +16,7 @@ use App\Properties\Paginate;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
+use App\Helpers\Image;
 
 class TeamService
 {
@@ -117,7 +118,7 @@ class TeamService
                 if ($bannerImage->bannerImage) {
                     return [
                         'id' => $bannerImage->id,
-                        'imageUrl' => route('teamBannerImage', [
+                        'imageUrl' => Image::toStaticUrl('teamBannerImage', [
                             'bannerImage' => $bannerImage->bannerImage,
                         ])
                     ];
