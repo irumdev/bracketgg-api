@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 
 use App\Http\Requests\Team\ShowInfoRequest;
 use App\Http\Requests\Team\ShowWantJoinUserListRequest;
+use App\Http\Requests\Team\ShowTeamMemberListRequest;
 
 /**
  * 팀정보를 조회하는 컨트롤러 클래스 입니다.
@@ -82,6 +83,18 @@ class ShowTeamInfoController extends Controller
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($paginatedWantJoinToTeamUsers)->merge([
                 'requestUsers' => array_map(fn (User $wantJoinUser) => $this->userService->info($wantJoinUser), $paginatedWantJoinToTeamUsers->items())
+            ])
+        );
+    }
+
+    public function getTeamMemberList(ShowTeamMemberListRequest $request, Team $team): JsonResponse
+    {
+        $paginatedTeamMembers = $this->teamService->getTeamMembers($team);
+        $paginatedPendingMembers = $this->teamService->getRequestJoinUsers($team);
+        return $this->responseBuilder->ok(
+            $this->responseBuilder->paginateMeta($paginatedTeamMembers)->merge([
+                ['JoinedUsers' => array_map(fn (User $joinedUser) => $this->userService->info($joinedUser), $paginatedTeamMembers->items())],
+                ['PendingUsers' => array_map(fn (User $PendingUser) => $this->userService->info($PendingUser), $paginatedPendingMembers->items())]
             ])
         );
     }
