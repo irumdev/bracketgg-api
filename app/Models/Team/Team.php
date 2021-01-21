@@ -12,7 +12,7 @@ use App\Models\GameType;
 use App\Models\Team\OperateGame;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\InvitationCard;
-
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
