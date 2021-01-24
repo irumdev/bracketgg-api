@@ -80,10 +80,10 @@ class ShowInfoTest extends TestCase
 
         $this->assertEquals(
             $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
-                'channel_id' => $channel->id,
-                'broadcastAddress' => $channelBroadcast->broadcast_address,
                 'platform' => $channelBroadcast->platform,
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
+                'broadcastAddress' => $channelBroadcast->broadcast_address,
+                'broadcastId' => $channelBroadcast->id,
             ])->toArray(),
             $message['broadCastAddress']
         );
@@ -151,10 +151,10 @@ class ShowInfoTest extends TestCase
 
         $this->assertEquals(
             $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
-                'channel_id' => $channel->id,
-                'broadcastAddress' => $channelBroadcast->broadcast_address,
                 'platform' => $channelBroadcast->platform,
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
+                'broadcastAddress' => $channelBroadcast->broadcast_address,
+                'broadcastId' => $channelBroadcast->id,
             ])->toArray(),
             $message['broadCastAddress']
         );

@@ -71,7 +71,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
     {
         return DB::transaction(function () use ($channel, $updateInfo) {
             $this->slug($channel, data_get($updateInfo, 'slug'));
-            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']) && count($updateInfo['broadcasts']) >= 1;
+            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']);
             if ($canCreateOrUpdateBroadCasts) {
                 $this->updateBroadcast($channel, $updateInfo['broadcasts']);
             }

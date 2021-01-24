@@ -8,6 +8,7 @@ use App\Factories\Update\ImageUpdateFactory;
 use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Support\Facades\DB;
 use App\Contracts\TeamInfoUpdateContract;
+use App\Exceptions\DBtransActionFail;
 use App\Models\Team\Team;
 
 class TeamInfoUpdateFactory implements TeamInfoUpdateContract
@@ -45,21 +46,29 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
 
     public function updateBroadCast(Team $team, array $broadCasts): void
     {
-        $teamBroadCasts = $team->broadcastAddress();
-        collect($broadCasts)->each(function ($broadCast) use ($teamBroadCasts, $team) {
-            $createItem = [
-                'team_id' => $team->id,
-                'broadcast_address' => $broadCast['url'],
-                'platform' => $broadCast['platform']
-            ];
-            if (isset($broadCast['id'])) {
-                $teamBroadCasts->updateOrCreate(
-                    ['id' => $broadCast['id']],
-                    $createItem
-                );
-            } else {
-                $teamBroadCasts->create($createItem);
-            }
-        });
+        $broadCastInstances = $team->broadcastAddress();
+        if (count($broadCasts) === 0) {
+            $willDeleteBroadCastsCount = $broadCastInstances->get(['id'])->count();
+            $deleteResult = $broadCastInstances->delete();
+
+            throw_unless($willDeleteBroadCastsCount === $deleteResult, new DBtransActionFail());
+        } else {
+            $teamBroadCasts = $team->broadcastAddress();
+            collect($broadCasts)->each(function ($broadCast) use ($teamBroadCasts, $team) {
+                $createItem = [
+                    'team_id' => $team->id,
+                    'broadcast_address' => $broadCast['url'],
+                    'platform' => $broadCast['platform']
+                ];
+                if (isset($broadCast['id'])) {
+                    $teamBroadCasts->updateOrCreate(
+                        ['id' => $broadCast['id']],
+                        $createItem
+                    );
+                } else {
+                    $teamBroadCasts->create($createItem);
+                }
+            });
+        }
     }
 }

@@ -27,7 +27,7 @@ class CommonFormRequest extends FormRequest
         );
     }
 
-    protected function throwUnProcessableEntityException(int $message): void
+    public function throwUnProcessableEntityException(int $message): void
     {
         $this->throwResponseException(
             $this->toErrorStructure($message)

@@ -125,7 +125,7 @@ class TeamRepository extends TeamInfoUpdateFactory
     public function update(Team $team, array $updateInfo): Team
     {
         return DB::transaction(function () use ($team, $updateInfo) {
-            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']) && count($updateInfo['broadcasts']) >= 1;
+            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']);
             if ($canCreateOrUpdateBroadCasts) {
                 $this->updateBroadCast($team, $updateInfo['broadcasts']);
             }
