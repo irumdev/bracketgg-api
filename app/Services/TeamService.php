@@ -119,10 +119,11 @@ class TeamService
                     ];
                 }
             }),
-            'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+            'broadCastAddress' => $team->broadcastAddress->map(fn(TeamBroadCast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,
                 'platform' => $teamBroadcast->platform,
                 'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+                'broadcastId' => $teamBroadcast->broadcastId,
             ]),
             'isPublic' => $team->is_public,
             'owner' => $team->owner,

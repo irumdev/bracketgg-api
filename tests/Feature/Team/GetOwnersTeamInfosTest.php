@@ -76,6 +76,7 @@ class GetOwnersTeamInfosTest extends TestCase
                 'broadcastAddress' => $teamBroadcast->broadcast_address,
                 'platform' => $teamBroadcast->platform,
                 'platformKr' => Broadcast::$platforms[$teamBroadcast->platform],
+                'broadcastId' => $teamBroadcast->id,
             ])->toArray();
 
             $operateGame = $team->operateGames->map(fn ($game) => $game->name)->toArray();
