@@ -230,6 +230,7 @@ class UpdateInformationTest extends TestCase
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+            'broadcastId' => $teamBroadcast->id,
         ])->toArray();
 
         $this->assertEquals($teamBroadcastAddresses, $tryCreateTeam['messages']['broadCastAddress']);
