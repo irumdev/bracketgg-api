@@ -105,7 +105,7 @@ class UpdateInfoWithOutBannerRequest extends CommonFormRequest
         $broadcastRules = BroadcastRules::broadcastRules(new UpdateBroadcastTypeWrapper(
             TeamBroadcast::$platforms,
             'isMyTeamBroadcast',
-            'team_broadcasts'
+            TeamBroadcast::class
         ));
         return array_merge($broadcastRules, [
             'slug' => [

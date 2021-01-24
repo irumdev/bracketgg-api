@@ -6,6 +6,7 @@ namespace App\Factories;
 
 use App\Models\Channel\Channel;
 use App\Contracts\ChannelUpdateInfoContract;
+use App\Exceptions\DBtransActionFail;
 
 /**
  * 채널정보 업데이트 팩토리 구현체 입니다.
@@ -31,21 +32,39 @@ class ChannelInfoUpdateFactory implements ChannelUpdateInfoContract
 
     public function updateBroadcast(Channel $channel, array $broadCasts): void
     {
-        $channelBroadCasts = $channel->broadcastAddress();
-        collect($broadCasts)->each(function ($broadCast) use ($channelBroadCasts, $channel) {
-            $createItem = [
-                'channel_id' => $channel->id,
-                'broadcast_address' => $broadCast['url'],
-                'platform' => $broadCast['platform']
-            ];
-            if (isset($broadCast['id'])) {
-                $channelBroadCasts->updateOrCreate(
-                    ['id' => $broadCast['id']],
-                    $createItem
-                );
-            } else {
-                $channelBroadCasts->create($createItem);
-            }
-        });
+        if (count($broadCasts)) {
+            $channelBroadCasts = $channel->broadcastAddress();
+
+            $broadCastIds = $channelBroadCasts->get()->map(fn ($broadCast) => $broadCast->id);
+            $willUpdateBroadCastIds = collect($broadCasts)->filter(fn ($broadCast) => isset($broadCast['id']))->map(fn ($broadCast) => $broadCast['id']);
+            $deleteItems = $broadCastIds->diff($willUpdateBroadCastIds);
+            $deleteResult = $channelBroadCasts->whereIn('id', $deleteItems)->delete();
+
+            throw_if(
+                $deleteItems->count() !== $deleteResult,
+                new DBtransActionFail()
+            );
+
+            $channelBroadCasts = $channel->broadcastAddress();
+            collect($broadCasts)->each(function ($broadCast) use ($channelBroadCasts, $channel) {
+                if (isset($broadCast['id'])) {
+                    $channelBroadCasts->where('id', $broadCast['id'])->update([
+                        'broadcast_address' => $broadCast['url'],
+                        'platform' => $broadCast['platform']
+                    ]);
+                } else {
+                    $channelBroadCasts->create([
+                        'channel_id' => $channel->id,
+                        'broadcast_address' => $broadCast['url'],
+                        'platform' => $broadCast['platform']
+                    ]);
+                }
+            });
+        } else {
+            $broadCastInstances = $channel->broadcastAddress();
+            $willDeleteBroadCastsCount = $broadCastInstances->get(['id'])->count();
+            $deleteResult = $broadCastInstances->delete();
+            throw_unless($willDeleteBroadCastsCount === $deleteResult, new DBtransActionFail());
+        }
     }
 }

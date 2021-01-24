@@ -89,6 +89,12 @@ $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel 
     ]);
 });
 
+$factory->afterCreatingState(Channel::class, 'addTenBroadcasts', function (Channel $channel, Faker $faker) {
+    factory(ChannelBroadcast::class, 10)->create([
+        'channel_id' => $channel->id,
+    ]);
+});
+
 $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $channel, Faker $faker) {
     $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
         $category = ChannelBoardCategory::factory()->create([
