@@ -134,6 +134,7 @@ class ShowInfoTest extends TestCase
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+            'broadcastId' => $teamBroadcast->id,
         ])->toArray(), $message['broadCastAddress']);
         $this->assertEquals(
             $team->bannerImages->map(fn (TeamBannerImages $image) => [
@@ -205,6 +206,7 @@ class ShowInfoTest extends TestCase
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+            'broadcastId' => $teamBroadcast->id,
         ])->toArray(), $message['broadCastAddress']);
 
         $this->assertEquals(
@@ -275,6 +277,7 @@ class ShowInfoTest extends TestCase
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+            'broadcastId' => $teamBroadcast->id,
         ])->toArray(), $message['broadCastAddress']);
 
         $this->assertEquals(

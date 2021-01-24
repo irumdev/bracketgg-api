@@ -36,7 +36,7 @@ class Team extends Model
 
     public const TEAM_RELATIONS = [
         'bannerImages:id,team_id,banner_image AS bannerImage',
-        'broadcastAddress:team_id,broadcast_address AS broadcastAddress,platform',
+        'broadcastAddress:id AS broadcastId,team_id,broadcast_address AS broadcastAddress,platform',
         'operateGames:name',
         'slug:id,slug'
     ];
