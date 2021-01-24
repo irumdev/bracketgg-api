@@ -50,6 +50,9 @@
             "app/Models",
             "app/Services",
             "app/Apis"
+        ],
+        "files": [
+            "app/Helpers/functions.php"
         ]
     },
     "autoload-dev": {

@@ -64,9 +64,8 @@ class Broadcast
                 'bail',
                 'string',
                 'required_with:broadcasts.*.platform',
-                'unique:team_broadcasts,broadcast_address',
-                sprintf("unique:%s,broadcast_address", $attribute->table)
-                // 'unique:team_broadcasts,broadcast_address'
+                // sprintf("unique:%s,broadcast_address", $attribute->table)
+                sprintf("is_broadcast_url_unique:id,%s", $attribute->table)
             ],
             'broadcasts.*.platform' => [
                 'bail',
@@ -89,7 +88,7 @@ class Broadcast
             'broadcasts.array' => self::BROADCAST_IS_NOT_ARRAY,
 
             'broadcasts.*.url.required_with' => self::BROADCAST_ADDRESS_HAS_NOT_PLATFORM,
-            'broadcasts.*.url.unique' => self::BROADCAST_URL_IS_NOT_UNIQUE,
+            'broadcasts.*.url.is_broadcast_url_unique' => self::BROADCAST_URL_IS_NOT_UNIQUE,
             'broadcasts.*.url.string' => self::BROADCAST_URL_IS_NOT_STRING,
 
             'broadcasts.*.platform.required_with' => self::BROADCAST_ADDRESS_HAS_NOT_URL,

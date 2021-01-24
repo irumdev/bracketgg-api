@@ -123,9 +123,12 @@ class ChannelService
                     ];
                 }
             }),
-            'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => collect($channelBroadcast)->merge([
-                'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform]
-            ])),
+            'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+                'platform' => $channelBroadcast->platform,
+                'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
+                'broadcastAddress' => $channelBroadcast->broadcastAddress,
+                'broadcastId' => $channelBroadcast->broadcastId,
+            ]),
             'owner' => $channel->owner,
             'slug' => $channel->slug,
         ];

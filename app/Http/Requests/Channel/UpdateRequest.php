@@ -106,7 +106,7 @@ class UpdateRequest extends CommonFormRequest
         $broadcastRules = BroadcastRules::broadcastRules(new UpdateBroadcastTypeWrapper(
             ChannelBroadCast::$platforms,
             'isMyChannelBroadcast',
-            'channel_broadcasts'
+            ChannelBroadCast::class
         ));
 
         return array_merge($broadcastRules, [
