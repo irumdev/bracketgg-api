@@ -1006,6 +1006,76 @@ class UpdateInformationTest extends TestCase
      * @test
      * @enlighten
      */
+    public function successCreateBroadcastKeepAlreadyExistsBroadcastUrl(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug','addBannerImage', 'addTenBroadcasts'])->create(['owner' => $activeUser->id, ]);
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug,
+        ]);
+
+        $broadcastInfos = $team->broadcastAddress->toArray();
+
+        $tryUpdateChannelBroadCast = $this->postJson($requestUrl, [
+            'broadcasts' => $postData = [
+                [
+                    'id' => $broadcastInfos[0]['id'],
+                    'url' => $broadcastInfos[0]['broadcast_address'],
+                    'platform' => $broadcastInfos[0]['platform'],
+                ],
+                [
+                    'id' => $broadcastInfos[1]['id'],
+                    'url' => $broadcastInfos[1]['broadcast_address'],
+                    'platform' => $broadcastInfos[1]['platform'],
+                ],
+                // [
+                //     'url' => $channel->broadcastAddress[1]['broadcast_address'],
+                //     'platform' => Arr::random(array_keys(ChannelBoradcast::$platforms)),
+                // ],
+                [
+                    'url' => 'http://' . Str::random(10) . 'create.first.com',
+                    'platform' => Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ],
+                [
+                    'url' => 'https://' . Str::random(10) . 'create.second.com',
+                    'platform' => Arr::random(array_keys(TeamBroadCast::$platforms)),
+                ]
+            ],
+        ])->assertOk();
+        $dbBoradCast = Team::find($team->id)->broadcastAddress;
+
+        $this->assertTrue($tryUpdateChannelBroadCast['ok']);
+        $this->assertTrue($tryUpdateChannelBroadCast['isValid']);
+        $this->assertEquals(count($postData), $dbBoradCast->count());
+
+        collect($postData)->each(function ($broadCastInfo) {
+            if (isset($broadCast['id'])) {
+                $broadCastInstance = TeamBroadCast::find($broadCastInfo['id']);
+            } else {
+                $broadCastInstance = TeamBroadCast::where([
+                    ['broadcast_address', '=', $broadCastInfo['url']],
+                    ['platform', '=', $broadCastInfo['platform']],
+                ]);
+
+                $this->assertEquals(1, $broadCastInstance->get()->count());
+
+                $broadCastInstance = $broadCastInstance->first();
+            }
+
+            $this->assertNotNull($broadCastInstance);
+            $this->assertEquals($broadCastInfo['url'], $broadCastInstance->broadcast_address);
+            $this->assertEquals($broadCastInfo['platform'], $broadCastInstance->platform);
+        });
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function successUpdateAndCreateBroadcast(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
