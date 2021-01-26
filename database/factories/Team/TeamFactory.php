@@ -66,6 +66,12 @@ $factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team,
     ]);
 });
 
+$factory->afterCreatingState(Team::class, 'addTenBroadcasts', function (Team $team, Faker $faker) {
+    factory(Broadcast::class, 10)->create([
+        'team_id' => $team->id,
+    ]);
+});
+
 $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker) {
     /**
      * @todo 게임타입 팩토리 유니크

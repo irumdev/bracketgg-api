@@ -46,29 +46,39 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
 
     public function updateBroadCast(Team $team, array $broadCasts): void
     {
-        $broadCastInstances = $team->broadcastAddress();
-        if (count($broadCasts) === 0) {
-            $willDeleteBroadCastsCount = $broadCastInstances->get(['id'])->count();
-            $deleteResult = $broadCastInstances->delete();
+        if (count($broadCasts)) {
+            $teamBroadCasts = $team->broadcastAddress();
 
-            throw_unless($willDeleteBroadCastsCount === $deleteResult, new DBtransActionFail());
-        } else {
+            $broadCastIds = $teamBroadCasts->get()->map(fn ($broadCast) => $broadCast->id);
+            $willUpdateBroadCastIds = collect($broadCasts)->filter(fn ($broadCast) => isset($broadCast['id']))->map(fn ($broadCast) => $broadCast['id']);
+            $deleteItems = $broadCastIds->diff($willUpdateBroadCastIds);
+            $deleteResult = $teamBroadCasts->whereIn('id', $deleteItems)->delete();
+
+            throw_if(
+                $deleteItems->count() !== $deleteResult,
+                new DBtransActionFail()
+            );
+
             $teamBroadCasts = $team->broadcastAddress();
             collect($broadCasts)->each(function ($broadCast) use ($teamBroadCasts, $team) {
-                $createItem = [
-                    'team_id' => $team->id,
-                    'broadcast_address' => $broadCast['url'],
-                    'platform' => $broadCast['platform']
-                ];
                 if (isset($broadCast['id'])) {
-                    $teamBroadCasts->updateOrCreate(
-                        ['id' => $broadCast['id']],
-                        $createItem
-                    );
+                    $teamBroadCasts->where('id', $broadCast['id'])->update([
+                        'broadcast_address' => $broadCast['url'],
+                        'platform' => $broadCast['platform']
+                    ]);
                 } else {
-                    $teamBroadCasts->create($createItem);
+                    $teamBroadCasts->create([
+                        'broadcast_address' => $broadCast['url'],
+                        'team_id' => $team->id,
+                        'platform' => $broadCast['platform']
+                    ]);
                 }
             });
+        } else {
+            $broadCastInstances = $team->broadcastAddress();
+            $willDeleteBroadCastsCount = $broadCastInstances->get(['id'])->count();
+            $deleteResult = $broadCastInstances->delete();
+            throw_unless($willDeleteBroadCastsCount === $deleteResult, new DBtransActionFail());
         }
     }
 }
