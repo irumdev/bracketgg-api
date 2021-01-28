@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories\Channel\Board;
+namespace Database\Factories\Team\Board;
 
-use App\Models\Channel\Board\ArticleImageBuffer;
+use App\Models\Team\Board\ArticleImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Helpers\Fake\Image as FakeImage;
 
-class ArticleImageBufferFactory extends Factory
+class ArticleImageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ArticleImageBuffer::class;
+    protected $model = ArticleImage::class;
 
     /**
      * Define the model's default state.
@@ -26,11 +26,11 @@ class ArticleImageBufferFactory extends Factory
     {
         if (config('app.test.useRealImage')) {
             return [
-                'buffer_image_path' => FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false)
+                'article_image' => FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false)
             ];
         }
         return [
-            'buffer_image_path' => FakeImage::url()
+            'article_image' => FakeImage::url()
         ];
     }
 }

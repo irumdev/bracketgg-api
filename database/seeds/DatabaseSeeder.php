@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         factory(Team::class, 20)->states([
+            'addManyTeamBoardArticlesWithSavedImages',
             'addSignedMembers',
             'addSlug',
             'addBannerImage',
