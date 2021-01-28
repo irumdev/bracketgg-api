@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories\Team\Board;
 
-namespace Database\Factories\Channel\Board;
-
-use App\Models\Channel\Board\ArticleImageBuffer;
+use App\Models\Team\Board\ArticleImageBuffer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Helpers\Fake\Image as FakeImage;
 
