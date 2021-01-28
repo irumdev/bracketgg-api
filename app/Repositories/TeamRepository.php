@@ -18,6 +18,7 @@ use App\Factories\TeamInfoUpdateFactory;
 
 use App\Models\NotificationMessage;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class TeamRepository extends TeamInfoUpdateFactory
 {
@@ -168,12 +169,22 @@ class TeamRepository extends TeamInfoUpdateFactory
         });
     }
 
-    public function getTeamMembers(Team $team): Builder
+    public function getTeamMembers(Team $team)
     {
-        return User::whereHas('members', function (Builder $query) use ($team) {
-            $query->where([
-                ['team_id', '=', $team->id]
+        $requestJoinUsers = DB::table('users')->join('team_member_invitation_cards', function ($join) use ($team) {
+            $join->on('users.id', '=', 'team_member_invitation_cards.user_id')
+                 ->where([
+                ['team_member_invitation_cards.team_id', '=', $team->id],
+                ['team_member_invitation_cards.status', '=', InvitationCard::PENDING],
             ]);
-        });
+        })->select('users.*');
+
+        $members = DB::table('users')->join('team_member', function ($join) use ($team) {
+            $join->on('users.id', '=', 'team_member.user_id')
+                 ->where('team_member.team_id', '=', $team->id);
+        })->select('users.*')->union($requestJoinUsers);
+
+        return $members;
+
     }
 }

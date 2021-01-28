@@ -114,11 +114,6 @@ class User extends Authenticatable
         return $this->hasMany(Team::class, 'owner', 'id');
     }
 
-    public function members(): HasMany
-    {
-        return $this->hasMany(Member::class, 'user_id', 'id');
-    }
-
     public function invitationCards(): HasMany
     {
         return $this->hasMany(InvitationCard::class, 'user_id', 'id');

@@ -90,11 +90,9 @@ class ShowTeamInfoController extends Controller
     public function getTeamMemberList(ShowTeamMemberListRequest $request, Team $team): JsonResponse
     {
         $paginatedTeamMembers = $this->teamService->getTeamMembers($team);
-        $paginatedPendingMembers = $this->teamService->getRequestJoinUsers($team);
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($paginatedTeamMembers)->merge([
-                ['JoinedUsers' => array_map(fn (User $joinedUser) => $this->userService->info($joinedUser), $paginatedTeamMembers->items())],
-                ['PendingUsers' => array_map(fn (User $PendingUser) => $this->userService->info($PendingUser), $paginatedPendingMembers->items())]
+                'teamMembers' => $paginatedTeamMembers->items()
             ])
         );
     }
