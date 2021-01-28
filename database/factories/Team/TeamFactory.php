@@ -13,6 +13,8 @@ use App\Models\Team\OperateGame;
 use App\Models\Team\BannerImage;
 use App\Models\Team\InvitationCard;
 use App\Models\Team\Member as TeamMember;
+use App\Models\Team\Board\Article as TeamArticle;
+use App\Models\Team\Board\Category as TeamBoardCategory;
 use Illuminate\Support\Arr;
 
 $factory->define(Team::class, function (Faker $faker) {
@@ -132,4 +134,80 @@ $factory->afterCreatingState(Team::class, 'addPendingInvitationCard', function (
         'user_id' => factory(User::class)->create()->id,
         'status' => InvitationCard::PENDING,
     ]);
+});
+
+
+$factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team $team, Faker $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+        $category = TeamBoardCategory::factory()->create([
+            'show_order' => $item,
+            'team_id' => $team->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $articleCnt = collect(range(0, 40));
+    $articleCnt->each(function ($step) use ($team, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $article = TeamArticle::factory()->create([
+            'user_id' => $team->owner,
+            'category_id' => $usedCategory
+        ]);
+
+        $c = TeamBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+    });
+});
+
+
+$factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImages', function (Team $team, Faker $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+        $category = TeamBoardCategory::factory()->create([
+            'show_order' => $item,
+            'team_id' => $team->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $articleCnt = collect(range(0, 40));
+    $articleCnt->each(function ($step) use ($team, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $article = TeamArticle::factory()->create([
+            'user_id' => $team->owner,
+            'category_id' => $usedCategory
+        ]);
+
+        $c = TeamBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+    });
+});
+
+
+
+$factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages', function (Team $team, Faker $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+        $category = TeamBoardCategory::factory()->create([
+            'show_order' => $item,
+            'team_id' => $team->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $articleCnt = collect(range(0, 10));
+    $articleCnt->each(function ($step) use ($team, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $article = TeamArticle::factory()->create([
+            'user_id' => $team->owner,
+            'category_id' => $usedCategory
+        ]);
+
+        $c = TeamBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+    });
 });
