@@ -19,6 +19,8 @@ use App\Factories\TeamInfoUpdateFactory;
 use App\Models\NotificationMessage;
 use Illuminate\Database\Eloquent\Collection;
 
+use function App\Events\teamInviteResolver;
+
 class TeamRepository extends TeamInfoUpdateFactory
 {
     private Team $team;
@@ -60,22 +62,19 @@ class TeamRepository extends TeamInfoUpdateFactory
             $team->member_count += 1;
             $card->status = InvitationCard::ACCEPT;
 
-            $notificationMessage = NotificationMessage::create([
-                'user_id' => $team->owner,
-                'type' => NotificationMessage::ACCEPT_INVITE_TEAM,
-                'message' => [
-                    'team_id' => $team->id,
-                    'user_id' => $willAcceptUser
-                ]
-            ]);
+            event(teamInviteResolver(
+                $team,
+                $willAcceptUser,
+                NotificationMessage::ACCEPT_INVITE_TEAM
+            ));
 
             $cardDataHandelReusult = $card->save() && $card->delete();
             $teamDataHandelResult = $team->save();
-            $createMemberAndNotificationMessageResult = $notificationMessage !== null && $member !== null;
+            $requestUserInviteResult = $member !== null;
 
-            $isSuccess = $cardDataHandelReusult && $teamDataHandelResult && $createMemberAndNotificationMessageResult;
+            $isSuccess = $cardDataHandelReusult && $teamDataHandelResult;
 
-            return $isSuccess;
+            return $isSuccess && $requestUserInviteResult;
         });
     }
 
@@ -91,17 +90,13 @@ class TeamRepository extends TeamInfoUpdateFactory
 
             $card->status = InvitationCard::REJECT;
 
-            $notificationMessage = NotificationMessage::create([
-                'user_id' => $team->owner,
-                'type' => NotificationMessage::REJECT_INVITE_TEAM,
-                'message' => [
-                    'team_id' => $team->id,
-                    'user_id' => $willRejectUser
-                ]
-            ]);
+            event(teamInviteResolver(
+                $team,
+                $willRejectUser,
+                NotificationMessage::REJECT_INVITE_TEAM
+            ));
 
-
-            return $card->save() && $card->delete() && $notificationMessage !== null;
+            return $card->save() && $card->delete();
         });
     }
 
