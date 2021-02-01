@@ -34,6 +34,88 @@ class UpdateInformationTest extends TestCase
      * @test
      * @enlighten
      */
+    public function failUpdateTeamNameWhenNameIsNotUnique(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create();
+        $team->owner = $activeUser->id;
+        $team->save();
+
+        $team = Team::find($team->id);
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug
+        ]);
+        $tryUpdateTeam = $this->postJson($requestUrl, [
+            'name' => $team->name
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::TEAM_NAME_IS_NOT_UNIQUE, $tryUpdateTeam['messages']['code']);
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failUpdateTeamNameWhenNameIsNotString(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create();
+        $team->owner = $activeUser->id;
+        $team->save();
+
+        $team = Team::find($team->id);
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug
+        ]);
+        $tryUpdateTeam = $this->postJson($requestUrl, [
+            'name' => UploadedFile::fake()->create('test.png', 2048),
+        ])->assertStatus(422);
+
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::TEAM_NAME_IS_NOT_STRING, $tryUpdateTeam['messages']['code']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successUpdateTeamName(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create();
+        $team->owner = $activeUser->id;
+        $team->save();
+
+        $team = Team::find($team->id);
+        $beforeTeamName = $team->name;
+
+        $requestUrl = route('updateTeamInfoWithoutImage', [
+            'teamSlug' => $team->slug
+        ]);
+        $tryUpdateTeam = $this->postJson($requestUrl, [
+            'name' => $changedTeamName = Str::random(10),
+        ])->assertOk();
+
+        $this->assertTrue($tryUpdateTeam['ok']);
+        $this->assertTrue($tryUpdateTeam['isValid']);
+        $this->assertEquals($changedTeamName, Team::find($team->id)->name);
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
     public function failUpdateTeamSlugWhenSlugIsNotUnique(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -46,12 +128,12 @@ class UpdateInformationTest extends TestCase
         $requestUrl = route('updateTeamInfoWithoutImage', [
             'teamSlug' => $team->slug
         ]);
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'slug' => $team->slug
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_NOT_UNIQUE, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_NOT_UNIQUE, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -68,12 +150,12 @@ class UpdateInformationTest extends TestCase
         $requestUrl = route('updateTeamInfoWithoutImage', [
             'teamSlug' => $team->slug
         ]);
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'slug' => \Illuminate\Support\Str::random(17)
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_LONG, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_LONG, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -90,12 +172,12 @@ class UpdateInformationTest extends TestCase
         $requestUrl = route('updateTeamInfoWithoutImage', [
             'teamSlug' => $team->slug
         ]);
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'slug' => \Illuminate\Support\Str::random(3)
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_SHORT, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_IS_SHORT, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -116,12 +198,12 @@ class UpdateInformationTest extends TestCase
             \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(13)),
             \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(13)) . '*'
         ])->each(function ($illeagleSlug) use ($requestUrl) {
-            $tryCreateTeam = $this->postJson($requestUrl, [
+            $tryUpdateTeam = $this->postJson($requestUrl, [
                 'slug' => $illeagleSlug
             ])->assertStatus(422);
-            $this->assertFalse($tryCreateTeam['ok']);
-            $this->assertFalse($tryCreateTeam['isValid']);
-            $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_PATTERN_IS_NOT_MATCH, $tryCreateTeam['messages']['code']);
+            $this->assertFalse($tryUpdateTeam['ok']);
+            $this->assertFalse($tryUpdateTeam['isValid']);
+            $this->assertEquals(UpdateInfoWithOutBannerRequest::SLUG_PATTERN_IS_NOT_MATCH, $tryUpdateTeam['messages']['code']);
         });
     }
 
@@ -140,12 +222,12 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'is_public' => 'asdf',
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::PUBLIC_STATUS_IS_NOT_BOOLEAN, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::PUBLIC_STATUS_IS_NOT_BOOLEAN, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -163,12 +245,12 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'games' => 'asdf',
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_IS_NOT_ARRAY, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_IS_NOT_ARRAY, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -186,12 +268,12 @@ class UpdateInformationTest extends TestCase
             'teamSlug' => $team->slug,
         ]);
 
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'games' => [\Illuminate\Support\Str::random(256), \Illuminate\Support\Str::random(256)],
         ])->assertStatus(422);
-        $this->assertFalse($tryCreateTeam['ok']);
-        $this->assertFalse($tryCreateTeam['isValid']);
-        $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_ITEM_IS_LONG, $tryCreateTeam['messages']['code']);
+        $this->assertFalse($tryUpdateTeam['ok']);
+        $this->assertFalse($tryUpdateTeam['isValid']);
+        $this->assertEquals(UpdateInfoWithOutBannerRequest::GAME_CATEGORY_ITEM_IS_LONG, $tryUpdateTeam['messages']['code']);
     }
 
     /**
@@ -214,17 +296,17 @@ class UpdateInformationTest extends TestCase
             \Illuminate\Support\Str::random(40)
         ];
 
-        $tryCreateTeam = $this->postJson($requestUrl, [
+        $tryUpdateTeam = $this->postJson($requestUrl, [
             'slug' =>  $randSlug = 'a' . \Illuminate\Support\Str::random(10),
             'is_public' => true,
             'games' => $gameTypes,
         ])->assertOk();
 
-        $this->assertTrue($tryCreateTeam['ok']);
-        $this->assertTrue($tryCreateTeam['isValid']);
-        $this->assertEquals([], $tryCreateTeam['messages']['bannerImages']);
-        $this->assertEquals($randSlug, $tryCreateTeam['messages']['slug']);
-        $this->assertTrue($tryCreateTeam['messages']['isPublic']);
+        $this->assertTrue($tryUpdateTeam['ok']);
+        $this->assertTrue($tryUpdateTeam['isValid']);
+        $this->assertEquals([], $tryUpdateTeam['messages']['bannerImages']);
+        $this->assertEquals($randSlug, $tryUpdateTeam['messages']['slug']);
+        $this->assertTrue($tryUpdateTeam['messages']['isPublic']);
 
         $teamBroadcastAddresses = $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
@@ -233,9 +315,9 @@ class UpdateInformationTest extends TestCase
             'broadcastId' => $teamBroadcast->id,
         ])->toArray();
 
-        $this->assertEquals($teamBroadcastAddresses, $tryCreateTeam['messages']['broadCastAddress']);
+        $this->assertEquals($teamBroadcastAddresses, $tryUpdateTeam['messages']['broadCastAddress']);
         collect($gameTypes)->each(fn (string $gameType) => $this->assertTrue(
-            in_array($gameType, $tryCreateTeam['messages']['operateGames'])
+            in_array($gameType, $tryUpdateTeam['messages']['operateGames'])
         ));
     }
 
