@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Channel\Board;
+namespace App\Http\Requests\Team\Board;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\CommonFormRequest;
-use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Helpers\ValidMessage;
-use App\Models\Channel\Board\Category;
+use App\Models\Team\Board\Category;
+
+use Illuminate\Contracts\Validation\Validator as ValidContract;
 
 class ShowArticleRequest extends CommonFormRequest
 {
@@ -34,7 +34,7 @@ class ShowArticleRequest extends CommonFormRequest
     public function rules(): array
     {
         return [
-            'category' => 'bail|required|hasCategory:slug,channel_id,' . Category::class
+            'category' => 'bail|required|hasCategory:teamSlug,team_id,' . Category::class
         ];
     }
 
@@ -44,7 +44,7 @@ class ShowArticleRequest extends CommonFormRequest
     public function all($keys = null): array
     {
         return array_merge(request()->all(), [
-            'category' => $this->route('channelBoardCategory'),
+            'category' => $this->route('teamBoardCategory'),
         ]);
     }
 

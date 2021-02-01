@@ -26,7 +26,8 @@ $factory->define(Channel::class, function (Faker $faker) {
         'name' => \Illuminate\Support\Str::random(15),
     ];
     if (config('app.test.useRealImage')) {
-        $channelData['logo_image'] = FakeImage::create(storage_path('app/channelLogos'), 640, 480, null, false);
+        // $channelData['logo_image'] = FakeImage::create(storage_path('app/channelLogos'), 640, 480, null, false);
+        $channelData['logo_image'] = FakeImage::retryCreate(storage_path('app/channelLogos'), 640, 480, null, false);
     } else {
         $channelData['logo_image'] = FakeImage::url();
     }

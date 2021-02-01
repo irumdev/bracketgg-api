@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Channel;
+namespace App\Services\Team;
 
-use App\Models\Channel\Channel;
-use App\Models\Channel\Board\Category as ChannelBoardCategory;
-use App\Models\Channel\Board\Article as ChannelBoardArticle;
+use App\Models\Team\Team;
+use App\Models\Team\Board\Category as TeamBoardCategory;
+use App\Models\Team\Board\Article as TeamBoardArticle;
 use App\Helpers\ResponseBuilder;
-use App\Repositories\Channel\BoardRespository;
+use App\Repositories\Team\BoardRespository;
 
 class BoardService
 {
@@ -19,18 +19,17 @@ class BoardService
         $this->boardRepository = $boardRepository;
     }
 
-
-    public function getBoardArticlesByCategory(string $category, Channel $channel): array
+    public function getBoardArticlesByCategory(string $category, Team $team): array
     {
-        $categories = $this->boardRepository->getArticleCategories($channel);
-        $articles = $this->boardRepository->getBoardArticlesByCategory($category, $channel);
+        $categories = $this->boardRepository->getArticleCategories($team);
+        $articles = $this->boardRepository->getBoardArticlesByCategory($category, $team);
         return [
-            'categories' => $categories->map(fn (ChannelBoardCategory $category) => $this->categoryInfo($category)),
+            'categories' => $categories->map(fn (TeamBoardCategory $category) => $this->categoryInfo($category)),
             'articles' => $articles,
         ];
     }
 
-    private function categoryInfo(ChannelBoardCategory $category): array
+    private function categoryInfo(TeamBoardCategory $category): array
     {
         return [
             'name' => $category->name,
@@ -40,8 +39,7 @@ class BoardService
         ];
     }
 
-
-    public function articleInfo(ChannelBoardArticle $article): array
+    public function articleInfo(TeamBoardArticle $article): array
     {
         return [
 

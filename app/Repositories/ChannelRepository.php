@@ -80,18 +80,6 @@ class ChannelRepository extends ChannelInfoUpdateFactory
         });
     }
 
-    public function getArticleCategories(Channel $channel): Collection
-    {
-        return $channel->boardCategories;
-    }
-
-    public function getBoardArticlesByCategory(string $category, Channel $channel): HasMany
-    {
-        return $channel->boardCategories()->where('name', $category)->firstOr(function () {
-            throw (new ModelNotFoundException())->setModel(ChannelBoardCategory::class);
-        })->articles();
-    }
-
     public function createImage(string $type, array $attribute): bool
     {
         return DB::transaction(function () use ($type, $attribute) {
