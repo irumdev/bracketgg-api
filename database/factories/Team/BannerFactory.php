@@ -10,7 +10,7 @@ use App\Helpers\Fake\Image as FakeImage;
 $factory->define(BannerImage::class, function (Faker $faker) {
     if (config('app.test.useRealImage')) {
         return [
-            'banner_image' => FakeImage::create(storage_path('app/teamBanners'), 640, 480, null, false),
+            'banner_image' => FakeImage::retryCreate(storage_path('app/teamBanners'), 640, 480, null, false),
         ];
     }
     return [

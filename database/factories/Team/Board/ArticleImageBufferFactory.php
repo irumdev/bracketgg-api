@@ -24,7 +24,7 @@ class ArticleImageBufferFactory extends Factory
     {
         if (config('app.test.useRealImage')) {
             return [
-                'buffer_image_path' => FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false)
+                'buffer_image_path' => FakeImage::retryCreate(storage_path('app/profileImages'), 640, 480, null, false)
             ];
         }
         return [

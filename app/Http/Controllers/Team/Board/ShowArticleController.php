@@ -2,25 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Channel\Board;
+namespace App\Http\Controllers\Team\Board;
 
-use App\Http\Controllers\Controller;
-use App\Helpers\ResponseBuilder;
-use Illuminate\Http\JsonResponse;
-use App\Models\Channel\Board\Article as ChannelArticle;
-
-use App\Services\Channel\BoardService as ChannelBoardServices;
-
-use App\Http\Requests\Channel\Board\ShowArticleRequest;
 use App\Properties\Paginate;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\JsonResponse;
+
+use App\Services\Team\BoardService;
+use App\Helpers\ResponseBuilder;
+
+use App\Http\Requests\Team\Board\ShowArticleRequest;
+use App\Models\Team\Board\Article as TeamArticle;
+
+// use App\Services\Tea\BoardService as ChannelBoardServices;
 
 class ShowArticleController extends Controller
 {
     /**
      * 채널 서비스레이어
-     * @var ChannelBoardServices $channelService
+     * @var BoardService $teamBoardService
      */
-    private ChannelBoardServices $channelBoardService;
+    private BoardService $teamBoardService;
 
     /**
      * 응답 정형화를 위하여 사용되는 객체
@@ -28,9 +31,9 @@ class ShowArticleController extends Controller
      */
     private ResponseBuilder $responseBuilder;
 
-    public function __construct(ChannelBoardServices $channelBoardService, ResponseBuilder $responseBuilder)
+    public function __construct(BoardService $teamBoardService, ResponseBuilder $responseBuilder)
     {
-        $this->channelBoardService = $channelBoardService;
+        $this->teamBoardService = $teamBoardService;
         $this->responseBuilder = $responseBuilder;
     }
 
@@ -38,11 +41,11 @@ class ShowArticleController extends Controller
     {
         $category = $request->validated()['category'];
 
-        $articlesAndCategories = $this->channelBoardService->getBoardArticlesByCategory($category, $request->route('slug'));
-        $articles = $articlesAndCategories['articles']->simplePaginate(Paginate::CHANNEL_ARTICLE_COUNT);
+        $articlesAndCategories = $this->teamBoardService->getBoardArticlesByCategory($category, $request->route('teamSlug'));
+        $articles = $articlesAndCategories['articles']->simplePaginate(Paginate::TEAM_ARTICLE_COUNT);
 
         $paginateMetaData = $this->responseBuilder->paginateMeta($articles);
-        $articles = collect($articles->items())->map(fn (ChannelArticle $article) => $this->channelBoardService->articleInfo($article));
+        $articles = collect($articles->items())->map(fn (TeamArticle $article) => $this->teamBoardService->articleInfo($article));
 
         return $this->responseBuilder->ok(
             $paginateMetaData->merge([
