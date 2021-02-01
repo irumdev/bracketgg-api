@@ -79,7 +79,6 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
      * @todo 게임타입 팩토리 유니크
      */
     collect(range(0, 9))->each(function () use ($team) {
-
         do {
             try {
                 $isDuplicate = false;
@@ -87,7 +86,7 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
             } catch (Illuminate\Database\QueryException  $e) {
                 $isDuplicate = true;
             }
-        } while($isDuplicate);
+        } while ($isDuplicate);
 
         OperateGame::factory()->create([
             'team_id' => $team->id,
@@ -95,7 +94,6 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
         ]);
 
         $isDuplicate = false;
-
     });
 });
 
