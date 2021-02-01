@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Channel\Board;
+namespace Tests\Feature\Team\Board;
 
-use App\Models\Channel\Channel;
-use App\Models\User;
-use App\Models\Channel\Board\Category as ChannelBoardCategory;
-use App\Models\Channel\Board\Article as ChannelBoardArticle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-
 use Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\Channel\Board\ShowArticleRequest;
+use App\Http\Requests\Team\Board\ShowArticleRequest;
+
+use App\Models\Team\Board\Category as TeamBoardCategory;
+use App\Models\Team\Board\Article as TeamBoardArticle;
+use App\Models\Team\Team;
+use App\Models\User;
+
+use Illuminate\Support\Str;
 
 class ShowArticleTest extends TestCase
 {
@@ -27,11 +27,11 @@ class ShowArticleTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = factory(User::class)->create();
-        $channel = factory(Channel::class)->states(['addSlug'])->create();
+        $team = factory(Team::class)->states(['addSlug'])->create();
 
-        $requestUrl = route('getChannelArticlesByCategory', [
-            'slug' => $channel->slug,
-            'channelBoardCategory' => Str::random(10),
+        $requestUrl = route('getTeamArticlesByCategory', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => Str::random(10),
         ]);
 
         $tryLookUpArticle = $this->getJson($requestUrl)->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -51,21 +51,20 @@ class ShowArticleTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = factory(User::class)->create();
-        $channel = factory(Channel::class)->states(['addSlug', 'addArticles'])->create();
+        $team = factory(Team::class)->states(['addSlug', 'addSmallTeamArticlesWithSavedImages'])->create();
 
-        $categories = $channel->boardCategories->map(fn (ChannelBoardCategory $category) => $category->name)->toArray();
+        $categories = $team->boardCategories->map(fn (TeamBoardCategory $category) => $category->name)->toArray();
 
-        collect($categories)->each(function (string $category) use ($requestUser, $channel) {
+        collect($categories)->each(function (string $category) use ($requestUser, $team) {
             $current = 1;
 
             do {
-                $requestUrl = route('getChannelArticlesByCategory', [
-                    'slug' => $channel->slug,
-                    'channelBoardCategory' => $category,
+                $requestUrl = route('getTeamArticlesByCategory', [
+                    'teamSlug' => $team->slug,
+                    'teamBoardCategory' => $category,
                 ]);
 
                 $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
-
                 $this->assertTrue($tryLookUpArticle['ok']);
                 $this->assertTrue($tryLookUpArticle['isValid']);
 
@@ -74,15 +73,15 @@ class ShowArticleTest extends TestCase
                 $this->assertEquals($category, $articleInfo['currentCategory']);
 
 
-                collect($articleInfo['articles'])->each(function (array $article) use ($channel, $articleInfo) {
-                    $dbCatgory = ChannelBoardCategory::where([
-                        ['channel_id', '=', $channel->id],
+                collect($articleInfo['articles'])->each(function (array $article) use ($team, $articleInfo) {
+                    $dbCatgory = TeamBoardCategory::where([
+                        ['team_id', '=', $team->id],
                         ['name', '=', $articleInfo['currentCategory']],
                     ])->first();
 
                     $this->assertNotNull($dbCatgory);
 
-                    $dbArticle = ChannelBoardArticle::find($article['id']);
+                    $dbArticle = TeamBoardArticle::find($article['id']);
 
                     $this->assertNotNull($dbArticle);
                     $this->assertEquals($dbArticle->title, $article['title']);

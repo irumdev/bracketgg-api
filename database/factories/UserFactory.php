@@ -40,7 +40,8 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->afterCreatingState(User::class, 'addProfileImage', function (User $user, Faker $faker) {
     if (config('app.test.useRealImage')) {
-        $imageName = FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false);
+        // $imageName = FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false);
+        $imageName = FakeImage::retryCreate(storage_path('app/profileImages'), 640, 480, null, false);
         $user->profile_image = $imageName; //$imagePath[count($imagePath) - 1];
     } else {
         $user->profile_image = FakeImage::url();

@@ -26,7 +26,7 @@ class ArticleImageFactory extends Factory
     {
         if (config('app.test.useRealImage')) {
             return [
-                'article_image' => FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false)
+                'article_image' => FakeImage::retryCreate(storage_path('app/profileImages'), 640, 480, null, false)
             ];
         }
         return [

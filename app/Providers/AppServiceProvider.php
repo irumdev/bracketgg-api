@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
         Validator::extend('alreadyInvite', fn ($attribute, $param, $value) => $this->alreadyInvite());
         Validator::extend('isNotTeamMember', fn ($attribute, $param, $value) => $this->isNotTeamMember());
-        Validator::extend('hasCategory', fn ($attribute, $param, $value) => $this->hasCategory());
+        Validator::extend('hasCategory', fn ($attribute, $param, $value) => $this->hasCategory($param, $value));
         Validator::extend('isBroadcastUrlUnique', fn ($attribute, $param, $value) => $this->uniqueExists($attribute, $param, $value));
 
         Arr::mixin(new ArrayMixin());
@@ -147,13 +147,16 @@ class AppServiceProvider extends ServiceProvider
         return $this->teamRelatedAnotherIsNotExists(Member::class);
     }
 
-    private function hasCategory(): bool
+    private function hasCategory(string $categoey, array $value): bool
     {
         $request = request();
+        $targetId = $request->route($value[0])->id;
+        $targetModel = $value[2];
+        $targetFk = $value[1];
 
-        return Category::where([
-            ['name', '=', $request->get('category')],
-            ['channel_id', '=', $request->route('slug')->id],
+        return $targetModel::where([
+            ['name', '=', $categoey],
+            [$targetFk, '=', $targetId],
         ])->exists();
     }
 }

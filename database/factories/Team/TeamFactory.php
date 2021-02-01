@@ -25,7 +25,7 @@ $factory->define(Team::class, function (Faker $faker) {
     ];
 
     if (config('app.test.useRealImage')) {
-        $teamData['logo_image'] = FakeImage::create(storage_path('app/teamLogos'), 640, 480, null, false);
+        $teamData['logo_image'] = FakeImage::retryCreate(storage_path('app/teamLogos'), 640, 480, null, false);
     } else {
         $teamData['logo_image'] = FakeImage::url();
     }
@@ -78,10 +78,25 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
     /**
      * @todo 게임타입 팩토리 유니크
      */
-    collect(range(0, 9))->each(fn () => OperateGame::factory()->create([
-        'team_id' => $team->id,
-        'game_type_id' =>  GameType::factory()->create()->id,
-    ]));
+    collect(range(0, 9))->each(function () use ($team) {
+
+        do {
+            try {
+                $isDuplicate = false;
+                $gameType = GameType::factory()->create();
+            } catch (Illuminate\Database\QueryException  $e) {
+                $isDuplicate = true;
+            }
+        } while($isDuplicate);
+
+        OperateGame::factory()->create([
+            'team_id' => $team->id,
+            'game_type_id' => $gameType->id,
+        ]);
+
+        $isDuplicate = false;
+
+    });
 });
 
 
@@ -198,7 +213,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
         return $category->id;
     });
 
-    $articleCnt = collect(range(0, 10));
+    $articleCnt = collect(range(0, 25));
     $articleCnt->each(function ($step) use ($team, $categories) {
         $usedCategory = Arr::random($categories->toArray());
         $article = TeamArticle::factory()->create([
