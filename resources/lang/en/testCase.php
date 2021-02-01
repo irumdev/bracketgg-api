@@ -184,6 +184,10 @@ return [
             'successUpdateBroadcast' => '방송국 주소 업데이트에 성공하라',
             'successCreateBroadcast' => '방송국 주소 생성 성공하라',
             'successUpdateAndCreateBroadcast' => '방송국 주소 업데이트, 생성을 동시에 성공하라',
+            'successUpdateTeamName' => '팀 이름 업데이트에 성공하라',
+            'failUpdateTeamNameWhenNameIsNotUnique' => '팀 이름 업데이트 시, 팀이름이 중복되어 팀 이름 변경에 실패하라',
+            'failUpdateTeamNameWhenNameIsNotString' => '팀 이름 업데이트 시, 팀이름이 문자열이 아니여서 팀 이름 변경에 실패하라',
+            'successCreateBroadcastKeepAlreadyExistsBroadcastUrl' => '이미 존재하는 방송국 url은 그대로 둔 채로 새로운 방송국 생성에 성공하라',
         ],
         'InviteMemberTest' => [
             'failInviteWhenReceiverUserIsAlreadyMember' => '이미 팀원이라서 초대장 발송에 실패하라',
@@ -203,6 +207,12 @@ return [
         'ShowWantJoinToTeamUsersTest' => [
             'successLookUpJoinTeamRequestUsers' => '팀원 가입 신청한 유저리스트 조회에 성공하라',
             'failLookUpRequestJoinUserWhenLookUpUserIsNotTeamOwner' => '팀 오너가 아니라서 팀원 가입 신청 유저 리스트 조회에 실패하라',
+        ],
+        'Board' => [
+            'ShowArticleTest' => [
+                'failLookupArticleWhenCategoryIsNotExists' => '존재하지 않는 카테고리로 접근하여 게시글 조회에 실패하라',
+                'successLookupChannelArticlesByCategory' => '게시글 조회에 성공하라',
+            ]
         ]
     ],
     'User' => [

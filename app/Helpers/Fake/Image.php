@@ -117,18 +117,23 @@ class Image
     {
         $retryCnt = 10;
 
-        for($i = 0; $i < $retryCnt; $i++) {
+        for ($i = 0; $i < $retryCnt; $i++) {
             try {
                 $result = self::create(
-                    $dir, $width, $height, $category,
-                    $fullPath, $randomize, $word, $gray
+                    $dir,
+                    $width,
+                    $height,
+                    $category,
+                    $fullPath,
+                    $randomize,
+                    $word,
+                    $gray
                 );
 
                 if (is_string($result)) {
                     return $result;
                 }
             } catch (RuntimeException $e) {
-
             }
         }
     }
