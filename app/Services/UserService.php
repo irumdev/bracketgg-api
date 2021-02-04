@@ -9,12 +9,14 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\Follower as ChannelFollower;
 use App\Models\Channel\Fan as ChannelFan;
 
+use App\Repositories\TeamRepository;
 use App\Repositories\UserRepository;
 
 use App\Exceptions\FileSaveFailException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\Image;
+use App\Models\Team\InvitationCard;
 
 class UserService
 {
@@ -84,7 +86,7 @@ class UserService
 
     public function info(User $user): array
     {
-        return [
+        $userDetailIinfo = [
             'id' => $user->id,
             'nickName' => $user->nick_name,
             'email' => $user->email,
@@ -93,6 +95,20 @@ class UserService
             ]),
             'createdAt' => Carbon::parse($user->created_at)->format('Y-m-d H:i:s'),
         ];
+
+        if(isset($user->invite_status)) {
+            $userDetailIinfo = array_merge($userDetailIinfo, ['inviteStatus' => $this->convertInviteUserStatus($user->invite_status)]);
+        }
+
+        return $userDetailIinfo;
+    }
+
+    private function convertInviteUserStatus(string $inviteStatus): int
+    {
+        if($inviteStatus === TeamRepository::$inviteStatusForDB) {
+            return InvitationCard::ALREADY_TEAM_MEMBER;
+        }
+        return (int)$inviteStatus;
     }
 
     public function createUser(array $attribute): User

@@ -92,7 +92,7 @@ class ShowTeamInfoController extends Controller
         $paginatedTeamMembers = $this->teamService->getTeamMembers($team);
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($paginatedTeamMembers)->merge([
-                'teamMembers' => $paginatedTeamMembers->items()
+                'teamMembers' => array_map(fn (User $teamMember) => $this->userService->info($teamMember), $paginatedTeamMembers->items())
             ])
         );
     }

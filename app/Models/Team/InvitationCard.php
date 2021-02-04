@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 class InvitationCard extends Model
 {
     use SoftDeletes;
@@ -30,6 +29,11 @@ class InvitationCard extends Model
      * @var int 거절상태
      */
     public const REJECT = 2;
+
+    /**
+     * @var int 이미 팀원인 상태
+     */
+    public const ALREADY_TEAM_MEMBER = 3;
 
     protected $table = 'team_member_invitation_cards';
     protected $fillable = [
