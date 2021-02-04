@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Factories\TeamInfoUpdateFactory;
 
 use App\Models\NotificationMessage;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class TeamRepository extends TeamInfoUpdateFactory
 {
     private Team $team;
+
+    public static string $inviteStatusForDB = 'invite_status';
 
     public function __construct(Team $team)
     {
@@ -169,22 +170,23 @@ class TeamRepository extends TeamInfoUpdateFactory
         });
     }
 
-    public function getTeamMembers(Team $team)
+    public function getTeamMembers(Team $team): HasManyThrough
     {
-        $requestJoinUsers = DB::table('users')->join('team_member_invitation_cards', function ($join) use ($team) {
-            $join->on('users.id', '=', 'team_member_invitation_cards.user_id')
-                 ->where([
-                ['team_member_invitation_cards.team_id', '=', $team->id],
-                ['team_member_invitation_cards.status', '=', InvitationCard::PENDING],
-            ]);
-        })->select('users.*');
+        $userTableName = (new User())->getTable();
+        $invitationTableName = (new InvitationCard())->getTable();
 
-        $members = DB::table('users')->join('team_member', function ($join) use ($team) {
-            $join->on('users.id', '=', 'team_member.user_id')
-                 ->where('team_member.team_id', '=', $team->id);
-        })->select('users.*')->union($requestJoinUsers);
+        $users = sprintf("%s.*", $userTableName);
 
-        return $members;
+        $requestJoinUsers = $team->invitationUsers()->where('status', InvitationCard::PENDING)
+                                                    ->select([
+                                                        sprintf("%s.status as ".self::$inviteStatusForDB, $invitationTableName),
+                                                        $users,
+                                                        sprintf("%s.team_id as laravel_through_key", $invitationTableName)
+                                                    ]);
+        $members = $team->members()->select(\DB::raw(sprintf('"%s"', self::$inviteStatusForDB)));
+        $unioned = $members->union($requestJoinUsers);
+
+        return $unioned;
 
     }
 }
