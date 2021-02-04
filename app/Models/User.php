@@ -19,7 +19,6 @@ use Illuminate\Support\Carbon;
 use App\Models\Channel\Channel;
 use App\Models\Team\Team;
 use App\Models\Team\InvitationCard;
-use App\Models\Team\Member;
 
 /**
  * 유저 모델 입니다.
