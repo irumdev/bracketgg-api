@@ -179,14 +179,14 @@ class TeamRepository extends TeamInfoUpdateFactory
 
         $requestJoinUsers = $team->invitationUsers()->where('status', InvitationCard::PENDING)
                                                     ->select([
-                                                        sprintf("%s.status as ".self::$inviteStatusForDB, $invitationTableName),
+                                                        sprintf("%s.status as " . self::$inviteStatusForDB, $invitationTableName),
                                                         $users,
                                                         sprintf("%s.team_id as laravel_through_key", $invitationTableName)
                                                     ]);
-        $members = $team->members()->select(\DB::raw(sprintf('"%s"', self::$inviteStatusForDB)));
-        $unioned = $members->union($requestJoinUsers);
+        $members = $team->members()->select(DB::raw(sprintf('"%s"', self::$inviteStatusForDB)));
 
-        return $unioned;
+        $teamMemberListWithPendingUsers = $members->union($requestJoinUsers);
 
+        return $teamMemberListWithPendingUsers;
     }
 }

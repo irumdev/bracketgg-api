@@ -21,5 +21,4 @@ class Member extends Model
     protected $fillable = [
         'team_id', 'user_id'
     ];
-
 }

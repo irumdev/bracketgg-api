@@ -96,7 +96,7 @@ class UserService
             'createdAt' => Carbon::parse($user->created_at)->format('Y-m-d H:i:s'),
         ];
 
-        if(isset($user->invite_status)) {
+        if (isset($user->invite_status)) {
             $userDetailIinfo = array_merge($userDetailIinfo, ['inviteStatus' => $this->convertInviteUserStatus($user->invite_status)]);
         }
 
@@ -105,7 +105,7 @@ class UserService
 
     private function convertInviteUserStatus(string $inviteStatus): int
     {
-        if($inviteStatus === TeamRepository::$inviteStatusForDB) {
+        if ($inviteStatus === TeamRepository::$inviteStatusForDB) {
             return InvitationCard::ALREADY_TEAM_MEMBER;
         }
         return (int)$inviteStatus;
