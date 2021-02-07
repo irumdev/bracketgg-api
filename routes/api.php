@@ -24,6 +24,7 @@ use App\Http\Controllers\Team\CheckTeamNameExistsController;
 use App\Http\Controllers\Team\UpdateInformationController;
 use App\Http\Controllers\Team\ShowTeamInfoController;
 use App\Http\Controllers\Team\InviteMemberController;
+use App\Http\Controllers\Team\Board\ShowArticleController as ShowTeamArticleController;
 
 use App\Http\Controllers\Game\FindTypeController;
 
@@ -58,11 +59,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('slug/{slug}', [ShowChannelController::class, 'getChannelById'])->name('findChannelBySlug');
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
 
-        Route::get('{slug}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
+        Route::get('{slug}/{channelBoardCategory}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
     });
 
     Route::group(['prefix' => 'team'], function () {
         Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
+        Route::get('{teamSlug}/{teamBoardCategory}/articles', [ShowTeamArticleController::class, 'showArticleListByCategory'])->name('getTeamArticlesByCategory');
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

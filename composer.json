@@ -50,6 +50,10 @@
             "app/Models",
             "app/Services",
             "app/Apis"
+        ],
+        "files": [
+            "app/Helpers/functions.php",
+            "app/Events/EventWrapperResolvers.php"
         ]
     },
     "autoload-dev": {

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Channel\Board;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Services\ChannelService;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Http\JsonResponse;
 use App\Models\Channel\Board\Article as ChannelArticle;

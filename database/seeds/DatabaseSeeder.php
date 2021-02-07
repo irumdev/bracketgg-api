@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         factory(Team::class, 20)->states([
+            'addSmallTeamArticlesWithSavedImagesAndComments',
             'addSignedMembers',
             'addSlug',
             'addBannerImage',
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ])->create();
 
         factory(Channel::class, 20)->states([
-            'addManyArticlesWithSavedImages',
+            'addSmallTeamArticlesWithSavedImagesAndComments',
             'addSlug',
             'addBannerImage','hasFollower',
             'addBroadcasts', 'hasLike'

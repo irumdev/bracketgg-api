@@ -12,6 +12,7 @@ use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\Channel\Board\Article as ChannelArticle;
 use App\Models\Channel\Board\ArticleImage as ChannelArticleImage;
+use App\Models\Channel\Board\Reply;
 
 use Faker\Generator as Faker;
 use App\Helpers\Fake\Image as FakeImage;
@@ -26,7 +27,8 @@ $factory->define(Channel::class, function (Faker $faker) {
         'name' => \Illuminate\Support\Str::random(15),
     ];
     if (config('app.test.useRealImage')) {
-        $channelData['logo_image'] = FakeImage::create(storage_path('app/channelLogos'), 640, 480, null, false);
+        // $channelData['logo_image'] = FakeImage::create(storage_path('app/channelLogos'), 640, 480, null, false);
+        $channelData['logo_image'] = FakeImage::retryCreate(storage_path('app/channelLogos'), 640, 480, null, false);
     } else {
         $channelData['logo_image'] = FakeImage::url();
     }
@@ -85,6 +87,12 @@ $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $chann
 
 $factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {
     factory(ChannelBroadcast::class, random_int(1, 5))->create([
+        'channel_id' => $channel->id,
+    ]);
+});
+
+$factory->afterCreatingState(Channel::class, 'addTenBroadcasts', function (Channel $channel, Faker $faker) {
+    factory(ChannelBroadcast::class, 10)->create([
         'channel_id' => $channel->id,
     ]);
 });
@@ -157,6 +165,44 @@ $factory->afterCreatingState(Channel::class, 'addSmallArticlesWithSavedImages', 
             'user_id' => $channel->owner,
             'category_id' => $usedCategory
         ]);
+
+        $c = ChannelBoardCategory::find($usedCategory);
+        $c->article_count += 1;
+        $c->save();
+    });
+});
+
+$factory->afterCreatingState(Channel::class, 'addSmallTeamArticlesWithSavedImagesAndComments', function (Channel $channel, Faker $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+        $category = ChannelBoardCategory::factory()->create([
+            'show_order' => $item,
+            'channel_id' => $channel->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $articleCnt = collect(range(0, 10));
+    $articleCnt->each(function ($step) use ($channel, $categories) {
+        $usedCategory = Arr::random($categories->toArray());
+        $commentCount = collect(range(0, 10));
+
+        $article = ChannelArticle::factory()->create([
+            'user_id' => $channel->owner,
+            'category_id' => $usedCategory,
+            'comment_count' => $commentCount->count()
+        ]);
+
+
+
+        $commentCount->each(function ($item) use ($article) {
+            Reply::factory()->create([
+                'article_id' => $article->id,
+                'parent_id' => null,
+                'user_id' => factory(User::class)->create()->id,
+            ]);
+        });
+
 
         $c = ChannelBoardCategory::find($usedCategory);
         $c->article_count += 1;

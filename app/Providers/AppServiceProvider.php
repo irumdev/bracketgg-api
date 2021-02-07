@@ -16,6 +16,8 @@ use App\Models\Team\Member;
 use App\Models\Channel\Board\Category;
 
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\CommonFormRequest;
+use App\Http\Requests\Rules\Broadcast;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,11 +47,43 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
         Validator::extend('alreadyInvite', fn ($attribute, $param, $value) => $this->alreadyInvite());
         Validator::extend('isNotTeamMember', fn ($attribute, $param, $value) => $this->isNotTeamMember());
-        Validator::extend('hasCategory', fn ($attribute, $param, $value) => $this->hasCategory());
+        Validator::extend('hasCategory', fn ($attribute, $param, $value) => $this->hasCategory($param, $value));
+        Validator::extend('isBroadcastUrlUnique', fn ($attribute, $param, $value) => $this->uniqueExists($attribute, $param, $value));
 
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
     }
+
+    public function uniqueExists($attribute, $param, $value): bool
+    {
+        $modelName = 1;
+
+        $requestData = request()->all();
+        $requestBroadCastId = data_get($requestData, str_replace('url', 'id', $attribute));
+        $requestBroadCastUrl = data_get($requestData, $attribute);
+
+
+        $hasNotBroadcastId = null === $requestBroadCastId;
+
+        $isExistsBroadcastAddress = $value[$modelName]::where('broadcast_address', $requestBroadCastUrl)->exists();
+
+        if ($hasNotBroadcastId) {
+            return $isExistsBroadcastAddress === false;
+        } else {
+            executeUnless(is_numeric($requestBroadCastId), function () {
+                (new CommonFormRequest())->throwUnProcessableEntityException(Broadcast::BROADCAST_ID_IS_NOT_NUMERIC);
+            });
+
+            $requestBroadCast = $value[$modelName]::find($requestBroadCastId);
+            $isSameDbBroadCastUrlAndRequestBroadcastUrl = $requestBroadCast->broadcast_address === $requestBroadCastUrl;
+
+            if ($isSameDbBroadCastUrlAndRequestBroadcastUrl) {
+                return true;
+            }
+            return $isExistsBroadcastAddress === false;
+        }
+    }
+
 
     /**
      * 방송국 주소 업데이트 가능여부 판단 메소드 입니다.
@@ -113,13 +147,16 @@ class AppServiceProvider extends ServiceProvider
         return $this->teamRelatedAnotherIsNotExists(Member::class);
     }
 
-    private function hasCategory(): bool
+    private function hasCategory(string $categoey, array $value): bool
     {
         $request = request();
+        $targetId = $request->route($value[0])->id;
+        $targetModel = $value[2];
+        $targetFk = $value[1];
 
-        return Category::where([
-            ['name', '=', $request->get('category')],
-            ['channel_id', '=', $request->route('slug')->id],
+        return $targetModel::where([
+            ['name', '=', $categoey],
+            [$targetFk, '=', $targetId],
         ])->exists();
     }
 }

@@ -8,22 +8,22 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\Channel\Board\Article as ChannelBoardArticle;
 use App\Helpers\ResponseBuilder;
-use App\Repositories\ChannelRepository;
+use App\Repositories\Channel\BoardRespository;
 
 class BoardService
 {
-    private ChannelRepository $channelRepostiroy;
+    private BoardRespository $boardRepository;
 
-    public function __construct(ChannelRepository $channelRepostiroy)
+    public function __construct(BoardRespository $boardRepository)
     {
-        $this->channelRepostiroy = $channelRepostiroy;
+        $this->boardRepository = $boardRepository;
     }
 
 
     public function getBoardArticlesByCategory(string $category, Channel $channel): array
     {
-        $categories = $this->channelRepostiroy->getArticleCategories($channel);
-        $articles = $this->channelRepostiroy->getBoardArticlesByCategory($category, $channel);
+        $categories = $this->boardRepository->getArticleCategories($channel);
+        $articles = $this->boardRepository->getBoardArticlesByCategory($category, $channel);
         return [
             'categories' => $categories->map(fn (ChannelBoardCategory $category) => $this->categoryInfo($category)),
             'articles' => $articles,

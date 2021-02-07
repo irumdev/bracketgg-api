@@ -71,25 +71,13 @@ class ChannelRepository extends ChannelInfoUpdateFactory
     {
         return DB::transaction(function () use ($channel, $updateInfo) {
             $this->slug($channel, data_get($updateInfo, 'slug'));
-            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']) && count($updateInfo['broadcasts']) >= 1;
+            $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']);
             if ($canCreateOrUpdateBroadCasts) {
                 $this->updateBroadcast($channel, $updateInfo['broadcasts']);
             }
 
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
-    }
-
-    public function getArticleCategories(Channel $channel): Collection
-    {
-        return $channel->boardCategories;
-    }
-
-    public function getBoardArticlesByCategory(string $category, Channel $channel): HasMany
-    {
-        return $channel->boardCategories()->where('name', $category)->firstOr(function () {
-            throw (new ModelNotFoundException())->setModel(ChannelBoardCategory::class);
-        })->articles();
     }
 
     public function createImage(string $type, array $attribute): bool

@@ -9,6 +9,7 @@ use App\Helpers\ValidMessage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team\Slug as TeamSlug;
 use App\Models\Team\Broadcast as TeamBroadcast;
+use App\Models\Team\Team;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\Rules\Slug;
 use App\Http\Requests\Rules\Broadcast as BroadcastRules;
@@ -69,6 +70,17 @@ class UpdateInfoWithOutBannerRequest extends CommonFormRequest
     public const GAME_CATEGORY_ITEM_IS_LONG = 9;
 
     /**
+     * @var int 팀 이름이 문자열이 아님
+     */
+    public const TEAM_NAME_IS_NOT_STRING = 10;
+
+    /**
+     * @var int 팀 이름이 문자열이 아님
+     */
+    public const TEAM_NAME_IS_NOT_UNIQUE = 11;
+
+
+    /**
      * @var User 유저 인스턴스
      */
     private User $user;
@@ -105,7 +117,7 @@ class UpdateInfoWithOutBannerRequest extends CommonFormRequest
         $broadcastRules = BroadcastRules::broadcastRules(new UpdateBroadcastTypeWrapper(
             TeamBroadcast::$platforms,
             'isMyTeamBroadcast',
-            'team_broadcasts'
+            TeamBroadcast::class
         ));
         return array_merge($broadcastRules, [
             'slug' => [
@@ -119,6 +131,7 @@ class UpdateInfoWithOutBannerRequest extends CommonFormRequest
                 'regex:' . Slug::PATTERN,
                 'unique:App\Models\Team\Slug,slug'
             ],
+            'name' => 'nullable|string|unique:' . sprintf("%s,%s", Team::class, 'name'),
             'is_public' => 'nullable|boolean',
             'games' => 'nullable|array',
             'games.*' => 'string|min:1|max:255',
@@ -139,6 +152,9 @@ class UpdateInfoWithOutBannerRequest extends CommonFormRequest
             'games.*.string' => self::GAME_CATEGORY_ITEM_IS_NOT_STRING,
             'games.*.min' => self::GAME_CATEGORY_ITEM_IS_SHORT,
             'games.*.max' => self::GAME_CATEGORY_ITEM_IS_LONG,
+
+            'name.string' => self::TEAM_NAME_IS_NOT_STRING,
+            'name.unique' => self::TEAM_NAME_IS_NOT_UNIQUE,
         ], BroadcastRules::messages());
     }
 

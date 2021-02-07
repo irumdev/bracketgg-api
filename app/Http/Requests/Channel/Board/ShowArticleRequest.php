@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\CommonFormRequest;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Helpers\ValidMessage;
+use App\Models\Channel\Board\Category;
 
 class ShowArticleRequest extends CommonFormRequest
 {
@@ -33,8 +34,18 @@ class ShowArticleRequest extends CommonFormRequest
     public function rules(): array
     {
         return [
-            'category' => 'bail|required|hasCategory'
+            'category' => 'bail|required|hasCategory:slug,channel_id,' . Category::class
         ];
+    }
+
+    /**
+     * @override
+     */
+    public function all($keys = null): array
+    {
+        return array_merge(request()->all(), [
+            'category' => $this->route('channelBoardCategory'),
+        ]);
     }
 
     public function messages(): array

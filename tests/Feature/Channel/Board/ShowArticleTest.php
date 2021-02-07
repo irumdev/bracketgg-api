@@ -23,28 +23,6 @@ class ShowArticleTest extends TestCase
      * @test
      * @enlighten
      */
-    public function failLookupArticleWhenCategoryIsNotAttached(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $requestUser = factory(User::class)->create();
-        $channel = factory(Channel::class)->states(['addSlug'])->create();
-
-        $requestUrl = route('getChannelArticlesByCategory', [
-            'slug' => $channel->slug,
-        ]);
-
-        $tryLookUpArticle = $this->getJson($requestUrl)->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertFalse($tryLookUpArticle['ok']);
-        $this->assertFalse($tryLookUpArticle['isValid']);
-
-        $this->assertEquals(['code' => ShowArticleRequest::CATEGORY_IS_REQUIRED], $tryLookUpArticle['messages']);
-    }
-
-    /**
-     * @test
-     * @enlighten
-     */
     public function failLookupArticleWhenCategoryIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -53,8 +31,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getChannelArticlesByCategory', [
             'slug' => $channel->slug,
-        ]) . '?' . \http_build_query([
-            'category' => Str::random(10)
+            'channelBoardCategory' => Str::random(10),
         ]);
 
         $tryLookUpArticle = $this->getJson($requestUrl)->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -84,9 +61,7 @@ class ShowArticleTest extends TestCase
             do {
                 $requestUrl = route('getChannelArticlesByCategory', [
                     'slug' => $channel->slug,
-                ]) . '?' . http_build_query([
-                    'page' => $current,
-                    'category' => $category
+                    'channelBoardCategory' => $category,
                 ]);
 
                 $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();

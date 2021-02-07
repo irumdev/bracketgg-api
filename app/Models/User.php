@@ -84,7 +84,7 @@ class User extends Authenticatable
      */
     public static $channelsInfo = [
         'bannerImages:id,channel_id,banner_image',
-        'broadcastAddress:channel_id,broadcast_address AS broadcastAddress,platform',
+        'broadcastAddress:id AS broadcastId,channel_id,broadcast_address AS broadcastAddress,platform',
         'followers:user_id,nick_name AS nickName,email,profile_image AS profileImage'
 
     ];

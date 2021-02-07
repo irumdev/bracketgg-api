@@ -128,6 +128,7 @@ class TeamService
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,
                 'platform' => $teamBroadcast->platform,
                 'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
+                'broadcastId' => $teamBroadcast->broadcastId,
             ]),
             'isPublic' => $team->is_public,
             'owner' => $team->owner,

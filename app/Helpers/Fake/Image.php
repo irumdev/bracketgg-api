@@ -112,4 +112,29 @@ class Image
 
         return $fullPath ? $filepath : $filename;
     }
+
+    public static function retryCreate($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false)
+    {
+        $retryCnt = 10;
+
+        for ($i = 0; $i < $retryCnt; $i++) {
+            try {
+                $result = self::create(
+                    $dir,
+                    $width,
+                    $height,
+                    $category,
+                    $fullPath,
+                    $randomize,
+                    $word,
+                    $gray
+                );
+
+                if (is_string($result)) {
+                    return $result;
+                }
+            } catch (RuntimeException $e) {
+            }
+        }
+    }
 }

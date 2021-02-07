@@ -21,6 +21,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Team\Board\Category as TeamBoardCategory;
+
 class Team extends Model
 {
     use SoftDeletes;
@@ -35,7 +37,7 @@ class Team extends Model
 
     public const TEAM_RELATIONS = [
         'bannerImages:id,team_id,banner_image AS bannerImage',
-        'broadcastAddress:team_id,broadcast_address AS broadcastAddress,platform',
+        'broadcastAddress:id AS broadcastId,team_id,broadcast_address AS broadcastAddress,platform',
         'operateGames:name',
         'slug:id,slug'
     ];
@@ -96,6 +98,11 @@ class Team extends Model
     public function members(): HasManyThrough
     {
         return $this->hasManyThroughUsers(TeamMember::class);
+    }
+
+    public function boardCategories(): HasMany
+    {
+        return $this->hasMany(TeamBoardCategory::class, 'team_id');
     }
 
     private function hasManyThroughUsers(string $throyghClass): HasManyThrough
