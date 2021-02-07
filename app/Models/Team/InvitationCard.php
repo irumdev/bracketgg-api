@@ -31,6 +31,11 @@ class InvitationCard extends Model
      */
     public const REJECT = 2;
 
+    /**
+     * @var int 이미 팀원인 상태
+     */
+    public const ALREADY_TEAM_MEMBER = 3;
+
     protected $table = 'team_member_invitation_cards';
     protected $fillable = [
         'user_id', 'team_id'

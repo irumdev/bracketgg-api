@@ -18,6 +18,22 @@ use App\Models\Team\Board\Article as TeamArticle;
 use App\Models\Team\Board\Category as TeamBoardCategory;
 use Illuminate\Support\Arr;
 
+if (! function_exists('createTeamOwner')) {
+    function createTeamOwner(Team $team)
+    {
+        $alreadyExists = App\Models\Team\Member::where([
+            ['user_id', '=', $team->owner]
+        ])->exists();
+
+        if (! $alreadyExists) {
+            TeamMember::factory()->create([
+                'user_id' => $team->owner,
+                'team_id' => $team->id,
+                'role' => Team::OWNER,
+            ]);
+        }
+    }
+}
 $factory->define(Team::class, function (Faker $faker) {
     $teamData = [
         'owner' => factory(User::class)->create(),
@@ -49,24 +65,28 @@ $factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $te
 
     $team->member_count = ($len + 1);
     $team->save();
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team, Faker $faker) {
     factory(BannerImage::class)->create([
         'team_id' => $team->id,
     ]);
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addSlug', function (Team $team, Faker $faker) {
     Slug::factory()->create([
         'team_id' => $team->id,
     ]);
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team, Faker $faker) {
     factory(Broadcast::class, random_int(1, 5))->create([
         'team_id' => $team->id,
     ]);
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addTenBroadcasts', function (Team $team, Faker $faker) {
@@ -113,6 +133,7 @@ $factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Te
             'status' => Arr::random($statusSet),
         ]);
     });
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function (Team $team, Faker $faker) {
@@ -123,6 +144,7 @@ $factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function 
             'status' => InvitationCard::PENDING,
         ]);
     });
+    createTeamOwner($team);
 });
 
 
@@ -132,6 +154,7 @@ $factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (T
         'user_id' => factory(User::class)->create()->id,
         'status' => InvitationCard::REJECT,
     ]);
+    createTeamOwner($team);
 });
 
 $factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (Team $team, Faker $faker) {
@@ -140,14 +163,18 @@ $factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (T
         'user_id' => factory(User::class)->create()->id,
         'status' => InvitationCard::ACCEPT,
     ]);
+    createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addPendingInvitationCard', function (Team $team, Faker $faker) {
-    InvitationCard::factory()->create([
-        'team_id' => $team->id,
-        'user_id' => factory(User::class)->create()->id,
-        'status' => InvitationCard::PENDING,
-    ]);
+$factory->afterCreatingState(Team::class, 'addManyPendingInvitationCard', function (Team $team, Faker $faker) {
+    collect(range(0, 40))->each(function ($step) use ($team) {
+        InvitationCard::factory()->create([
+            'team_id' => $team->id,
+            'user_id' => factory(User::class)->create()->id,
+            'status' => InvitationCard::PENDING,
+        ]);
+    });
+    createTeamOwner($team);
 });
 
 
