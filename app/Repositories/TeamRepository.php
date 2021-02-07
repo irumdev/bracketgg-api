@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Factories\TeamInfoUpdateFactory;
 
 use App\Models\NotificationMessage;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 use function App\Events\teamInviteResolver;
 
 class TeamRepository extends TeamInfoUpdateFactory
 {
     private Team $team;
+
+    public static string $inviteStatusForDB = 'invite_status';
 
     public function __construct(Team $team)
     {
@@ -161,5 +163,25 @@ class TeamRepository extends TeamInfoUpdateFactory
                 ['team_id', '=', $team->id],
             ]);
         });
+    }
+
+    public function getTeamMembers(Team $team): HasManyThrough
+    {
+        $userTableName = (new User())->getTable();
+        $invitationTableName = (new InvitationCard())->getTable();
+
+        $users = sprintf("%s.*", $userTableName);
+
+        $requestJoinUsers = $team->invitationUsers()->where('status', InvitationCard::PENDING)
+                                                    ->select([
+                                                        sprintf("%s.status as " . self::$inviteStatusForDB, $invitationTableName),
+                                                        $users,
+                                                        sprintf("%s.team_id as laravel_through_key", $invitationTableName)
+                                                    ]);
+        $members = $team->members()->select(DB::raw(sprintf('"%s"', self::$inviteStatusForDB)));
+
+        $teamMemberListWithPendingUsers = $members->union($requestJoinUsers);
+
+        return $teamMemberListWithPendingUsers;
     }
 }

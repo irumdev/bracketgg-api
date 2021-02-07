@@ -110,6 +110,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
 
             Route::get('{teamSlug}/request-join-user', [ShowTeamInfoController::class, 'getRequestJoinUserList'])->name('getRequestJoinUserList');
+            Route::get('{teamSlug}/members', [ShowTeamInfoController::class, 'getTeamMemberList'])->name('getTeamMemberList');
         });
 
         Route::group(['prefix' => 'user'], function () {

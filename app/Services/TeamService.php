@@ -93,6 +93,11 @@ class TeamService
         return $this->teamRepository->getRequestJoinUsers($team)->simplePaginate(Paginate::PER);
     }
 
+    public function getTeamMembers(Team $team): Paginator
+    {
+        return $this->teamRepository->getTeamMembers($team)->simplePaginate(Paginate::PER);
+    }
+
     public function get(Team $team): array
     {
         return $this->info(
