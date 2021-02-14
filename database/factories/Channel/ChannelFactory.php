@@ -112,7 +112,8 @@ $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $c
         $usedCategory = Arr::random($categories->toArray());
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'channel_id' => $channel->id,
         ]);
 
         $c = ChannelBoardCategory::find($usedCategory);
@@ -137,7 +138,9 @@ $factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', f
         $usedCategory = Arr::random($categories->toArray());
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'channel_id' => $channel->id,
+
         ]);
 
         $c = ChannelBoardCategory::find($usedCategory);
@@ -163,7 +166,9 @@ $factory->afterCreatingState(Channel::class, 'addSmallArticlesWithSavedImages', 
         $usedCategory = Arr::random($categories->toArray());
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'channel_id' => $channel->id,
+
         ]);
 
         $c = ChannelBoardCategory::find($usedCategory);
@@ -190,16 +195,19 @@ $factory->afterCreatingState(Channel::class, 'addSmallTeamArticlesWithSavedImage
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
             'category_id' => $usedCategory,
+            'channel_id' => $channel->id,
             'comment_count' => $commentCount->count()
         ]);
 
 
 
-        $commentCount->each(function ($item) use ($article) {
+        $commentCount->each(function ($item) use ($article, $channel) {
             Reply::factory()->create([
                 'article_id' => $article->id,
                 'parent_id' => null,
                 'user_id' => factory(User::class)->create()->id,
+                'channel_id' => $channel->id,
+
             ]);
         });
 

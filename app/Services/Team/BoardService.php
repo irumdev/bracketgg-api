@@ -7,25 +7,31 @@ namespace App\Services\Team;
 use App\Models\Team\Team;
 use App\Models\Team\Board\Category as TeamBoardCategory;
 use App\Models\Team\Board\Article as TeamBoardArticle;
-use App\Helpers\ResponseBuilder;
+use App\Properties\Paginate;
+use App\Helpers\Image;
 use App\Repositories\Team\BoardRespository;
 
-class BoardService
-{
-    private BoardRespository $boardRepository;
+use App\Services\Common\BoardService as CommonBoardService;
 
+class BoardService extends CommonBoardService
+{
     public function __construct(BoardRespository $boardRepository)
     {
         $this->boardRepository = $boardRepository;
     }
 
-    public function getBoardArticlesByCategory(string $category, Team $team): array
+    public function getTeamArticleByModel(TeamBoardArticle $article): array
+    {
+        return $this->getArticleByModel($article);
+    }
+
+    public function getTeamBoardArticlesByCategory(string $category, Team $team): array
     {
         $categories = $this->boardRepository->getArticleCategories($team);
         $articles = $this->boardRepository->getBoardArticlesByCategory($category, $team);
         return [
             'categories' => $categories->map(fn (TeamBoardCategory $category) => $this->categoryInfo($category)),
-            'articles' => $articles,
+            'articles' => $articles->simplePaginate(Paginate::TEAM_ARTICLE_COUNT),
         ];
     }
 
@@ -41,19 +47,6 @@ class BoardService
 
     public function articleInfo(TeamBoardArticle $article): array
     {
-        return [
-
-            'id' => $article->id,
-            'title' => $article->title,
-            'content' => $article->content,
-            'category' => $article->category_id,
-            'writerInfo' => [
-                'id' => $article->user_id,
-            ],
-            'seeCount' => $article->see_count,
-            'likeCount' => $article->like_count,
-            'unlikeCount' => $article->unlike_count,
-            'commentCount' => $article->comment_count,
-        ];
+        return $this->info($article);
     }
 }

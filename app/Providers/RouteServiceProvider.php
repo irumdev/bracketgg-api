@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Channel;
 use App\Models\Team\Slug as TeamSlug;
+use App\Models\Team\Board\Article as TeamBoardArticle;
 use App\Models\User;
+use App\Models\Common\Board\BaseArticle;
+use App\Models\Team\Team;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -38,20 +41,24 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('slug', function (string $channelSlug) {
+        Route::bind('slug', function (string $channelSlug): Channel {
             return ChannelSlug::where('slug', $channelSlug)->firstOrFail()->channel;
         });
 
-        Route::bind('name', function (string $channelName) {
+        Route::bind('name', function (string $channelName): Channel {
             return Channel::where('name', $channelName)->firstOrFail();
         });
 
-        Route::bind('teamSlug', function (string $teamSlug) {
+        Route::bind('teamSlug', function (string $teamSlug): Team {
             return TeamSlug::where('slug', $teamSlug)->firstOrFail()->team;
         });
 
-        Route::bind('userIdx', function (string $userIdx) {
+        Route::bind('userIdx', function (string $userIdx): User {
             return User::findOrFail($userIdx);
+        });
+
+        Route::bind('teamArticle', function (string $articleId): BaseArticle {
+            return TeamBoardArticle::findOrFail($articleId);
         });
     }
 

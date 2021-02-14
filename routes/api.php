@@ -65,6 +65,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'team'], function () {
         Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
         Route::get('{teamSlug}/{teamBoardCategory}/articles', [ShowTeamArticleController::class, 'showArticleListByCategory'])->name('getTeamArticlesByCategory');
+        Route::get('{teamSlug}/{teamBoardCategory}/article/{teamArticle}', [ShowTeamArticleController::class, 'showArticleByModel'])->name('getTeamArticle');
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

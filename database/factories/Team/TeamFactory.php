@@ -193,7 +193,8 @@ $factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team
         $usedCategory = Arr::random($categories->toArray());
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -218,7 +219,9 @@ $factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImag
         $usedCategory = Arr::random($categories->toArray());
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
+
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -244,7 +247,9 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
         $usedCategory = Arr::random($categories->toArray());
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
+
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -272,14 +277,16 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAn
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
             'category_id' => $usedCategory,
+            'team_id' => $team->id,
             'comment_count' => $commentCount->count()
         ]);
 
 
-        $commentCount->each(function ($item) use ($article) {
+        $commentCount->each(function ($item) use ($article, $team) {
             Reply::factory()->create([
                 'article_id' => $article->id,
                 'parent_id' => null,
+                'team_id' => $team->id,
                 'user_id' => factory(User::class)->create()->id,
             ]);
         });

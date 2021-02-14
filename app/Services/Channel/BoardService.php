@@ -8,9 +8,12 @@ use App\Models\Channel\Channel;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\Channel\Board\Article as ChannelBoardArticle;
 use App\Helpers\ResponseBuilder;
+use App\Properties\Paginate;
 use App\Repositories\Channel\BoardRespository;
 
-class BoardService
+use App\Services\Common\BoardService as CommonBoardService;
+
+class BoardService extends CommonBoardService
 {
     private BoardRespository $boardRepository;
 
@@ -20,13 +23,13 @@ class BoardService
     }
 
 
-    public function getBoardArticlesByCategory(string $category, Channel $channel): array
+    public function getChannelBoardArticlesByCategory(string $category, Channel $channel): array
     {
         $categories = $this->boardRepository->getArticleCategories($channel);
         $articles = $this->boardRepository->getBoardArticlesByCategory($category, $channel);
         return [
             'categories' => $categories->map(fn (ChannelBoardCategory $category) => $this->categoryInfo($category)),
-            'articles' => $articles,
+            'articles' => $articles->simplePaginate(Paginate::TEAM_ARTICLE_COUNT),
         ];
     }
 

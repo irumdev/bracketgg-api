@@ -10,16 +10,10 @@ use App\Models\Team\Team;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Team\Board\Article as TeamBoardArticle;
+use App\Models\ArticleViewLog;
+use App\Repositories\Common\BoardRespository as BaseBoardRepository;
 
-class BoardRespository extends BoardFactory
+class BoardRespository extends BaseBoardRepository
 {
-    public function getArticleCategories(Team $team): Collection
-    {
-        return $this->getCategories($team);
-    }
-
-    public function getBoardArticlesByCategory(string $category, Team $team): HasMany
-    {
-        return $this->getArticlesFromCategory($category, $team);
-    }
 }
