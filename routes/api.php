@@ -60,6 +60,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
 
         Route::get('{slug}/{channelBoardCategory}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
+        Route::get('{slug}/{channelBoardCategory}/article/{channelArticle}', [ShowChannelArticleController::class, 'showArticleByModel'])->name('getChannelArticle');
     });
 
     Route::group(['prefix' => 'team'], function () {

@@ -4,21 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Channel;
 
-use App\Models\Channel\Channel;
-use App\Factories\BoardFactory;
+use App\Repositories\Common\BoardRespository as BaseBoardRepository;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-class BoardRespository extends BoardFactory
+class BoardRespository extends BaseBoardRepository
 {
-    public function getArticleCategories(Channel $channel): Collection
-    {
-        return $this->getCategories($channel);
-    }
-
-    public function getBoardArticlesByCategory(string $category, Channel $channel): HasMany
-    {
-        return $this->getArticlesFromCategory($category, $channel);
-    }
 }

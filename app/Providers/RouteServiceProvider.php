@@ -10,6 +10,7 @@ use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Channel;
 use App\Models\Team\Slug as TeamSlug;
 use App\Models\Team\Board\Article as TeamBoardArticle;
+use App\Models\Channel\Board\Article as ChannelBoardArticle;
 use App\Models\User;
 use App\Models\Common\Board\BaseArticle;
 use App\Models\Team\Team;
@@ -59,6 +60,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('teamArticle', function (string $articleId): BaseArticle {
             return TeamBoardArticle::findOrFail($articleId);
+        });
+
+        Route::bind('channelArticle', function (string $articleId): BaseArticle {
+            return ChannelBoardArticle::findOrFail($articleId);
         });
     }
 

@@ -22,11 +22,8 @@ use Laravel\Sanctum\Sanctum;
 class ShowArticleTest extends TestCase
 {
     /**
-     *
-     * 조회수 + 1 실패 : 이미 해당 ip에서 조회 함
      * @todo is_public이 false리서 권한없어서 실패 -> required login, team_member
      */
-
 
     /**
      * @test
@@ -180,7 +177,7 @@ class ShowArticleTest extends TestCase
         $this->assertEquals($randCategoey->id, $messages['category']);
 
         $profileImage = empty($randArticle->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
-            'profileImage' => $randArticle->writer
+            'profileImage' => $randArticle->writer->profile_image
         ]);
 
         $this->assertNotNull(User::find($writerInfo['id']));

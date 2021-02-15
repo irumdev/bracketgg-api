@@ -14,45 +14,42 @@ use App\Services\Channel\BoardService as ChannelBoardServices;
 use App\Http\Requests\Channel\Board\ShowArticleRequest;
 use App\Properties\Paginate;
 
-class ShowArticleController extends Controller
+use App\Http\Controllers\Common\Board\BaseController;
+use App\Models\ArticleViewLog;
+use App\Models\Channel\Channel;
+use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
+
+class ShowArticleController extends BaseController
 {
     /**
      * 채널 서비스레이어
      * @var ChannelBoardServices $channelService
      */
-    private ChannelBoardServices $channelBoardService;
+    public ChannelBoardServices $boardService;
 
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-    public function __construct(ChannelBoardServices $channelBoardService, ResponseBuilder $responseBuilder)
+    public function __construct(ChannelBoardServices $boardService)
     {
-        $this->channelBoardService = $channelBoardService;
-        $this->responseBuilder = $responseBuilder;
+        $this->boardService = $boardService;
     }
 
-    /**
-     * @todo 채널 컨트롤러와 함께 공통화
-     */
+    public function showArticleByModel(Channel $team, string $channelBoardCategoey, ChannelArticle $article)
+    {
+        return parent::getArticleByModel(
+            $article,
+            ArticleViewLog::CHANNEL_ARTICLE
+        );
+    }
+
     public function showArticleListByCategory(ShowArticleRequest $request): JsonResponse
     {
         $category = $request->validated()['category'];
 
-        $articlesAndCategories = $this->channelBoardService->getChannelBoardArticlesByCategory($category, $request->route('slug'));
-        $articles = $articlesAndCategories['articles'];
-
-        $paginateMetaData = $this->responseBuilder->paginateMeta($articles);
-        $articles = collect($articles->items())->map(fn (ChannelArticle $article) => $this->channelBoardService->articleInfo($article));
-
-        return $this->responseBuilder->ok(
-            $paginateMetaData->merge([
-                'articles' => $articles,
-                'categories' => $articlesAndCategories['categories'],
-                'currentCategory' => $category,
-            ])
+        $findArticlesDependency = new CategoryWithArticleType(
+            $request->route('slug'),
+            Paginate::CHANNEL_ARTICLE_COUNT,
+            $category
         );
+
+        return parent::getArticlsByCategory($findArticlesDependency);
     }
 }

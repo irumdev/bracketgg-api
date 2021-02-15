@@ -7,8 +7,10 @@ namespace App\Services\Common;
 use App\Models\Common\Board\BaseArticle;
 use App\Repositories\Common\BoardRespository as BaseBoardRespository;
 use App\Helpers\Image;
+use App\Models\Common\Board\BaseCategory;
 use App\Properties\Paginate;
 use Illuminate\Database\Eloquent\Model;
+use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 
 abstract class BoardService
 {
@@ -16,12 +18,12 @@ abstract class BoardService
 
     public function getArticleByModel(BaseArticle $article): array
     {
-        return $this->info(
+        return $this->articleInfo(
             $this->boardRepository->getByModel($article)
         );
     }
 
-    public function info(BaseArticle $article): array
+    public function articleInfo(BaseArticle $article): array
     {
         return [
             'id' => $article->id,
@@ -42,47 +44,23 @@ abstract class BoardService
         ];
     }
 
-    // public function getBoardArticlesByCategory(string $category, Model $model): array
-    // {
-    //     dd(
-    //         get_class($model)
-    //     );
-    //     $categories = $this->boardRepository->getArticleCategories($model);
-    //     $articles = $this->boardRepository->getBoardArticlesByCategory($category, $model);
-    //     return [
-    //         'categories' => $categories->map(fn (Model $category) => $this->categoryInfo($category)),
-    //         'articles' => $articles->simplePaginate(Paginate::TEAM_ARTICLE_COUNT),
-    //     ];
-    // }
+    public function getBoardArticlesByCategory(CategoryWithArticleType $articlesInfo): array
+    {
+        $categories = $this->boardRepository->getArticleCategories($articlesInfo->model);
+        $articles = $this->boardRepository->getBoardArticlesByCategory($articlesInfo->category, $articlesInfo->model);
+        return [
+            'categories' => $categories->map(fn (BaseCategory $category) => $this->categoryInfo($category)),
+            'articles' => $articles->simplePaginate($articlesInfo->perPage),
+        ];
+    }
 
-    // private function categoryInfo(Model $category): array
-    // {
-    //     return [
-    //         'name' => $category->name,
-    //         'showOrder' => $category->show_order,
-    //         'articleCount' => $category->article_count,
-    //         'isPublic' => $category->is_public,
-    //     ];
-    // }
-
-    // public function articleInfo(BaseArticle $article): array
-    // {
-    //     return [
-    //         'id' => $article->id,
-    //         'title' => $article->title,
-    //         'content' => $article->content,
-    //         'category' => $article->category_id,
-    //         'writerInfo' => [
-    //             'id' => $article->writer->id,
-    //             'nickName' => $article->writer->nick_name,
-    //             'profileImage' => empty($article->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
-    //                 'profileImage' => $article->writer->profile_image
-    //             ]),
-    //         ],
-    //         'seeCount' => $article->see_count,
-    //         'likeCount' => $article->like_count,
-    //         'unlikeCount' => $article->unlike_count,
-    //         'commentCount' => $article->comment_count,
-    //     ];
-    // }
+    private function categoryInfo(BaseCategory $category): array
+    {
+        return [
+            'name' => $category->name,
+            'showOrder' => $category->show_order,
+            'articleCount' => $category->article_count,
+            'isPublic' => $category->is_public,
+        ];
+    }
 }

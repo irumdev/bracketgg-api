@@ -12,53 +12,30 @@ use App\Properties\Paginate;
 use App\Repositories\Channel\BoardRespository;
 
 use App\Services\Common\BoardService as CommonBoardService;
+use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
+use App\Models\Common\Board\BaseArticle;
 
 class BoardService extends CommonBoardService
 {
-    private BoardRespository $boardRepository;
-
     public function __construct(BoardRespository $boardRepository)
     {
         $this->boardRepository = $boardRepository;
     }
 
-
-    public function getChannelBoardArticlesByCategory(string $category, Channel $channel): array
+    public function getArticleByModel(BaseArticle $article): array
     {
-        $categories = $this->boardRepository->getArticleCategories($channel);
-        $articles = $this->boardRepository->getBoardArticlesByCategory($category, $channel);
-        return [
-            'categories' => $categories->map(fn (ChannelBoardCategory $category) => $this->categoryInfo($category)),
-            'articles' => $articles->simplePaginate(Paginate::TEAM_ARTICLE_COUNT),
-        ];
+        return parent::getArticleByModel($article);
     }
 
-    private function categoryInfo(ChannelBoardCategory $category): array
+    public function getBoardArticlesByCategory(CategoryWithArticleType $articlesInfo): array
     {
-        return [
-            'name' => $category->name,
-            'showOrder' => $category->show_order,
-            'articleCount' => $category->article_count,
-            'isPublic' => $category->is_public,
-        ];
+        return parent::getBoardArticlesByCategory(
+            $articlesInfo
+        );
     }
 
-
-    public function articleInfo(ChannelBoardArticle $article): array
+    public function articleInfo(BaseArticle $article): array
     {
-        return [
-
-            'id' => $article->id,
-            'title' => $article->title,
-            'content' => $article->content,
-            'category' => $article->category_id,
-            'writerInfo' => [
-                'id' => $article->user_id,
-            ],
-            'seeCount' => $article->see_count,
-            'likeCount' => $article->like_count,
-            'unlikeCount' => $article->unlike_count,
-            'commentCount' => $article->comment_count,
-        ];
+        return parent::articleInfo($article);
     }
 }
