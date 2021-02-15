@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Event;
 use App\Events\Dispatchrs\Team\InviteCard as TeamAcceptOrRejectInviteCardEventDispatcher;
 use App\Events\Listeners\Team\InviteCard as TeamInviteCardEventListener;
 
+use App\Events\Listeners\Board\ViewArticle as ViewArticleEventListeners;
+use App\Events\Dispatchrs\Board\ViewArticle as ViewArticleEventDispatcher;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -23,10 +26,10 @@ class EventServiceProvider extends ServiceProvider
         TeamAcceptOrRejectInviteCardEventDispatcher::class => [
             TeamInviteCardEventListener::class,
         ],
-        // Registered::class => [
-        //     SendEmailVerificationNotification::class,
-        // ],
 
+        ViewArticleEventDispatcher::class => [
+            ViewArticleEventListeners::class
+        ],
     ];
 
     /**

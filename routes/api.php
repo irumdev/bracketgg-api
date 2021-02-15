@@ -60,11 +60,13 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
 
         Route::get('{slug}/{channelBoardCategory}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
+        Route::get('{slug}/{channelBoardCategory}/article/{channelArticle}', [ShowChannelArticleController::class, 'showArticleByModel'])->name('getChannelArticle');
     });
 
     Route::group(['prefix' => 'team'], function () {
         Route::get('{teamSlug}', [ShowTeamInfoController::class, 'getInfo'])->name('getTeamInfoBySlug');
         Route::get('{teamSlug}/{teamBoardCategory}/articles', [ShowTeamArticleController::class, 'showArticleListByCategory'])->name('getTeamArticlesByCategory');
+        Route::get('{teamSlug}/{teamBoardCategory}/article/{teamArticle}', [ShowTeamArticleController::class, 'showArticleByModel'])->name('getTeamArticle');
     });
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

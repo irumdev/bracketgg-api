@@ -190,10 +190,11 @@ $factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team
 
     $articleCnt = collect(range(0, 40));
     $articleCnt->each(function ($step) use ($team, $categories) {
-        $usedCategory = Arr::random($categories->toArray());
+        $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -215,10 +216,12 @@ $factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImag
 
     $articleCnt = collect(range(0, 40));
     $articleCnt->each(function ($step) use ($team, $categories) {
-        $usedCategory = Arr::random($categories->toArray());
+        $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
+
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -241,10 +244,12 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
 
     $articleCnt = collect(range(0, 25));
     $articleCnt->each(function ($step) use ($team, $categories) {
-        $usedCategory = Arr::random($categories->toArray());
+        $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
-            'category_id' => $usedCategory
+            'category_id' => $usedCategory,
+            'team_id' => $team->id,
+
         ]);
 
         $c = TeamBoardCategory::find($usedCategory);
@@ -266,20 +271,22 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAn
 
     $articleCnt = collect(range(0, 15));
     $articleCnt->each(function ($step) use ($team, $categories) {
-        $usedCategory = Arr::random($categories->toArray());
+        $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $commentCount = collect(range(0, 10));
 
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
             'category_id' => $usedCategory,
+            'team_id' => $team->id,
             'comment_count' => $commentCount->count()
         ]);
 
 
-        $commentCount->each(function ($item) use ($article) {
+        $commentCount->each(function ($item) use ($article, $team) {
             Reply::factory()->create([
                 'article_id' => $article->id,
                 'parent_id' => null,
+                'team_id' => $team->id,
                 'user_id' => factory(User::class)->create()->id,
             ]);
         });

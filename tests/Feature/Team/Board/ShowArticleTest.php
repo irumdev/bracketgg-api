@@ -14,11 +14,96 @@ use App\Models\Team\Board\Category as TeamBoardCategory;
 use App\Models\Team\Board\Article as TeamBoardArticle;
 use App\Models\Team\Team;
 use App\Models\User;
-
+use App\Helpers\Image;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
 
 class ShowArticleTest extends TestCase
 {
+    /**
+     * @todo is_public이 false리서 권한없어서 실패 -> required login, team_member
+     */
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successLookupPublicArticleAndNotIncreaseSeeCount(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $team = factory(Team::class)->states([
+            'addSlug',
+            'addSmallTeamArticlesWithSavedImages'
+        ])->create();
+
+        $boardCategory = $team->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $randArticle = $randCategoey->articles->get(
+            Arr::random(
+                $randCategoey->articles->keys()->toArray()
+            )
+        );
+
+        $this->assertEquals(0, $randArticle->see_count);
+
+        $requestUrl = route('getTeamArticle', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => $randCategoey->name,
+            'teamArticle' => $randArticle->id
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+
+        $this->assertEquals(1, $tryLookUpArticle['messages']['seeCount']);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+        $this->assertEquals(1, $tryLookUpArticle['messages']['seeCount']);
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failLookupPublicArticleWhenNotExists(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $team = factory(Team::class)->states([
+            'addSlug',
+            'addSmallTeamArticlesWithSavedImages'
+        ])->create();
+        $boardCategory = $team->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $requestUrl = route('getTeamArticle', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => $randCategoey->name,
+            'teamArticle' => -1,
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertNotFound();
+
+
+        $this->assertFalse($tryLookUpArticle['ok']);
+        $this->assertFalse($tryLookUpArticle['isValid']);
+
+        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
+    }
+
     /**
      * @test
      * @enlighten
@@ -40,6 +125,69 @@ class ShowArticleTest extends TestCase
         $this->assertFalse($tryLookUpArticle['isValid']);
 
         $this->assertEquals(['code' => ShowArticleRequest::CATEGORY_IS_NOT_EXISTS], $tryLookUpArticle['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successLookupPublicArticle(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $team = factory(Team::class)->states([
+            'addSlug',
+            'addSmallTeamArticlesWithSavedImages'
+        ])->create();
+        $boardCategory = $team->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $randArticle = $randCategoey->articles->get(
+            Arr::random(
+                $randCategoey->articles->keys()->toArray()
+            )
+        );
+
+        $this->assertEquals(0, $randArticle->see_count);
+
+        $requestUrl = route('getTeamArticle', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => $randCategoey->name,
+            'teamArticle' => $randArticle->id
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+
+        $messages = $tryLookUpArticle['messages'];
+        $writerInfo = $messages['writerInfo'];
+
+        $randArticle = TeamBoardArticle::find($randArticle->id);
+
+        $this->assertTrue($tryLookUpArticle['ok']);
+        $this->assertTrue($tryLookUpArticle['isValid']);
+
+        $this->assertEquals($randArticle->id, $messages['id']);
+        $this->assertEquals($randArticle->title, $messages['title']);
+        $this->assertEquals($randArticle->content, $messages['content']);
+        $this->assertEquals($randCategoey->id, $messages['category']);
+
+        $profileImage = empty($randArticle->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
+            'profileImage' => $randArticle->writer->profile_image
+        ]);
+
+        $this->assertNotNull(User::find($writerInfo['id']));
+        $this->assertEquals(User::find($writerInfo['id'])->nick_name, $writerInfo['nickName']);
+        $this->assertEquals($profileImage, $writerInfo['profileImage']);
+
+        $this->assertEquals($randArticle->see_count, $messages['seeCount']);
+        $this->assertEquals($randArticle->comment_count, $messages['commentCount']);
+        $this->assertEquals($randArticle->like_count, $messages['likeCount']);
+        $this->assertEquals($randArticle->unlikeCount, $messages['unlikeCount']);
     }
 
 

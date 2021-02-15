@@ -4,55 +4,52 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Team\Board;
 
-use App\Properties\Paginate;
-use App\Http\Controllers\Controller;
-
 use Illuminate\Http\JsonResponse;
 
-use App\Services\Team\BoardService;
-use App\Helpers\ResponseBuilder;
-
 use App\Http\Requests\Team\Board\ShowArticleRequest;
-use App\Models\Team\Board\Article as TeamArticle;
 
-// use App\Services\Tea\BoardService as ChannelBoardServices;
+use App\Models\Team\Team;
+use App\Models\ArticleViewLog;
+use App\Models\Team\Board\Article as TeamBoardArticle;
 
-class ShowArticleController extends Controller
+use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
+
+use App\Services\Team\BoardService;
+
+use App\Http\Controllers\Common\Board\BaseController;
+use App\Properties\Paginate;
+
+class ShowArticleController extends BaseController
 {
     /**
      * 채널 서비스레이어
      * @var BoardService $teamBoardService
      */
-    private BoardService $teamBoardService;
+    public BoardService $boardService;
 
-    /**
-     * 응답 정형화를 위하여 사용되는 객체
-     * @var ResponseBuilder 응답 정형화 객체
-     */
-    private ResponseBuilder $responseBuilder;
-
-    public function __construct(BoardService $teamBoardService, ResponseBuilder $responseBuilder)
+    public function __construct(BoardService $boardService)
     {
-        $this->teamBoardService = $teamBoardService;
-        $this->responseBuilder = $responseBuilder;
+        $this->boardService = $boardService;
+    }
+
+    public function showArticleByModel(Team $team, string $teamBoardCategory, TeamBoardArticle $article)
+    {
+        return parent::getArticleByModel(
+            $article,
+            ArticleViewLog::TEAM_ARTICLE
+        );
     }
 
     public function showArticleListByCategory(ShowArticleRequest $request): JsonResponse
     {
         $category = $request->validated()['category'];
 
-        $articlesAndCategories = $this->teamBoardService->getBoardArticlesByCategory($category, $request->route('teamSlug'));
-        $articles = $articlesAndCategories['articles']->simplePaginate(Paginate::TEAM_ARTICLE_COUNT);
-
-        $paginateMetaData = $this->responseBuilder->paginateMeta($articles);
-        $articles = collect($articles->items())->map(fn (TeamArticle $article) => $this->teamBoardService->articleInfo($article));
-
-        return $this->responseBuilder->ok(
-            $paginateMetaData->merge([
-                'articles' => $articles,
-                'categories' => $articlesAndCategories['categories'],
-                'currentCategory' => $category,
-            ])
+        $findArticlesDependency = new CategoryWithArticleType(
+            $request->route('teamSlug'),
+            Paginate::TEAM_ARTICLE_COUNT,
+            $category
         );
+
+        return parent::getArticlsByCategory($findArticlesDependency);
     }
 }

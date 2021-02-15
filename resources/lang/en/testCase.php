@@ -34,7 +34,10 @@ return [
             'ShowArticleTest' => [
                 'failLookupArticleWhenCategoryIsNotAttached' => '카테고리를 입력 안한채로 게시글 조회에 실패하라',
                 'failLookupArticleWhenCategoryIsNotExists' => '존재하지 않는 카테고리의 게시글 조회에 실패하라',
-                'successLookupChannelArticlesByCategory' => '게시글 조회에 성공하라',
+                'successLookupChannelArticlesByCategory' => '카테고리에 해당하는 게시글들 조회에 성공하라',
+                'failLookupPublicArticleWhenNotExists' => '존재하지 않는 게시글 조회에 실패하라',
+                'successLookupPublicArticle' => '공개된 게시글 조회에 실패하라',
+                'successLookupPublicArticleAndNotIncreaseSeeCount' => '이미 해당 ip로 조회 한 게시글이라서 조회수 증가는 안하고 조회에 성공하라',
             ]
         ],
         'LikeTest' => [
@@ -210,8 +213,11 @@ return [
         ],
         'Board' => [
             'ShowArticleTest' => [
+                'failLookupPublicArticleWhenNotExists' => '게시글이 존재하지 않아 조회에 실패하라',
+                'successLookupPublicArticleAndNotIncreaseSeeCount' => '이미 해당 ip로 조회 한 게시글이라서 조회수 증가는 안하고 조회에 성공하라',
+                'successLookupPublicArticle' => '게시글 조회수 증가 및 조회에 성공하라',
                 'failLookupArticleWhenCategoryIsNotExists' => '존재하지 않는 카테고리로 접근하여 게시글 조회에 실패하라',
-                'successLookupChannelArticlesByCategory' => '게시글 조회에 성공하라',
+                'successLookupChannelArticlesByCategory' => '카테고리에 해당하는 게시글 조회에 성공하라',
             ]
         ]
     ],

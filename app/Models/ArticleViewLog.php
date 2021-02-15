@@ -11,6 +11,9 @@ class ArticleViewLog extends Model
 {
     use HasFactory;
 
+    public const CHANNEL_ARTICLE = 1;
+    public const TEAM_ARTICLE = 2;
+
     protected $fillable = [
         'lookup_ip', 'article_type', 'article_id'
     ];
