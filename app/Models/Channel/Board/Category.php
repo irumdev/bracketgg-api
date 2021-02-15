@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use App\Models\Channel\Board\Article;
+use App\Models\Common\Board\BaseCategory;
 
-class Category extends Model
+class Category extends BaseCategory
 {
     use HasFactory;
 
@@ -22,9 +23,5 @@ class Category extends Model
     protected $casts = [
         'is_public' => 'bool'
     ];
-
-    public function articles(): HasMany
-    {
-        return $this->hasMany(Article::class, 'category_id', 'id');
-    }
+    protected $articleModel = Article::class;
 }

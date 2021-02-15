@@ -21,6 +21,8 @@ class CreateArticleViewLogsTable extends Migration
             $table->tinyInteger('article_type')->comment('조회한 게시글이 채널 게시글인지 팀 게시판 게시글인지');
             $table->foreignId('article_id')->comment('조회 한 게시글 아이디');
             $table->timestamps();
+
+            $table->index('created_at', 'created_at_index');
         });
     }
 

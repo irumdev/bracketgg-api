@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace App\Models\Team\Board;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Common\Board\BaseCategory;
 
-class Category extends Model
+class Category extends BaseCategory
 {
     protected $table = 'team_board_categories';
-    use HasFactory;
+    protected $articleModel = Article::class;
+    protected $fillable = [
+        'name', 'show_order', 'article_count', 'is_public', 'team_id'
+    ];
 
-    public function articles(): HasMany
-    {
-        return $this->hasMany(Article::class, 'category_id', 'id');
-    }
+    protected $casts = [
+        'is_public' => 'bool'
+    ];
+
+    use HasFactory;
 }

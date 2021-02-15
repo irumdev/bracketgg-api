@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Channel\Board;
 
+use App\Helpers\Image;
 use App\Models\Channel\Channel;
 use App\Models\User;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
@@ -19,6 +20,85 @@ use App\Http\Requests\Channel\Board\ShowArticleRequest;
 
 class ShowArticleTest extends TestCase
 {
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successLookupPublicArticleAndNotIncreaseSeeCount(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $channel = factory(Channel::class)->states([
+            'addSlug',
+            'addSmallChannelArticlesWithSavedImages'
+        ])->create();
+
+        $boardCategory = $channel->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $randArticle = $randCategoey->articles->get(
+            Arr::random(
+                $randCategoey->articles->keys()->toArray()
+            )
+        );
+
+        $this->assertEquals(0, $randArticle->see_count);
+
+        $requestUrl = route('getChannelArticle', [
+            'slug' => $channel->slug,
+            'channelBoardCategory' => $randCategoey->name,
+            'channelArticle' => $randArticle->id
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+
+        $this->assertEquals(1, $tryLookUpArticle['messages']['seeCount']);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+        $this->assertEquals(1, $tryLookUpArticle['messages']['seeCount']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failLookupPublicArticleWhenNotExists(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $channel = factory(Channel::class)->states([
+            'addSlug',
+            'addSmallChannelArticlesWithSavedImages'
+        ])->create();
+
+        $boardCategory = $channel->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $requestUrl = route('getChannelArticle', [
+            'slug' => $channel->slug,
+            'channelBoardCategory' => $randCategoey->name,
+            'channelArticle' => -1,
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertNotFound();
+
+
+        $this->assertFalse($tryLookUpArticle['ok']);
+        $this->assertFalse($tryLookUpArticle['isValid']);
+
+        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
+    }
+
     /**
      * @test
      * @enlighten
@@ -41,6 +121,72 @@ class ShowArticleTest extends TestCase
 
         $this->assertEquals(['code' => ShowArticleRequest::CATEGORY_IS_NOT_EXISTS], $tryLookUpArticle['messages']);
     }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successLookupPublicArticle(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $channel = factory(Channel::class)->states([
+            'addSlug',
+            'addSmallChannelArticlesWithSavedImages'
+        ])->create();
+
+        $boardCategory = $channel->boardCategories;
+
+        $randCategoey = $boardCategory->get(
+            Arr::random(
+                $boardCategory->keys()->toArray()
+            )
+        );
+
+        $randArticle = $randCategoey->articles->get(
+            Arr::random(
+                $randCategoey->articles->keys()->toArray()
+            )
+        );
+
+        $this->assertEquals(0, $randArticle->see_count);
+
+        $requestUrl = route('getChannelArticle', [
+            'slug' => $channel->slug,
+            'channelBoardCategory' => $randCategoey->name,
+            'channelArticle' => $randArticle->id
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertOk();
+
+        $messages = $tryLookUpArticle['messages'];
+        $writerInfo = $messages['writerInfo'];
+
+        $randArticle = ChannelBoardArticle::find($randArticle->id);
+
+        $this->assertTrue($tryLookUpArticle['ok']);
+        $this->assertTrue($tryLookUpArticle['isValid']);
+
+        $this->assertEquals($randArticle->id, $messages['id']);
+        $this->assertEquals($randArticle->title, $messages['title']);
+        $this->assertEquals($randArticle->content, $messages['content']);
+        $this->assertEquals($randCategoey->id, $messages['category']);
+
+        $profileImage = empty($randArticle->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
+            'profileImage' => $randArticle->writer->profile_image
+        ]);
+
+        $this->assertNotNull(User::find($writerInfo['id']));
+        $this->assertEquals(User::find($writerInfo['id'])->nick_name, $writerInfo['nickName']);
+        $this->assertEquals($profileImage, $writerInfo['profileImage']);
+
+        $this->assertEquals($randArticle->see_count, $messages['seeCount']);
+        $this->assertEquals($randArticle->comment_count, $messages['commentCount']);
+        $this->assertEquals($randArticle->like_count, $messages['likeCount']);
+        $this->assertEquals($randArticle->unlikeCount, $messages['unlikeCount']);
+    }
+
 
 
     /**

@@ -17,7 +17,7 @@ class Member extends Model
 {
     use HasFactory;
 
-    protected $table = 'team_member';
+    protected $table = 'team_members';
     protected $fillable = [
         'team_id', 'user_id'
     ];
