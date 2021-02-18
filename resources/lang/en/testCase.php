@@ -126,6 +126,12 @@ return [
         ],
     ],
     'Team' => [
+        'ShowMemberInfoTest' => [
+            'failLookupTeamMemberListWhenUserIsNotTeamMember' => '팀원이 아니여서 팀원 리스트 조회에 실패하라',
+            'successLookupWhenMemberIsOnlyTeamOwner' => '팀장만 팀원일 경우 팀원 조회에 성공하라',
+            'successLookupPendingUsersAndMembers' => '팀원과 승낙 대기중인 팀원 리스트 조회에 성공하라',
+            'successLookupOnlyPendingUsers' => '초대 대기중인 팀원과 팀장만 있는 팀원 리스트 조회에 성공하라'
+        ],
         'GetOwnersTeamInfosTest' => [
             'successLookupTeamInfoWhenLogin' => '팀 오너 인덱스로 팀들 정보룰 조회하라',
             'failLookupTeamInfoWhenNotLogin' => '로그인을 안해서 팀정보를 실패하라',
