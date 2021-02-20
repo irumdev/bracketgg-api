@@ -18,12 +18,21 @@ use App\Helpers\Image;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowArticleTest extends TestCase
 {
     /**
      * @todo is_public이 false리서 권한없어서 실패 -> required login, team_member
      */
+
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
 
     /**
      * @test
