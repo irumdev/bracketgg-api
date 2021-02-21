@@ -85,6 +85,32 @@ class UserPolicy
         );
     }
 
+
+    public function kickTeamMember(User $requestUser, Team $team, User $willKickUser): bool
+    {
+        /**
+         * 팀원 추방 요청한 유저($requestUser) 가 팀장이며
+         * $willKickUser 가 팀원인지
+         */
+        $willKickUserIsNotTeamOwner = $team->members()->where([
+            ['user_id', '=', $willKickUser->id],
+            ['role', '!=', Team::OWNER],
+        ])->firstOr(fn () => null);
+
+        if (! $willKickUserIsNotTeamOwner) {
+            return false;
+        }
+
+        $willKickUserIsNotTeamOwner = $willKickUserIsNotTeamOwner->owner !== Team::OWNER;
+
+        $canKickTeamMember = $team->members()->where([
+            ['user_id', '=', $requestUser->id],
+            ['role', '=', Team::OWNER],
+        ])->exists();
+
+        return $canKickTeamMember && $willKickUserIsNotTeamOwner;
+    }
+
     public function acceptInvite(User $willAcceptUser, Team $team): bool
     {
         /**

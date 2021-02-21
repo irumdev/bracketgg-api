@@ -98,6 +98,11 @@ class TeamService
         return $this->teamRepository->getTeamMembers($team)->simplePaginate(Paginate::PER);
     }
 
+    public function kickByUserModel(Team $team, User $willKickUser): bool
+    {
+        return $this->teamRepository->kickUser($team, $willKickUser);
+    }
+
     public function get(Team $team): array
     {
         return $this->info(
