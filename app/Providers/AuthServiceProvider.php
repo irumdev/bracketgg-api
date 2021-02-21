@@ -36,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         'inviteMember' => [UserPolicy::class, 'inviteMember'],
         'acceptInvite' => [UserPolicy::class, 'acceptInvite'],
         'rejectInvite' => [UserPolicy::class, 'rejectInvite'],
+        'kickTeamMember' => [UserPolicy::class, 'kickTeamMember'],
     ];
 
     private function registerCustomPolicies(): void
