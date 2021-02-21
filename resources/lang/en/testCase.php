@@ -126,6 +126,15 @@ return [
         ],
     ],
     'Team' => [
+        'Member' => [
+            'KickTest' => [
+                'failKickTeamMemberWhenKickTargetIsNotTeamMember' => '팀원에서 추방할 사람이 팀원이 아니라 추방에 실패하라',
+                'failKickTeamMemberWhenKickTargetIsTeamOwner' => '팀원에서 추방할 사람이 팀장이라 추방에 실패하라',
+                'failKickTeamMemberWhenRequestUserIsNotTeamMember' => '팀원에서 추방할 요청한 사람이 팀원이 아니라 추방에 실패하라',
+                'failKickTeamMemberWhenRequestUserIsNotTeamOwner' => '팀원에서 추방할 요청한 사람이 팀원이지만 팀장이 아니라 추방에 실패하라',
+                'successKickTeamMember' => '팀원 추방에 성공하라',
+            ]
+        ],
         'ShowMemberInfoTest' => [
             'failLookupTeamMemberListWhenUserIsNotTeamMember' => '팀원이 아니여서 팀원 리스트 조회에 실패하라',
             'successLookupWhenMemberIsOnlyTeamOwner' => '팀장만 팀원일 경우 팀원 조회에 성공하라',

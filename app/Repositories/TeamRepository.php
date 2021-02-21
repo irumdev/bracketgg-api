@@ -46,6 +46,12 @@ class TeamRepository extends TeamInfoUpdateFactory
         });
     }
 
+    public function kickUser(Team $team, User $user)
+    {
+        return DB::transaction(function () use ($team, $user) {
+            return $team->members()->where('user_id', $user->id)->delete() === 1;
+        });
+    }
     public function acceptInviteCard(Team $team): bool
     {
         return DB::transaction(function () use ($team) {
@@ -155,6 +161,11 @@ class TeamRepository extends TeamInfoUpdateFactory
         })->with(Team::TEAM_RELATIONS);
     }
 
+
+    /**
+     * @todo 팀원 신청을 할 때 초대장 보낸것과 혼동 될 우려가 있어
+     *       요청을 했는지, 요청을 받았는지 분리 할 것
+     */
     public function getRequestJoinUsers(Team $team): Builder
     {
         return User::whereHas('invitationCards', function (Builder $query) use ($team) {

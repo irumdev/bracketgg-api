@@ -23,7 +23,8 @@ use App\Http\Controllers\Team\CreateTeamController;
 use App\Http\Controllers\Team\CheckTeamNameExistsController;
 use App\Http\Controllers\Team\UpdateInformationController;
 use App\Http\Controllers\Team\ShowTeamInfoController;
-use App\Http\Controllers\Team\InviteMemberController;
+use App\Http\Controllers\Team\Member\InviteMemberController;
+use App\Http\Controllers\Team\Member\KickController;
 use App\Http\Controllers\Team\Board\ShowArticleController as ShowTeamArticleController;
 
 use App\Http\Controllers\Game\FindTypeController;
@@ -211,7 +212,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
 
             /**
-             * 팀원 초대
+             * [BRACKETGG-98]팀원 초대
              */
             Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCard'])->name('inviteTeamMember');
 
@@ -226,7 +227,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
 
             /**
-             * 유저 인덱스로 유저가 가진 팀리스트 조회
+             * [BRACKETGG-82]유저 인덱스로 유저가 가진 팀리스트 조회
              */
             Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('showTeamByOwnerId');
 
@@ -236,9 +237,14 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('{teamSlug}/request-join-user', [ShowTeamInfoController::class, 'getRequestJoinUserList'])->name('getRequestJoinUserList');
 
             /**
-             * [BRACKETGG-128] 팀원 리스트
+             * [BRACKETGG-97] 팀원 리스트
              */
             Route::get('{teamSlug}/members', [ShowTeamInfoController::class, 'getTeamMemberList'])->name('getTeamMemberList');
+
+            /**
+             * [BRACKETGG-205] 현재 팀원인 유저 추방
+             */
+            Route::post('{teamSlug}/kick/{userIdx}', [KickController::class, 'kickByUserId'])->name('kickTeamMember');
         });
 
         Route::group(['prefix' => 'user'], function () {

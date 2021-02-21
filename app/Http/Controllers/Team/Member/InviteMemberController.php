@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Team;
+namespace App\Http\Controllers\Team\Member;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
