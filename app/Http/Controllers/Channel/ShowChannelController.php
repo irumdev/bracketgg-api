@@ -50,6 +50,8 @@ class ShowChannelController extends Controller
      */
     public function getChannelById(Channel $channel): JsonResponse
     {
+        $a = $this->channelService->findChannelById($channel->id);
+
         return $this->response->ok(
             $this->channelService->findChannelById($channel->id)
         );
