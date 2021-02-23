@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
+use Illuminate\Support\Carbon;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowInfoTest extends TestCase
@@ -30,7 +31,7 @@ class ShowInfoTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
-            'addSlug', 'hasLike', 'addBannerImage', 'addBroadcasts',
+            'addSlug', 'hasLike', 'addBannerImage', 'addBroadcasts', 'addArticlesWithSingleCategory'
         ])->create();
 
         $channelSlug = $channel->slug;
@@ -40,7 +41,8 @@ class ShowInfoTest extends TestCase
             'slug' => $channelSlug,
         ]);
 
-        $response = $this->getJson($testRequestUrl)->assertOk();
+        $response = $this->getJson($testRequestUrl);
+
 
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
@@ -88,6 +90,27 @@ class ShowInfoTest extends TestCase
             $message['broadCastAddress']
         );
         $this->assertEquals($channel->slug, $message['slug']);
+
+
+        $latestArticles = $channel->articles()->whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'),
+            Carbon::now()->format('Y-m-d 23:59:59'),
+        ]);
+
+        $this->assertEquals($latestArticles->count(), $message['latestArticlesCount']);
+
+        $latestArticles = $latestArticles->with('category')
+                                         ->orderBy('id', 'desc')
+                                         ->limit(10)
+                                         ->get()
+                                         ->map(fn ($article) => [
+                                             'id' => $article->id,
+                                             'title' => $article->title,
+                                             'categoryName' => $article->category->name,
+                                             'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+                                         ])
+                                         ->toArray();
+        $this->assertEquals($latestArticles, $message['latestArticles']);
     }
 
     /**
@@ -159,6 +182,27 @@ class ShowInfoTest extends TestCase
             $message['broadCastAddress']
         );
         $this->assertEquals($channel->slug, $message['slug']);
+
+
+        $latestArticles = $channel->articles()->whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'),
+            Carbon::now()->format('Y-m-d 23:59:59'),
+        ]);
+
+        $this->assertEquals($latestArticles->count(), $message['latestArticlesCount']);
+
+        $latestArticles = $latestArticles->with('category')
+                                         ->orderBy('id', 'desc')
+                                         ->limit(10)
+                                         ->get()
+                                         ->map(fn ($article) => [
+                                             'id' => $article->id,
+                                             'title' => $article->title,
+                                             'categoryName' => $article->category->name,
+                                             'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+                                         ])
+                                         ->toArray();
+        $this->assertEquals($latestArticles, $message['latestArticles']);
     }
 
     /**

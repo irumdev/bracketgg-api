@@ -10,6 +10,7 @@ use App\Models\Channel\Fan as ChannelFan;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
+use App\Models\Channel\Board\Article as ChanneArticles;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 /**
  * 채넒 모델 클래스 입니다.
@@ -27,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Channel extends Model
 {
     public const DEFAULT_BOARD_CATEGORY_COUNT = 3;
+    public const DEFAULT_ARTICLE_LATEST_COUNT = 10;
 
     protected $table = 'channels';
     protected $fillable = [
@@ -34,6 +38,8 @@ class Channel extends Model
         'like_count', 'description',
         'name', 'owner'
     ];
+
+    protected $appends = ['latest_articles'];
 
     /**
      * 채널의 배너이미지 릴레이션 메소드 입니다.
@@ -134,6 +140,37 @@ class Channel extends Model
             'channel_followers.created_at as followedAt',
             'users.*',
         ]);
+    }
+
+    /**
+     * 채널이 게시판에 게시한 모든 게시글들을 가져오는 릴레이션 입니다.
+     *
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return HasMany 게시글 릴레이션
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(ChanneArticles::class, 'channel_id');
+    }
+
+    /**
+     * 채널이 최근에(조회 일 기준 00:00 ~ 23:59) 에 게시한 게시글을 가져오는 attribute 입니다.
+     *
+     * @param void
+     * @return Collection $latest_articles 최근에 게시한 게시글 10개
+     */
+    public function getLatestArticlesAttribute(): Collection
+    {
+        return $this->articles()
+                    ->whereBetween(self::CREATED_AT, [
+                        Carbon::now()->format('Y-m-d 00:00:00'),
+                        Carbon::now()->format('Y-m-d 23:59:59'),
+                    ])
+                    ->with('category')
+                    ->orderBy($this->primaryKey, 'desc')
+                    ->limit(self::DEFAULT_ARTICLE_LATEST_COUNT)
+                    ->get();
     }
 
     public function boardCategories(): HasMany

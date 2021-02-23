@@ -7,6 +7,8 @@ namespace App\Models\Channel\Board;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Channel\Board\ArticleImage;
 use App\Models\Common\Board\BaseArticle;
+use App\Models\Channel\Board\Category;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends BaseArticle
 {
@@ -24,4 +26,9 @@ class Article extends BaseArticle
         'category_id', 'see_count', 'like_count',
         'unlike_count', 'comment_count'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

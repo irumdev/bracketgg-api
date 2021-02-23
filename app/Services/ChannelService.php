@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Helpers\Image;
+use App\Models\Channel\Board\Article;
+use Illuminate\Support\Carbon;
 
 class ChannelService
 {
@@ -129,6 +131,13 @@ class ChannelService
                 'broadcastAddress' => $channelBroadcast->broadcastAddress,
                 'broadcastId' => $channelBroadcast->broadcastId,
             ]),
+            'latestArticles' => $channel->latest_articles->map(fn (Article $article) => [
+                'id' => $article->id,
+                'title' => $article->title,
+                'categoryName' => $article->category->name,
+                'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+            ]),
+            'latestArticlesCount' => $this->channelRepostiroy->latestArticlesCount($channel),
             'owner' => $channel->owner,
             'slug' => $channel->slug,
         ];

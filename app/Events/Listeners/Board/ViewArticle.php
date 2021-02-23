@@ -42,7 +42,7 @@ class ViewArticle
     private function isAlreadyViewArticle(int $type, BaseArticle $article): bool
     {
         return ArticleViewLog::where(function (Builder $condition) use ($article, $type): void {
-            $condition->whereBetween('created_at', [
+            $condition->whereBetween(ArticleViewLog::CREATED_AT, [
                 Carbon::now()->format('Y-m-d 00:00:00'),
                 Carbon::now()->format('Y-m-d 23:59:59'),
             ]);
