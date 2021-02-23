@@ -10,6 +10,7 @@ use App\Helpers\ResponseBuilder;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use App\Models\Channel\Slug as ChannelSlug;
 use App\Repositories\ChannelRepository;
+use App\Repositories\Channel\BoardRespository as ChannelBoardRepository;
 use App\Exceptions\DBtransActionFail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
@@ -21,11 +22,13 @@ use Illuminate\Support\Carbon;
 class ChannelService
 {
     private ChannelRepository $channelRepostiroy;
+    private ChannelBoardRepository $channelBoardRepository;
     private ResponseBuilder $responseBuilder;
 
-    public function __construct(ChannelRepository $channelRepostiroy, ResponseBuilder $responseBuilder)
+    public function __construct(ChannelBoardRepository $channelBoardRepository, ChannelRepository $channelRepostiroy, ResponseBuilder $responseBuilder)
     {
         $this->channelRepostiroy = $channelRepostiroy;
+        $this->channelBoardRepository = $channelBoardRepository;
         $this->responseBuilder = $responseBuilder;
     }
 
@@ -131,13 +134,19 @@ class ChannelService
                 'broadcastAddress' => $channelBroadcast->broadcastAddress,
                 'broadcastId' => $channelBroadcast->broadcastId,
             ]),
-            'latestArticles' => $channel->latest_articles->map(fn (Article $article) => [
+            'latestArticles' => $this->channelBoardRepository->latestTenArticles($channel)->map(fn (Article $article) => [
                 'id' => $article->id,
                 'title' => $article->title,
                 'categoryName' => $article->category->name,
                 'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
             ]),
-            'latestArticlesCount' => $this->channelRepostiroy->latestArticlesCount($channel),
+            // 'latestArticles' => $channel->latest_articles->map(fn (Article $article) => [
+            //     'id' => $article->id,
+            //     'title' => $article->title,
+            //     'categoryName' => $article->category->name,
+            //     'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+            // ]),
+            'latestArticlesCount' => $this->channelBoardRepository->latestArticlesCount($channel),
             'owner' => $channel->owner,
             'slug' => $channel->slug,
         ];
