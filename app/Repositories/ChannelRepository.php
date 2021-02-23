@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Channel\Channel;
-use App\Models\Channel\Board\Category as ChannelBoardCategory;
 use App\Models\User;
 use App\Factories\ChannelInfoUpdateFactory;
 use App\Factories\Update\ImageUpdateFactory;
 use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ChannelRepository extends ChannelInfoUpdateFactory
@@ -93,19 +88,6 @@ class ChannelRepository extends ChannelInfoUpdateFactory
         return DB::transaction(function () use ($type, $attribute) {
             return $this->resolveUpdateFactory($type, $attribute)->update();
         });
-    }
-
-    public function latestArticles(Channel $channel): HasMany
-    {
-        return $channel->articles()->whereBetween(Channel::CREATED_AT, [
-            Carbon::now()->format('Y-m-d 00:00:00'),
-            Carbon::now()->format('Y-m-d 23:59:59'),
-        ]);
-    }
-
-    public function latestArticlesCount(Channel $channel): int
-    {
-        return $this->latestArticles($channel)->count();
     }
 
     private function resolveUpdateFactory(string $type, array $attribute): ImageUpdateFactory
