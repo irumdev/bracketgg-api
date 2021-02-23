@@ -11,7 +11,7 @@ use App\Models\Channel\Channel;
 use App\Services\ChannelService;
 use App\Repositories\ChannelRepository;
 use App\Helpers\ResponseBuilder;
-
+use App\Repositories\Channel\BoardRespository;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowChannelInfoByOwnerTest extends TestCase
@@ -22,6 +22,11 @@ class ShowChannelInfoByOwnerTest extends TestCase
     {
         parent::setUp();
         $this->setUpEnlighten();
+    }
+
+    private function serviceResolver(): ChannelService
+    {
+        return new ChannelService(new BoardRespository(),new ChannelRepository(new Channel()), new ResponseBuilder());
     }
 
     /**
@@ -46,7 +51,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
-        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
+        $service = $this->serviceResolver()->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -77,7 +82,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
 
         $response = $this->getJson($testRequestUrl)->assertOk();
 
-        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
+        $service = $this->serviceResolver()->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
@@ -108,7 +113,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
         ]);
 
         $response = $this->getJson($testRequestUrl)->assertOk();
-        $service = (new ChannelService(new ChannelRepository(new Channel()), new ResponseBuilder()))->findChannelsByUserId((string)$channelOwner);
+        $service = $this->serviceResolver()->findChannelsByUserId((string)$channelOwner);
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
 
