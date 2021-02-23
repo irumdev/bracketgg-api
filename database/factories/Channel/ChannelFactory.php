@@ -122,6 +122,30 @@ $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $c
     });
 });
 
+$factory->afterCreatingState(Channel::class, 'addArticlesWithSingleCategory', function (Channel $channel, Faker $faker) {
+    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+        $category = ChannelBoardCategory::factory()->create([
+            'show_order' => $item,
+            'channel_id' => $channel->id,
+        ]);
+
+        return $category->id;
+    });
+
+    $articleCnt = collect(range(0, 13));
+    $usedCategory = Arr::random($categories->toArray());
+
+    $articleCnt->each(function (int $step) use ($channel, $categories, $usedCategory): void {
+        $article = ChannelArticle::factory()->create([
+            'user_id' => $channel->owner,
+            'category_id' => $usedCategory,
+            'channel_id' => $channel->id,
+        ]);
+    });
+    $c = ChannelBoardCategory::find($usedCategory);
+    $c->article_count = $articleCnt->count();
+    $c->save();
+});
 
 $factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', function (Channel $channel, Faker $faker) {
     $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
