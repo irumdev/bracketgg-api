@@ -160,6 +160,9 @@ class CreateTest extends TestCase
         );
 
         $this->assertTrue(
+            $team->boardCategories()->where('name', __('board.default.name'))->exists()
+        );
+        $this->assertTrue(
             TeamMember::where([
                 ['user_id', '=', $team->owner],
                 ['team_id', '=', $team->id],

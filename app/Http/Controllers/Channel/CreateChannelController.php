@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Services\ChannelService;
 
 use App\Http\Requests\Channel\CreateRequest as CreateChannelRequest;
+use App\Models\Channel\Channel;
+use App\Events\Dispatchrs\Channel\Create as CreateChannelDispatcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,6 +57,7 @@ class CreateChannelController extends Controller
             'like_count' => 0,
             'owner' => Auth::id(),
         ]));
+        event(new CreateChannelDispatcher(Channel::find($createdChannel['id'])));
         return $this->responseBuilder->ok($createdChannel);
     }
 }

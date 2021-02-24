@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Event;
 use App\Events\Dispatchrs\Team\InviteCard as TeamAcceptOrRejectInviteCardEventDispatcher;
 use App\Events\Listeners\Team\InviteCard as TeamInviteCardEventListener;
 
+
+use App\Events\Dispatchrs\Team\Create as TeamCreateEventDispatcher;
+use App\Events\Listeners\Team\Create as TeamCreateEventListener;
+
+use App\Events\Dispatchrs\Channel\Create as ChannelCreateEventDispatcher;
+use App\Events\Listeners\Channel\Create as ChannelCreateEventListener;
+
+
 use App\Events\Listeners\Board\ViewArticle as ViewArticleEventListeners;
 use App\Events\Dispatchrs\Board\ViewArticle as ViewArticleEventDispatcher;
 
@@ -25,6 +33,14 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         TeamAcceptOrRejectInviteCardEventDispatcher::class => [
             TeamInviteCardEventListener::class,
+        ],
+
+        TeamCreateEventDispatcher::class => [
+            TeamCreateEventListener::class,
+        ],
+
+        ChannelCreateEventDispatcher::class => [
+            ChannelCreateEventListener::class,
         ],
 
         ViewArticleEventDispatcher::class => [

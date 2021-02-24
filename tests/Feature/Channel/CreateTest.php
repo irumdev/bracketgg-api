@@ -143,5 +143,9 @@ class CreateTest extends TestCase
         $this->assertEquals(0, $channel['likeCount']);
         $this->assertEquals(0, $channel['followerCount']);
         $this->assertEquals($dbChannel->slug, $channel['slug']);
+
+        $this->assertTrue(
+            $dbChannel->boardCategories()->where('name', __('board.default.name'))->exists()
+        );
     }
 }
