@@ -34,30 +34,6 @@ class ShowArticleRequest extends CommonFormRequest
     public function rules(): array
     {
         return [
-            'category' => 'bail|required|hasCategory:slug,channel_id,' . Category::class
         ];
-    }
-
-    /**
-     * @override
-     */
-    public function all($keys = null): array
-    {
-        return array_merge(request()->all(), [
-            'category' => $this->route('channelBoardCategory'),
-        ]);
-    }
-
-    public function messages(): array
-    {
-        return [
-            'category.required' => self::CATEGORY_IS_REQUIRED,
-            'category.has_category' => self::CATEGORY_IS_NOT_EXISTS,
-        ];
-    }
-
-    protected function failedValidation(ValidContract $validator): void
-    {
-        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 }

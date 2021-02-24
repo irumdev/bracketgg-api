@@ -42,7 +42,7 @@ class BaseController extends Controller
             $paginateMetaData->merge([
                 'articles' => $articles,
                 'categories' => $articlesAndCategories['categories'],
-                'currentCategory' => $articlesInfo->category,
+                'currentCategory' => $articlesInfo->category['name'],
             ])
         );
     }

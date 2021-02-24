@@ -49,15 +49,15 @@ class ShowArticleTest extends TestCase
 
         $boardCategory = $team->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
         );
 
-        $randArticle = $randCategoey->articles->get(
+        $randArticle = $randCategory->articles->get(
             Arr::random(
-                $randCategoey->articles->keys()->toArray()
+                $randCategory->articles->keys()->toArray()
             )
         );
 
@@ -65,7 +65,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getTeamArticle', [
             'teamSlug' => $team->slug,
-            'teamBoardCategory' => $randCategoey->name,
+            'teamBoardCategory' => $randCategory->name,
             'teamArticle' => $randArticle->id
         ]);
 
@@ -92,7 +92,7 @@ class ShowArticleTest extends TestCase
         ])->create();
         $boardCategory = $team->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
@@ -100,7 +100,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getTeamArticle', [
             'teamSlug' => $team->slug,
-            'teamBoardCategory' => $randCategoey->name,
+            'teamBoardCategory' => $randCategory->name,
             'teamArticle' => -1,
         ]);
 
@@ -128,12 +128,12 @@ class ShowArticleTest extends TestCase
             'teamBoardCategory' => Str::random(10),
         ]);
 
-        $tryLookUpArticle = $this->getJson($requestUrl)->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertNotFound();
 
         $this->assertFalse($tryLookUpArticle['ok']);
         $this->assertFalse($tryLookUpArticle['isValid']);
 
-        $this->assertEquals(['code' => ShowArticleRequest::CATEGORY_IS_NOT_EXISTS], $tryLookUpArticle['messages']);
+        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
     }
 
     /**
@@ -150,15 +150,15 @@ class ShowArticleTest extends TestCase
         ])->create();
         $boardCategory = $team->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
         );
 
-        $randArticle = $randCategoey->articles->get(
+        $randArticle = $randCategory->articles->get(
             Arr::random(
-                $randCategoey->articles->keys()->toArray()
+                $randCategory->articles->keys()->toArray()
             )
         );
 
@@ -166,7 +166,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getTeamArticle', [
             'teamSlug' => $team->slug,
-            'teamBoardCategory' => $randCategoey->name,
+            'teamBoardCategory' => $randCategory->name,
             'teamArticle' => $randArticle->id
         ]);
 
@@ -183,7 +183,7 @@ class ShowArticleTest extends TestCase
         $this->assertEquals($randArticle->id, $messages['id']);
         $this->assertEquals($randArticle->title, $messages['title']);
         $this->assertEquals($randArticle->content, $messages['content']);
-        $this->assertEquals($randCategoey->id, $messages['category']);
+        $this->assertEquals($randCategory->id, $messages['category']);
 
         $profileImage = empty($randArticle->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
             'profileImage' => $randArticle->writer->profile_image
@@ -199,6 +199,63 @@ class ShowArticleTest extends TestCase
         $this->assertEquals($randArticle->unlikeCount, $messages['unlikeCount']);
     }
 
+    /**
+     * @enlighten
+     * @test
+     */
+    public function failLookUpPrivateArticleWhenNotLoginButCategoryIsPrivate(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $requestUser = factory(User::class)->create();
+        $team = factory(Team::class)->states(['addSlug', 'addSmallTeamArticlesWithSavedImages'])->create();
+
+        $randCategory = $team->boardCategories->random();
+        $randCategory->is_public = false;
+        $this->assertTrue($randCategory->save());
+
+        $randCategory = $team->boardCategories()->where('id', $randCategory->id)->first();
+
+        $requestUrl = route('getTeamArticlesByCategory', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => $randCategory->name,
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertUnauthorized();
+
+        $this->assertFalse($tryLookUpArticle['ok']);
+        $this->assertFalse($tryLookUpArticle['isValid']);
+
+        $this->assertEquals(['code' => 401], $tryLookUpArticle['messages']);
+    }
+
+    /**
+     * @enlighten
+     * @test
+     */
+    public function failLookUpPrivateArticleWhenUserIsNotTeamMember(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $requestUser = Sanctum::actingAs(factory(User::class)->create());
+        $team = factory(Team::class)->states(['addSlug', 'addSmallTeamArticlesWithSavedImages'])->create();
+
+        $randCategory = $team->boardCategories->random();
+        $randCategory->is_public = false;
+        $this->assertTrue($randCategory->save());
+
+        $randCategory = $team->boardCategories()->where('id', $randCategory->id)->first();
+
+        $requestUrl = route('getTeamArticlesByCategory', [
+            'teamSlug' => $team->slug,
+            'teamBoardCategory' => $randCategory->name,
+        ]);
+
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertUnauthorized();
+
+        $this->assertFalse($tryLookUpArticle['ok']);
+        $this->assertFalse($tryLookUpArticle['isValid']);
+
+        $this->assertEquals(['code' => 401], $tryLookUpArticle['messages']);
+    }
 
     /**
      * @enlighten
@@ -207,12 +264,19 @@ class ShowArticleTest extends TestCase
     public function successLookupChannelArticlesByCategory(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $requestUser = factory(User::class)->create();
-        $team = factory(Team::class)->states(['addSlug', 'addSmallTeamArticlesWithSavedImages'])->create();
+        $requestUser = Sanctum::actingAs(factory(User::class)->create());
+        $team = factory(Team::class)->states(['addSlug', 'addSmallTeamArticlesWithSavedImages'])->create([
+            'owner' => $requestUser->id
+        ]);
 
-        $categories = $team->boardCategories->map(fn (TeamBoardCategory $category) => $category->name)->toArray();
+        $randCategory = $team->boardCategories->random();
 
-        collect($categories)->each(function (string $category) use ($requestUser, $team) {
+        $randCategory->is_public = false;
+
+        $this->assertTrue($randCategory->save());
+        $categories = $team->boardCategories()->get()->map(fn (TeamBoardCategory $category) => $category->name)->toArray();
+
+        collect($categories)->each(function (string $category) use ($requestUser, $team): void {
             $current = 1;
 
             do {

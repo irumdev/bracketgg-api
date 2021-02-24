@@ -13,7 +13,11 @@ use App\Models\Team\Board\Article as TeamBoardArticle;
 use App\Models\Channel\Board\Article as ChannelBoardArticle;
 use App\Models\User;
 use App\Models\Common\Board\BaseArticle;
+use App\Models\Common\Board\BaseCategory;
 use App\Models\Team\Team;
+use App\Models\Team\Board\Category as TeamBoardCategory;
+use App\Models\Channel\Board\Category as ChannelBoardCategory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -64,6 +68,24 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('channelArticle', function (string $articleId): BaseArticle {
             return ChannelBoardArticle::findOrFail($articleId);
+        });
+
+        Route::bind('teamBoardCategory', function (string $boardCategory): BaseCategory {
+            return TeamBoardCategory::where([
+                ['team_id', request()->route('teamSlug')->id],
+                ['name', '=', $boardCategory],
+            ])->firstOr(function (): void {
+                throw (new ModelNotFoundException())->setModel(TeamBoardCategory::class);
+            });
+        });
+
+        Route::bind('channelBoardCategory', function (string $boardCategory): BaseCategory {
+            return ChannelBoardCategory::where([
+                ['channel_id', request()->route('slug')->id],
+                ['name', '=', $boardCategory],
+            ])->firstOr(function (): void {
+                throw (new ModelNotFoundException())->setModel(ChannelBoardCategory::class);
+            });
         });
     }
 

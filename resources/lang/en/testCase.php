@@ -254,6 +254,8 @@ return [
         'Board' => [
             'ShowArticleTest' => [
                 'failLookupPublicArticleWhenNotExists' => '게시글이 존재하지 않아 조회에 실패하라',
+                'failLookUpPrivateArticleWhenNotLoginButCategoryIsPrivate' => '로그인을 안한채로 비공개 게시글 조회에 실패하라',
+                'failLookUpPrivateArticleWhenUserIsNotTeamMember' => '로그인은 했지만 팀원이 아니여서 비공개 게시글 조회에 실패하라',
                 'successLookupPublicArticleAndNotIncreaseSeeCount' => '이미 해당 ip로 조회 한 게시글이라서 조회수 증가는 안하고 조회에 성공하라',
                 'successLookupPublicArticle' => '게시글 조회수 증가 및 조회에 성공하라',
                 'failLookupArticleWhenCategoryIsNotExists' => '존재하지 않는 카테고리로 접근하여 게시글 조회에 실패하라',
