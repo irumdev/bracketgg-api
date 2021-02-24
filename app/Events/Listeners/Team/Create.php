@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Events\Listeners\Channel;
+namespace App\Events\Listeners\Team;
 
 use App\Events\Dispatchrs\Team\Create as TeamCreateEvent;
 use App\Exceptions\DBtransActionFail;
