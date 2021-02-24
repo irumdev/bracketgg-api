@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
+use App\Models\Common\Board\BaseCategory;
+
 class BoardRespository extends BoardFactory
 {
     public function getArticleCategories(Model $model): Collection
@@ -17,7 +19,7 @@ class BoardRespository extends BoardFactory
         return $this->getCategories($model);
     }
 
-    public function getBoardArticlesByCategory(string $category, Model $model): HasMany
+    public function getBoardArticlesByCategory(BaseCategory $category, Model $model): HasMany
     {
         return $this->getArticlesFromCategory($category, $model);
     }

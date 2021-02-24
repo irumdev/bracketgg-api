@@ -7,6 +7,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Team\Team;
 use App\Models\Channel\Channel;
+use App\Models\Common\Board\BaseCategory;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

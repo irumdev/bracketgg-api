@@ -42,12 +42,10 @@ class ShowArticleController extends BaseController
 
     public function showArticleListByCategory(ShowArticleRequest $request): JsonResponse
     {
-        $category = $request->validated()['category'];
-
         $findArticlesDependency = new CategoryWithArticleType(
             $request->route('teamSlug'),
             Paginate::TEAM_ARTICLE_COUNT,
-            $category
+            $request->route('teamBoardCategory')
         );
 
         return parent::getArticlsByCategory($findArticlesDependency);
