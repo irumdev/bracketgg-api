@@ -10,6 +10,8 @@ use App\Services\TeamService;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Http\JsonResponse;
+use App\Events\Dispatchrs\Team\Create as CreateTeamEventDispatcher;
+use App\Models\Team\Team;
 
 /**
  * 팀을 생성하는 컨트롤러 클래스 입니다.
@@ -52,6 +54,7 @@ class CreateTeamController extends Controller
             'logo_image' => null,
             'owner' => Auth::id(),
         ]));
+        event(new CreateTeamEventDispatcher(Team::find($createTeam['id'])));
         return $this->responseBuilder->ok($createTeam);
     }
 }
