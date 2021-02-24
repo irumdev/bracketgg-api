@@ -26,7 +26,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
 
     private function serviceResolver(): ChannelService
     {
-        return new ChannelService(new BoardRespository(),new ChannelRepository(new Channel()), new ResponseBuilder());
+        return new ChannelService(new BoardRespository(), new ChannelRepository(new Channel()), new ResponseBuilder());
     }
 
     /**

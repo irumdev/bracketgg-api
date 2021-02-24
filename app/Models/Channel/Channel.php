@@ -10,7 +10,7 @@ use App\Models\Channel\Fan as ChannelFan;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use App\Models\Channel\Slug as ChannelSlug;
 use App\Models\Channel\Board\Category as ChannelBoardCategory;
-use App\Models\Channel\Board\Article as ChanneArticles;
+use App\Models\Channel\Board\Article as ChannelArticles;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -38,8 +38,6 @@ class Channel extends Model
         'like_count', 'description',
         'name', 'owner'
     ];
-
-    protected $appends = ['latest_articles'];
 
     /**
      * 채널의 배너이미지 릴레이션 메소드 입니다.
@@ -151,26 +149,7 @@ class Channel extends Model
      */
     public function articles(): HasMany
     {
-        return $this->hasMany(ChanneArticles::class, 'channel_id');
-    }
-
-    /**
-     * 채널이 최근에(조회 일 기준 00:00 ~ 23:59) 에 게시한 게시글을 가져오는 attribute 입니다.
-     *
-     * @param void
-     * @return Collection $latest_articles 최근에 게시한 게시글 10개
-     */
-    public function getLatestArticlesAttribute(): Collection
-    {
-        return $this->articles()
-                    ->whereBetween(self::CREATED_AT, [
-                        Carbon::now()->format('Y-m-d 00:00:00'),
-                        Carbon::now()->format('Y-m-d 23:59:59'),
-                    ])
-                    ->with('category')
-                    ->orderBy($this->primaryKey, 'desc')
-                    ->limit(self::DEFAULT_ARTICLE_LATEST_COUNT)
-                    ->get();
+        return $this->hasMany(ChannelArticles::class, 'channel_id');
     }
 
     public function boardCategories(): HasMany

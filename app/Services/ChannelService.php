@@ -140,12 +140,6 @@ class ChannelService
                 'categoryName' => $article->category->name,
                 'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
             ]),
-            // 'latestArticles' => $channel->latest_articles->map(fn (Article $article) => [
-            //     'id' => $article->id,
-            //     'title' => $article->title,
-            //     'categoryName' => $article->category->name,
-            //     'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
-            // ]),
             'latestArticlesCount' => $this->channelBoardRepository->latestArticlesCount($channel),
             'owner' => $channel->owner,
             'slug' => $channel->slug,

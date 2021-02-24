@@ -12,13 +12,14 @@ use App\Models\GameType;
 use App\Models\Team\OperateGame;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\InvitationCard;
+use App\Models\Team\Board\Article as TeamArticles;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Team\Board\Category as TeamBoardCategory;
@@ -115,6 +116,18 @@ class Team extends Model
             'id',
             'user_id'
         );
+    }
+
+    /**
+     * 팀 게시판에 게시한 모든 게시글들을 가져오는 릴레이션 입니다.
+     *
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return HasMany 게시글 릴레이션
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(TeamArticles::class, 'team_id');
     }
 
     /**

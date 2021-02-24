@@ -12,7 +12,9 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Team\Team;
 use App\Models\Team\BannerImage;
+use App\Models\Team\Board\Article;
 use App\Models\Team\Broadcast;
+use Illuminate\Support\Carbon;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
 class GetOwnersTeamInfosTest extends TestCase
@@ -36,7 +38,7 @@ class GetOwnersTeamInfosTest extends TestCase
 
         $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
             'addSlug', 'addSignedMembers', 'addBannerImage',
-            'addBroadcasts', 'addOperateGame'
+            'addBroadcasts', 'addOperateGame', 'addSmallTeamArticlesWithSavedImages'
         ])->create([
             'owner' => $activeUser->id
         ]));
@@ -72,6 +74,33 @@ class GetOwnersTeamInfosTest extends TestCase
                 ]),
             ])->toArray();
 
+
+            $latestArticles = $team->articles()->whereBetween('created_at', [
+                Carbon::now()->format('Y-m-d 00:00:00'),
+                Carbon::now()->format('Y-m-d 23:59:59'),
+            ]);
+
+
+
+
+            $this->assertEquals($latestArticles->count(), $compareTeam['latestArticlesCount']);
+
+            $latestArticles = $latestArticles->with('category')
+                                             ->orderBy('id', 'desc')
+                                             ->limit(10)
+                                             ->get()
+                                             ->map(fn (Article $article) => [
+                                                 'id' => $article->id,
+                                                 'title' => $article->title,
+                                                 'categoryName' => $article->category->name,
+                                                 'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+                                             ])
+                                             ->toArray();
+
+            $this->assertEquals(
+                $latestArticles,
+                $compareTeam['latestArticles']
+            );
             $broadCasts = $team->broadcastAddress->map(fn (Broadcast $teamBroadcast) => [
                 'broadcastAddress' => $teamBroadcast->broadcast_address,
                 'platform' => $teamBroadcast->platform,
@@ -96,7 +125,7 @@ class GetOwnersTeamInfosTest extends TestCase
             $this->assertEquals($team->is_public, $compareTeam['isPublic']);
 
             if (config('app.test.useRealImage')) {
-                collect($compareTeam['bannerImages'])->each(function ($bannerImage) {
+                collect($compareTeam['bannerImages'])->each(function (string $bannerImage): void {
                     $this->get($bannerImage['imageUrl'])->assertOk();
                 });
                 $this->get($teamLogoImage)->assertOk();

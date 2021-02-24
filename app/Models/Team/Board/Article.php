@@ -7,6 +7,8 @@ namespace App\Models\Team\Board;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Common\Board\BaseArticle;
 use App\Models\Team\Board\ArticleImage;
+use App\Models\Team\Board\Category;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends BaseArticle
 {
@@ -19,4 +21,9 @@ class Article extends BaseArticle
 
     protected $table = 'team_board_articles';
     protected $articleImageModelName = ArticleImage::class;
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }
