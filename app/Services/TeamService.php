@@ -10,24 +10,30 @@ use App\Models\GameType;
 use App\Repositories\TeamRepository;
 use App\Models\Team\BannerImage as TeamBannerImages;
 use App\Models\Team\Broadcast as TeamBroadCast;
+use App\Repositories\Team\BoardRespository as TeamBoardRepository;
+
+use App\Helpers\Image;
+use App\Models\Team\Board\Article;
 
 use App\Properties\Paginate;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
-use App\Helpers\Image;
+use Illuminate\Support\Carbon;
 
 class TeamService
 {
     private TeamRepository $teamRepository;
+    private TeamBoardRepository $teamBoardRepository;
 
     private const USE_UPDATE = true;
     private const USE_CREATE = false;
 
-    public function __construct(TeamRepository $teamRepository)
+    public function __construct(TeamRepository $teamRepository, TeamBoardRepository $teamBoardRepository)
     {
         $this->teamRepository = $teamRepository;
+        $this->teamBoardRepository = $teamBoardRepository;
     }
 
     public function createTeam(array $createTeamInfo): array
@@ -135,6 +141,13 @@ class TeamService
                 'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
                 'broadcastId' => $teamBroadcast->broadcastId,
             ]),
+            'latestArticles' => $this->teamBoardRepository->latestTenArticles($team)->map(fn (Article $article) => [
+                'id' => $article->id,
+                'title' => $article->title,
+                'categoryName' => $article->category->name,
+                'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+            ]),
+            'latestArticlesCount' => $this->teamBoardRepository->latestArticlesCount($team),
             'isPublic' => $team->is_public,
             'owner' => $team->owner,
             'slug' => $team->slug,
