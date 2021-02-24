@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use App\Models\Common\Board\BaseCategory;
 
 class BoardFactory implements BoardFactoryContract
 {
@@ -23,11 +24,9 @@ class BoardFactory implements BoardFactoryContract
         return $model->boardCategories;
     }
 
-    public function getArticlesFromCategory(string $category, Model $model): HasMany
+    public function getArticlesFromCategory(BaseCategory $category, Model $model): HasMany
     {
-        return $model->boardCategories()->where('name', $category)->firstOr(function (): void {
-            throw (new ModelNotFoundException())->setModel(ChannelBoardCategory::class);
-        })->articles();
+        return $category->articles();
     }
 
     public function getByModel(BaseArticle $article): BaseArticle

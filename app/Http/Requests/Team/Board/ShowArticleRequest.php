@@ -7,14 +7,17 @@ namespace App\Http\Requests\Team\Board;
 use App\Http\Requests\CommonFormRequest;
 use App\Helpers\ValidMessage;
 use App\Models\Team\Board\Category;
+use App\Models\User;
+use App\Models\Team\Team;
+
 
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 
 class ShowArticleRequest extends CommonFormRequest
 {
-    public const CATEGORY_IS_REQUIRED = 1;
-
-    public const CATEGORY_IS_NOT_EXISTS = 2;
+    private ?User $user;
+    private Category $category;
+    private Team $team;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +26,18 @@ class ShowArticleRequest extends CommonFormRequest
      */
     public function authorize(): bool
     {
+        $request = request();
+        $this->user = $request->user('sanctum');
+        $this->team = $request->route('teamSlug');
+        $this->category = $request->route('teamBoardCategory');
+
+        if ($this->user === null) {
+            return $this->category->is_public;
+        }
+
+        if ($this->category->is_public === false) {
+            return $this->user->can('viewTeam', $this->team);
+        }
         return true;
     }
 
@@ -34,30 +49,7 @@ class ShowArticleRequest extends CommonFormRequest
     public function rules(): array
     {
         return [
-            'category' => 'bail|required|hasCategory:teamSlug,team_id,' . Category::class
+
         ];
-    }
-
-    /**
-     * @override
-     */
-    public function all($keys = null): array
-    {
-        return array_merge(request()->all(), [
-            'category' => $this->route('teamBoardCategory'),
-        ]);
-    }
-
-    public function messages(): array
-    {
-        return [
-            'category.required' => self::CATEGORY_IS_REQUIRED,
-            'category.has_category' => self::CATEGORY_IS_NOT_EXISTS,
-        ];
-    }
-
-    protected function failedValidation(ValidContract $validator): void
-    {
-        $this->throwUnProcessableEntityException(ValidMessage::first($validator));
     }
 }

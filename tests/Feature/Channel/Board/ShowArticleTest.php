@@ -35,15 +35,15 @@ class ShowArticleTest extends TestCase
 
         $boardCategory = $channel->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
         );
 
-        $randArticle = $randCategoey->articles->get(
+        $randArticle = $randCategory->articles->get(
             Arr::random(
-                $randCategoey->articles->keys()->toArray()
+                $randCategory->articles->keys()->toArray()
             )
         );
 
@@ -51,7 +51,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getChannelArticle', [
             'slug' => $channel->slug,
-            'channelBoardCategory' => $randCategoey->name,
+            'channelBoardCategory' => $randCategory->name,
             'channelArticle' => $randArticle->id
         ]);
 
@@ -78,7 +78,7 @@ class ShowArticleTest extends TestCase
 
         $boardCategory = $channel->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
@@ -86,7 +86,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getChannelArticle', [
             'slug' => $channel->slug,
-            'channelBoardCategory' => $randCategoey->name,
+            'channelBoardCategory' => $randCategory->name,
             'channelArticle' => -1,
         ]);
 
@@ -114,12 +114,12 @@ class ShowArticleTest extends TestCase
             'channelBoardCategory' => Str::random(10),
         ]);
 
-        $tryLookUpArticle = $this->getJson($requestUrl)->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $tryLookUpArticle = $this->getJson($requestUrl)->assertNotFound();
 
         $this->assertFalse($tryLookUpArticle['ok']);
         $this->assertFalse($tryLookUpArticle['isValid']);
 
-        $this->assertEquals(['code' => ShowArticleRequest::CATEGORY_IS_NOT_EXISTS], $tryLookUpArticle['messages']);
+        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
     }
 
 
@@ -138,15 +138,15 @@ class ShowArticleTest extends TestCase
 
         $boardCategory = $channel->boardCategories;
 
-        $randCategoey = $boardCategory->get(
+        $randCategory = $boardCategory->get(
             Arr::random(
                 $boardCategory->keys()->toArray()
             )
         );
 
-        $randArticle = $randCategoey->articles->get(
+        $randArticle = $randCategory->articles->get(
             Arr::random(
-                $randCategoey->articles->keys()->toArray()
+                $randCategory->articles->keys()->toArray()
             )
         );
 
@@ -154,7 +154,7 @@ class ShowArticleTest extends TestCase
 
         $requestUrl = route('getChannelArticle', [
             'slug' => $channel->slug,
-            'channelBoardCategory' => $randCategoey->name,
+            'channelBoardCategory' => $randCategory->name,
             'channelArticle' => $randArticle->id
         ]);
 
@@ -171,7 +171,7 @@ class ShowArticleTest extends TestCase
         $this->assertEquals($randArticle->id, $messages['id']);
         $this->assertEquals($randArticle->title, $messages['title']);
         $this->assertEquals($randArticle->content, $messages['content']);
-        $this->assertEquals($randCategoey->id, $messages['category']);
+        $this->assertEquals($randCategory->id, $messages['category']);
 
         $profileImage = empty($randArticle->writer->profile_image) ? null : Image::toStaticUrl('profileImage', [
             'profileImage' => $randArticle->writer->profile_image
