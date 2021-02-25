@@ -65,10 +65,9 @@ class ChannelService
         return collect($this->info($this->channelRepostiroy->findById($channelId)));
     }
 
-    public function createChannel(array $createChannnelInfo): array
+    public function createChannel(array $createChannnelInfo): Channel
     {
-        $createdChannel = $this->channelRepostiroy->create($createChannnelInfo);
-        return $this->info($createdChannel);
+        return $this->channelRepostiroy->create($createChannnelInfo);
     }
 
     public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo): bool

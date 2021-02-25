@@ -23,7 +23,10 @@ class KickTest extends TestCase
         $this->setUpEnlighten();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failKickTeamMemberWhenKickTargetIsNotTeamMember(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -50,7 +53,10 @@ class KickTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failKickTeamMemberWhenRequestUserIsNotTeamMember(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -78,7 +84,10 @@ class KickTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failKickTeamMemberWhenKickTargetIsTeamOwner(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -104,7 +113,10 @@ class KickTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failKickTeamMemberWhenRequestUserIsNotTeamOwner(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -140,7 +152,10 @@ class KickTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successKickTeamMember(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
