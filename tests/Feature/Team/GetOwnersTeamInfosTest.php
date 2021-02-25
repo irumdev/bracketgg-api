@@ -125,7 +125,7 @@ class GetOwnersTeamInfosTest extends TestCase
             $this->assertEquals($team->is_public, $compareTeam['isPublic']);
 
             if (config('app.test.useRealImage')) {
-                collect($compareTeam['bannerImages'])->each(function (string $bannerImage): void {
+                collect($compareTeam['bannerImages'])->each(function (array $bannerImage): void {
                     $this->get($bannerImage['imageUrl'])->assertOk();
                 });
                 $this->get($teamLogoImage)->assertOk();
