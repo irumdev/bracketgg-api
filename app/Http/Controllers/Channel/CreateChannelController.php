@@ -57,7 +57,9 @@ class CreateChannelController extends Controller
             'like_count' => 0,
             'owner' => Auth::id(),
         ]));
-        event(new CreateChannelDispatcher(Channel::find($createdChannel['id'])));
-        return $this->responseBuilder->ok($createdChannel);
+        event(new CreateChannelDispatcher($createdChannel));
+        return $this->responseBuilder->ok(
+            $this->channelService->info($createdChannel)
+        );
     }
 }

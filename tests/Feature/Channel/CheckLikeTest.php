@@ -40,7 +40,10 @@ class CheckLikeTest extends TestCase
         $this->assertEquals(['code' => 404], $tryCheckChannelIsLike['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpChannelIsFanWhenUserisNotLogined(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

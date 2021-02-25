@@ -89,7 +89,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('name/{name}', [ShowChannelController::class, 'getChannelById'])->name('findChannelByName');
 
         /**
-         * [BRACKETGG-69] 채널 게시판에 특정 카테고리에 해당하는 게시글들
+         * [BRACKETGG-155] 채널 게시판에 특정 카테고리에 해당하는 게시글들
          */
         Route::get('{slug}/{channelBoardCategory}/articles', [ShowChannelArticleController::class, 'showArticleListByCategory'])->name('getChannelArticlesByCategory');
 
@@ -121,7 +121,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'email'], function () {
 
             /**
-             * 이메일 인증 메일 재전송
+             * [BRACKETGG-58] 이메일 인증 메일 재전송
              */
             Route::post('resend', [VerifyEmailController::class, 'resendEmail'])->name('resendVerifyEmail');
         });
@@ -202,7 +202,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('', [CreateTeamController::class, 'createTeam'])->name('createTeam');
 
             /**
-             * 배너이미지를 제외한 팀 정보 업데이트
+             * [BRACKETGG-77] 배너이미지를 제외한 팀 정보 업데이트
              */
             Route::post('{teamSlug}', [UpdateInformationController::class, 'updateInfo'])->name('updateTeamInfoWithoutImage');
 
@@ -212,17 +212,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('checkTeamNameDuplicate');
 
             /**
-             * [BRACKETGG-98]팀원 초대
+             * [BRACKETGG-98] 팀원 초대
              */
             Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCard'])->name('inviteTeamMember');
 
             /**
-             * 팀 배너 업데이트
+             * [BRACKETGG-79] 팀 배너 업데이트
              */
             Route::post('{teamSlug}/update-banner', [UpdateInformationController::class, 'updateBannerImage'])->name('updateTeamBanner');
 
             /**
-             * 팀 로고 업데이트
+             * [BRACKETGG-78] 팀 로고 업데이트
              */
             Route::post('{teamSlug}/update-logo', [UpdateInformationController::class, 'updateLogoImage'])->name('updateTeamLogo');
 
@@ -249,12 +249,12 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'user'], function () {
             /**
-             * 팀원 초대 수락
+             * [BRACKETGG-95] 팀원 초대 수락
              */
             Route::post('accept/team/{teamSlug}', [InviteMemberController::class, 'acceptInviteCard'])->name('acceptInvite');
 
             /**
-             * 팀원 초대 거절
+             * [BRACKETGG-96] 팀원 초대 거절
              */
             Route::post('reject/team/{teamSlug}', [InviteMemberController::class, 'rejectInviteCard'])->name('rejectInvite');
         });

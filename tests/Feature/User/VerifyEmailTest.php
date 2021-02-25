@@ -72,7 +72,10 @@ class VerifyEmailTest extends TestCase
         ];
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successVerifyEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -90,7 +93,10 @@ class VerifyEmailTest extends TestCase
         $this->assertNotNull($verifiedUser->email_verified_at);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failVerifyEmailWhenTimeOut(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -111,7 +117,10 @@ class VerifyEmailTest extends TestCase
         $this->assertNull($failVeryfiedUser->email_verified_at);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failVerifyEmailWhenUserIsNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -138,7 +147,10 @@ class VerifyEmailTest extends TestCase
         $this->assertNull($failVeryfiedUser->email_verified_at);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failVerifyEmailWhenUserAlreadyVerifyEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

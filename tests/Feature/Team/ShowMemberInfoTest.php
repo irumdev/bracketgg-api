@@ -29,7 +29,10 @@ class ShowMemberInfoTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookupTeamMemberListWhenUserIsNotTeamMember(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -51,7 +54,10 @@ class ShowMemberInfoTest extends TestCase
         $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $tryLookupTeamMembers['messages']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupWhenMemberIsOnlyTeamOwner(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -78,7 +84,10 @@ class ShowMemberInfoTest extends TestCase
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupPendingUsersAndMembers(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -120,7 +129,10 @@ class ShowMemberInfoTest extends TestCase
         } while ($tryLookupTeamMembers['messages']['meta']['hasMorePage']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupOnlyPendingUsers(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());

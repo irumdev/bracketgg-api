@@ -23,7 +23,10 @@ class ShowFollowerListTest extends TestCase
         $this->setUpEnlighten();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpFollowersWhenUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -40,7 +43,10 @@ class ShowFollowerListTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function failLookUpFollowersWhenChannelNotExists(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -58,7 +64,10 @@ class ShowFollowerListTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupChannelFollowersWithPaginate(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -106,7 +115,10 @@ class ShowFollowerListTest extends TestCase
         } while ($tryLookUpFollowersList['messages']['meta']['hasMorePage']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @enlighten
+     */
     public function successLookupChannelFollowersButChannelDontHaveAnyFollower(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
