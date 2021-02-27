@@ -7,6 +7,8 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\URL;
@@ -17,6 +19,7 @@ use App\Apis\DirectSend\Email;
 use Illuminate\Support\Carbon;
 
 use App\Models\Channel\Channel;
+use App\Models\Channel\Follower;
 use App\Models\Team\Team;
 use App\Models\Team\InvitationCard;
 
@@ -103,9 +106,33 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+    /**
+     * 유저가 소유하고 있는 채널 릴레이션 입니다.
+     *
+     * @param void
+     * @return HasMany 유저가 가지고 있는 채널 릴레이션
+     */
     public function channels(): HasMany
     {
         return $this->hasMany(Channel::class, 'owner', 'id');
+    }
+
+    /**
+     * 유저가 팔로우 하고있는 채널 릴레이션 입니다.
+     *
+     * @param void
+     * @return HasMany 유저가 팔로우 하고 있는 채널 릴레이션
+     */
+    public function followedChannel(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Channel::class,
+            Follower::class,
+            'user_id',
+            'id',
+            'id',
+            'channel_id'
+        );
     }
 
     public function teams(): HasMany

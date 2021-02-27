@@ -51,7 +51,7 @@ class ShowMemberInfoTest extends TestCase
         $this->assertFalse($tryLookupTeamMembers['ok']);
         $this->assertFalse($tryLookupTeamMembers['isValid']);
 
-        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $tryLookupTeamMembers['messages']);
+        $this->assertUnauthorizedMessages($tryLookupTeamMembers['messages']);
     }
 
     /**

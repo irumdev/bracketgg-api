@@ -10,6 +10,7 @@ use App\Http\Controllers\User\CreateUserController;
 use App\Http\Controllers\User\ShowUserController;
 use App\Http\Controllers\User\UserVerifyController;
 use App\Http\Controllers\User\VerifyEmailController;
+use App\Http\Controllers\User\Channel\ShowFollowChannelController;
 
 use App\Http\Controllers\Channel\FollowChannelController;
 use App\Http\Controllers\Channel\LikeChannelController;
@@ -257,6 +258,11 @@ Route::group(['prefix' => 'v1'], function () {
              * [BRACKETGG-96] 팀원 초대 거절
              */
             Route::post('reject/team/{teamSlug}', [InviteMemberController::class, 'rejectInviteCard'])->name('rejectInvite');
+
+            /**
+             * [BRACKETGG-197] 유저가 팔로우 한 채널 리스트 조회
+             */
+            Route::get('channels', [ShowFollowChannelController::class, 'getFollowedChannelByUser'])->name('getFollowedChannel');
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('getGameTypeByKeyword');

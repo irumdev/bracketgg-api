@@ -99,12 +99,11 @@ class BannerImageTest extends TestCase
         $tryUpdateTeamBanner = $this->postJson($requestUrl, [
             'banner_image' => UploadedFile::fake()->create('test.png', 2048),
             // 'banner_image_id' => 'abcd'
-        ])->assertStatus(401);
+        ])->assertUnauthorized();
 
         $this->assertFalse($tryUpdateTeamBanner['ok']);
         $this->assertFalse($tryUpdateTeamBanner['isValid']);
-
-        $this->assertEquals(['code' => 401], $tryUpdateTeamBanner['messages']);
+        $this->assertUnauthorizedMessages($tryUpdateTeamBanner['messages']);
     }
 
     /**

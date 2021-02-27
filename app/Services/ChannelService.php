@@ -34,9 +34,9 @@ class ChannelService
 
     public function findBySlug(string $slug): Channel
     {
-        $findBySlugResult = ChannelSlug::where('slug', $slug)->first();
-        throw_unless($findBySlugResult, (new ModelNotFoundException())->setModel(Channel::class));
-        return $findBySlugResult->channel;
+        return ChannelSlug::where('slug', $slug)->firstOr(function (): void {
+            throw (new ModelNotFoundException())->setModel(Channel::class);
+        })->channel;
     }
 
     public function findChannelsByUserId(string $userId): Collection

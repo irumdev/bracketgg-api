@@ -48,7 +48,7 @@ $factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $chann
 });
 
 $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker) {
-    $fanCount = range(1, $followerCount = random_int(1, 10));
+    $fanCount = range(1, random_int(1, 10));
     collect($fanCount)->each(function ($step) use ($channel) {
         factory(ChannelFollower::class)->create([
             'channel_id' => $channel->id,
@@ -56,7 +56,7 @@ $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $c
         ]);
     });
 
-    $channel->follwer_count = count($fanCount);
+    $channel->follwer_count = collect($fanCount)->count();
     $channel->save();
 });
 

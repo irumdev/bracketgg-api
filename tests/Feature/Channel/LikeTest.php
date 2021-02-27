@@ -113,7 +113,7 @@ class LikeTest extends TestCase
 
         $this->assertFalse($tryLikeToChannel['ok']);
         $this->assertFalse($tryLikeToChannel['isValid']);
-        $this->assertEquals(404, $tryLikeToChannel['messages']['code']);
+        $this->assertNotFoundMessages($tryLikeToChannel['messages']);
     }
 
     /**

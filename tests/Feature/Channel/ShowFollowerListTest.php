@@ -36,11 +36,7 @@ class ShowFollowerListTest extends TestCase
 
         $this->assertFalse($tryLookUpFollowersList['ok']);
         $this->assertFalse($tryLookUpFollowersList['isValid']);
-
-        $this->assertEquals(
-            ['code' => 401],
-            $tryLookUpFollowersList['messages']
-        );
+        $this->assertUnauthorizedMessages($tryLookUpFollowersList['messages']);
     }
 
     /**
@@ -57,11 +53,7 @@ class ShowFollowerListTest extends TestCase
 
         $this->assertFalse($tryLookUpFollowersList['ok']);
         $this->assertFalse($tryLookUpFollowersList['isValid']);
-
-        $this->assertEquals(
-            ['code' => 404],
-            $tryLookUpFollowersList['messages']
-        );
+        $this->assertNotFoundMessages($tryLookUpFollowersList['messages']);
     }
 
     /**

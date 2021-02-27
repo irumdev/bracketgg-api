@@ -88,10 +88,6 @@ class ShowInfoByTokenTest extends TestCase
 
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
-
-        $this->assertEquals(
-            ['code' => 401],
-            $response['messages']
-        );
+        $this->assertUnauthorizedMessages($response['messages']);
     }
 }

@@ -9,4 +9,5 @@ class Paginate
     public const PER = 36;
     public const CHANNEL_ARTICLE_COUNT = 16;
     public const TEAM_ARTICLE_COUNT = 16;
+    public const FOLLOWED_CHANNEL_COUNT = 20;
 }

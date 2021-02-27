@@ -95,8 +95,7 @@ class ShowArticleTest extends TestCase
 
         $this->assertFalse($tryLookUpArticle['ok']);
         $this->assertFalse($tryLookUpArticle['isValid']);
-
-        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
+        $this->assertNotFoundMessages($tryLookUpArticle['messages']);
     }
 
     /**
@@ -118,8 +117,7 @@ class ShowArticleTest extends TestCase
 
         $this->assertFalse($tryLookUpArticle['ok']);
         $this->assertFalse($tryLookUpArticle['isValid']);
-
-        $this->assertEquals(['code' => 404], $tryLookUpArticle['messages']);
+        $this->assertNotFoundMessages($tryLookUpArticle['messages']);
     }
 
 

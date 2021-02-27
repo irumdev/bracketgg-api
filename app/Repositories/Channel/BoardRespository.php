@@ -12,9 +12,9 @@ class BoardRespository extends BaseBoardRepository
 {
     public const DEFAULT_ARTICLE_LATEST_COUNT = 10;
 
-    public function latestTenArticles(Channel $model): Collection
+    public function latestTenArticles(Channel $channel): Collection
     {
-        return parent::latestArticles($model)->with('category')
+        return parent::latestArticles($channel)->with('category')
                                              ->orderBy((new Channel())->getKeyName(), 'desc')
                                              ->limit(self::DEFAULT_ARTICLE_LATEST_COUNT)
                                              ->get();

@@ -17,6 +17,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\Image;
 use App\Models\Team\InvitationCard;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
@@ -119,6 +121,13 @@ class UserService
             $attribute['profile_image'] = $attribute['profile_image']->hashName();
         }
         return $this->userRepository->create($attribute);
+    }
+
+    public function getFollowedChannels(User $user): Paginator
+    {
+        $pagiNatedFollowedChannel = $this->userRepository->getFollowedChannels($user);
+        throw_if($pagiNatedFollowedChannel->isEmpty(), (new ModelNotFoundException())->setModel(Channel::class));
+        return $pagiNatedFollowedChannel;
     }
 
     public function markEmailAsVerified(string $userIdx): bool

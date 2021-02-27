@@ -54,7 +54,7 @@ class SearchTest extends TestCase
 
         $this->assertFalse($trySearchGameTypes['ok']);
         $this->assertFalse($trySearchGameTypes['isValid']);
-        $this->assertEquals(['code' => 404], $trySearchGameTypes['messages']);
+        $this->assertNotFoundMessages($trySearchGameTypes['messages']);
     }
 
     /**

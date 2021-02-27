@@ -139,7 +139,7 @@ class FollowTest extends TestCase
             'slug' => Str::random(10)
         ]))->assertNotFound();
 
-        $this->assertEquals(['code' => 404], $tryFollow['messages']);
+        $this->assertNotFoundMessages($tryFollow['messages']);
         $this->assertFalse($tryFollow['ok']);
         $this->assertFalse($tryFollow['isValid']);
     }

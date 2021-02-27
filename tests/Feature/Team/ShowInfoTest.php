@@ -42,10 +42,7 @@ class ShowInfoTest extends TestCase
 
         $this->assertFalse($tryLookupTeam['ok']);
         $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 401],
-            $tryLookupTeam['messages']
-        );
+        $this->assertUnauthorizedMessages($tryLookupTeam['messages']);
     }
 
     /**
@@ -67,10 +64,7 @@ class ShowInfoTest extends TestCase
 
         $this->assertFalse($tryLookupTeam['ok']);
         $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 401],
-            $tryLookupTeam['messages']
-        );
+        $this->assertUnauthorizedMessages($tryLookupTeam['messages']);
     }
 
     /**
@@ -87,10 +81,7 @@ class ShowInfoTest extends TestCase
 
         $this->assertFalse($tryLookupTeam['ok']);
         $this->assertFalse($tryLookupTeam['isValid']);
-        $this->assertEquals(
-            ['code' => 404],
-            $tryLookupTeam['messages']
-        );
+        $this->assertNotFoundMessages($tryLookupTeam['messages']);
     }
 
     /**
