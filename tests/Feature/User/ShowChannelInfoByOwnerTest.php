@@ -145,6 +145,6 @@ class ShowChannelInfoByOwnerTest extends TestCase
         $response = $this->getJson($testRequestUrl)->assertNotFound();
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
-        $this->assertEquals(['code' => 404], $response['messages']);
+        $this->assertNotFoundMessages($response['messages']);
     }
 }

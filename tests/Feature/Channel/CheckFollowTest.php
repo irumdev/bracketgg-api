@@ -38,7 +38,7 @@ class CheckFollowTest extends TestCase
 
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['ok']);
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['isValid']);
-        $this->assertEquals(['code' => 404], $tryCheckChannelIsAlreadyFollow['messages']);
+        $this->assertNotFoundMessages($tryCheckChannelIsAlreadyFollow['messages']);
     }
 
     /**
@@ -54,7 +54,7 @@ class CheckFollowTest extends TestCase
 
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['ok']);
         $this->assertFalse($tryCheckChannelIsAlreadyFollow['isValid']);
-        $this->assertEquals(['code' => 401], $tryCheckChannelIsAlreadyFollow['messages']);
+        $this->assertUnauthorizedMessages($tryCheckChannelIsAlreadyFollow['messages']);
     }
 
     /**

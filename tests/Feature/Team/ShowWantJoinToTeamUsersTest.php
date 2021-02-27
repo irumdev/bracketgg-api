@@ -42,7 +42,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
 
         $this->assertFalse($tryLookupJoinRequestUsers['ok']);
         $this->assertFalse($tryLookupJoinRequestUsers['isValid']);
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $tryLookupJoinRequestUsers['messages']['code']);
+        $this->assertUnauthorizedMessages($tryLookupJoinRequestUsers['messages']);
     }
 
     /**

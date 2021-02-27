@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -24,5 +25,15 @@ abstract class TestCase extends BaseTestCase
         ]));
 
         return count(explode('testCase', $korCaseName)) >= 2 ? $calledMethodName : $korCaseName;
+    }
+
+    public function assertNotFoundMessages(array $messages): void
+    {
+        $this->assertEquals(['code' => Response::HTTP_NOT_FOUND], $messages);
+    }
+
+    public function assertUnauthorizedMessages(array $messages): void
+    {
+        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $messages);
     }
 }

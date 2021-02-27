@@ -10,10 +10,12 @@ use App\Models\Channel\Follower as ChannelFollower;
 use App\Models\Channel\Fan as ChannelFan;
 
 use App\Exceptions\DBtransActionFail;
-
+use App\Properties\Paginate;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
@@ -112,5 +114,10 @@ class UserRepository
                 $createItem,
             );
         });
+    }
+
+    public function getFollowedChannels(User $user): Paginator
+    {
+        return $user->followedChannel()->simplePaginate(Paginate::FOLLOWED_CHANNEL_COUNT);
     }
 }

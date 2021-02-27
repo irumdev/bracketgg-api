@@ -64,11 +64,11 @@ class ReSendVerifyEmailTest extends TestCase
 
         Sanctum::actingAs($user);
         $tryResendEmailVerification = $this->postJson($this->testUrl)
-                                           ->assertStatus(Response::HTTP_UNAUTHORIZED);
+                                           ->assertUnauthorized();
 
         $this->assertFalse($tryResendEmailVerification['ok']);
         $this->assertFalse($tryResendEmailVerification['isValid']);
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $tryResendEmailVerification['messages']['code']);
+        $this->assertUnauthorizedMessages($tryResendEmailVerification['messages']);
     }
 
     /**
@@ -81,10 +81,10 @@ class ReSendVerifyEmailTest extends TestCase
         $user = factory(User::class)->create();
         $this->assertNotNull($user->email_verified_at);
 
-        $tryResendEmailVerification = $this->postJson($this->testUrl)->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $tryResendEmailVerification = $this->postJson($this->testUrl)->assertUnauthorized();
 
         $this->assertFalse($tryResendEmailVerification['ok']);
         $this->assertFalse($tryResendEmailVerification['isValid']);
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $tryResendEmailVerification['messages']['code']);
+        $this->assertUnauthorizedMessages($tryResendEmailVerification['messages']);
     }
 }

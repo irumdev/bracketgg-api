@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 /**
- * 채넒 모델 클래스 입니다.
+ * 채널 모델 클래스 입니다.
  *
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
