@@ -62,8 +62,7 @@ class CreateTest extends TestCase
 
         $this->assertFalse($tryCreateTeam['ok']);
         $this->assertFalse($tryCreateTeam['isValid']);
-
-        $this->assertEquals(['code' => 401], $tryCreateTeam['messages']);
+        $this->assertUnauthorizedMessages($tryCreateTeam['messages']);
     }
 
     /**
@@ -120,7 +119,7 @@ class CreateTest extends TestCase
 
         $tryCreateTeam = $this->postJson(route('createTeam'), [
             'name' => $teamName
-        ])->assertStatus(401);
+        ])->assertUnauthorized();
 
         $this->assertFalse($tryCreateTeam['ok']);
         $this->assertFalse($tryCreateTeam['isValid']);

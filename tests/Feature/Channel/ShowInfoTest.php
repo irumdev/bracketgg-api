@@ -122,7 +122,7 @@ class ShowInfoTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states([
             'addBannerImage','hasFollower','addBroadcasts', 'addSlug'
-        ])->create()->first();
+        ])->create();
 
         $channelSlug = $channel->slug;
         $channelId = $channel->id;
@@ -221,10 +221,7 @@ class ShowInfoTest extends TestCase
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
 
-        $this->assertEquals(
-            ['code' => 404],
-            $response['messages']
-        );
+        $this->assertNotFoundMessages($response['messages']);
     }
 
     /**
@@ -242,10 +239,6 @@ class ShowInfoTest extends TestCase
 
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
-
-        $this->assertEquals(
-            ['code' => 404],
-            $response['messages']
-        );
+        $this->assertNotFoundMessages($response['messages']);
     }
 }

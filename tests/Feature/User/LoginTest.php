@@ -82,10 +82,10 @@ class LoginTest extends TestCase
         $response = $this->postJson($testUrl, [
             'email' => $user->email,
             'password' => 'dldf',
-        ])->assertStatus(401);
+        ])->assertUnauthorized();
         $this->assertFalse($response['ok']);
         $this->assertFalse($response['isValid']);
-        $this->assertEquals(401, $response['messages']['code']);
+        $this->assertUnauthorizedMessages($response['messages']);
     }
 
     /**

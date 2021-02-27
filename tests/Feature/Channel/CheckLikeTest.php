@@ -37,7 +37,7 @@ class CheckLikeTest extends TestCase
 
         $this->assertFalse($tryCheckChannelIsLike['ok']);
         $this->assertFalse($tryCheckChannelIsLike['isValid']);
-        $this->assertEquals(['code' => 404], $tryCheckChannelIsLike['messages']);
+        $this->assertNotFoundMessages($tryCheckChannelIsLike['messages']);
     }
 
     /**
@@ -55,7 +55,7 @@ class CheckLikeTest extends TestCase
 
         $this->assertFalse($tryCheckChannelIsLike['ok']);
         $this->assertFalse($tryCheckChannelIsLike['isValid']);
-        $this->assertEquals(['code' => 401], $tryCheckChannelIsLike['messages']);
+        $this->assertUnauthorizedMessages($tryCheckChannelIsLike['messages']);
     }
 
     /**

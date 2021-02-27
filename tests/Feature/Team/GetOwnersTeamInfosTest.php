@@ -158,7 +158,7 @@ class GetOwnersTeamInfosTest extends TestCase
 
         $this->assertFalse($tryLookupTeamInfo['ok']);
         $this->assertFalse($tryLookupTeamInfo['isValid']);
-        $this->assertEquals(['code' => 401], $tryLookupTeamInfo['messages']);
+        $this->assertUnauthorizedMessages($tryLookupTeamInfo['messages']);
     }
 
     /**
@@ -176,6 +176,6 @@ class GetOwnersTeamInfosTest extends TestCase
         ]))->assertNotFound();
         $this->assertFalse($tryLookupTeamInfo['ok']);
         $this->assertFalse($tryLookupTeamInfo['isValid']);
-        $this->assertEquals(['code' => 404], $tryLookupTeamInfo['messages']);
+        $this->assertNotFoundMessages($tryLookupTeamInfo['messages']);
     }
 }

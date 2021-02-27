@@ -47,10 +47,7 @@ class KickTest extends TestCase
 
         $this->assertFalse($tryKickTeamMember['ok']);
         $this->assertFalse($tryKickTeamMember['isValid']);
-        $this->assertEquals(
-            ['code' => Response::HTTP_UNAUTHORIZED],
-            $tryKickTeamMember['messages']
-        );
+        $this->assertUnauthorizedMessages($tryKickTeamMember['messages']);
     }
 
     /**
@@ -78,10 +75,7 @@ class KickTest extends TestCase
 
         $this->assertFalse($tryKickTeamMember['ok']);
         $this->assertFalse($tryKickTeamMember['isValid']);
-        $this->assertEquals(
-            ['code' => Response::HTTP_UNAUTHORIZED],
-            $tryKickTeamMember['messages']
-        );
+        $this->assertUnauthorizedMessages($tryKickTeamMember['messages']);
     }
 
     /**
@@ -107,10 +101,7 @@ class KickTest extends TestCase
 
         $this->assertFalse($tryKickTeamMember['ok']);
         $this->assertFalse($tryKickTeamMember['isValid']);
-        $this->assertEquals(
-            ['code' => Response::HTTP_UNAUTHORIZED],
-            $tryKickTeamMember['messages']
-        );
+        $this->assertUnauthorizedMessages($tryKickTeamMember['messages']);
     }
 
     /**
@@ -146,10 +137,7 @@ class KickTest extends TestCase
 
         $this->assertFalse($tryKickTeamMember['ok']);
         $this->assertFalse($tryKickTeamMember['isValid']);
-        $this->assertEquals(
-            ['code' => Response::HTTP_UNAUTHORIZED],
-            $tryKickTeamMember['messages']
-        );
+        $this->assertUnauthorizedMessages($tryKickTeamMember['messages']);
     }
 
     /**
