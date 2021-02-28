@@ -46,7 +46,7 @@ class FindTypeController extends Controller
 
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($gameTypes)->merge([
-                'types' => array_map(fn (GameType $gameType) => $this->gameTypeService->info($gameType), $gameTypes->items())
+                'types' => array_map(fn (GameType $gameType): array => $this->gameTypeService->info($gameType), $gameTypes->items())
             ])
         );
     }

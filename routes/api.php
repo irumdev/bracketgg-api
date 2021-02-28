@@ -42,7 +42,7 @@ use App\Http\Controllers\Game\FindTypeController;
 */
 
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1'], function (): void {
 
     /**
      * [BRACKETGG-56] 로그인
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth', [UserVerifyController::class, 'verifyUser'])->name('verify');
 
 
-    Route::group(['prefix' => 'email'], function () {
+    Route::group(['prefix' => 'email'], function (): void {
 
         /**
          * [BRACKETGG-55] 이메일 중복검사
@@ -63,7 +63,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('verify/{id}/{hash}', [VerifyEmailController::class, 'verifyEmail'])->middleware('signed')->name('verifyEmail');
     });
 
-    Route::group(['prefix' => 'user'], function () {
+    Route::group(['prefix' => 'user'], function (): void {
 
         /**
          * [BRACKETGG-54] 회원가입
@@ -77,7 +77,7 @@ Route::group(['prefix' => 'v1'], function () {
                                                                 ->middleware('auth:sanctum');
     });
 
-    Route::group(['prefix' => 'channel'], function () {
+    Route::group(['prefix' => 'channel'], function (): void {
 
         /**
          * [BRACKETGG-70] 슬러그로 채널정보 조회
@@ -100,7 +100,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('{slug}/{channelBoardCategory}/article/{channelArticle}', [ShowChannelArticleController::class, 'showArticleByModel'])->name('getChannelArticle');
     });
 
-    Route::group(['prefix' => 'team'], function () {
+    Route::group(['prefix' => 'team'], function (): void {
 
         /**
          * 팀 슬러그로 팀 정보 조회
@@ -118,8 +118,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('{teamSlug}/{teamBoardCategory}/article/{teamArticle}', [ShowTeamArticleController::class, 'showArticleByModel'])->name('getTeamArticle');
     });
 
-    Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::group(['prefix' => 'email'], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function (): void {
+        Route::group(['prefix' => 'email'], function (): void {
 
             /**
              * [BRACKETGG-58] 이메일 인증 메일 재전송
@@ -132,7 +132,7 @@ Route::group(['prefix' => 'v1'], function () {
          */
         Route::post('logout', [UserLogoutController::class, 'logout'])->name('logoutUser');
 
-        Route::group(['prefix' => 'channel'], function () {
+        Route::group(['prefix' => 'channel'], function (): void {
 
             /**
              * 채널 생성
@@ -195,7 +195,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('unLikeChannel');
         });
 
-        Route::group(['prefix' => 'team'], function () {
+        Route::group(['prefix' => 'team'], function (): void {
 
             /**
              * 팀 생성
@@ -248,7 +248,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('{teamSlug}/kick/{userIdx}', [KickController::class, 'kickByUserId'])->name('kickTeamMember');
         });
 
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user'], function (): void {
             /**
              * [BRACKETGG-95] 팀원 초대 수락
              */

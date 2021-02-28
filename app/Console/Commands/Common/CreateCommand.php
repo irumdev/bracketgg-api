@@ -43,7 +43,7 @@ abstract class CreateCommand extends Command
         return $controllerContent->implode('');
     }
 
-    public function create(string $className)
+    public function create(string $className): int
     {
         $basePath = $this->basePaths[$this->type];
         $nameSpace = collect(explode('\\', $className));

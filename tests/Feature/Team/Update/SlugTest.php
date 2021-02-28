@@ -109,7 +109,7 @@ class SlugTest extends TestCase
         collect([
             \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(13)),
             \Illuminate\Support\Str::upper(\Illuminate\Support\Str::random(13)) . '*'
-        ])->each(function ($illeagleSlug) use ($requestUrl) {
+        ])->each(function (string $illeagleSlug) use ($requestUrl) {
             $tryUpdateTeam = $this->postJson($requestUrl, [
                 'slug' => $illeagleSlug
             ])->assertStatus(422);

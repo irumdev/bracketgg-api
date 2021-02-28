@@ -109,7 +109,7 @@ class CreateTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
-        collect(range(0, 2))->map(function () use ($user) {
+        collect(range(0, 2))->map(function () use ($user): void {
             $team = factory(Team::class)->create();
 
             $team->owner = $user->id;
@@ -155,7 +155,7 @@ class CreateTest extends TestCase
         $this->assertNull($message['logoImage']);
         $this->assertEquals($user->id, $message['owner']);
         $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains($user->id)
+            $team->members->map(fn (User $member): int => $member->id)->contains($user->id)
         );
 
         $this->assertTrue(

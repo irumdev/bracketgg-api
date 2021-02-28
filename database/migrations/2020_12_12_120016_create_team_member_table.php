@@ -17,7 +17,7 @@ class CreateTeamMemberTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_members', function (Blueprint $table) {
+        Schema::create('team_members', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('team_id')->comment('팀 인덱스');
             $table->foreignId('user_id')->comment('유저 인덱스');
@@ -35,7 +35,7 @@ class CreateTeamMemberTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_members');
     }

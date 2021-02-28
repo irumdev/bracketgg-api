@@ -29,7 +29,7 @@ class UserRepository
 
     public function create(array $attribute): User
     {
-        return DB::transaction(fn () => $this->user->create($attribute));
+        return DB::transaction(fn (): User => $this->user->create($attribute));
     }
 
     public function findByIdx(string $idx): User
@@ -62,7 +62,7 @@ class UserRepository
             'user_id' => $user->id,
         ];
 
-        $isSuccess = DB::transaction(function () use ($createItem, $channel) {
+        $isSuccess = DB::transaction(function () use ($createItem, $channel): bool {
             $createFanResult = ChannelFan::firstOrCreate($createItem, $createItem);
             $channel->like_count += 1;
             return $createFanResult !== null && $channel->save();
@@ -73,7 +73,7 @@ class UserRepository
 
     public function unLikeChannel(User $user, Channel $channel): bool
     {
-        return DB::transaction(function () use ($user, $channel) {
+        return DB::transaction(function () use ($user, $channel): bool {
             $deleteResult = ChannelFan::where($this->isAlreadyLikeOrFollowCondition($user, $channel))->delete();
             $channel->like_count = $channel->like_count === 0 ? 0 : $channel->like_count - 1;
             return $deleteResult !== null && $channel->save();
@@ -87,7 +87,7 @@ class UserRepository
 
     public function unFollowChannel(User $user, Channel $channel): bool
     {
-        return DB::transaction(function () use ($user, $channel) {
+        return DB::transaction(function () use ($user, $channel): bool {
             $channel->follwer_count = $channel->follwer_count === 0 ? 0 : $channel->follwer_count - 1;
             return $this->findFollowerCondition($user, $channel)->delete() &&
                    $channel->save();
@@ -96,7 +96,7 @@ class UserRepository
 
     public function markEmailAsVerified(User $user): bool
     {
-        return DB::transaction(fn () => $user->markEmailAsVerified());
+        return DB::transaction(fn (): bool => $user->markEmailAsVerified());
     }
 
     public function followChannel(User $user, Channel $channel): ChannelFollower
@@ -106,7 +106,7 @@ class UserRepository
             'user_id' => $user->id,
         ];
 
-        return DB::transaction(function () use ($createItem, $channel) {
+        return DB::transaction(function () use ($createItem, $channel): ChannelFollower {
             $channel->follwer_count += 1;
             $channel->save();
             return ChannelFollower::firstOrCreate(

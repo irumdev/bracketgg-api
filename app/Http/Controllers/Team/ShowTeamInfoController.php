@@ -82,7 +82,7 @@ class ShowTeamInfoController extends Controller
         $paginatedWantJoinToTeamUsers = $this->teamService->getRequestJoinUsers($team);
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($paginatedWantJoinToTeamUsers)->merge([
-                'requestUsers' => array_map(fn (User $wantJoinUser) => $this->userService->info($wantJoinUser), $paginatedWantJoinToTeamUsers->items())
+                'requestUsers' => array_map(fn (User $wantJoinUser): array => $this->userService->info($wantJoinUser), $paginatedWantJoinToTeamUsers->items())
             ])
         );
     }
@@ -92,7 +92,7 @@ class ShowTeamInfoController extends Controller
         $paginatedTeamMembers = $this->teamService->getTeamMembers($team);
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($paginatedTeamMembers)->merge([
-                'teamMembers' => array_map(fn (User $teamMember) => $this->userService->info($teamMember), $paginatedTeamMembers->items())
+                'teamMembers' => array_map(fn (User $teamMember): array => $this->userService->info($teamMember), $paginatedTeamMembers->items())
             ])
         );
     }

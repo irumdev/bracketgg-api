@@ -15,7 +15,7 @@ class CreateChannelBoardArticlesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('channel_board_articles', function (Blueprint $table) {
+        Schema::create('channel_board_articles', function (Blueprint $table): void {
             $table->id();
 
             $table->string('title')->comment('게시글 제목');

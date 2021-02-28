@@ -17,7 +17,7 @@ class CreateTeamOperateGamesTable extends Migration
          * @todo operage_games -> team_operate_games
          */
         // 팀이 어떤 게임 종목을 운영하는지 매핑 태이블
-        Schema::create('operate_games', function (Blueprint $table) {
+        Schema::create('operate_games', function (Blueprint $table): void {
             $table->id()->comment('팀이 운영하는 게임 리스트 아이디');
             $table->foreignId('team_id')->comment('팀 인덱스');
             $table->foreignId('game_type_id')->comment('게임종목 인덱스');

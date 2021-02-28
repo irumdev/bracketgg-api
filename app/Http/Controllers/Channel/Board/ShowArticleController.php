@@ -32,7 +32,7 @@ class ShowArticleController extends BaseController
         $this->boardService = $boardService;
     }
 
-    public function showArticleByModel(Channel $team, string $channelBoardCategoey, ChannelArticle $article)
+    public function showArticleByModel(Channel $team, string $channelBoardCategoey, ChannelArticle $article): JsonResponse
     {
         return parent::getArticleByModel(
             $article,

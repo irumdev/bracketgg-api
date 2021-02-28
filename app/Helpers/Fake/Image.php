@@ -77,7 +77,7 @@ class Image
      * @version 1.0.0
      * @return string 페이크 이미지 저장 경로
      */
-    public static function create($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false)
+    public static function create($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false): string
     {
         $dir = is_null($dir) ? sys_get_temp_dir() : $dir;
         // Validate directory path
@@ -113,7 +113,7 @@ class Image
         return $fullPath ? $filepath : $filename;
     }
 
-    public static function retryCreate($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false)
+    public static function retryCreate($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false): string
     {
         $retryCnt = 10;
 

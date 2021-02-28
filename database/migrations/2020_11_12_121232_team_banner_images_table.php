@@ -13,7 +13,7 @@ class TeamBannerImagesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_banner_images', function (Blueprint $table) {
+        Schema::create('team_banner_images', function (Blueprint $table): void {
             $table->id()->comment('팀 배너이미지 id');
             $table->string('banner_image')->comment('채널 배너 이미지');
             $table->foreignId('team_id')->comment('채널장');

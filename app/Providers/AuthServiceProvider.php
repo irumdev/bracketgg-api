@@ -7,6 +7,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\UserPolicy;
+use Illuminate\Contracts\Auth\Access\Gate as AccessGate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -41,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
 
     private function registerCustomPolicies(): void
     {
-        collect($this->registerPolicies)->each(fn ($policyMethod, $policyKey) => Gate::define($policyKey, $policyMethod[0] . '@' . $policyMethod[1]));
+        collect($this->registerPolicies)->each(fn (array $policyMethod, string $policyKey): AccessGate => Gate::define($policyKey, $policyMethod[0] . '@' . $policyMethod[1]));
     }
 
     /**

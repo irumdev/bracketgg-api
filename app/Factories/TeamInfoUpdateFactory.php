@@ -9,6 +9,7 @@ use App\Wrappers\UpdateImageTypeWrapper;
 use Illuminate\Support\Facades\DB;
 use App\Contracts\TeamInfoUpdateContract;
 use App\Exceptions\DBtransActionFail;
+use App\Models\Team\Broadcast;
 use App\Models\Team\Team;
 
 class TeamInfoUpdateFactory implements TeamInfoUpdateContract
@@ -23,14 +24,14 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
 
     public function updateTeamImage(string $type, array $attribute): bool
     {
-        return DB::transaction(function () use ($type, $attribute) {
+        return DB::transaction(function () use ($type, $attribute): bool {
             return $this->resolveUpdateFactory($type, $attribute)->update();
         });
     }
 
     public function createTeamImage(string $type, array $attribute): bool
     {
-        return DB::transaction(function () use ($type, $attribute) {
+        return DB::transaction(function () use ($type, $attribute): bool {
             return $this->resolveUpdateFactory($type, $attribute)->create();
         });
     }
@@ -49,8 +50,8 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
         if (count($broadCasts)) {
             $teamBroadCasts = $team->broadcastAddress();
 
-            $broadCastIds = $teamBroadCasts->get()->map(fn ($broadCast) => $broadCast->id);
-            $willUpdateBroadCastIds = collect($broadCasts)->filter(fn ($broadCast) => isset($broadCast['id']))->map(fn ($broadCast) => $broadCast['id']);
+            $broadCastIds = $teamBroadCasts->get()->map(fn (Broadcast $broadCast): int => $broadCast->id);
+            $willUpdateBroadCastIds = collect($broadCasts)->filter(fn (array $broadCast): bool => isset($broadCast['id']))->map(fn (array $broadCast): int => $broadCast['id']);
             $deleteItems = $broadCastIds->diff($willUpdateBroadCastIds);
             $deleteResult = $teamBroadCasts->whereIn('id', $deleteItems)->delete();
 
@@ -60,7 +61,7 @@ class TeamInfoUpdateFactory implements TeamInfoUpdateContract
             );
 
             $teamBroadCasts = $team->broadcastAddress();
-            collect($broadCasts)->each(function ($broadCast) use ($teamBroadCasts, $team) {
+            collect($broadCasts)->each(function (array $broadCast) use ($teamBroadCasts, $team): void {
                 if (isset($broadCast['id'])) {
                     $teamBroadCasts->where('id', $broadCast['id'])->update([
                         'broadcast_address' => $broadCast['url'],

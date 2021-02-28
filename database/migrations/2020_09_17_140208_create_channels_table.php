@@ -16,7 +16,7 @@ class CreateChannelsTable extends Migration
     public function up(): void
     {
         // 채널 테이블
-        Schema::create('channels', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table): void {
             $table->id()->comment('인덱스');
             $table->string('logo_image')->nullable(true)->comment('로고이미지');
 

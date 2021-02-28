@@ -28,7 +28,7 @@ class BaseController extends Controller
         );
     }
 
-    public function getArticlsByCategory(CategoryWithArticleType $articlesInfo)
+    public function getArticlsByCategory(CategoryWithArticleType $articlesInfo): JsonResponse
     {
         $responseBuilder = new ResponseBuilder();
         $articlesAndCategories = $this->boardService->getBoardArticlesByCategory($articlesInfo);
@@ -36,7 +36,7 @@ class BaseController extends Controller
 
         $paginateMetaData = $responseBuilder->paginateMeta($articles);
 
-        $articles = collect($articles->items())->map(fn (BaseArticle $article) => $this->boardService->articleInfo($article));
+        $articles = collect($articles->items())->map(fn (BaseArticle $article): array => $this->boardService->articleInfo($article));
 
         return $responseBuilder->ok(
             $paginateMetaData->merge([

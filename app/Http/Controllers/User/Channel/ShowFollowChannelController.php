@@ -47,7 +47,7 @@ class ShowFollowChannelController extends Controller
 
         return $this->responseBuilder->ok(
             $this->responseBuilder->paginateMeta($followChannels)->merge([
-                'followedChannels' => collect($followChannels->items())->map(fn (Channel $channel) => $this->channelService->info($channel))
+                'followedChannels' => collect($followChannels->items())->map(fn (Channel $channel): array => $this->channelService->info($channel))
             ])
         );
     }

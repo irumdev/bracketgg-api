@@ -40,9 +40,9 @@ class Model extends CreateCommand
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $className = $this->argument('className');
-        $this->create($className);
+        return $this->create($className);
     }
 }

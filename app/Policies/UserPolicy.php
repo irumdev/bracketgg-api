@@ -54,7 +54,7 @@ class UserPolicy
         );
     }
 
-    public function updateTeam(User $user, Team $team)
+    public function updateTeam(User $user, Team $team): bool
     {
         return $user->id === $team->owner;
     }
@@ -96,7 +96,7 @@ class UserPolicy
         $willKickUserIsNotTeamOwner = $team->members()->where([
             ['user_id', '=', $willKickUser->id],
             ['role', '!=', Team::OWNER],
-        ])->firstOr(fn () => null);
+        ])->firstOr(fn (): ?User => null);
 
         if (! $willKickUserIsNotTeamOwner) {
             return false;

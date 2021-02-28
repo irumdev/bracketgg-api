@@ -76,7 +76,7 @@ class ShowUserChannelController extends Controller
         $channelFollowers = $this->channelService->followers($channel)->simplePaginate(Paginate::PER);
         return $this->response->ok(
             $this->response->paginateMeta($channelFollowers)->merge([
-                'followers' => array_map(fn (User $fan) => array_merge($this->userService->info($fan), ['followedAt' => $fan->followedAt]), $channelFollowers->items())
+                'followers' => array_map(fn (User $fan): array => array_merge($this->userService->info($fan), ['followedAt' => $fan->followedAt]), $channelFollowers->items())
             ])
         );
     }

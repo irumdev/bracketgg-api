@@ -462,7 +462,7 @@ class CreateTest extends TestCase
              * @todo 'test..a@gmail.com' 이메일 케이스 통과시키기 (RFC 5322)
              */
         ]);
-        $specialEmails->each(function ($email) {
+        $specialEmails->each(function (string $email): void {
             if (($user = User::where('email', $email)->first()) !== null) {
                 $user->forceDelete();
             }

@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table): void {
             $table->id()->comment('인덱스');
             $table->string('nick_name')->comment('유저 닉네임');
             $table->string('email')->unique()->comment('유저 이메일');

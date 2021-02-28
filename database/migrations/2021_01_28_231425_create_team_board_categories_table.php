@@ -13,7 +13,7 @@ class CreateTeamBoardCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_board_categories', function (Blueprint $table) {
+        Schema::create('team_board_categories', function (Blueprint $table): void {
             $table->id();
             $table->string('name')->comment('팀 게시판 종류');
             $table->tinyInteger('show_order')->comment('보여지는 순서');
@@ -33,7 +33,7 @@ class CreateTeamBoardCategoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_board_categories');
     }

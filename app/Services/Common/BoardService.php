@@ -49,7 +49,7 @@ abstract class BoardService
         $categories = $this->boardRepository->getArticleCategories($articlesInfo->model);
         $articles = $this->boardRepository->getBoardArticlesByCategory($articlesInfo->category, $articlesInfo->model);
         return [
-            'categories' => $categories->map(fn (BaseCategory $category) => $this->categoryInfo($category)),
+            'categories' => $categories->map(fn (BaseCategory $category): array => $this->categoryInfo($category)),
             'articles' => $articles->simplePaginate($articlesInfo->perPage),
         ];
     }

@@ -15,7 +15,7 @@ class CreateArticleViewLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_view_logs', function (Blueprint $table) {
+        Schema::create('article_view_logs', function (Blueprint $table): void {
             $table->id();
             $table->ipAddress('lookup_ip')->comment('게시글 조회 한 ip주소');
             $table->tinyInteger('article_type')->comment('조회한 게시글이 채널 게시글인지 팀 게시판 게시글인지');
@@ -31,7 +31,7 @@ class CreateArticleViewLogsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('article_view_logs');
     }

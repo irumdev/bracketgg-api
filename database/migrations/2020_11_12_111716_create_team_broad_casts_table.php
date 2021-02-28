@@ -13,7 +13,7 @@ class CreateTeamBroadCastsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_broadcasts', function (Blueprint $table) {
+        Schema::create('team_broadcasts', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('team_id')->comment('방송국 하는 팀');
             $table->string('broadcast_address')->comment('방송국 주소');
