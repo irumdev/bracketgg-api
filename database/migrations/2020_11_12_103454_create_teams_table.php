@@ -16,7 +16,7 @@ class CreateTeamsTable extends Migration
     {
         // 팀 테이블
 
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table): void {
             $table->id()->comment('팀 아이디');
             $table->foreignId('owner')->comment('팀장유저 인덱스');
             $table->string('name')->unique()->comment('팀 이름');

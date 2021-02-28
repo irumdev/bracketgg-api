@@ -28,7 +28,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
 
     public function findByUserId(string $userId): Builder
     {
-        return Channel::whereHas('user', function (Builder $query) use ($userId) {
+        return Channel::whereHas('user', function (Builder $query) use ($userId): void {
             $query->where('owner', $userId);
         })->with(User::$channelsInfo);
         // return User::findOrFail($userId)->channels()->with(User::$channelsInfo)->get();
@@ -51,7 +51,7 @@ class ChannelRepository extends ChannelInfoUpdateFactory
 
     public function create(array $channelInfo): Channel
     {
-        return DB::transaction(function () use ($channelInfo) {
+        return DB::transaction(function () use ($channelInfo): Channel {
             $createdChannel = Channel::create($channelInfo);
 
             $createdChannel->slug()->create([
@@ -65,27 +65,30 @@ class ChannelRepository extends ChannelInfoUpdateFactory
 
     public function updateChannelInfoWithOutImage(Channel $channel, array $updateInfo): bool
     {
-        return DB::transaction(function () use ($channel, $updateInfo) {
+        return DB::transaction(function () use ($channel, $updateInfo): bool {
             $this->slug($channel, data_get($updateInfo, 'slug'));
             $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']);
             if ($canCreateOrUpdateBroadCasts) {
                 $this->updateBroadcast($channel, $updateInfo['broadcasts']);
             }
 
+            /**
+             * @todo 래핑을 통한 타입 힌팅
+             */
             return $channel->fill(array_filter($updateInfo, fn ($item) => empty($item) === false))->save();
         });
     }
 
     public function createImage(string $type, array $attribute): bool
     {
-        return DB::transaction(function () use ($type, $attribute) {
+        return DB::transaction(function () use ($type, $attribute): bool {
             return $this->resolveUpdateFactory($type, $attribute)->create();
         });
     }
 
     public function updateImage(string $type = null, array $attribute): bool
     {
-        return DB::transaction(function () use ($type, $attribute) {
+        return DB::transaction(function () use ($type, $attribute): bool {
             return $this->resolveUpdateFactory($type, $attribute)->update();
         });
     }

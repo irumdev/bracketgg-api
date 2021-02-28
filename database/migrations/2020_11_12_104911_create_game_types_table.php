@@ -14,7 +14,7 @@ class CreateGameTypesTable extends Migration
     public function up(): void
     {
         // 게임종목 종류
-        Schema::create('game_types', function (Blueprint $table) {
+        Schema::create('game_types', function (Blueprint $table): void {
             $table->id()->comment('게임 종목 아이디');
             $table->string('name')->unique()->comment('게임 종목 이름');
             $table->softDeletes();

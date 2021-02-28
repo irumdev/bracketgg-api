@@ -15,7 +15,7 @@ class CreateTeamMemberInvitationCardsTable extends Migration
     public function up()
     {
         //
-        Schema::create('team_member_invitation_cards', function (Blueprint $table) {
+        Schema::create('team_member_invitation_cards', function (Blueprint $table): void {
             $table->id();
 
             $table->foreignId('user_id')->comment('가입신청한 유저');
@@ -35,7 +35,7 @@ class CreateTeamMemberInvitationCardsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
     }

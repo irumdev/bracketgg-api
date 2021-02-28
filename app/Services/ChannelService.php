@@ -44,7 +44,7 @@ class ChannelService
         $getUserChannelsByUserId = $this->channelRepostiroy->findByUserId($userId)->simplePaginate();
         throw_unless($getUserChannelsByUserId->isNotEmpty(), (new ModelNotFoundException())->setModel(Channel::class));
         $result = $this->responseBuilder->paginateMeta($getUserChannelsByUserId)->merge([
-            'channels' => collect($getUserChannelsByUserId->items())->map(fn (Channel $channel) => $this->info($channel))
+            'channels' => collect($getUserChannelsByUserId->items())->map(fn (Channel $channel): array => $this->info($channel))
         ]);
         return $result;
     }
@@ -117,7 +117,10 @@ class ChannelService
             'followerCount' => $channel->follwer_count,
             'likeCount' => $channel->like_count,
             'description' => $channel->description,
-            'bannerImages' => $channel->bannerImages->map(function (ChannelBannerImage $channelBannerImage) {
+            'bannerImages' => $channel->bannerImages->map(function (ChannelBannerImage $channelBannerImage): array {
+                /**
+                 * @todo else문 걸릴때 타입힌팅 처리
+                 */
                 if ($channelBannerImage->banner_image) {
                     return [
                         'id' => $channelBannerImage->id,
@@ -127,13 +130,13 @@ class ChannelService
                     ];
                 }
             }),
-            'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+            'broadCastAddress' => $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast): array => [
                 'platform' => $channelBroadcast->platform,
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
                 'broadcastAddress' => $channelBroadcast->broadcastAddress,
                 'broadcastId' => $channelBroadcast->broadcastId,
             ]),
-            'latestArticles' => $this->channelBoardRepository->latestTenArticles($channel)->map(fn (Article $article) => [
+            'latestArticles' => $this->channelBoardRepository->latestTenArticles($channel)->map(fn (Article $article): array => [
                 'id' => $article->id,
                 'title' => $article->title,
                 'categoryName' => $article->category->name,

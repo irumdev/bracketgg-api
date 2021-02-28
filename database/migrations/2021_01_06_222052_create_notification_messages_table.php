@@ -13,7 +13,7 @@ class CreateNotificationMessagesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification_messages', function (Blueprint $table) {
+        Schema::create('notification_messages', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->tinyInteger('type')->comment('이벤트 종류');
             $table->json('message')->comment('알림 할 정보');

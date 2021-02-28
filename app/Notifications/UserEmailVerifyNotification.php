@@ -54,7 +54,7 @@ class UserEmailVerifyNotification extends Notification
     /**
      * @deprecated
      */
-    private function verificationUrl($notifiable)
+    private function verificationUrl($notifiable): string
     {
         return URL::signedRoute('verifyEmail', [
             'id' => $notifiable->getKey(),
@@ -68,7 +68,7 @@ class UserEmailVerifyNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

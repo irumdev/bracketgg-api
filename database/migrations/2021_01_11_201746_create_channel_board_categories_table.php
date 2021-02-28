@@ -14,7 +14,7 @@ class CreateChannelBoardCategoriesTable extends Migration
     public function up(): void
     {
         // 채널 게시판 종류
-        Schema::create('channel_board_categories', function (Blueprint $table) {
+        Schema::create('channel_board_categories', function (Blueprint $table): void {
             $table->id();
             $table->string('name')->comment('채널 게시판 종류');
             $table->tinyInteger('show_order')->comment('보여지는 순서');

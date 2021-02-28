@@ -62,7 +62,7 @@ class TeamService
     {
         $getTeamsByOwnerId = $this->teamRepository->findByUserId($userId)->get();
         throw_if($getTeamsByOwnerId->count() <= 0, (new ModelNotFoundException())->setModel(Team::class));
-        return $getTeamsByOwnerId->map(fn (Team $team) => $this->info($team));
+        return $getTeamsByOwnerId->map(fn (Team $team): array => $this->info($team));
     }
 
     public function createBannerImage(Team $team, array $updateInfo): bool
@@ -125,7 +125,7 @@ class TeamService
             'logoImage' => $team->logo_image ? route('teamLogoImage', [
                 'logoImage' => $team->logo_image
             ]) : null,
-            'bannerImages' => $team->bannerImages->map(function (TeamBannerImages $bannerImage) {
+            'bannerImages' => $team->bannerImages->map(function (TeamBannerImages $bannerImage): array {
                 if ($bannerImage->bannerImage) {
                     return [
                         'id' => $bannerImage->id,
@@ -135,13 +135,13 @@ class TeamService
                     ];
                 }
             }),
-            'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+            'broadCastAddress' => $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast): array => [
                 'broadcastAddress' => $teamBroadcast->broadcastAddress,
                 'platform' => $teamBroadcast->platform,
                 'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
                 'broadcastId' => $teamBroadcast->broadcastId,
             ]),
-            'latestArticles' => $this->teamBoardRepository->latestTenArticles($team)->map(fn (Article $article) => [
+            'latestArticles' => $this->teamBoardRepository->latestTenArticles($team)->map(fn (Article $article): array => [
                 'id' => $article->id,
                 'title' => $article->title,
                 'categoryName' => $article->category->name,
@@ -151,7 +151,7 @@ class TeamService
             'isPublic' => $team->is_public,
             'owner' => $team->owner,
             'slug' => $team->slug,
-            'operateGames' => $team->operateGames->map(fn (GameType $gameType) => $gameType->name),
+            'operateGames' => $team->operateGames->map(fn (GameType $gameType): string => $gameType->name),
         ];
     }
 }

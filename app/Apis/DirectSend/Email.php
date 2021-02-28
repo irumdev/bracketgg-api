@@ -50,7 +50,7 @@ class Email
             'sender' => config('apis.directSend.from', null),
         ];
 
-        $hasInvalidBaseInfo = array_filter($baseInfo, fn ($item) => $item === null);
+        $hasInvalidBaseInfo = array_filter($baseInfo, fn (string $item): bool => $item === null);
         $hasReceiver = isset($sendData['receivers']) || count($sendData['receivers']) <= 0;
 
         throw_if(count($hasInvalidBaseInfo) > 0, new InvalidArgumentException(__('apis.directSend.hasNotApiKeys')));
@@ -58,7 +58,7 @@ class Email
         throw_unless(isset($sendData['subject']), self::setArgException('attach', 'subject'));
         throw_unless(isset($sendData['view']), self::setArgException('attach', 'view'));
 
-        $baseInfo['receiver'] = array_map(function ($receiver) {
+        $baseInfo['receiver'] = array_map(function (array $receiver): array {
             throw_unless(isset($receiver['email']), self::setArgException('receiver', 'email'));
 
             return array_merge($receiver, ['note' => '', 'mobile' => '']);

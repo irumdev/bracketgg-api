@@ -270,7 +270,7 @@ class ShowArticleTest extends TestCase
         $randCategory->is_public = false;
 
         $this->assertTrue($randCategory->save());
-        $categories = $team->boardCategories()->get()->map(fn (TeamBoardCategory $category) => $category->name)->toArray();
+        $categories = $team->boardCategories()->get()->map(fn (TeamBoardCategory $category): string => $category->name)->toArray();
 
         collect($categories)->each(function (string $category) use ($requestUser, $team): void {
             $current = 1;
@@ -290,7 +290,7 @@ class ShowArticleTest extends TestCase
                 $this->assertEquals($category, $articleInfo['currentCategory']);
 
 
-                collect($articleInfo['articles'])->each(function (array $article) use ($team, $articleInfo) {
+                collect($articleInfo['articles'])->each(function (array $article) use ($team, $articleInfo): void {
                     $dbCatgory = TeamBoardCategory::where([
                         ['team_id', '=', $team->id],
                         ['name', '=', $articleInfo['currentCategory']],

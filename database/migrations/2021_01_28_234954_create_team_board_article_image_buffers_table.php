@@ -13,7 +13,7 @@ class CreateTeamBoardArticleImageBuffersTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_article_images_buffers', function (Blueprint $table) {
+        Schema::create('team_article_images_buffers', function (Blueprint $table): void {
             $table->id();
             $table->string('buffer_image_path')->comment('임시저장 이미지 이름');
         });
@@ -24,7 +24,7 @@ class CreateTeamBoardArticleImageBuffersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_article_images_buffers');
     }

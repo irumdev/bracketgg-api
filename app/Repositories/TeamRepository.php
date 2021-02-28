@@ -34,7 +34,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function sendInviteCard(Team $team, User $user): bool
     {
-        return DB::transaction(function () use ($team, $user) {
+        return DB::transaction(function () use ($team, $user): bool {
             $card = InvitationCard::where([
                 ['team_id', '=', $team->id],
                 ['user_id', '=', $user->id],
@@ -48,13 +48,13 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function kickUser(Team $team, User $user)
     {
-        return DB::transaction(function () use ($team, $user) {
+        return DB::transaction(function () use ($team, $user): bool {
             return $team->members()->where('user_id', $user->id)->delete() === 1;
         });
     }
     public function acceptInviteCard(Team $team): bool
     {
-        return DB::transaction(function () use ($team) {
+        return DB::transaction(function () use ($team): bool {
             $willAcceptUser = Auth::id();
 
             $card = InvitationCard::find($team->invitationCards()->where([
@@ -88,7 +88,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function rejectInviteCard(Team $team): bool
     {
-        return DB::transaction(function () use ($team) {
+        return DB::transaction(function () use ($team): bool {
             $willRejectUser = Auth::id();
 
             $card = InvitationCard::find($team->invitationCards()->where([
@@ -115,7 +115,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function create(array $teamInfo): Team
     {
-        return DB::transaction(function () use ($teamInfo) {
+        return DB::transaction(function () use ($teamInfo): Team {
             $createdTeam = Team::create($teamInfo);
             $this->createUniqueSlug($createdTeam);
             $teamMember = TeamMember::create(['team_id' => $createdTeam->id, 'user_id' => $createdTeam->owner]);
@@ -127,7 +127,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function update(Team $team, array $updateInfo): Team
     {
-        return DB::transaction(function () use ($team, $updateInfo) {
+        return DB::transaction(function () use ($team, $updateInfo): Team {
             $canCreateOrUpdateBroadCasts = isset($updateInfo['broadcasts']);
             if ($canCreateOrUpdateBroadCasts) {
                 $this->updateBroadCast($team, $updateInfo['broadcasts']);
@@ -156,7 +156,7 @@ class TeamRepository extends TeamInfoUpdateFactory
 
     public function findByUserId(string $userId)
     {
-        return Team::whereHas('user', function (Builder $query) use ($userId) {
+        return Team::whereHas('user', function (Builder $query) use ($userId): void {
             $query->where('owner', $userId);
         })->with(Team::TEAM_RELATIONS);
     }
@@ -168,7 +168,7 @@ class TeamRepository extends TeamInfoUpdateFactory
      */
     public function getRequestJoinUsers(Team $team): Builder
     {
-        return User::whereHas('invitationCards', function (Builder $query) use ($team) {
+        return User::whereHas('invitationCards', function (Builder $query) use ($team): void {
             $query->where([
                 ['status', '=', InvitationCard::PENDING],
                 ['team_id', '=', $team->id],

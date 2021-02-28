@@ -197,9 +197,9 @@ class ShowArticleTest extends TestCase
         $requestUser = factory(User::class)->create();
         $channel = factory(Channel::class)->states(['addSlug', 'addArticles'])->create();
 
-        $categories = $channel->boardCategories->map(fn (ChannelBoardCategory $category) => $category->name)->toArray();
+        $categories = $channel->boardCategories->map(fn (ChannelBoardCategory $category): string => $category->name)->toArray();
 
-        collect($categories)->each(function (string $category) use ($requestUser, $channel) {
+        collect($categories)->each(function (string $category) use ($requestUser, $channel): void {
             $current = 1;
 
             do {
@@ -218,7 +218,7 @@ class ShowArticleTest extends TestCase
                 $this->assertEquals($category, $articleInfo['currentCategory']);
 
 
-                collect($articleInfo['articles'])->each(function (array $article) use ($channel, $articleInfo) {
+                collect($articleInfo['articles'])->each(function (array $article) use ($channel, $articleInfo): void {
                     $dbCatgory = ChannelBoardCategory::where([
                         ['channel_id', '=', $channel->id],
                         ['name', '=', $articleInfo['currentCategory']],

@@ -9,8 +9,10 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use App\Models\Channel\Channel;
 use App\Models\Channel\BannerImage as ChannelBannerImage;
+use App\Models\Channel\Board\Article;
 use App\Models\Channel\Broadcast as ChannelBroadcast;
 use Illuminate\Support\Carbon;
+use Illuminate\Testing\TestResponse;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowInfoTest extends TestCase
@@ -66,7 +68,7 @@ class ShowInfoTest extends TestCase
 
 
         $this->assertEquals(
-            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => [
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner): array => [
                 'id' => $banner->id,
                 'imageUrl' => route('channelBannerImage', [
                     'bannerImage' => $banner->banner_image,
@@ -76,12 +78,12 @@ class ShowInfoTest extends TestCase
         );
 
         if (config('app.test.useRealImage')) {
-            array_map(fn ($image) => $this->get($image['imageUrl'])->assertOk(), $message['bannerImages']);
+            array_map(fn (array $image): TestResponse => $this->get($image['imageUrl'])->assertOk(), $message['bannerImages']);
             $this->get($message['logoImage'])->assertOk();
         }
 
         $this->assertEquals(
-            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast): array => [
                 'platform' => $channelBroadcast->platform,
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
                 'broadcastAddress' => $channelBroadcast->broadcast_address,
@@ -103,7 +105,7 @@ class ShowInfoTest extends TestCase
                                          ->orderBy('id', 'desc')
                                          ->limit(10)
                                          ->get()
-                                         ->map(fn ($article) => [
+                                         ->map(fn (Article $article): array => [
                                              'id' => $article->id,
                                              'title' => $article->title,
                                              'categoryName' => $article->category->name,
@@ -157,7 +159,7 @@ class ShowInfoTest extends TestCase
 
 
         $this->assertEquals(
-            $channel->bannerImages->map(fn (ChannelBannerImage $banner) => [
+            $channel->bannerImages->map(fn (ChannelBannerImage $banner): array => [
                 'id' => $banner->id,
                 'imageUrl' => route('channelBannerImage', [
                     'bannerImage' => $banner->banner_image,
@@ -169,11 +171,11 @@ class ShowInfoTest extends TestCase
 
         if (config('app.test.useRealImage')) {
             $this->get($message['logoImage'])->assertOk();
-            collect($message['bannerImages'])->map(fn ($bannerImage) => $this->get($bannerImage['imageUrl']));
+            collect($message['bannerImages'])->map(fn (array $bannerImage): TestResponse => $this->get($bannerImage['imageUrl']));
         }
 
         $this->assertEquals(
-            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast) => [
+            $channel->broadcastAddress->map(fn (ChannelBroadcast $channelBroadcast): array => [
                 'platform' => $channelBroadcast->platform,
                 'platformKr' => ChannelBroadcast::$platforms[$channelBroadcast->platform],
                 'broadcastAddress' => $channelBroadcast->broadcast_address,
@@ -195,7 +197,7 @@ class ShowInfoTest extends TestCase
                                          ->orderBy('id', 'desc')
                                          ->limit(10)
                                          ->get()
-                                         ->map(fn ($article) => [
+                                         ->map(fn (Article $article): array => [
                                              'id' => $article->id,
                                              'title' => $article->title,
                                              'categoryName' => $article->category->name,

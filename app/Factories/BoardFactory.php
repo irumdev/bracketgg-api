@@ -33,6 +33,8 @@ class BoardFactory implements BoardFactoryContract
     {
         return $article->with($article->eagerRelation)
                        ->where('id', $article->id)
-                       ->firstOr(fn () => (new ModelNotFoundException())->setModel(get_class($article)));
+                       ->firstOr(function () use ($article): void {
+                           throw (new ModelNotFoundException())->setModel(get_class($article));
+                       });
     }
 }

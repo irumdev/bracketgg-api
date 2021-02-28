@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Team;
 
+use App\Models\GameType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -36,7 +37,7 @@ class GetOwnersTeamInfosTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
+        $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn (int $_) => factory(Team::class)->states([
             'addSlug', 'addSignedMembers', 'addBannerImage',
             'addBroadcasts', 'addOperateGame', 'addSmallTeamArticlesWithSavedImages'
         ])->create([
@@ -53,11 +54,11 @@ class GetOwnersTeamInfosTest extends TestCase
         $this->assertTrue($tryLookupTeamInfo['isValid']);
 
 
-        $teams->each(function ($team) use ($tryLookupTeamInfo, $activeUser) {
+        $teams->each(function (Team $team) use ($tryLookupTeamInfo, $activeUser): void {
             $messages = collect($tryLookupTeamInfo['messages']);
             $teamId = $team->id;
 
-            $searchReslt = $messages->search(fn ($message) => $message['id'] === $teamId);
+            $searchReslt = $messages->search(fn (array $message): bool => $message['id'] === $teamId);
             $this->assertTrue($searchReslt !== false);
 
             $compareTeam = $messages->get($searchReslt);
@@ -67,7 +68,7 @@ class GetOwnersTeamInfosTest extends TestCase
             ]) : null;
 
 
-            $teamBannerImages = $team->bannerImages->map(fn (BannerImage $image) => [
+            $teamBannerImages = $team->bannerImages->map(fn (BannerImage $image): array => [
                 'id' => $image->id,
                 'imageUrl' => route('teamBannerImage', [
                     'bannerImage' => $image->banner_image,
@@ -89,7 +90,7 @@ class GetOwnersTeamInfosTest extends TestCase
                                              ->orderBy('id', 'desc')
                                              ->limit(10)
                                              ->get()
-                                             ->map(fn (Article $article) => [
+                                             ->map(fn (Article $article): array => [
                                                  'id' => $article->id,
                                                  'title' => $article->title,
                                                  'categoryName' => $article->category->name,
@@ -101,14 +102,14 @@ class GetOwnersTeamInfosTest extends TestCase
                 $latestArticles,
                 $compareTeam['latestArticles']
             );
-            $broadCasts = $team->broadcastAddress->map(fn (Broadcast $teamBroadcast) => [
+            $broadCasts = $team->broadcastAddress->map(fn (Broadcast $teamBroadcast): array => [
                 'broadcastAddress' => $teamBroadcast->broadcast_address,
                 'platform' => $teamBroadcast->platform,
                 'platformKr' => Broadcast::$platforms[$teamBroadcast->platform],
                 'broadcastId' => $teamBroadcast->id,
             ])->toArray();
 
-            $operateGame = $team->operateGames->map(fn ($game) => $game->name)->toArray();
+            $operateGame = $team->operateGames->map(fn (GameType $game): string => $game->name)->toArray();
 
             $this->assertEquals($teamId, $compareTeam['id']);
             $this->assertEquals($team->name, $compareTeam['name']);
@@ -143,7 +144,7 @@ class GetOwnersTeamInfosTest extends TestCase
 
         $owner = factory(User::class)->create();
 
-        $teams = collect(range(0, $owner->create_team_limit -1))->map(fn ($item) => factory(Team::class)->states([
+        $teams = collect(range(0, $owner->create_team_limit -1))->map(fn (int $_): Team => factory(Team::class)->states([
             'addSlug', 'addSignedMembers', 'addBannerImage',
             'addBroadcasts', 'addOperateGame'
         ])->create([

@@ -13,6 +13,7 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
+use Illuminate\Testing\TestResponse;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowInfoTest extends TestCase
@@ -121,14 +122,14 @@ class ShowInfoTest extends TestCase
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast): array => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
             'broadcastId' => $teamBroadcast->id,
         ])->toArray(), $message['broadCastAddress']);
         $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => [
+            $team->bannerImages->map(fn (TeamBannerImages $image): array => [
                 'id' => $image->id,
                 'imageUrl' => route('teamBannerImage', [
                     'bannerImage' => $image->banner_image,
@@ -141,7 +142,7 @@ class ShowInfoTest extends TestCase
         $this->assertEquals($team->is_public, $message['isPublic']);
 
         $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+            $team->members->map(fn (User $member): int => $member->id)->contains(
                 $activeUser->id
             )
         );
@@ -193,7 +194,7 @@ class ShowInfoTest extends TestCase
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast): array => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
@@ -201,7 +202,7 @@ class ShowInfoTest extends TestCase
         ])->toArray(), $message['broadCastAddress']);
 
         $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => [
+            $team->bannerImages->map(fn (TeamBannerImages $image): array => [
                 'id' => $image->id,
                 'imageUrl' => route('teamBannerImage', [
                     'bannerImage' => $image->banner_image,
@@ -214,7 +215,7 @@ class ShowInfoTest extends TestCase
         $this->assertEquals($team->is_public, $message['isPublic']);
 
         $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+            $team->members->map(fn (User $member): int => $member->id)->contains(
                 $team->owner
             )
         );
@@ -264,7 +265,7 @@ class ShowInfoTest extends TestCase
         ]), $message['logoImage']);
 
 
-        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+        $this->assertEquals($team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast): array => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
@@ -272,7 +273,7 @@ class ShowInfoTest extends TestCase
         ])->toArray(), $message['broadCastAddress']);
 
         $this->assertEquals(
-            $team->bannerImages->map(fn (TeamBannerImages $image) => [
+            $team->bannerImages->map(fn (TeamBannerImages $image): array => [
                 'id' => $image->id,
                 'imageUrl' => route('teamBannerImage', [
                     'bannerImage' => $image->banner_image,
@@ -285,7 +286,7 @@ class ShowInfoTest extends TestCase
         $this->assertEquals($team->is_public, $message['isPublic']);
 
         $this->assertTrue(
-            $team->members->map(fn (User $member) => $member->id)->contains(
+            $team->members->map(fn (User $member): int => $member->id)->contains(
                 $team->owner
             )
         );
@@ -302,7 +303,7 @@ class ShowInfoTest extends TestCase
 
         if (config('app.test.useRealImage')) {
             $this->get($message['logoImage'])->assertOk();
-            collect($message['bannerImages'])->map(fn ($bannerImage) => $this->get($bannerImage['imageUrl']));
+            collect($message['bannerImages'])->map(fn (array $bannerImage): TestResponse => $this->get($bannerImage['imageUrl']));
         }
     }
 }

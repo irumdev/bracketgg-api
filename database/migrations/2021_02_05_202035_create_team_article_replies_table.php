@@ -15,7 +15,7 @@ class CreateTeamArticleRepliesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_article_replies', function (Blueprint $table) {
+        Schema::create('team_article_replies', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('article_id')->comment('게시글 아이디');
             $table->foreignId('parent_id')->nullable()->comment('부모 아이디');
@@ -39,7 +39,7 @@ class CreateTeamArticleRepliesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_article_replies');
     }

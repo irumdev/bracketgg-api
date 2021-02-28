@@ -14,7 +14,7 @@ class CreateFollowersTable extends Migration
     public function up(): void
     {
         // 채널 팔로우 유저
-        Schema::create('channel_followers', function (Blueprint $table) {
+        Schema::create('channel_followers', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('channel_id')->comment('채널장');
             $table->foreignId('user_id')->comment('필로잉 하는 유저');
@@ -31,7 +31,7 @@ class CreateFollowersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('channel_follower');
     }

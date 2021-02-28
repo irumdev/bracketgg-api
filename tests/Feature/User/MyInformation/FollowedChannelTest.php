@@ -102,7 +102,7 @@ class FollowedChannelTest extends TestCase
             $this->assertTrue($tryLookupFollowedChannel['ok']);
             $this->assertTrue($tryLookupFollowedChannel['isValid']);
 
-            collect($tryLookupFollowedChannel['messages']['followedChannels'])->each(function ($followedChannel) use ($channels): void {
+            collect($tryLookupFollowedChannel['messages']['followedChannels'])->each(function (array $followedChannel) use ($channels): void {
                 $this->assertTrue(
                     $channels->where('id', $followedChannel['id'])->count() >= 1
                 );

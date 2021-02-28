@@ -41,19 +41,19 @@ class AppServiceProvider extends ServiceProvider
         /**
          * @todo 해당 콜백 클래스로 리턴
          */
-        Validator::extend('channelHasOnlyOneBanner', fn () => $this->canUpdateBanner('slug'));
-        Validator::extend('teamHasOnlyOneBanner', fn () => $this->canUpdateBanner('teamSlug'));
-        Validator::extend('isMyTeamBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('teamSlug', (int)$param));
-        Validator::extend('isMyChannelBroadcast', fn ($attribute, $param, $value) => $this->canUpdateBroadCast('slug', (int)$param));
-        Validator::extend('alreadyInvite', fn ($attribute, $param, $value) => $this->alreadyInvite());
-        Validator::extend('isNotTeamMember', fn ($attribute, $param, $value) => $this->isNotTeamMember());
-        Validator::extend('isBroadcastUrlUnique', fn ($attribute, $param, $value) => $this->uniqueExists($attribute, $param, $value));
+        Validator::extend('channelHasOnlyOneBanner', fn (): bool => $this->canUpdateBanner('slug'));
+        Validator::extend('teamHasOnlyOneBanner', fn (): bool => $this->canUpdateBanner('teamSlug'));
+        Validator::extend('isMyTeamBroadcast', fn ($_, string $param): bool => $this->canUpdateBroadCast('teamSlug', (int)$param));
+        Validator::extend('isMyChannelBroadcast', fn ($_, string $param): bool => $this->canUpdateBroadCast('slug', (int)$param));
+        Validator::extend('alreadyInvite', fn (): bool => $this->alreadyInvite());
+        Validator::extend('isNotTeamMember', fn (): bool => $this->isNotTeamMember());
+        Validator::extend('isBroadcastUrlUnique', fn (string $attribute, string $param, array $value): bool => $this->uniqueExists($attribute, $param, $value));
 
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
     }
 
-    public function uniqueExists($attribute, $param, $value): bool
+    public function uniqueExists(string $attribute, string $param, array $value): bool
     {
         $modelName = 1;
 
@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
         if ($hasNotBroadcastId) {
             return $isExistsBroadcastAddress === false;
         } else {
-            executeUnless(is_numeric($requestBroadCastId), function () {
+            executeUnless(is_numeric($requestBroadCastId), function (): void {
                 (new CommonFormRequest())->throwUnProcessableEntityException(Broadcast::BROADCAST_ID_IS_NOT_NUMERIC);
             });
 
@@ -129,7 +129,7 @@ class AppServiceProvider extends ServiceProvider
         $searchConditions = collect(array_merge($otherCondition, [
             ['team_id', '=', $team->id],
             ['user_id', '=', $inviteUser->id],
-        ]))->filter(fn ($searchCondition) => count($searchCondition) >= 1)->toArray();
+        ]))->filter(fn (array $searchCondition): bool => count($searchCondition) >= 1)->toArray();
         return $model::where($searchConditions)->exists() === false;
     }
 

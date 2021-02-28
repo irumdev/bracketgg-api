@@ -18,12 +18,12 @@ use App\Http\Controllers\ShowImageController;
 
 Route::get('profile-image/{profileImage}', [ShowImageController::class, 'getUserProfile'])->name('profileImage');
 
-Route::group(['prefix' => 'channel'], function () {
+Route::group(['prefix' => 'channel'], function (): void {
     Route::get('banner/{bannerImage}', [ShowImageController::class, 'getChannelBanner'])->name('channelBannerImage');
     Route::get('logo/{logoImage}', [ShowImageController::class, 'getChannelLogo'])->name('channelLogoImage');
 });
 
-Route::group(['prefix' => 'team'], function () {
+Route::group(['prefix' => 'team'], function (): void {
     Route::get('banner/{bannerImage}', [ShowImageController::class, 'getTeamBanner'])->name('teamBannerImage');
     Route::get('logo/{logoImage}', [ShowImageController::class, 'getTeamLogo'])->name('teamLogoImage');
 });

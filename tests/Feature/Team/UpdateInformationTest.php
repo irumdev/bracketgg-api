@@ -19,6 +19,7 @@ use Styde\Enlighten\Tests\EnlightenSetup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Http\Requests\Rules\Broadcast as BroadcastRules;
+use App\Models\GameType;
 
 class UpdateInformationTest extends TestCase
 {
@@ -46,7 +47,7 @@ class UpdateInformationTest extends TestCase
 
         $gameTypes = [
             Str::random(40),
-            Arr::random($team->operateGames->map(fn ($game) => $game->name)->toArray()),
+            Arr::random($team->operateGames->map(fn (GameType $game): string => $game->name)->toArray()),
             Str::random(40)
         ];
 
@@ -62,7 +63,7 @@ class UpdateInformationTest extends TestCase
         $this->assertEquals($randSlug, $tryUpdateTeam['messages']['slug']);
         $this->assertTrue($tryUpdateTeam['messages']['isPublic']);
 
-        $teamBroadcastAddresses = $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast) => [
+        $teamBroadcastAddresses = $team->broadcastAddress->map(fn (TeamBroadCast $teamBroadcast): array => [
             'broadcastAddress' => $teamBroadcast->broadcast_address,
             'platform' => $teamBroadcast->platform,
             'platformKr' => TeamBroadCast::$platforms[$teamBroadcast->platform],
@@ -70,9 +71,11 @@ class UpdateInformationTest extends TestCase
         ])->toArray();
 
         $this->assertEquals($teamBroadcastAddresses, $tryUpdateTeam['messages']['broadCastAddress']);
-        collect($gameTypes)->each(fn (string $gameType) => $this->assertTrue(
-            in_array($gameType, $tryUpdateTeam['messages']['operateGames'])
-        ));
+        collect($gameTypes)->each(function (string $gameType) use ($tryUpdateTeam) {
+            $this->assertTrue(
+                in_array($gameType, $tryUpdateTeam['messages']['operateGames'])
+            );
+        });
     }
 
     /** @test @deprecate */
