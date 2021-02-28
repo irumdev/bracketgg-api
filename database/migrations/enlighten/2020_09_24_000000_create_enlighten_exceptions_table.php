@@ -17,7 +17,7 @@ class CreateEnlightenExceptionsTable extends Migration
             return;
         }
 
-        Schema::connection('enlighten')->create('enlighten_exceptions', function (Blueprint $table) {
+        Schema::connection('enlighten')->create('enlighten_exceptions', function (Blueprint $table): void {
             $table->id();
 
             $table->foreignId('example_id')
@@ -43,7 +43,7 @@ class CreateEnlightenExceptionsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::connection('enlighten')->dropIfExists('enlighten_exceptions');
     }

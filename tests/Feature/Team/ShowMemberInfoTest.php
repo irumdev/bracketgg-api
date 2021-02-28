@@ -111,7 +111,7 @@ class ShowMemberInfoTest extends TestCase
             $this->assertTrue($tryLookupTeamMembers['ok']);
             $this->assertTrue($tryLookupTeamMembers['isValid']);
 
-            collect($tryLookupTeamMembers['messages']['teamMembers'])->each(function (array $teamMember) use ($team) {
+            collect($tryLookupTeamMembers['messages']['teamMembers'])->each(function (array $teamMember) use ($team): void {
                 $assertUser = User::find($teamMember['id']);
 
                 $this->assertTrue(
@@ -156,7 +156,7 @@ class ShowMemberInfoTest extends TestCase
             $this->assertTrue($tryLookupTeamMembers['isValid']);
 
 
-            collect($tryLookupTeamMembers['messages']['teamMembers'])->each(function (array $teamMember) use ($team) {
+            collect($tryLookupTeamMembers['messages']['teamMembers'])->each(function (array $teamMember) use ($team): void {
                 if ($teamMember['id'] !== $team->owner) {
                     $assertStatusValue = InvitationCard::PENDING;
                     $assertUser = InvitationCard::where([

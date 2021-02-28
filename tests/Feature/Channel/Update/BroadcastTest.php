@@ -255,8 +255,8 @@ class BroadcastTest extends TestCase
 
         $channelBroadCast = Channel::find($channel->id)->broadcastAddress;
 
-        $channelBroadcastUrls = $channelBroadCast->map(fn (ChannelBoradcast $broadcast) => $broadcast->broadcast_address);
-        $channelBroadcastPlatforms = $channelBroadCast->map(fn (ChannelBoradcast $broadcast) => $broadcast->platform);
+        $channelBroadcastUrls = $channelBroadCast->map(fn (ChannelBoradcast $broadcast): string => $broadcast->broadcast_address);
+        $channelBroadcastPlatforms = $channelBroadCast->map(fn (ChannelBoradcast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($channelBroadcastUrls->contains($randUrl));
         $this->assertTrue($channelBroadcastPlatforms->contains($randPlatform));
@@ -322,8 +322,8 @@ class BroadcastTest extends TestCase
 
         $changedChannelBroadcastAddress = Channel::find($channel->id)->broadcastAddress;
 
-        $channelBroadcastUrls = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast) => $broadcast->broadcast_address);
-        $channelBroadcastPlatforms = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast) => $broadcast->platform);
+        $channelBroadcastUrls = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast): string => $broadcast->broadcast_address);
+        $channelBroadcastPlatforms = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($channelBroadcastUrls->contains($randUrl));
         $this->assertTrue($channelBroadcastPlatforms->contains($randPlatform));
@@ -369,8 +369,8 @@ class BroadcastTest extends TestCase
 
         $changedChannelBroadcastAddress = Channel::find($channel->id)->broadcastAddress;
 
-        $channelBroadcastUrls = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast) => $broadcast->broadcast_address);
-        $channelBroadcastPlatforms = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast) => $broadcast->platform);
+        $channelBroadcastUrls = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast): string => $broadcast->broadcast_address);
+        $channelBroadcastPlatforms = $changedChannelBroadcastAddress->map(fn (ChannelBoradcast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($channelBroadcastUrls->contains($createRandUrl));
         $this->assertTrue($channelBroadcastPlatforms->contains($createRandPlatform));
@@ -478,7 +478,7 @@ class BroadcastTest extends TestCase
         $this->assertTrue($tryUpdateChannelBroadCast['isValid']);
         $this->assertEquals(count($postData), $dbBoradCast->count());
 
-        collect($postData)->each(function ($broadCastInfo) {
+        collect($postData)->each(function (array $broadCastInfo): void {
             if (isset($broadCast['id'])) {
                 $broadCastInstance = ChannelBoradcast::find($broadCastInfo['id']);
             } else {
@@ -538,7 +538,7 @@ class BroadcastTest extends TestCase
 
         $this->assertEquals(count($requestBroadCast), $channelBroadCast->count());
 
-        collect($requestBroadCast)->each(function ($info) {
+        collect($requestBroadCast)->each(function (array $info): void {
             $instance = ChannelBoradcast::find($info['id']);
 
             $this->assertEquals($info['id'], $instance->id);

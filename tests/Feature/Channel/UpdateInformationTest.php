@@ -237,7 +237,7 @@ class UpdateInformationTest extends TestCase
             'ㅁㄴㅇㄹㅁㄴㅇㄹ',
             'Asdf1-23',
             // 'sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23sdf1-23', // filter by ChannelSlug::SLUG_IS_LONG
-        ])->each(function ($lilleagleSlug) use ($testUrl) {
+        ])->each(function (string $lilleagleSlug) use ($testUrl): void {
             $tryChangeSlug = $this->postJson($testUrl, [
                 'slug' => $lilleagleSlug
             ])->assertStatus(422);

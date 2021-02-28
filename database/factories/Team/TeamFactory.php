@@ -19,7 +19,7 @@ use App\Models\Team\Board\Category as TeamBoardCategory;
 use Illuminate\Support\Arr;
 
 if (! function_exists('createTeamOwner')) {
-    function createTeamOwner(Team $team)
+    function createTeamOwner(Team $team): void
     {
         $alreadyExists = App\Models\Team\Member::where([
             ['user_id', '=', $team->owner]
@@ -34,7 +34,7 @@ if (! function_exists('createTeamOwner')) {
         }
     }
 }
-$factory->define(Team::class, function (Faker $faker) {
+$factory->define(Team::class, function (Faker $faker): array {
     $teamData = [
         'owner' => factory(User::class)->create(),
         'name' => \Illuminate\Support\Str::random(15),
@@ -50,7 +50,7 @@ $factory->define(Team::class, function (Faker $faker) {
     return $teamData;
 });
 
-$factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $team, Faker $faker): void {
     $createCnt = range(1, random_int(2, 10));
     $len = count($createCnt);
     TeamMember::factory()->create([
@@ -58,7 +58,7 @@ $factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $te
         'team_id' => $team->id,
         'role' => Team::OWNER,
     ]);
-    collect($createCnt)->each(fn () => TeamMember::factory()->create([
+    collect($createCnt)->each(fn (): TeamMember => TeamMember::factory()->create([
         'user_id' => factory(User::class)->create()->id,
         'team_id' => $team->id
     ]));
@@ -68,35 +68,35 @@ $factory->afterCreatingState(Team::class, 'addSignedMembers', function (Team $te
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addBannerImage', function (Team $team, Faker $faker): void {
     factory(BannerImage::class)->create([
         'team_id' => $team->id,
     ]);
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addSlug', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addSlug', function (Team $team, Faker $faker): void {
     Slug::factory()->create([
         'team_id' => $team->id,
     ]);
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addBroadcasts', function (Team $team, Faker $faker): void {
     factory(Broadcast::class, random_int(1, 5))->create([
         'team_id' => $team->id,
     ]);
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addTenBroadcasts', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addTenBroadcasts', function (Team $team, Faker $faker): void {
     factory(Broadcast::class, 10)->create([
         'team_id' => $team->id,
     ]);
 });
 
-$factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker) {
-    collect(range(0, 9))->each(function () use ($team) {
+$factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker): void {
+    collect(range(0, 9))->each(function () use ($team): void {
         do {
             try {
                 $isDuplicate = false;
@@ -116,8 +116,8 @@ $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team
 });
 
 
-$factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Team $team, Faker $faker) {
-    collect(range(0, 19))->each(function (int $item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Team $team, Faker $faker): void {
+    collect(range(0, 19))->each(function (int $item) use ($team, $faker): void {
         $statusSet = [
             InvitationCard::PENDING,
             InvitationCard::ACCEPT,
@@ -133,8 +133,8 @@ $factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Te
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function (Team $team, Faker $faker) {
-    collect(range(0, 19))->each(function (int $item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function (Team $team, Faker $faker): void {
+    collect(range(0, 19))->each(function (int $item) use ($team, $faker): void {
         InvitationCard::factory()->create([
             'team_id' => $team->id,
             'user_id' => factory(User::class)->create()->id,
@@ -145,7 +145,7 @@ $factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function 
 });
 
 
-$factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (Team $team, Faker $faker): void {
     InvitationCard::factory()->create([
         'team_id' => $team->id,
         'user_id' => factory(User::class)->create()->id,
@@ -154,7 +154,7 @@ $factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (T
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (Team $team, Faker $faker) {
+$factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (Team $team, Faker $faker): void {
     InvitationCard::factory()->create([
         'team_id' => $team->id,
         'user_id' => factory(User::class)->create()->id,
@@ -163,8 +163,8 @@ $factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (T
     createTeamOwner($team);
 });
 
-$factory->afterCreatingState(Team::class, 'addManyPendingInvitationCard', function (Team $team, Faker $faker) {
-    collect(range(0, 40))->each(function ($step) use ($team) {
+$factory->afterCreatingState(Team::class, 'addManyPendingInvitationCard', function (Team $team, Faker $faker): void {
+    collect(range(0, 40))->each(function (int $step) use ($team): void {
         InvitationCard::factory()->create([
             'team_id' => $team->id,
             'user_id' => factory(User::class)->create()->id,
@@ -175,8 +175,8 @@ $factory->afterCreatingState(Team::class, 'addManyPendingInvitationCard', functi
 });
 
 
-$factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team $team, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team $team, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
@@ -186,7 +186,7 @@ $factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team
     });
 
     $articleCnt = collect(range(0, 40));
-    $articleCnt->each(function ($step) use ($team, $categories) {
+    $articleCnt->each(function (int $step) use ($team, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
@@ -201,8 +201,8 @@ $factory->afterCreatingState(Team::class, 'addTeamBoardArticles', function (Team
 });
 
 
-$factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImages', function (Team $team, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImages', function (Team $team, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
@@ -212,7 +212,7 @@ $factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImag
     });
 
     $articleCnt = collect(range(0, 40));
-    $articleCnt->each(function ($step) use ($team, $categories) {
+    $articleCnt->each(function (int $step) use ($team, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
@@ -229,8 +229,8 @@ $factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImag
 
 
 
-$factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages', function (Team $team, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages', function (Team $team, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
@@ -240,7 +240,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
     });
 
     $articleCnt = collect(range(0, 25));
-    $articleCnt->each(function ($step) use ($team, $categories) {
+    $articleCnt->each(function (int $step) use ($team, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
             'user_id' => $team->owner,
@@ -256,8 +256,8 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
 });
 
 
-$factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAndComments', function (Team $team, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($team, $faker) {
+$factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAndComments', function (Team $team, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
@@ -267,7 +267,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAn
     });
 
     $articleCnt = collect(range(0, 15));
-    $articleCnt->each(function ($step) use ($team, $categories) {
+    $articleCnt->each(function (int $step) use ($team, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $commentCount = collect(range(0, 10));
 
@@ -279,7 +279,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAn
         ]);
 
 
-        $commentCount->each(function ($item) use ($article, $team) {
+        $commentCount->each(function (int $item) use ($article, $team): void {
             Reply::factory()->create([
                 'article_id' => $article->id,
                 'parent_id' => null,

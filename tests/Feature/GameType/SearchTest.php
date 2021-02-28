@@ -74,7 +74,7 @@ class SearchTest extends TestCase
             'test_16', 'test_17', 'test_18'
         ]);
 
-        $gameTypes = $items->map(function ($keyword) {
+        $gameTypes = $items->map(function (string $keyword): GameType {
             if (GameType::where('name', $keyword)->exists() === false) {
                 return GameType::factory()->create([
                     'name' => $keyword
@@ -100,9 +100,9 @@ class SearchTest extends TestCase
 
             $viewLen = $trySearchGameTypes['messages']['meta']['length'];
 
-            $searchItems = collect($trySearchGameTypes['messages']['types'])->map(fn ($type) => $type['name']);
+            $searchItems = collect($trySearchGameTypes['messages']['types'])->map(fn (array $type): string => $type['name']);
 
-            $chunkedItem->get($trySearchGameTypes['messages']['meta']['curr'] - 1)->each(function ($keyword) use ($searchItems, $page) {
+            $chunkedItem->get($trySearchGameTypes['messages']['meta']['curr'] - 1)->each(function (string $keyword) use ($searchItems, $page): void {
                 $this->assertTrue($searchItems->contains($keyword));
             });
 

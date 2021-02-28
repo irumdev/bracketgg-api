@@ -14,7 +14,7 @@ class CreateChannelBoardArticleImagesTable extends Migration
     public function up(): void
     {
         // 채널 게시글에 확정으로 올린 이미지
-        Schema::create('channel_board_article_images', function (Blueprint $table) {
+        Schema::create('channel_board_article_images', function (Blueprint $table): void {
             $table->id();
 
             $table->foreignId('article_id')->comment('게시글 아이디');
@@ -32,7 +32,7 @@ class CreateChannelBoardArticleImagesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('channel_board_article_images');
     }

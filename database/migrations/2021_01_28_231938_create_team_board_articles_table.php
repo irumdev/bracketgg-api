@@ -15,7 +15,7 @@ class CreateTeamBoardArticlesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_board_articles', function (Blueprint $table) {
+        Schema::create('team_board_articles', function (Blueprint $table): void {
             $table->id();
 
             $table->string('title')->comment('게시글 제목');
@@ -42,7 +42,7 @@ class CreateTeamBoardArticlesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('team_board_articles');
     }

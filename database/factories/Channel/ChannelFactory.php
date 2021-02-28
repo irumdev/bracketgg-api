@@ -18,7 +18,7 @@ use Faker\Generator as Faker;
 use App\Helpers\Fake\Image as FakeImage;
 use Illuminate\Support\Arr;
 
-$factory->define(Channel::class, function (Faker $faker) {
+$factory->define(Channel::class, function (Faker $faker): array {
     $channelData = [
         'follwer_count' => 0,
         'like_count' => 0,
@@ -35,21 +35,21 @@ $factory->define(Channel::class, function (Faker $faker) {
     return $channelData;
 });
 
-$factory->afterCreatingState(Channel::class, 'addBannerImage', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'addBannerImage', function (Channel $channel, Faker $faker): void {
     factory(ChannelBannerImage::class, random_int(1, 3))->create([
         'channel_id' => $channel->id,
     ]);
 });
 
-$factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'addSlug', function (Channel $channel, Faker $faker): void {
     ChannelSlug::factory()->create([
         'channel_id' => $channel->id,
     ]);
 });
 
-$factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $channel, Faker $faker): void {
     $fanCount = range(1, random_int(1, 10));
-    collect($fanCount)->each(function ($step) use ($channel) {
+    collect($fanCount)->each(function (int $step) use ($channel): void {
         factory(ChannelFollower::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id,
@@ -60,9 +60,9 @@ $factory->afterCreatingState(Channel::class, 'hasFollower', function (Channel $c
     $channel->save();
 });
 
-$factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channel $channel, Faker $faker): void {
     $fanCount = range(1, $followerCount = 100);
-    collect($fanCount)->each(function ($step) use ($channel) {
+    collect($fanCount)->each(function (int $step) use ($channel): void {
         factory(ChannelFollower::class)->create([
             'channel_id' => $channel->id,
             'user_id' => factory(User::class)->create()->id,
@@ -72,7 +72,7 @@ $factory->afterCreatingState(Channel::class, 'hasManyFollower', function (Channe
     $channel->save();
 });
 
-$factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $channel, Faker $faker): void {
     $fanCount = random_int(1, 30);
 
     for ($i = 0; $i < $fanCount; $i++) {
@@ -85,20 +85,20 @@ $factory->afterCreatingState(Channel::class, 'hasLike', function (Channel $chann
     $channel->save();
 });
 
-$factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'addBroadcasts', function (Channel $channel, Faker $faker): void {
     factory(ChannelBroadcast::class, random_int(1, 5))->create([
         'channel_id' => $channel->id,
     ]);
 });
 
-$factory->afterCreatingState(Channel::class, 'addTenBroadcasts', function (Channel $channel, Faker $faker) {
+$factory->afterCreatingState(Channel::class, 'addTenBroadcasts', function (Channel $channel, Faker $faker): void {
     factory(ChannelBroadcast::class, 10)->create([
         'channel_id' => $channel->id,
     ]);
 });
 
-$factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+$factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $channel, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($channel, $faker): int {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -108,7 +108,7 @@ $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $c
     });
 
     $articleCnt = collect(range(0, 40));
-    $articleCnt->each(function ($step) use ($channel, $categories) {
+    $articleCnt->each(function (int $step) use ($channel, $categories): void {
         $usedCategory = Arr::random($categories->toArray());
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
@@ -122,8 +122,8 @@ $factory->afterCreatingState(Channel::class, 'addArticles', function (Channel $c
     });
 });
 
-$factory->afterCreatingState(Channel::class, 'addArticlesWithSingleCategory', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+$factory->afterCreatingState(Channel::class, 'addArticlesWithSingleCategory', function (Channel $channel, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($channel, $faker): int {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -147,8 +147,8 @@ $factory->afterCreatingState(Channel::class, 'addArticlesWithSingleCategory', fu
     $c->save();
 });
 
-$factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+$factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', function (Channel $channel, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($channel, $faker): int {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -158,7 +158,7 @@ $factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', f
     });
 
     $articleCnt = collect(range(0, 40));
-    $articleCnt->each(function ($step) use ($channel, $categories) {
+    $articleCnt->each(function (int $step) use ($channel, $categories): void {
         $usedCategory = Arr::random($categories->toArray());
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
@@ -175,8 +175,8 @@ $factory->afterCreatingState(Channel::class, 'addManyArticlesWithSavedImages', f
 
 
 
-$factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedImages', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+$factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedImages', function (Channel $channel, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($channel, $faker): int {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -186,7 +186,7 @@ $factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedIm
     });
 
     $articleCnt = collect(range(0, 10));
-    $articleCnt->each(function ($step) use ($channel, $categories) {
+    $articleCnt->each(function (int $step) use ($channel, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = ChannelArticle::factory()->create([
             'user_id' => $channel->owner,
@@ -201,8 +201,8 @@ $factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedIm
     });
 });
 
-$factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedImagesAndComments', function (Channel $channel, Faker $faker) {
-    $categories = collect(range(0, 3))->map(function ($item) use ($channel, $faker) {
+$factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedImagesAndComments', function (Channel $channel, Faker $faker): void {
+    $categories = collect(range(0, 3))->map(function (int $item) use ($channel, $faker): int {
         $category = ChannelBoardCategory::factory()->create([
             'show_order' => $item,
             'channel_id' => $channel->id,
@@ -212,7 +212,7 @@ $factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedIm
     });
 
     $articleCnt = collect(range(0, 10));
-    $articleCnt->each(function ($step) use ($channel, $categories) {
+    $articleCnt->each(function (int $step) use ($channel, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $commentCount = collect(range(0, 10));
 
@@ -225,7 +225,7 @@ $factory->afterCreatingState(Channel::class, 'addSmallChannelArticlesWithSavedIm
 
 
 
-        $commentCount->each(function ($item) use ($article, $channel) {
+        $commentCount->each(function (int $item) use ($article, $channel): void {
             Reply::factory()->create([
                 'article_id' => $article->id,
                 'parent_id' => null,

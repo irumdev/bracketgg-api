@@ -114,7 +114,7 @@ class UpdateBannerImageRequest extends CommonFormRequest
             'banner_image_id' => [
                 'nullable',
                 'numeric',
-                Rule::exists((new ChannelBannerImage())->getTable(), 'id')->where(function (Builder $query) {
+                Rule::exists((new ChannelBannerImage())->getTable(), 'id')->where(function (Builder $query): void {
                     $query->where('channel_id', $this->channel->id);
                 }),
             ]

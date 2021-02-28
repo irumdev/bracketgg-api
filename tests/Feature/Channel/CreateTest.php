@@ -99,7 +99,7 @@ class CreateTest extends TestCase
             'addSlug'
         ])->create();
 
-        $alreadyExistsChannel->map(function (Channel $channel) use ($user) {
+        $alreadyExistsChannel->map(function (Channel $channel) use ($user): void {
             $channel->owner = $user->id;
             $channel->save();
         });

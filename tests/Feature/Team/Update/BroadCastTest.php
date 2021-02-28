@@ -300,8 +300,8 @@ class BroadCastTest extends TestCase
 
         $teamBroadCast = Team::find($team->id)->broadcastAddress;
 
-        $teamBroadcastUrls = $teamBroadCast->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
-        $teamBroadcastPlatforms = $teamBroadCast->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+        $teamBroadcastUrls = $teamBroadCast->map(fn (TeamBroadCast $broadcast): string => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $teamBroadCast->map(fn (TeamBroadCast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($teamBroadcastUrls->contains($randUrl));
         $this->assertTrue($teamBroadcastPlatforms->contains($randPlatform));
@@ -413,8 +413,8 @@ class BroadCastTest extends TestCase
 
         $changedTeamBroadcastAddress = Team::find($team->id)->broadcastAddress;
 
-        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
-        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast): string => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($teamBroadcastUrls->contains($randUrl));
         $this->assertTrue($teamBroadcastPlatforms->contains($randPlatform));
@@ -469,7 +469,7 @@ class BroadCastTest extends TestCase
         $this->assertTrue($tryUpdateChannelBroadCast['isValid']);
         $this->assertEquals(count($postData), $dbBoradCast->count());
 
-        collect($postData)->each(function ($broadCastInfo) {
+        collect($postData)->each(function (array $broadCastInfo): void {
             if (isset($broadCast['id'])) {
                 $broadCastInstance = TeamBroadCast::find($broadCastInfo['id']);
             } else {
@@ -528,8 +528,8 @@ class BroadCastTest extends TestCase
 
         $changedTeamBroadcastAddress = Team::find($team->id)->broadcastAddress;
 
-        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->broadcast_address);
-        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast) => $broadcast->platform);
+        $teamBroadcastUrls = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast): string => $broadcast->broadcast_address);
+        $teamBroadcastPlatforms = $changedTeamBroadcastAddress->map(fn (TeamBroadCast $broadcast): int => $broadcast->platform);
 
         $this->assertTrue($teamBroadcastUrls->contains($createRandUrl));
         $this->assertTrue($teamBroadcastPlatforms->contains($createRandPlatform));

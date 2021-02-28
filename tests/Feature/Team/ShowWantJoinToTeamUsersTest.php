@@ -73,8 +73,8 @@ class ShowWantJoinToTeamUsersTest extends TestCase
 
             $responseJoinRequestUsers = $tryLookupJoinRequestUsers['messages']['requestUsers'];
 
-            collect($responseJoinRequestUsers)->each(function ($wantJoinUser) use ($team) {
-                $base = User::whereHas('invitationCards', function (Builder $query) use ($team) {
+            collect($responseJoinRequestUsers)->each(function (array $wantJoinUser) use ($team): void {
+                $base = User::whereHas('invitationCards', function (Builder $query) use ($team): void {
                     $query->where([
                         ['status', '=', InvitationCard::PENDING],
                         ['team_id', '=', $team->id],

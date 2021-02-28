@@ -23,7 +23,7 @@ if (! function_exists('teamInviteResolver')) {
 }
 
 if (! function_exists('viewArticleResolver')) {
-    function viewArticleResolver(BaseArticle $article, int $type)
+    function viewArticleResolver(BaseArticle $article, int $type): ViewArticleEventDispatcher
     {
         return new ViewArticleEventDispatcher(
             new ArticleEventWrapper($article, $type)

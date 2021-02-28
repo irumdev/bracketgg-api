@@ -14,7 +14,7 @@ class CreateChannelBroadcastsTable extends Migration
     public function up(): void
     {
         // 채널에서 운영하는 방송국 테이블
-        Schema::create('channel_broadcasts', function (Blueprint $table) {
+        Schema::create('channel_broadcasts', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('channel_id')->comment('방송국 운영 하는 채널');
             $table->string('broadcast_address')->comment('방송국 주소');
@@ -31,7 +31,7 @@ class CreateChannelBroadcastsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         //
         Schema::dropIfExists('channel_broadcasts');

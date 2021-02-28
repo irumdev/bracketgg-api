@@ -14,7 +14,7 @@ class CreateChannelSlugsTable extends Migration
     public function up(): void
     {
         // 채널 슬러그 테이블
-        Schema::create('channel_slugs', function (Blueprint $table) {
+        Schema::create('channel_slugs', function (Blueprint $table): void {
             $table->id()->comment('채널 슬러그 아이디');
             $table->string('slug')->unique()->comment('채널 슬러그');
             $table->foreignId('channel_id')->comment('슬러그 소유 채널 아이디');
@@ -30,7 +30,7 @@ class CreateChannelSlugsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('channel_slugs');
     }

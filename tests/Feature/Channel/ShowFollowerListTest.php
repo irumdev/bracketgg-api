@@ -67,7 +67,7 @@ class ShowFollowerListTest extends TestCase
             'addBannerImage','hasManyFollower','addBroadcasts', 'addSlug', 'hasLike'
         ])->create();
 
-        ChannelFollower::where('channel_id', $channel->id)->get()->map(function ($key) {
+        ChannelFollower::where('channel_id', $channel->id)->get()->map(function (ChannelFollower $key): void {
             $key->created_at = $key->created_at->addDays(2);
             $key->updated_at = $key->updated_at->addDays(2);
             $key->save();
@@ -90,8 +90,8 @@ class ShowFollowerListTest extends TestCase
 
             $responseFollowers = $tryLookUpFollowersList['messages']['followers'];
 
-            $followerIds = collect($channel->followers->map(fn ($follower) => $follower->id));
-            array_map(function ($follower) use ($followerIds, $channel) {
+            $followerIds = collect($channel->followers->map(fn (User $follower): int => $follower->id));
+            array_map(function (array $follower) use ($followerIds, $channel): void {
                 $user = User::find($follower['id']);
                 $this->assertNotNull($user);
                 $followedAt = \App\Models\Channel\Follower::where([

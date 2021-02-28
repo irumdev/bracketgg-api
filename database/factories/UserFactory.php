@@ -20,7 +20,7 @@ use App\Helpers\Fake\Image as FakeImage;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker): array {
     return [
         'nick_name' => $faker->name,
         'email' => \Illuminate\Support\Str::random(20) . '@' . \Illuminate\Support\Str::random(20) . '.' . \Illuminate\Support\Str::random(3),
@@ -38,7 +38,7 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreatingState(User::class, 'addProfileImage', function (User $user, Faker $faker) {
+$factory->afterCreatingState(User::class, 'addProfileImage', function (User $user, Faker $faker): void {
     if (config('app.test.useRealImage')) {
         // $imageName = FakeImage::create(storage_path('app/profileImages'), 640, 480, null, false);
         $imageName = FakeImage::retryCreate(storage_path('app/profileImages'), 640, 480, null, false);

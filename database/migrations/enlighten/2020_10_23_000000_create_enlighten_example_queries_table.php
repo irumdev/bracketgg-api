@@ -17,7 +17,7 @@ class CreateEnlightenExampleQueriesTable extends Migration
             return;
         }
 
-        Schema::connection('enlighten')->create('enlighten_example_queries', function (Blueprint $table) {
+        Schema::connection('enlighten')->create('enlighten_example_queries', function (Blueprint $table): void {
             $table->id();
 
             $table->foreignId('example_id')
@@ -50,7 +50,7 @@ class CreateEnlightenExampleQueriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::connection('enlighten')->dropIfExists('enlighten_example_queries');
     }

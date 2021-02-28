@@ -146,11 +146,11 @@ class Team extends Model
 
         if ($hasGameAttributes) {
             // 게임이 있을때
-            $removeGameList = collect($this->operateGames)->map(fn (GameType $game) => $game->name)->diff(
+            $removeGameList = collect($this->operateGames)->map(fn (GameType $game): string => $game->name)->diff(
                 $games = collect($attributes['games'])
             );
 
-            $this->removeUnOperateGames($this->operateGames->filter(fn (GameType $game) => $removeGameList->contains($game->name)));
+            $this->removeUnOperateGames($this->operateGames->filter(fn (GameType $game): bool => $removeGameList->contains($game->name)));
             $this->createOperateGames($games);
         }
         $this->fill($attributes)->save();
@@ -159,10 +159,10 @@ class Team extends Model
 
     public function removeUnOperateGames(Collection $removeGames): bool
     {
-        return $removeGames->map(fn (GameType $removeGame) => OperateGame::where([
+        return $removeGames->map(fn (GameType $removeGame): int => OperateGame::where([
             ['team_id', '=', $this->id],
             ['game_type_id', '=', $removeGame->id]
-        ])->delete())->filter(fn (bool $isSuccessDelete) => $isSuccessDelete === true)->count() === $removeGames->count();
+        ])->delete())->filter(fn (bool $isSuccessDelete): bool => $isSuccessDelete === true)->count() === $removeGames->count();
     }
 
     private function updateSlug(string $slug): void
@@ -173,7 +173,7 @@ class Team extends Model
     private function createOperateGames(Collection $gameNames): void
     {
         $gameTypeRelation = $this->operateGames()->getRelated();
-        $gameNames->each(function (string $gameName) use ($gameTypeRelation) {
+        $gameNames->each(function (string $gameName) use ($gameTypeRelation): void {
             $gameType = $gameTypeRelation->where('name', $gameName)->firstOrCreate(['name' => $gameName]);
             $findCondition = [
                 ['team_id', '=', $this->id],
