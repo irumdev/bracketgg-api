@@ -13,6 +13,7 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
+use Carbon\Carbon;
 use Illuminate\Testing\TestResponse;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
@@ -154,7 +155,8 @@ class ShowInfoTest extends TestCase
 
             ])->exists()
         );
-        $this->assertIsString($team->slug, $message['slug']);
+        $this->assertEquals($team->slug, $message['slug']);
+        $this->assertEquals(Carbon::parse($team->created_at)->format('Y-m-d H:i:s'), $message['createdAt']);
     }
 
     /**
