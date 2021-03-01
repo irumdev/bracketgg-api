@@ -152,6 +152,7 @@ class TeamService
             'owner' => $team->owner,
             'slug' => $team->slug,
             'operateGames' => $team->operateGames->map(fn (GameType $gameType): string => $gameType->name),
+            'createdAt' => Carbon::parse($team->created_at)->format('Y-m-d H:i:s'),
         ];
     }
 }
