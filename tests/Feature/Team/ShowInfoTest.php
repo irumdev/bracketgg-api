@@ -13,10 +13,12 @@ use Laravel\Sanctum\Sanctum;
 use App\Models\Team\Member as TeamMember;
 use App\Models\Team\Broadcast as TeamBroadCast;
 use App\Models\Team\BannerImage as TeamBannerImages;
+use App\Models\Team\Board\Article;
+
 use Carbon\Carbon;
 use Illuminate\Testing\TestResponse;
 use Styde\Enlighten\Tests\EnlightenSetup;
-
+use App\Repositories\Team\BoardRespository;
 class ShowInfoTest extends TestCase
 {
     use EnlightenSetup;
@@ -169,7 +171,7 @@ class ShowInfoTest extends TestCase
 
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', ])->create();
+        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts', 'addTeamBoardArticles'])->create();
 
         $team->is_public = true;
         $team->save();
@@ -230,6 +232,27 @@ class ShowInfoTest extends TestCase
             ])->exists()
         );
         $this->assertIsString($team->slug, $message['slug']);
+        $this->assertEquals(Carbon::parse($team->created_at)->format('Y-m-d H:i:s'), $message['createdAt']);
+
+
+        $articles = $team->articles()->whereBetween(Team::CREATED_AT, [
+            Carbon::now()->format('Y-m-d 00:00:00'),
+            Carbon::now()->format('Y-m-d 23:59:59'),
+        ])->with('category')
+          ->orderBy((new Team())->getKeyName(), 'desc')
+          ->limit(BoardRespository::DEFAULT_ARTICLE_LATEST_COUNT)
+          ->get()
+          ->map(fn (Article $article): array => [
+            'id' => $article->id,
+            'title' => $article->title,
+            'categoryName' => $article->category->name,
+            'createdAt' => Carbon::parse($article->created_at)->format('Y-m-d H:i:s'),
+        ])->toArray();
+
+
+        $this->assertEquals(
+            $message['latestArticles'], $articles
+        );
     }
 
     /**
@@ -240,7 +263,7 @@ class ShowInfoTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
 
-        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts',])->create();
+        $team = factory(Team::class)->states(['addSlug', 'addBannerImage', 'addBroadcasts'])->create();
 
         $team->is_public = true;
         $team->save();
@@ -301,7 +324,7 @@ class ShowInfoTest extends TestCase
             ])->exists()
         );
         $this->assertIsString($team->slug, $message['slug']);
-
+        $this->assertEquals(Carbon::parse($team->created_at)->format('Y-m-d H:i:s'), $message['createdAt']);
 
         if (config('app.test.useRealImage')) {
             $this->get($message['logoImage'])->assertOk();
