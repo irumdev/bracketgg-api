@@ -136,4 +136,9 @@ class UserService
             $this->userRepository->findByIdx($userIdx)
         );
     }
+
+    public function updateUserPassword(User $user, string $password): bool
+    {
+        return $this->userRepository->updatePassword($user, $password);
+    }
 }
