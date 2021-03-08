@@ -21,6 +21,16 @@ use App\Helpers\ValidMessage;
 class PasswordUpdateRequest extends CommonFormRequest
 {
     /**
+     * @var int 비밀번호 최소 길이
+     */
+    public const PASSWORD_MIN_LEN = 8;
+
+    /**
+     * @var int 비밀번호 최대 길이
+     */
+    public const PASSWORD_MAX_LEN = 30;
+
+    /**
      * @var int 비밀번호를 작성 안함
      */
     public const REQUIRE_PASSWORD = 3;
@@ -82,9 +92,10 @@ class PasswordUpdateRequest extends CommonFormRequest
      */
     public function rules(): array
     {
+        $lengthRuleString = 'min:' . self::PASSWORD_MIN_LEN . '|max:' . self::PASSWORD_MAX_LEN;
         return [
-            'password' => 'required|string|min:8|max:30',
-            'confirmedPassword' => 'required|string|min:8|max:30|same:password'
+            'password' => 'bail|required|string|' . $lengthRuleString,
+            'confirmedPassword' => 'required|string|' . $lengthRuleString . '|same:password'
         ];
     }
 
@@ -98,7 +109,7 @@ class PasswordUpdateRequest extends CommonFormRequest
             'confirmedPassword.string' => self::NOT_STRING_RE_ENTER_PASSWORD,
 
             'password.min' => self::PASSWORD_MIN_LENGTH,
-            'confirmedPassword.min' =>  self::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
+            'confirmedPassword.min' => self::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
             'confirmedPassword.same' => self::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD,
 
             'password.max' => self::PASSWORD_MAX_LENGTH,

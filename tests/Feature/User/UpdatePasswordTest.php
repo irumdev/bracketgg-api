@@ -10,6 +10,8 @@ use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Str;
 use App\Http\Requests\User\Is\PasswordUpdateRequest;
 use Styde\Enlighten\Tests\EnlightenSetup;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UpdatePasswordTest extends TestCase
 {
@@ -30,11 +32,12 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenUserIsNotLogined(): void
     {
-        $tryUpdateUserPassword = $this->postJson($this->testUrl)->assertUnauthorized()->assertStatus(401);
+        $this->setName($this->getCurrentCaseKoreanName());
+        $tryUpdateUserPassword = $this->postJson($this->testUrl)->assertUnauthorized();
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(401, $tryUpdateUserPassword['messages']['code']);
+        $this->assertUnauthorizedMessages($tryUpdateUserPassword['messages']);
     }
 
     /**
@@ -43,13 +46,17 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWithoutPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl)->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson($this->testUrl)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::REQUIRE_PASSWORD,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::REQUIRE_PASSWORD,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -58,15 +65,21 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWithoutConfirmedPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = 'password' . Str::random(5)
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN)
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::REQUIRE_RE_ENTER_PASSWORD,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::REQUIRE_RE_ENTER_PASSWORD,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -75,16 +88,22 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenPasswordEnterIsNotString(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = (Int) Str::random(9),
-            'confirmedPassword' => $randPassword
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => $randPassword = (int)Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'confirmedPassword' => $randPassword
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::NOT_STRING_PASSWORD,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::NOT_STRING_PASSWORD,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -93,15 +112,21 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenPasswordEnterIsToShort(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = 'pw' . Str::random(2)
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN - 1)
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::PASSWORD_MIN_LENGTH,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::PASSWORD_MIN_LENGTH,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -110,16 +135,22 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenPasswordReEnterIsToShort(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = 'password' . Str::random(5),
-            'confirmedPassword' => $randPassword = 'pw' . Str::random(2)
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN - 1)
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -128,16 +159,22 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenPasswordReEnterIsNotEqualsPassword(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = 'password1' . Str::random(5),
-            'confirmedPassword' => $randPassword = 'password2' . Str::random(5)
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN + 1)
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD,
+            $tryUpdateUserPassword['messages']['code']
+        );
     }
 
     /**
@@ -146,15 +183,50 @@ class UpdatePasswordTest extends TestCase
      */
     public function failUpdatePasswordWhenPasswordEnterIsToLong(): void
     {
+        $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserPassword = $this->postJson($this->testUrl, [
-            'password' => $randPassword = 'thisistolongpassword' . Str::random(11),
-            'confirmedPassword' => $randPassword,
-        ])->assertStatus(422);
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MAX_LEN + 1),
+                'confirmedPassword' => $randPassword,
+            ]
+        )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(PasswordUpdateRequest::PASSWORD_MAX_LENGTH,
-                            $tryUpdateUserPassword['messages']['code']);
+        $this->assertEquals(
+            PasswordUpdateRequest::PASSWORD_MAX_LENGTH,
+            $tryUpdateUserPassword['messages']['code']
+        );
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function successUpdateUserPassword(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $requestUser = Sanctum::actingAs(factory(User::class)->create());
+        $tryUpdateUserPassword = $this->postJson(
+            $this->testUrl,
+            [
+                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'confirmedPassword' => $randPassword,
+            ]
+        )->assertOk();
+
+        $user = User::where(
+            [
+                ['email', '=', $requestUser->getAttribute('email')],
+                ['nick_name', '=', $requestUser->getAttribute('nick_name')],
+            ]
+        )->first();
+
+        $this->assertTrue($tryUpdateUserPassword['ok']);
+        $this->assertTrue($tryUpdateUserPassword['isValid']);
+        $this->assertEquals(true, $tryUpdateUserPassword['messages']['isSuccess']);
+        $this->assertEquals(true, Hash::check($randPassword, $user->password));
     }
 }

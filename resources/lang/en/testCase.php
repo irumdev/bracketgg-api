@@ -329,5 +329,17 @@ return [
             'failVerifyEmailWhenUserIsNotExists' => '존재하지 않는 유저로 이메일 인증에 실패하라',
             'failVerifyEmailWhenUserAlreadyVerifyEmail' => '이미 이메일 인증한 유저가 이메일 인증에 실패하라',
         ],
+
+        'UpdatePasswordTest' => [
+            'failUpdatePasswordWhenUserIsNotLogined' => '로그인 하지 않은 경우 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWithoutPassword' => '비밀번호를 입력하지 않고 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWithoutConfirmedPassword' => '비밀번호 재입력을 입력하지 않고 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWhenPasswordEnterIsNotString' => '비밀번호가 문자열이 아니여서 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWhenPasswordEnterIsToShort' => '비밀번호를 8자리 미만입력하여 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWhenPasswordReEnterIsToShort' => '비밀번호 재입력이 8자리 미만으로 입력하여 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWhenPasswordReEnterIsNotEqualsPassword' => '비밀번호 재입력이 입력한 비밀번호와 달라서 비밀번호 변경에 실패하라',
+            'failUpdatePasswordWhenPasswordEnterIsToLong' => '비밀번호를 30자리 초과입력하여 비밀번호 변경에 실패하라',
+            'successUpdateUserPassword' => '비밀번호 변경에 성공하라',
+        ]
     ],
 ];

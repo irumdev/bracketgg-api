@@ -124,7 +124,7 @@ class UserRepository
     public function updatePassword(User $user, string $password): bool
     {
         return DB::transaction(function () use ($user, $password): bool {
-            $user->setPasswordAttribute($password);
+            $user->setAttribute('password', $password);
             return $user->save();
         });
     }
