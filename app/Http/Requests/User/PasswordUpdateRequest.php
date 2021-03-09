@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\User\Is;
+namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\CommonFormRequest;
-
-use App\Helpers\ResponseBuilder;
 use App\Helpers\ValidMessage;
 
 /**
@@ -23,12 +19,12 @@ class PasswordUpdateRequest extends CommonFormRequest
     /**
      * @var int 비밀번호 최소 길이
      */
-    public const PASSWORD_MIN_LEN = 8;
+    public const PASSWORD_MIN_LENGTH = 8;
 
     /**
      * @var int 비밀번호 최대 길이
      */
-    public const PASSWORD_MAX_LEN = 30;
+    public const PASSWORD_MAX_LENGTH = 30;
 
     /**
      * @var int 비밀번호를 작성 안함
@@ -53,7 +49,7 @@ class PasswordUpdateRequest extends CommonFormRequest
     /**
      * @var int 비밀번호 최소자리수 미달
      */
-    public const PASSWORD_MIN_LENGTH = 10;
+    public const PASSWORD_LENGTH_IS_SHORT = 10;
 
     /**
      * @var int 비밀번호 재입력란 최소자리수 미달
@@ -68,7 +64,7 @@ class PasswordUpdateRequest extends CommonFormRequest
     /**
      * @var int 비밀번호 최대 자리수 초과
      */
-    public const PASSWORD_MAX_LENGTH = 20;
+    public const PASSWORD_LENGTH_IS_LONG = 20;
 
     /**
      * @var int 비밀번호 재입력란 최대 자리수 초과
@@ -92,10 +88,10 @@ class PasswordUpdateRequest extends CommonFormRequest
      */
     public function rules(): array
     {
-        $lengthRuleString = 'min:' . self::PASSWORD_MIN_LEN . '|max:' . self::PASSWORD_MAX_LEN;
+        $passwordLengthRule = 'min:' . self::PASSWORD_MIN_LENGTH . '|max:' . self::PASSWORD_MAX_LENGTH;
         return [
-            'password' => 'bail|required|string|' . $lengthRuleString,
-            'confirmedPassword' => 'required|string|' . $lengthRuleString . '|same:password'
+            'password' => 'bail|required|string|' . $passwordLengthRule,
+            'confirmedPassword' => 'required|string|' . $passwordLengthRule . '|same:password'
         ];
     }
 
@@ -108,11 +104,11 @@ class PasswordUpdateRequest extends CommonFormRequest
             'password.string' => self::NOT_STRING_PASSWORD,
             'confirmedPassword.string' => self::NOT_STRING_RE_ENTER_PASSWORD,
 
-            'password.min' => self::PASSWORD_MIN_LENGTH,
+            'password.min' => self::PASSWORD_LENGTH_IS_SHORT,
             'confirmedPassword.min' => self::PASSWORD_RE_ENTER_MIN_LEN_ERROR,
             'confirmedPassword.same' => self::PASSWORD_RE_ENTER_NOT_SAME_WITH_PASSWORD,
 
-            'password.max' => self::PASSWORD_MAX_LENGTH,
+            'password.max' => self::PASSWORD_LENGTH_IS_LONG,
             'confirmedPassword.max' => self::PASSWORD_RE_ENTER_MAX_LENGTH,
         ];
     }

@@ -8,7 +8,7 @@ use App\Models\User;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Str;
-use App\Http\Requests\User\Is\PasswordUpdateRequest;
+use App\Http\Requests\User\PasswordUpdateRequest;
 use Styde\Enlighten\Tests\EnlightenSetup;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
@@ -70,7 +70,7 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN)
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH)
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -93,7 +93,7 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => $randPassword = (int)Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'password' => $randPassword = (int)Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH),
                 'confirmedPassword' => $randPassword
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -117,14 +117,14 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN - 1)
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH - 1)
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
         $this->assertEquals(
-            PasswordUpdateRequest::PASSWORD_MIN_LENGTH,
+            PasswordUpdateRequest::PASSWORD_LENGTH_IS_SHORT,
             $tryUpdateUserPassword['messages']['code']
         );
     }
@@ -140,8 +140,8 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
-                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN - 1)
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH),
+                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH - 1)
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -164,8 +164,8 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
-                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN + 1)
+                'password' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH),
+                'confirmedPassword' => Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH + 1)
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -188,7 +188,7 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MAX_LEN + 1),
+                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MAX_LENGTH + 1),
                 'confirmedPassword' => $randPassword,
             ]
         )->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -196,7 +196,7 @@ class UpdatePasswordTest extends TestCase
         $this->assertFalse($tryUpdateUserPassword['ok']);
         $this->assertFalse($tryUpdateUserPassword['isValid']);
         $this->assertEquals(
-            PasswordUpdateRequest::PASSWORD_MAX_LENGTH,
+            PasswordUpdateRequest::PASSWORD_LENGTH_IS_LONG,
             $tryUpdateUserPassword['messages']['code']
         );
     }
@@ -212,21 +212,18 @@ class UpdatePasswordTest extends TestCase
         $tryUpdateUserPassword = $this->postJson(
             $this->testUrl,
             [
-                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MIN_LEN),
+                'password' => $randPassword = Str::random(PasswordUpdateRequest::PASSWORD_MIN_LENGTH),
                 'confirmedPassword' => $randPassword,
             ]
         )->assertOk();
 
-        $user = User::where(
-            [
-                ['email', '=', $requestUser->getAttribute('email')],
-                ['nick_name', '=', $requestUser->getAttribute('nick_name')],
-            ]
-        )->first();
+        $user = User::find($requestUser->id);
 
         $this->assertTrue($tryUpdateUserPassword['ok']);
         $this->assertTrue($tryUpdateUserPassword['isValid']);
-        $this->assertEquals(true, $tryUpdateUserPassword['messages']['isSuccess']);
-        $this->assertEquals(true, Hash::check($randPassword, $user->password));
+        $this->assertTrue($tryUpdateUserPassword['messages']['isSuccess']);
+
+        $this->assertFalse(Hash::check($randPassword . '1', $user->password));
+        $this->assertTrue(Hash::check($randPassword, $user->password));
     }
 }

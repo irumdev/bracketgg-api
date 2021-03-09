@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\Is\PasswordUpdateRequest;
+use App\Http\Requests\User\PasswordUpdateRequest;
 use App\Services\UserService;
-use App\Models\User;
 use App\Helpers\ResponseBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * 유저의 정보를 업데이트하는 컨트롤러 입니다.
