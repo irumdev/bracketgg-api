@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserLogoutController;
 use App\Http\Controllers\User\CheckEmailDuplicateController;
 use App\Http\Controllers\User\CreateUserController;
+use App\Http\Controllers\User\UpdateUserController;
 use App\Http\Controllers\User\ShowUserController;
 use App\Http\Controllers\User\UserVerifyController;
 use App\Http\Controllers\User\VerifyEmailController;
@@ -74,6 +75,12 @@ Route::group(['prefix' => 'v1'], function (): void {
          * 현재 로그인 한 유저 정보
          */
         Route::get('', [ShowUserController::class, 'getCurrent'])->name('currentUser')
+                                                                ->middleware('auth:sanctum');
+
+        /**
+         * [BRACKETGG-221] 유저 비밀번호 변경
+         */
+        Route::post('password', [UpdateUserController::class, 'updatePassword'])->name('updateUserPassword')
                                                                 ->middleware('auth:sanctum');
     });
 

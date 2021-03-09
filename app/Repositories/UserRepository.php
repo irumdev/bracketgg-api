@@ -120,4 +120,12 @@ class UserRepository
     {
         return $user->followedChannel()->simplePaginate(Paginate::FOLLOWED_CHANNEL_COUNT);
     }
+
+    public function updatePassword(User $user, string $password): bool
+    {
+        return DB::transaction(function () use ($user, $password): bool {
+            $user->password = $password;
+            return $user->save();
+        });
+    }
 }
