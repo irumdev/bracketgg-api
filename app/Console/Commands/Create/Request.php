@@ -23,7 +23,7 @@ class Request extends CreateCommand
     protected $description = 'Create strict Request';
 
 
-    protected $type = 'request';
+    protected string $type = 'request';
 
     /**
      * Create a new command instance.

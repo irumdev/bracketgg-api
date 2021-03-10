@@ -22,7 +22,7 @@ class Controller extends CreateCommand
      */
     protected $description = 'Create strict Controller';
 
-    protected $type = 'controller';
+    protected string $type = 'controller';
 
     /**
      * Create a new command instance.

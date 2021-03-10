@@ -37,7 +37,7 @@ class GetOwnersTeamInfosTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn (int $_) => factory(Team::class)->states([
+        $teams = collect(range(0, $activeUser->create_team_limit -1))->map(fn (int $_): Team => factory(Team::class)->states([
             'addSlug', 'addSignedMembers', 'addBannerImage',
             'addBroadcasts', 'addOperateGame', 'addSmallTeamArticlesWithSavedImages'
         ])->create([

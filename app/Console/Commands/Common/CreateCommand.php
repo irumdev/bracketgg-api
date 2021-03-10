@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 
 abstract class CreateCommand extends Command
 {
-    protected $type;
+    protected string $type;
 
     protected $basePaths = [
         'controller' => '',

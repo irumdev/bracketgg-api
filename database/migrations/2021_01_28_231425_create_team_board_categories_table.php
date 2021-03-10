@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Wrappers\BoardWritePermission\Team as TeamBoardWritePermission;
 
 class CreateTeamBoardCategoriesTable extends Migration
 {
@@ -19,6 +20,7 @@ class CreateTeamBoardCategoriesTable extends Migration
             $table->tinyInteger('show_order')->comment('보여지는 순서');
             $table->integer('article_count')->comment('게시글 갯수');
             $table->boolean('is_public')->comment('공개 여부');
+            $table->tinyInteger('write_permission')->default(TeamBoardWritePermission::ONLY_OWNER)->comment('게시글 작성 권한');
             $table->foreignId('team_id')->comment('소유한 팀장');
 
             $table->timestamps();

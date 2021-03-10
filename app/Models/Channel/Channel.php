@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Channel;
 
+use App\Contracts\TeamAndChannelContract;
+
 use App\Models\Channel\BannerImage as ChannelBannerImage;
 use App\Models\Channel\Follower as ChannelFollower;
 use App\Models\Channel\Fan as ChannelFan;
@@ -27,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @author dhtmdgkr123 <osh12201@gmail.com>
  * @version 1.0.0
  */
-class Channel extends Model
+class Channel extends Model implements TeamAndChannelContract
 {
     public const DEFAULT_BOARD_CATEGORY_COUNT = 3;
     public const DEFAULT_ARTICLE_LATEST_COUNT = 10;

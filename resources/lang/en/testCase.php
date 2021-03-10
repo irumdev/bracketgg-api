@@ -252,6 +252,25 @@ return [
             'failLookUpRequestJoinUserWhenLookUpUserIsNotTeamOwner' => '팀 오너가 아니라서 팀원 가입 신청 유저 리스트 조회에 실패하라',
         ],
         'Board' => [
+            'ChangeStatusTest' => [
+                'failCreateCategoryWhenActiveUserHasNotPermission' => '카테고리 생성권한이 없어서 카테고리 셍성에 실패하라',
+                'failCreateCategoryWhenCreateCategoryLimitOver' => '카테고리 생성 최대개수 초과로 카테고리 셍성에 실패하라',
+                'failUpdateCategoryWhenWritePermissionIsNotAllowedPermission' => '작성권한이 제공한 사용 가능한 권한이 아니라 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenWritePermissionIsNotInteger' => '작성권한이 숫자가 아니여서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenWritePermissionIsEmpty' => '작성권한이 비어있어서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenPublicStatusIEmpty' => '공개여부가 없어서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenPublicStatusIsNotBoolean' => '공개여부가 boolean이 아니여서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenNameIsDuplicate' => '이름이 중복되어 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenNameIsEmpty' => '이름이 비어있어서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenNameIsNotString' => '이름이 문자열이 아니여서 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenIdIsNotExists' => '아이디가 존재하지 않아 카테고리 업데이트에 실패하라',
+                'failUpdateCategoryWhenIdIsNotInteger' => '카테고리가 숫자가 아니라 업데이트에 실패하라',
+                'createAndUpdateCategory' => '카테고리 생성, 업데이트에 성공하라',
+                'updateAllStatus' => '모든 데이터(이름, 공개여부, 작성권한, 정렬순서) 업데이트에 성공하라',
+                'updateWritePermission' => '작성권한 업데이트에 성공하라',
+                'deleteCategory' => '팀 보드 카테고리 삭제에 성공하라',
+                'updateCategoryNameWhenUseAnotherTeamCategoryName' => '다른팀 카테고리 이름으로 업데이트에 성공하라'
+            ],
             'ShowArticleTest' => [
                 'failLookupPublicArticleWhenNotExists' => '게시글이 존재하지 않아 조회에 실패하라',
                 'failLookUpPrivateArticleWhenNotLoginButCategoryIsPrivate' => '로그인을 안한채로 비공개 게시글 조회에 실패하라',

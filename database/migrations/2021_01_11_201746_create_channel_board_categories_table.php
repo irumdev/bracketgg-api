@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Wrappers\BoardWritePermission\Channel as ChannelBoardWritePermission;
+
 class CreateChannelBoardCategoriesTable extends Migration
 {
     /**
@@ -20,6 +22,7 @@ class CreateChannelBoardCategoriesTable extends Migration
             $table->tinyInteger('show_order')->comment('보여지는 순서');
             $table->integer('article_count')->comment('게시글 갯수');
             $table->boolean('is_public')->comment('공개 여부');
+            $table->tinyInteger('write_permission')->default(ChannelBoardWritePermission::ONLY_OWNER)->comment('게시글 작성 권한');
             $table->foreignId('channel_id')->comment('소유한 채널장');
 
             $table->timestamps();

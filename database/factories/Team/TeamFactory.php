@@ -39,6 +39,7 @@ $factory->define(Team::class, function (Faker $faker): array {
         'owner' => factory(User::class)->create(),
         'name' => \Illuminate\Support\Str::random(15),
         'is_public' => random_int(0, 1) === 0,
+        'board_category_count_limit' => 3
     ];
 
     if (config('app.test.useRealImage')) {
@@ -230,7 +231,7 @@ $factory->afterCreatingState(Team::class, 'addManyTeamBoardArticlesWithSavedImag
 
 
 $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages', function (Team $team, Faker $faker): void {
-    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
+    $categories = collect(range(0, $team->board_category_count_limit))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
@@ -239,7 +240,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
         return $category->id;
     });
 
-    $articleCnt = collect(range(0, 25));
+    $articleCnt = collect(range(0, 10));
     $articleCnt->each(function (int $step) use ($team, $categories): void {
         $usedCategory = $categories->toArray()[(int)$step % $categories->count()];
         $article = TeamArticle::factory()->create([
@@ -257,7 +258,7 @@ $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImages',
 
 
 $factory->afterCreatingState(Team::class, 'addSmallTeamArticlesWithSavedImagesAndComments', function (Team $team, Faker $faker): void {
-    $categories = collect(range(0, 3))->map(function (int $item) use ($team, $faker): int {
+    $categories = collect(range(0, $team->board_category_count_limit))->map(function (int $item) use ($team, $faker): int {
         $category = TeamBoardCategory::factory()->create([
             'show_order' => $item,
             'team_id' => $team->id,
