@@ -20,7 +20,7 @@ class CreateTest extends TestCase
     {
         parent::setUp();
         $this->setUpEnlighten();
-        $this->testUrl = route('createChannel');
+        $this->testUrl = route('channel.create');
     }
 
     /**

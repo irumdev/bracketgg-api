@@ -42,7 +42,7 @@ class ShowMemberInfoTest extends TestCase
             'addSlug', 'addPendingInvitationCards', 'addSignedMembers'
         ])->create();
 
-        $requestUrl = route('getTeamMemberList', [
+        $requestUrl = route('team.getMembers', [
             'teamSlug' => $team->slug
         ]);
 
@@ -67,7 +67,7 @@ class ShowMemberInfoTest extends TestCase
         ])->create();
         $requestUser = Sanctum::actingAs(User::find($team->owner));
         $pageNo = 0;
-        $requestUrl = route('getTeamMemberList', [
+        $requestUrl = route('team.getMembers', [
             'teamSlug' => $team->slug
         ]) . '?' . http_build_query(['page' => $pageNo]);
 
@@ -102,7 +102,7 @@ class ShowMemberInfoTest extends TestCase
         $requestUser = Sanctum::actingAs(User::find($team->owner));
         $pageNo = 0;
         do {
-            $requestUrl = route('getTeamMemberList', [
+            $requestUrl = route('team.getMembers', [
                 'teamSlug' => $team->slug
             ]) . '?' . http_build_query(['page' => $pageNo]);
 
@@ -145,7 +145,7 @@ class ShowMemberInfoTest extends TestCase
         $requestUser = Sanctum::actingAs(User::find($team->owner));
         $pageNo = 0;
         do {
-            $requestUrl = route('getTeamMemberList', [
+            $requestUrl = route('team.getMembers', [
                 'teamSlug' => $team->slug
             ]) . '?' . http_build_query(['page' => $pageNo]);
 

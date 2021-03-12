@@ -49,7 +49,7 @@ class ShowArticleTest extends TestCase
 
         $this->assertEquals(0, $randArticle->see_count);
 
-        $requestUrl = route('getChannelArticle', [
+        $requestUrl = route('channel.getArticleById', [
             'slug' => $channel->slug,
             'channelBoardCategory' => $randCategory->name,
             'channelArticle' => $randArticle->id
@@ -84,7 +84,7 @@ class ShowArticleTest extends TestCase
             )
         );
 
-        $requestUrl = route('getChannelArticle', [
+        $requestUrl = route('channel.getArticleById', [
             'slug' => $channel->slug,
             'channelBoardCategory' => $randCategory->name,
             'channelArticle' => -1,
@@ -108,7 +108,7 @@ class ShowArticleTest extends TestCase
         $requestUser = factory(User::class)->create();
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
-        $requestUrl = route('getChannelArticlesByCategory', [
+        $requestUrl = route('channel.getArticlesByCategory', [
             'slug' => $channel->slug,
             'channelBoardCategory' => Str::random(10),
         ]);
@@ -150,7 +150,7 @@ class ShowArticleTest extends TestCase
 
         $this->assertEquals(0, $randArticle->see_count);
 
-        $requestUrl = route('getChannelArticle', [
+        $requestUrl = route('channel.getArticleById', [
             'slug' => $channel->slug,
             'channelBoardCategory' => $randCategory->name,
             'channelArticle' => $randArticle->id
@@ -203,7 +203,7 @@ class ShowArticleTest extends TestCase
             $current = 1;
 
             do {
-                $requestUrl = route('getChannelArticlesByCategory', [
+                $requestUrl = route('channel.getArticlesByCategory', [
                     'slug' => $channel->slug,
                     'channelBoardCategory' => $category,
                 ]);

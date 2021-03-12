@@ -30,7 +30,7 @@ class SearchTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $trySearchGameTypes = $this->getJson(route('getGameTypeByKeyword', [
+        $trySearchGameTypes = $this->getJson(route('gameTypes.getByKeyword', [
             'query' => '',
         ]))->assertStatus(422);
 
@@ -48,7 +48,7 @@ class SearchTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $trySearchGameTypes = $this->getJson(route('getGameTypeByKeyword', [
+        $trySearchGameTypes = $this->getJson(route('gameTypes.getByKeyword', [
             'query' => \Illuminate\Support\Str::random(256),
         ]))->assertNotFound();
 
@@ -89,7 +89,7 @@ class SearchTest extends TestCase
         $chunkedItem = $items->chunk($viewLen);
 
         do {
-            $trySearchGameTypes = $this->getJson(route('getGameTypeByKeyword', [
+            $trySearchGameTypes = $this->getJson(route('gameTypes.getByKeyword', [
                 'query' => 'test_',
                 'page' => $page
             ]))->assertOk();

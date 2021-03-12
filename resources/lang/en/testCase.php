@@ -288,6 +288,14 @@ return [
             'getTrueWhenEmailIsDuplicate' => '이메일이 중복되어 true를 받아라'
         ],
 
+        'MyInformation' => [
+            'FollowedChannelTest' => [
+                'failLookupWhenUserHasNotFollowedChannel' => '팔로우 한 채널이 없어서 팔로우한 채널 리스트 조회에 실패하라',
+                'failLookupWhenUserIsNotLogin' => '로그인 안한채로 팔로우한 채널 리스트 조회에 실패하라',
+                'successLookupFollowedChannel' => '팔로우한 채널 리스트 조회에 성공하라',
+            ]
+        ],
+
         'CreateTest' => [
             'failRegisterUserWithOutAnyInfo' => '아무것도 안넣은채로 회원가입에 실패하라',
             'failRegisterUserWithoutEmail' => '올바른 이메일을 입력안한채 회원가입에 실패하라',

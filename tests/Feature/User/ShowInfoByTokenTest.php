@@ -28,7 +28,7 @@ class ShowInfoByTokenTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->state('addProfileImage')->create());
-        $response = $this->getJson(route('currentUser'))->assertOk();
+        $response = $this->getJson(route('user.current'))->assertOk();
 
         $this->assertTrue($response['ok']);
         $this->assertTrue($response['isValid']);
@@ -58,7 +58,7 @@ class ShowInfoByTokenTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $response = $this->getJson(route('currentUser'))
+        $response = $this->getJson(route('user.current'))
                          ->assertOk();
 
         $this->assertTrue($response['ok']);
@@ -83,7 +83,7 @@ class ShowInfoByTokenTest extends TestCase
     public function failLookUpUserInfoWithOutLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $response = $this->getJson(route('currentUser'))
+        $response = $this->getJson(route('user.current'))
                          ->assertUnauthorized();
 
         $this->assertFalse($response['ok']);

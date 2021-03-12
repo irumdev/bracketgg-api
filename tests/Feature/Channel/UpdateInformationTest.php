@@ -38,7 +38,7 @@ class UpdateInformationTest extends TestCase
             factory(User::class)->states(['addProfileImage'])->create()
         );
 
-        $tryCreateChannel = $this->postJson(route('createChannel'), [
+        $tryCreateChannel = $this->postJson(route('channel.create'), [
             'name' => \Illuminate\Support\Str::random(20),
         ])->assertOk();
 
@@ -89,7 +89,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -101,7 +101,7 @@ class UpdateInformationTest extends TestCase
         $this->assertTrue($tryChangeSlug['isValid']);
         $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
-        $getChannelUrl = route('findChannelBySlug', [
+        $getChannelUrl = route('channel.findBySlug', [
             'slug' => $rand
         ]);
 
@@ -122,7 +122,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -134,7 +134,7 @@ class UpdateInformationTest extends TestCase
         $this->assertTrue($tryChangeSlug['isValid']);
         $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
-        $getChannelUrl = route('findChannelBySlug', [
+        $getChannelUrl = route('channel.findBySlug', [
             'slug' => $rand
         ]);
 
@@ -153,7 +153,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -177,7 +177,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -201,7 +201,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -225,7 +225,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -260,7 +260,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -286,7 +286,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -310,7 +310,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -334,7 +334,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelInfo', [
+        $testUrl = route('channel.updateInfo', [
             'slug' => $channel->slug
         ]);
 
@@ -348,7 +348,7 @@ class UpdateInformationTest extends TestCase
 
         $this->assertTrue($tryChangeSlug['messages']['isSuccess']);
 
-        $getChannelUrl = route('findChannelBySlug', [
+        $getChannelUrl = route('channel.findBySlug', [
             'slug' => $channel->slug
         ]);
 
@@ -367,7 +367,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelLogo', [
+        $testUrl = route('channel.updateLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -395,7 +395,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelLogo', [
+        $testUrl = route('channel.updateLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -430,7 +430,7 @@ class UpdateInformationTest extends TestCase
         $this->assertNull(Channel::find($channel->id)->logo_image);
 
         $activeUser = $tryCreateChannel['user'];
-        $testUrl = route('updateChannelLogo', [
+        $testUrl = route('channel.updateLogo', [
             'slug' => $channel->slug
         ]);
 
@@ -467,7 +467,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -506,7 +506,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -545,7 +545,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -581,7 +581,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -609,7 +609,7 @@ class UpdateInformationTest extends TestCase
         $channel = $tryCreateChannel['channel'];
         $activeUser = $tryCreateChannel['user'];
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 
@@ -647,7 +647,7 @@ class UpdateInformationTest extends TestCase
             $channel->bannerImages->first()->banner_image
         );
 
-        $testUrl = route('updateChannelBanner', [
+        $testUrl = route('channel.updateBanner', [
             'slug' => $channel->slug
         ]);
 

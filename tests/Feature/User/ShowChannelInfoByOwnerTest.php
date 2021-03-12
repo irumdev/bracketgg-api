@@ -46,7 +46,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
 
         $channelOwner = $channel->first()->owner;
 
-        $testRequestUrl = route('showChannelByOwnerId', [
+        $testRequestUrl = route('channel.getByOwnerId', [
             'user' => $channelOwner,
         ]);
 
@@ -76,7 +76,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
         ])->create();
 
         $channelOwner = $channel->first()->owner;
-        $testRequestUrl = route('showChannelByOwnerId', [
+        $testRequestUrl = route('channel.getByOwnerId', [
             'user' => $channelOwner,
         ]);
 
@@ -108,7 +108,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
         ])->create();
 
         $channelOwner = $channel->first()->owner;
-        $testRequestUrl = route('showChannelByOwnerId', [
+        $testRequestUrl = route('channel.getByOwnerId', [
             'user' => $channelOwner,
         ]);
 
@@ -138,7 +138,7 @@ class ShowChannelInfoByOwnerTest extends TestCase
             'addBannerImage', 'addSlug'
         ])->create();
 
-        $testRequestUrl = route('showChannelByOwnerId', [
+        $testRequestUrl = route('channel.getByOwnerId', [
             'user' => '-9999',
         ]);
 

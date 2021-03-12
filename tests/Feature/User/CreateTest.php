@@ -25,7 +25,7 @@ class CreateTest extends TestCase
     {
         parent::setUp();
         $this->setUpEnlighten();
-        $this->testUrl = route('createUser');
+        $this->testUrl = route('user.create');
         Http::fake([
             'directsend.co.kr/*' => Http::response(['status' => '0'])
         ]);

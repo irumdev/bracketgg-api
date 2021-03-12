@@ -37,7 +37,7 @@ class CreateTest extends TestCase
 
         $team->owner = $user->id;
         $team->save();
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
             'name' => $team->name
         ])->assertStatus(422);
 
@@ -56,7 +56,7 @@ class CreateTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $teamName = \Illuminate\Support\Str::random(8);
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
             'name' => $teamName
         ])->assertUnauthorized();
 
@@ -75,7 +75,7 @@ class CreateTest extends TestCase
         $user = Sanctum::actingAs(factory(User::class)->create());
         $teamName = \Illuminate\Support\Str::random(21);
 
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
             'name' => $teamName
         ])->assertStatus(422);
 
@@ -93,7 +93,7 @@ class CreateTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
 
         ])->assertStatus(422);
         $this->assertFalse($tryCreateTeam['ok']);
@@ -117,7 +117,7 @@ class CreateTest extends TestCase
         });
         $teamName = \Illuminate\Support\Str::random(15);
 
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
             'name' => $teamName
         ])->assertUnauthorized();
 
@@ -136,7 +136,7 @@ class CreateTest extends TestCase
         $teamName = \Illuminate\Support\Str::random(15);
         $user = Sanctum::actingAs(factory(User::class)->create());
 
-        $tryCreateTeam = $this->postJson(route('createTeam'), [
+        $tryCreateTeam = $this->postJson(route('team.create'), [
             'name' => $teamName
         ])->assertOk();
 

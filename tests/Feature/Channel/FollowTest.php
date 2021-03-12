@@ -35,7 +35,7 @@ class FollowTest extends TestCase
 
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $tryFollow = $this->patchJson(route('followChannel', [
+        $tryFollow = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertCreated();
 
@@ -61,7 +61,7 @@ class FollowTest extends TestCase
         ])->create();
 
         $activeUser = Sanctum::actingAs(User::find($channel->owner));
-        $tryFollow = $this->patchJson(route('followChannel', [
+        $tryFollow = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertUnauthorized();
 
@@ -86,7 +86,7 @@ class FollowTest extends TestCase
             'email_verified_at' => null
         ]));
 
-        $tryFollow = $this->patchJson(route('followChannel', [
+        $tryFollow = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertUnauthorized();
 
@@ -107,7 +107,7 @@ class FollowTest extends TestCase
             'hasFollower', 'addSlug'
         ])->create();
 
-        $tryFollow = $this->patchJson(route('followChannel', [
+        $tryFollow = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertCreated();
 
@@ -117,7 +117,7 @@ class FollowTest extends TestCase
 
         $this->assertEquals($activeUser->id, $channel->followers->last()->id);
 
-        $secondTry = $this->patchJson(route('followChannel', [
+        $secondTry = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertForbidden();
 
@@ -135,7 +135,7 @@ class FollowTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $tryFollow = $this->patchJson(route('followChannel', [
+        $tryFollow = $this->patchJson(route('channel.follow', [
             'slug' => Str::random(10)
         ]))->assertNotFound();
 
