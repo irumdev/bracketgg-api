@@ -32,7 +32,7 @@ class FollowedChannelTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $requestUrl = route('getFollowedChannel');
+        $requestUrl = route('user.getFollowedChannel');
 
         $tryLookupFollowedChannel = $this->getJson(
             $requestUrl . '?' . http_build_query([
@@ -54,7 +54,7 @@ class FollowedChannelTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = factory(User::class)->create();
 
-        $requestUrl = route('getFollowedChannel');
+        $requestUrl = route('user.getFollowedChannel');
 
         $tryLookupFollowedChannel = $this->getJson(
             $requestUrl . '?' . http_build_query([
@@ -89,7 +89,7 @@ class FollowedChannelTest extends TestCase
             $channel->follwer_count += 1;
             $channel->save();
         });
-        $requestUrl = route('getFollowedChannel');
+        $requestUrl = route('user.getFollowedChannel');
 
         $page = 1;
         do {

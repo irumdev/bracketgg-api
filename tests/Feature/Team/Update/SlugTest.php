@@ -37,7 +37,7 @@ class SlugTest extends TestCase
         $team->owner = $activeUser->id;
         $team->save();
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [
@@ -59,7 +59,7 @@ class SlugTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug'])->create(['owner' => $activeUser->id]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [
@@ -81,7 +81,7 @@ class SlugTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug'])->create(['owner' => $activeUser->id]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [
@@ -103,7 +103,7 @@ class SlugTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug'])->create(['owner' => $activeUser->id]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         collect([

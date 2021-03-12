@@ -41,7 +41,7 @@ class UpdateInformationTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -85,7 +85,7 @@ class UpdateInformationTest extends TestCase
     //     $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
     //     $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-    //     $requestUrl = route('updateTeamLogo', [
+    //     $requestUrl = route('team.updateLogo', [
     //         'teamSlug' => $team->slug,
     //     ]);
 

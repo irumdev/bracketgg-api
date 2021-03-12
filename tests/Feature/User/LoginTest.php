@@ -26,7 +26,7 @@ class LoginTest extends TestCase
     public function failLoginWithoutEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $response = $this->postJson($testUrl, [
             'password' => 'password',
         ])->assertStatus(422);
@@ -42,7 +42,7 @@ class LoginTest extends TestCase
     public function failLoginWithoutPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
             'email' => $user->email
@@ -59,7 +59,7 @@ class LoginTest extends TestCase
     public function failLoginWithInvalidEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
             'email' => 'asdfasdfsdfasdfasdfasdf',
@@ -77,7 +77,7 @@ class LoginTest extends TestCase
     public function failLoginWithWrongPassword(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
             'email' => $user->email,
@@ -95,7 +95,7 @@ class LoginTest extends TestCase
     public function failLoginWithNotExistsEmail(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->create();
         $response = $this->postJson($testUrl, [
             'email' => 'asdfasdfsdfasdfasdfasdf@asdf.com',
@@ -113,7 +113,7 @@ class LoginTest extends TestCase
     public function successLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->states(['addProfileImage'])->create();
         $response = $this->postJson($testUrl, [
             'email' => $user->email,
@@ -143,7 +143,7 @@ class LoginTest extends TestCase
     public function successLoginWithUndefinedProfileUser(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testUrl = route('verify');
+        $testUrl = route('user.auth');
         $user = factory(User::class)->create();
 
         $response = $this->postJson($testUrl, [

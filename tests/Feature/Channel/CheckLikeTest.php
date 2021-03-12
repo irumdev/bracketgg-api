@@ -31,7 +31,7 @@ class CheckLikeTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug'])->create();
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $tryCheckChannelIsLike = $this->getJson(route('isLikeChannel', [
+        $tryCheckChannelIsLike = $this->getJson(route('channel.isLike', [
             'slug' => Str::random(20),
         ]))->assertNotFound();
 
@@ -49,7 +49,7 @@ class CheckLikeTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
-        $tryCheckChannelIsLike = $this->getJson(route('isLikeChannel', [
+        $tryCheckChannelIsLike = $this->getJson(route('channel.isLike', [
             'slug' => $channel->slug,
         ]))->assertUnauthorized();
 
@@ -70,7 +70,7 @@ class CheckLikeTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
 
-        $tryLikeToChannel = $this->patchJson(route('likeChannel', [
+        $tryLikeToChannel = $this->patchJson(route('channel.like', [
             'slug' => $channel->slug
         ]))->assertCreated();
 
@@ -78,7 +78,7 @@ class CheckLikeTest extends TestCase
         $this->assertTrue($tryLikeToChannel['isValid']);
 
 
-        $tryCheckChannelIsLike = $this->getJson(route('isLikeChannel', [
+        $tryCheckChannelIsLike = $this->getJson(route('channel.isLike', [
             'slug' => $channel->slug,
         ]))->assertOk();
 
@@ -98,7 +98,7 @@ class CheckLikeTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
-        $tryCheckChannelIsLike = $this->getJson(route('isLikeChannel', [
+        $tryCheckChannelIsLike = $this->getJson(route('channel.isLike', [
             'slug' => $channel->slug,
         ]))->assertOk();
 

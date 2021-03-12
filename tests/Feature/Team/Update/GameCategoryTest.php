@@ -35,7 +35,7 @@ class GameCategoryTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug'])->create(['owner' => $activeUser->id]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -58,7 +58,7 @@ class GameCategoryTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug'])->create(['owner' => $activeUser->id]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 

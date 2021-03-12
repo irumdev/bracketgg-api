@@ -48,7 +48,7 @@ class InviteMemberTest extends TestCase
     //         $team->members()->where('user_id', $receiveUser->id)->exists()
     //     );
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $receiveUser->id,
     //         'teamSlug' => $team->slug
     //     ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -74,7 +74,7 @@ class InviteMemberTest extends TestCase
 
     //     $this->setName($this->getCurrentCaseKoreanName());
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $activeUser->id,
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
@@ -100,7 +100,7 @@ class InviteMemberTest extends TestCase
 
     //     $this->setName($this->getCurrentCaseKoreanName());
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $activeUser->id,
     //         'teamSlug' => '-123'
     //     ]))->assertNotFound();
@@ -127,7 +127,7 @@ class InviteMemberTest extends TestCase
 
     //     $this->setName($this->getCurrentCaseKoreanName());
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => '-1',
     //         'teamSlug' => $team->slug
     //     ]))->assertNotFound();
@@ -153,7 +153,7 @@ class InviteMemberTest extends TestCase
 
     //     $this->setName($this->getCurrentCaseKoreanName());
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $activeUser->id,
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
@@ -179,7 +179,7 @@ class InviteMemberTest extends TestCase
 
     //     $targetUser = factory(User::class)->create();
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $targetUser->id,
     //         'teamSlug' => $team->slug,
     //     ]))->assertOk();
@@ -210,7 +210,7 @@ class InviteMemberTest extends TestCase
     //     $targetUser = factory(User::class)->create();
     //     $this->setName($this->getCurrentCaseKoreanName());
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $targetUser->id,
     //         'teamSlug' => $team->slug,
     //     ]))->assertOk();
@@ -219,7 +219,7 @@ class InviteMemberTest extends TestCase
     //     $this->assertTrue($trySendInviteCard['isValid']);
     //     $this->assertEquals(['sendInviteCard' => true], $trySendInviteCard['messages']);
 
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $targetUser->id,
     //         'teamSlug' => $team->slug,
     //     ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -252,7 +252,7 @@ class InviteMemberTest extends TestCase
         $team = Team::find($team->id);
 
         $this->assertEquals(1, $team->member_count);
-        $tryAcceptInviteCard = $this->postJson(route('acceptInvite', [
+        $tryAcceptInviteCard = $this->postJson(route('user.acceptTeamInvite', [
             'teamSlug' => $team->slug
         ]))->assertOk();
 
@@ -283,7 +283,7 @@ class InviteMemberTest extends TestCase
     //         'member_count' => 1
     //     ]);
 
-    //     $tryAcceptInviteCard = $this->postJson(route('acceptInvite', [
+    //     $tryAcceptInviteCard = $this->postJson(route('user.acceptTeamInvite', [
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
 
@@ -305,7 +305,7 @@ class InviteMemberTest extends TestCase
     //         'member_count' => 1
     //     ]);
 
-    //     $tryAcceptInviteCard = $this->postJson(route('acceptInvite', [
+    //     $tryAcceptInviteCard = $this->postJson(route('user.acceptTeamInvite', [
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
 
@@ -330,7 +330,7 @@ class InviteMemberTest extends TestCase
     //     $targetUser = factory(User::class)->create();
 
     //     Sanctum::actingAs($teamOwner);
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $targetUser->id,
     //         'teamSlug' => $team->slug,
     //     ]))->assertOk();
@@ -338,7 +338,7 @@ class InviteMemberTest extends TestCase
 
     //     Sanctum::actingAs($targetUser);
 
-    //     $tryRejectOper = $this->postJson(route('rejectInvite', [
+    //     $tryRejectOper = $this->postJson(route('user.rejectTeamInvite', [
     //         'teamSlug' => $team->slug
     //     ]))->assertOk();
 
@@ -364,7 +364,7 @@ class InviteMemberTest extends TestCase
 
     //     Sanctum::actingAs($targetUser);
 
-    //     $tryRejectOper = $this->postJson(route('rejectInvite', [
+    //     $tryRejectOper = $this->postJson(route('user.rejectTeamInvite', [
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
 
@@ -389,7 +389,7 @@ class InviteMemberTest extends TestCase
     //     $targetUser = factory(User::class)->create();
 
     //     Sanctum::actingAs($teamOwner);
-    //     $trySendInviteCard = $this->postJson(route('inviteTeamMember', [
+    //     $trySendInviteCard = $this->postJson(route('team.inviteMember', [
     //         'userIdx' => $targetUser->id,
     //         'teamSlug' => $team->slug,
     //     ]))->assertOk();
@@ -400,7 +400,7 @@ class InviteMemberTest extends TestCase
 
     //     Sanctum::actingAs($targetUser);
 
-    //     $tryRejectOper = $this->postJson(route('rejectInvite', [
+    //     $tryRejectOper = $this->postJson(route('user.rejectTeamInvite', [
     //         'teamSlug' => $team->slug
     //     ]))->assertUnauthorized();
 

@@ -35,7 +35,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -60,7 +60,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -92,7 +92,7 @@ class BannerImageTest extends TestCase
 
         $anotherTeam = Team::find($anotherTeam->id);
 
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $anotherTeam->slug,
         ]);
 
@@ -116,7 +116,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -140,7 +140,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -164,7 +164,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -188,7 +188,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug', 'addOperateGame', 'addBannerImage' ,'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -212,7 +212,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -238,7 +238,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -263,7 +263,7 @@ class BannerImageTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamBanner', [
+        $requestUrl = route('team.updateBanner', [
             'teamSlug' => $team->slug,
         ]);
 
