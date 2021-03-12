@@ -253,8 +253,8 @@ return [
         ],
         'Board' => [
             'ChangeStatusTest' => [
-                'failCreateCategoryWhenActiveUserHasNotPermission' => '카테고리 생성권한이 없어서 카테고리 셍성에 실패하라',
-                'failCreateCategoryWhenCreateCategoryLimitOver' => '카테고리 생성 최대개수 초과로 카테고리 셍성에 실패하라',
+                'failCreateCategoryWhenActiveUserHasNotPermission' => '카테고리 생성권한이 없어서 카테고리 생성에 실패하라',
+                'failCreateCategoryWhenCreateCategoryLimitOver' => '카테고리 생성 최대개수 초과로 카테고리 생성에 실패하라',
                 'failUpdateCategoryWhenWritePermissionIsNotAllowedPermission' => '작성권한이 제공한 사용 가능한 권한이 아니라 카테고리 업데이트에 실패하라',
                 'failUpdateCategoryWhenWritePermissionIsNotInteger' => '작성권한이 숫자가 아니여서 카테고리 업데이트에 실패하라',
                 'failUpdateCategoryWhenWritePermissionIsEmpty' => '작성권한이 비어있어서 카테고리 업데이트에 실패하라',
