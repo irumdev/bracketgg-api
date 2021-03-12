@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use App\Models\Channel\Board\Article;
+use App\Models\Channel\Channel;
 use App\Models\Common\Board\BaseCategory;
 
 class Category extends BaseCategory
@@ -24,4 +25,5 @@ class Category extends BaseCategory
         'is_public' => 'bool'
     ];
     protected $articleModel = Article::class;
+    public $relatedKey = 'channel_id';
 }

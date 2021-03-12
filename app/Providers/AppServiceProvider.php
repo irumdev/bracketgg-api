@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\CommonFormRequest;
 use App\Http\Requests\Rules\Broadcast;
 
+use Illuminate\Database\Eloquent\Collection;
+use App\Http\Controllers\Team\Board\Category\ChangeStatusController as TeamBoardCategoryStatusChangeController;
+use App\Services\Common\BoardService as CommonBoardService;
+use App\Services\Team\BoardService as TeamBoardService;
+use App\Repositories\Team\BoardRespository as TeamBoardRepository;
+use App\Repositories\Common\BoardRespository as CommonBoardRepository;
+use Closure;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,9 +34,22 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->conditionBind([TeamBoardService::class], CommonBoardRepository::class, function (): TeamBoardRepository {
+            return new TeamBoardRepository();
+        });
+
+
+        $this->conditionBind([TeamBoardCategoryStatusChangeController::class], CommonBoardService::class, function (): TeamBoardService {
+            return new TeamBoardService(new TeamBoardRepository());
+        });
+    }
+
+
+    private function conditionBind(array $condition, string $abstract, Closure $bind)
+    {
+        $this->app->when($condition)->needs($abstract)->give($bind);
     }
 
     /**
@@ -47,10 +68,38 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('isMyChannelBroadcast', fn ($_, string $param): bool => $this->canUpdateBroadCast('slug', (int)$param));
         Validator::extend('alreadyInvite', fn (): bool => $this->alreadyInvite());
         Validator::extend('isNotTeamMember', fn (): bool => $this->isNotTeamMember());
+        Validator::extend('categoryNameIsNotUnique', fn (string $validateIndex, string $categoryName, array $boardCategories): bool => $this->categoryNameIsNotUnique(
+            (int)explode('.', $validateIndex)[1],
+            $categoryName,
+            unserialize(implode('', $boardCategories))
+        ));
         Validator::extend('isBroadcastUrlUnique', fn (string $attribute, string $param, array $value): bool => $this->uniqueExists($attribute, $param, $value));
 
         Arr::mixin(new ArrayMixin());
         Str::mixin(new StringMixin());
+    }
+
+    public function categoryNameIsNotUnique(int $validateIndex, string $categoryName, Collection $boardCategories): bool
+    {
+        $willValidateItem = request()->all()['needValidateItems'][$validateIndex];
+
+        $hasId = isset($willValidateItem['id']);
+
+        $alreadyHasName = $boardCategories->where('name', $willValidateItem['name'])->count() === 0;
+        if ($hasId === false) {
+            return $alreadyHasName;
+        }
+
+
+        $isSameWillChangeIdAndAlreadyUsedName = $boardCategories->where('name', $willValidateItem['name'])
+                                                                ->where('id', $willValidateItem['id'])
+                                                                ->count() === 1;
+
+        if ($hasId && $isSameWillChangeIdAndAlreadyUsedName) {
+            return true;
+        }
+
+        return $alreadyHasName;
     }
 
     public function uniqueExists(string $attribute, string $param, array $value): bool

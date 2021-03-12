@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Common;
 
 use App\Factories\BoardFactory;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -35,5 +35,10 @@ class BoardRespository extends BoardFactory
     public function latestArticlesCount(Model $model): int
     {
         return $this->latestArticles($model)->count();
+    }
+
+    public function updateCategory(Model $teamOrChannel, Collection $willUpdateItem): void
+    {
+        parent::updateCategory($teamOrChannel, $willUpdateItem);
     }
 }

@@ -11,10 +11,16 @@ use App\Models\Common\Board\BaseCategory;
 use App\Properties\Paginate;
 use Illuminate\Database\Eloquent\Model;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
+use Illuminate\Support\Collection;
 
 abstract class BoardService
 {
-    public BaseBoardRespository $boardRespository;
+    public BaseBoardRespository $boardRepository;
+
+    public function __construct(BaseBoardRespository $boardRepository)
+    {
+        $this->boardRepository = $boardRepository;
+    }
 
     public function getArticleByModel(BaseArticle $article): array
     {
@@ -62,5 +68,10 @@ abstract class BoardService
             'articleCount' => $category->article_count,
             'isPublic' => $category->is_public,
         ];
+    }
+
+    public function updateCategory(Model $teamOrChannel, Collection $willUpdateItem): void
+    {
+        $this->boardRepository->updateCategory($teamOrChannel, $willUpdateItem);
     }
 }
