@@ -39,7 +39,7 @@ class ShowInfoTest extends TestCase
         $channelSlug = $channel->slug;
         $channelId = $channel->id;
 
-        $testRequestUrl = route('findChannelBySlug', [
+        $testRequestUrl = route('channel.findBySlug', [
             'slug' => $channelSlug,
         ]);
 
@@ -131,7 +131,7 @@ class ShowInfoTest extends TestCase
 
         $channelName = $channel->name;
 
-        $testRequestUrl = route('findChannelByName', [
+        $testRequestUrl = route('channel.findByName', [
             'name' => $channelName,
         ]);
 
@@ -214,7 +214,7 @@ class ShowInfoTest extends TestCase
     public function failLookUpNotExistsChannelInfoFromSlug(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testRequestUrl = route('findChannelBySlug', [
+        $testRequestUrl = route('channel.findBySlug', [
             'slug' => '-999',
         ]);
 
@@ -233,7 +233,7 @@ class ShowInfoTest extends TestCase
     public function failLookUpNotExistsChannelInfoFromName(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $testRequestUrl = route('findChannelByName', [
+        $testRequestUrl = route('channel.findByName', [
             'name' => '-999',
         ]);
 

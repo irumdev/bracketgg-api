@@ -26,7 +26,7 @@ class BroadcastTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -54,7 +54,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -80,7 +80,7 @@ class BroadcastTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -114,7 +114,7 @@ class BroadcastTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -145,7 +145,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -176,7 +176,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -207,7 +207,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -238,7 +238,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -273,7 +273,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug', 'addTenBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -299,7 +299,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
            'slug' => $channel->slug,
         ]);
 
@@ -340,7 +340,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
            'slug' => $channel->slug,
         ]);
 
@@ -405,7 +405,7 @@ class BroadcastTest extends TestCase
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
         $anotherChannel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => factory(User::class)->create()->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
            'slug' => $channel->slug,
         ]);
 
@@ -440,7 +440,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addTenBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -509,7 +509,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addTenBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
             'slug' => $channel->slug,
         ]);
 
@@ -558,7 +558,7 @@ class BroadcastTest extends TestCase
 
         $channel = factory(Channel::class)->states(['addSlug','addBannerImage', 'addBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateChannelInfo', [
+        $requestUrl = route('channel.updateInfo', [
            'slug' => $channel->slug,
        ]);
 

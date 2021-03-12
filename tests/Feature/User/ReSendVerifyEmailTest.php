@@ -24,7 +24,7 @@ class ReSendVerifyEmailTest extends TestCase
         parent::setUp();
         $this->setUpEnlighten();
 
-        $this->testUrl = route('resendVerifyEmail');
+        $this->testUrl = route('user.resendVerifyEmail');
         Http::fake([
             'directsend.co.kr/*' => Http::response(['status' => '0'])
         ]);

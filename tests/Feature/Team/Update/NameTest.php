@@ -41,7 +41,7 @@ class NameTest extends TestCase
         $team = Team::find($team->id);
         $beforeTeamName = $team->name;
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [
@@ -67,7 +67,7 @@ class NameTest extends TestCase
         $team->save();
 
         $team = Team::find($team->id);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [
@@ -93,7 +93,7 @@ class NameTest extends TestCase
         $team->save();
 
         $team = Team::find($team->id);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug
         ]);
         $tryUpdateTeam = $this->postJson($requestUrl, [

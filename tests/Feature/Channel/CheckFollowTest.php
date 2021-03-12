@@ -32,7 +32,7 @@ class CheckFollowTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
+        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channel.isFollow', [
             'slug' => Str::random(40)
         ]))->assertNotFound();
 
@@ -48,7 +48,7 @@ class CheckFollowTest extends TestCase
     public function failLookupChannelIsFollowingWhenUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
+        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channel.isFollow', [
             'slug' => Str::random(40)
         ]))->assertUnauthorized();
 
@@ -67,7 +67,7 @@ class CheckFollowTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
 
-        $tryFollowChannel = $this->patchJson(route('followChannel', [
+        $tryFollowChannel = $this->patchJson(route('channel.follow', [
             'slug' => $channel->slug
         ]))->assertCreated();
 
@@ -75,7 +75,7 @@ class CheckFollowTest extends TestCase
         $this->assertTrue($tryFollowChannel['isValid']);
         $this->assertEquals(ChannelFollower::FOLLOW_OK, $tryFollowChannel['messages']['code']);
 
-        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
+        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channel.isFollow', [
             'slug' => $channel->slug,
         ]))->assertOk();
 
@@ -93,7 +93,7 @@ class CheckFollowTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $channel = factory(Channel::class)->states(['addSlug'])->create();
-        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channelIsFollow', [
+        $tryCheckChannelIsAlreadyFollow = $this->getJson(route('channel.isFollow', [
             'slug' => $channel->slug,
         ]))->assertOk();
 

@@ -56,7 +56,7 @@ class UserEmailVerifyNotification extends Notification
      */
     private function verificationUrl($notifiable): string
     {
-        return URL::signedRoute('verifyEmail', [
+        return URL::signedRoute('user.verifyEmail', [
             'id' => $notifiable->getKey(),
             'hash' => sha1($notifiable->getEmailForVerification()),
         ]);

@@ -56,7 +56,7 @@ class BroadCastTest extends TestCase
     //     $this->setName($this->getCurrentCaseKoreanName());
     //     $activeUser = Sanctum::actingAs(factory(User::class)->create());
     //     $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-    //     $requestUrl = route('updateTeamLogo', [
+    //     $requestUrl = route('team.updateLogo', [
     //         'teamSlug' => $team->slug,
     //     ]);
     //     $tryUpdateTeamLogo = $this->postJson($requestUrl, [
@@ -77,7 +77,7 @@ class BroadCastTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -106,7 +106,7 @@ class BroadCastTest extends TestCase
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -130,7 +130,7 @@ class BroadCastTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -159,7 +159,7 @@ class BroadCastTest extends TestCase
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -190,7 +190,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -221,7 +221,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -252,7 +252,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -283,7 +283,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -318,7 +318,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
            'teamSlug' => $team->slug,
        ]);
 
@@ -355,7 +355,7 @@ class BroadCastTest extends TestCase
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
         $anotherTeam = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => factory(User::class)->create()->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
            'teamSlug' => $team->slug,
         ]);
 
@@ -390,7 +390,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
            'teamSlug' => $team->slug,
         ]);
 
@@ -431,7 +431,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage', 'addTenBroadcasts'])->create(['owner' => $activeUser->id, ]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
             'teamSlug' => $team->slug,
         ]);
 
@@ -501,7 +501,7 @@ class BroadCastTest extends TestCase
 
         $team = factory(Team::class)->states(['addSlug','addBannerImage' ,'addOperateGame', 'addBroadcasts'])->create(['owner' => $activeUser->id, 'is_public' => false]);
 
-        $requestUrl = route('updateTeamInfoWithoutImage', [
+        $requestUrl = route('team.updateInfo', [
            'teamSlug' => $team->slug,
         ]);
 

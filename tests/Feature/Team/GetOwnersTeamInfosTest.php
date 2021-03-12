@@ -45,7 +45,7 @@ class GetOwnersTeamInfosTest extends TestCase
         ]));
 
 
-        $tryLookupTeamInfo = $this->getJson(route('showTeamByOwnerId', [
+        $tryLookupTeamInfo = $this->getJson(route('team.showInfoByOwnerId', [
             'owner' => $activeUser->id
         ]))->assertOk();
 
@@ -152,7 +152,7 @@ class GetOwnersTeamInfosTest extends TestCase
         ]));
 
 
-        $tryLookupTeamInfo = $this->getJson(route('showTeamByOwnerId', [
+        $tryLookupTeamInfo = $this->getJson(route('team.showInfoByOwnerId', [
             'owner' => $owner->id
         ]))->assertUnauthorized();
 
@@ -172,7 +172,7 @@ class GetOwnersTeamInfosTest extends TestCase
 
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
 
-        $tryLookupTeamInfo = $this->getJson(route('showTeamByOwnerId', [
+        $tryLookupTeamInfo = $this->getJson(route('team.showInfoByOwnerId', [
             'owner' => $activeUser->id
         ]))->assertNotFound();
         $this->assertFalse($tryLookupTeamInfo['ok']);

@@ -30,7 +30,7 @@ class ShowFollowerListTest extends TestCase
     public function failLookUpFollowersWhenUserIsNotLogin(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $tryLookUpFollowersList = $this->getJson(route('getFollower', [
+        $tryLookUpFollowersList = $this->getJson(route('channel.getFollowers', [
             'slug' => '-1',
         ]))->assertUnauthorized();
 
@@ -47,7 +47,7 @@ class ShowFollowerListTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activedUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryLookUpFollowersList = $this->getJson(route('getFollower', [
+        $tryLookUpFollowersList = $this->getJson(route('channel.getFollowers', [
             'slug' => '-1'
         ]))->assertNotFound();
 
@@ -77,7 +77,7 @@ class ShowFollowerListTest extends TestCase
         $current = 1;
 
         do {
-            $requestUrl = route('getFollower', [
+            $requestUrl = route('channel.getFollowers', [
                 'slug' => $channel->slug
             ]) . '?' . http_build_query([
                 'page' => $current
@@ -119,7 +119,7 @@ class ShowFollowerListTest extends TestCase
         ])->create();
 
         $activedUser = Sanctum::actingAs(factory(User::class)->create());
-        $requestUrl = route('getFollower', ['slug' => $channel->slug]);
+        $requestUrl = route('channel.getFollowers', ['slug' => $channel->slug]);
         $tryLookUpFollowersList = $this->getJson($requestUrl);
 
         $this->assertTrue($tryLookUpFollowersList['ok']);

@@ -11,7 +11,6 @@ use App\Helpers\ResponseBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-
 /**
  * 유저의 정보를 업데이트하는 컨트롤러 입니다.
  *

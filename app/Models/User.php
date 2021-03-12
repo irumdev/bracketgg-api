@@ -162,7 +162,7 @@ class User extends Authenticatable
 
     private function verificationUrl(User $user): string
     {
-        $signedVerifyUrl = Url::temporarySignedRoute('verifyEmail', now()->addMinutes(config('auth.verification.expire', 60)), [
+        $signedVerifyUrl = Url::temporarySignedRoute('user.verifyEmail', now()->addMinutes(config('auth.verification.expire', 60)), [
             'id' => $user->getKey(),
             'hash' => sha1($user->getEmailForVerification()),
         ]);

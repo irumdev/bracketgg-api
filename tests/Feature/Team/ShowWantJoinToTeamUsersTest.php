@@ -36,7 +36,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $user = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->states(['addSlug'])->create();
-        $tryLookupJoinRequestUsers = $this->getJson(route('getRequestJoinUserList', [
+        $tryLookupJoinRequestUsers = $this->getJson(route('team.getRequestJoinUserList', [
             'teamSlug' => $team->slug,
         ]))->assertUnauthorized();
 
@@ -60,7 +60,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
         $current = 1;
 
         do {
-            $requestUrl = route('getRequestJoinUserList', [
+            $requestUrl = route('team.getRequestJoinUserList', [
                 'teamSlug' => $team->slug,
             ]) . '?' . http_build_query([
                 'page' => $current

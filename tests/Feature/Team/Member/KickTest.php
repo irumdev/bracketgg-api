@@ -39,7 +39,7 @@ class KickTest extends TestCase
 
         $randTeamMember = factory(User::class)->create();
 
-        $requestUrl = route('kickTeamMember', [
+        $requestUrl = route('team.kickMember', [
             'teamSlug' => $team->slug,
             'userIdx' => $randTeamMember->id
         ]);
@@ -67,7 +67,7 @@ class KickTest extends TestCase
 
         $randTeamMember = factory(User::class)->create();
 
-        $requestUrl = route('kickTeamMember', [
+        $requestUrl = route('team.kickMember', [
             'teamSlug' => $team->slug,
             'userIdx' => $randTeamMember->id
         ]);
@@ -92,7 +92,7 @@ class KickTest extends TestCase
             'owner' => $owner->id,
         ]);
 
-        $requestUrl = route('kickTeamMember', [
+        $requestUrl = route('team.kickMember', [
             'teamSlug' => $team->slug,
             'userIdx' => $team->owner,
         ]);
@@ -125,7 +125,7 @@ class KickTest extends TestCase
 
         $activeUser = Sanctum::actingAs($requestUser);
 
-        $requestUrl = route('kickTeamMember', [
+        $requestUrl = route('team.kickMember', [
             'teamSlug' => $team->slug,
             'userIdx' => $team->members()->where([
                 ['role' , '!=', Team::OWNER],
@@ -158,7 +158,7 @@ class KickTest extends TestCase
             ['role' , '!=', Team::OWNER]
         ])->get()->random();
 
-        $requestUrl = route('kickTeamMember', [
+        $requestUrl = route('team.kickMember', [
             'teamSlug' => $team->slug,
             'userIdx' => $randTeamMember->id
         ]);

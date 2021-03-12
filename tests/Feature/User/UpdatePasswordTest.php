@@ -23,7 +23,7 @@ class UpdatePasswordTest extends TestCase
     {
         parent::setUp();
         $this->setUpEnlighten();
-        $this->testUrl = route('updateUserPassword');
+        $this->testUrl = route('user.updateUserPassword');
     }
 
     /**

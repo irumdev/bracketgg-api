@@ -31,7 +31,7 @@ class DuplicateNameCheckTest extends TestCase
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
         $team = factory(Team::class)->create();
-        $tryCheckTeamNameIsDuplicate = $this->getJson(route('checkTeamNameDuplicate', [
+        $tryCheckTeamNameIsDuplicate = $this->getJson(route('team.name.isDuplicate', [
             'teamName' => $team->name
         ]))->assertStatus(422);
 
@@ -48,7 +48,7 @@ class DuplicateNameCheckTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $activeUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryCheckTeamNameIsDuplicate = $this->getJson(route('checkTeamNameDuplicate', [
+        $tryCheckTeamNameIsDuplicate = $this->getJson(route('team.name.isDuplicate', [
             'teamName' => \Illuminate\Support\Str::random(10),
         ]))->assertOk();
 
