@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Testing\TestResponse;
 use Styde\Enlighten\Tests\EnlightenSetup;
 use App\Repositories\Team\BoardRespository;
+
 class ShowInfoTest extends TestCase
 {
     use EnlightenSetup;
@@ -251,7 +252,8 @@ class ShowInfoTest extends TestCase
 
 
         $this->assertEquals(
-            $message['latestArticles'], $articles
+            $message['latestArticles'],
+            $articles
         );
     }
 

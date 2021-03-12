@@ -23,7 +23,7 @@ class Test extends CreateCommand
     protected $description = 'Create strict Test';
 
 
-    protected $type = 'test';
+    protected string $type = 'test';
 
     /**
      * Create a new command instance.

@@ -15,8 +15,6 @@ use function App\Events\viewArticleResolver;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {

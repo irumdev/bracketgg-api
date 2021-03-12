@@ -23,7 +23,7 @@ class Model extends CreateCommand
     protected $description = 'Create strict Model';
 
 
-    protected $type = 'model';
+    protected string $type = 'model';
 
     /**
      * Create a new command instance.

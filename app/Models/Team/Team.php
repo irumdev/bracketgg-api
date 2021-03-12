@@ -14,6 +14,8 @@ use App\Models\Team\Member as TeamMember;
 use App\Models\Team\InvitationCard;
 use App\Models\Team\Board\Article as TeamArticles;
 
+use App\Contracts\TeamAndChannelContract;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Team\Board\Category as TeamBoardCategory;
 
-class Team extends Model
+class Team extends Model implements TeamAndChannelContract
 {
     use SoftDeletes;
     protected $table = 'teams';

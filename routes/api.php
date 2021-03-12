@@ -28,6 +28,7 @@ use App\Http\Controllers\Team\ShowTeamInfoController;
 use App\Http\Controllers\Team\Member\InviteMemberController;
 use App\Http\Controllers\Team\Member\KickController;
 use App\Http\Controllers\Team\Board\ShowArticleController as ShowTeamArticleController;
+use App\Http\Controllers\Team\Board\Category\ChangeStatusController as ChangeTeamCategoryStatusController;
 
 use App\Http\Controllers\Game\FindTypeController;
 
@@ -253,6 +254,11 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-205] 현재 팀원인 유저 추방
              */
             Route::post('{teamSlug}/kick/{userIdx}', [KickController::class, 'kickByUserId'])->name('kickTeamMember');
+
+            /**
+             * [BRACKETGG-202] 팀 게시판 카테고리 변경
+             */
+            Route::post('{teamSlug}/category', [ChangeTeamCategoryStatusController::class, 'changeTeamCategory'])->name('team.changeCategory');
         });
 
         Route::group(['prefix' => 'user'], function (): void {
