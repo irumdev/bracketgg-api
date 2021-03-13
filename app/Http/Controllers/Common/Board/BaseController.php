@@ -15,6 +15,7 @@ use function App\Events\viewArticleResolver;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class BaseController extends Controller
 {
@@ -24,6 +25,17 @@ class BaseController extends Controller
         return (new ResponseBuilder())->ok(
             $this->boardService->getArticleByModel($article)
         );
+    }
+
+    public function changeCategoryStatus(string $bindedPathValue, Collection $willUpdateItems): JsonResponse
+    {
+        $this->boardService->updateCategory(
+            request()->route($bindedPathValue),
+            $willUpdateItems
+        );
+        return (new ResponseBuilder())->ok([
+            'markCategoryUpdate' => true,
+        ]);
     }
 
     public function getArticlsByCategory(CategoryWithArticleType $articlesInfo): JsonResponse
