@@ -13,6 +13,7 @@ use Tests\TestCase;
 use App\Wrappers\BoardWritePermission\Team as TeamCategoryWritePermission;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Team\Board\Category\ChangeStatusRequest as TeamBoardChangeRequest;
+use App\Http\Requests\Rules\ChangeCategoryStatus as CommonBoardCategoryChangeStatus;
 use Illuminate\Http\UploadedFile;
 use Styde\Enlighten\Tests\EnlightenSetup;
 
@@ -149,7 +150,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::WRITE_PERMISSION_IS_NOT_ALLOWED_POLICY,
+            CommonBoardCategoryChangeStatus::WRITE_PERMISSION_IS_NOT_ALLOWED_POLICY,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -192,7 +193,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::WRITE_PERMISSION_IS_NOT_INTEGER,
+            CommonBoardCategoryChangeStatus::WRITE_PERMISSION_IS_NOT_INTEGER,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -235,7 +236,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::WRITE_PERMISSION_IS_EMPTY,
+            CommonBoardCategoryChangeStatus::WRITE_PERMISSION_IS_EMPTY,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -277,7 +278,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::PUBLIC_STATUS_IS_EMPTY,
+            CommonBoardCategoryChangeStatus::PUBLIC_STATUS_IS_EMPTY,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -319,7 +320,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::PUBLIC_STATUS_IS_NOT_BOOLEAN,
+            CommonBoardCategoryChangeStatus::PUBLIC_STATUS_IS_NOT_BOOLEAN,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -367,7 +368,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::CATEGORY_NAME_IS_DUPLICATE,
+            CommonBoardCategoryChangeStatus::CATEGORY_NAME_IS_DUPLICATE,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -409,7 +410,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::CATEGORY_NAME_IS_EMPTY,
+            CommonBoardCategoryChangeStatus::CATEGORY_NAME_IS_EMPTY,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -451,7 +452,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::CATEGORY_NAME_IS_NOT_STRING,
+            CommonBoardCategoryChangeStatus::CATEGORY_NAME_IS_NOT_STRING,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -494,7 +495,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::CATEGORY_ID_IS_NOT_EXISTS,
+            CommonBoardCategoryChangeStatus::CATEGORY_ID_IS_NOT_EXISTS,
             $tryChangeStatus['messages']['code']
         );
     }
@@ -539,7 +540,7 @@ class ChangeStatusTest extends TestCase
         $this->assertFalse($tryChangeStatus['ok']);
         $this->assertFalse($tryChangeStatus['isValid']);
         $this->assertEquals(
-            TeamBoardChangeRequest::CATEGORY_ID_IS_NOT_INTEGER,
+            CommonBoardCategoryChangeStatus::CATEGORY_ID_IS_NOT_INTEGER,
             $tryChangeStatus['messages']['code']
         );
     }
