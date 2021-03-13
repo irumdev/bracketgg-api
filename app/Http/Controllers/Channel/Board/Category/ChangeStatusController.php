@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Team\Board\Category;
+namespace App\Http\Controllers\Channel\Board\Category;
 
-use App\Http\Requests\Team\Board\Category\ChangeStatusRequest;
-
-use App\Services\Common\BoardService;
-use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\Board\BaseController;
+use App\Services\Common\BoardService;
+use App\Http\Requests\Channel\Board\Category\ChangeStatusRequest;
+use Illuminate\Http\JsonResponse;
 
 class ChangeStatusController extends BaseController
 {
