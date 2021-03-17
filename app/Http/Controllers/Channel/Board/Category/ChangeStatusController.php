@@ -19,12 +19,12 @@ class ChangeStatusController extends BaseController
         $this->boardService = $teamBoardService;
     }
 
-    public function changeTeamCategory(ChangeStatusRequest $request): JsonResponse
+    public function changeChannelCategory(ChangeStatusRequest $request): JsonResponse
     {
         $willUpdateItems = collect(array_merge($request->validated(), $request->only('doNotNeedValidate')))->collapse();
 
         return parent::changeCategoryStatus(
-            'teamSlug',
+            'slug',
             $willUpdateItems
         );
     }
