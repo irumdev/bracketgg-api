@@ -10,8 +10,6 @@ use App\Wrappers\BoardWritePermission\Team as TeamBoardWritePermission;
 use App\Http\Requests\CommonFormRequest;
 use App\Helpers\ValidMessage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Contracts\Validation\Validator as ValidContract;
 use App\Http\Requests\Rules\ChangeCategoryStatus as ChangeCategoryStatusRule;
 

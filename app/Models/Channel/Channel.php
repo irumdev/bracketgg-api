@@ -38,7 +38,7 @@ class Channel extends Model implements TeamAndChannelContract
     protected $fillable = [
         'logo_image', 'follwer_count',
         'like_count', 'description',
-        'name', 'owner'
+        'name', 'owner', 'board_category_count_limit'
     ];
 
     /**

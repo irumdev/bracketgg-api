@@ -21,6 +21,7 @@ use Illuminate\Support\Arr;
 $factory->define(Channel::class, function (Faker $faker): array {
     $channelData = [
         'follwer_count' => 0,
+        'board_category_count_limit'  => 3,
         'like_count' => 0,
         'owner' => factory(User::class)->states(['addProfileImage'])->create(),
         'description' => $faker->sentence(),

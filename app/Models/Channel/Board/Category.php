@@ -18,7 +18,7 @@ class Category extends BaseCategory
 
     protected $table = 'channel_board_categories';
     protected $fillable = [
-        'name', 'show_order', 'article_count', 'is_public', 'channel_id'
+        'name', 'show_order', 'article_count', 'is_public', 'channel_id', 'write_permission'
     ];
 
     protected $casts = [
