@@ -20,6 +20,7 @@ use App\Http\Controllers\Channel\ShowUserChannelController;
 use App\Http\Controllers\Channel\CreateChannelController;
 use App\Http\Controllers\Channel\UpdateChannelController;
 use App\Http\Controllers\Channel\Board\ShowArticleController as ShowChannelArticleController;
+use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChangeChannelCategoryStatusController;
 
 use App\Http\Controllers\Team\CreateTeamController;
 use App\Http\Controllers\Team\CheckTeamNameExistsController;
@@ -167,6 +168,11 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-61] 채널 팔로워 조회
              */
             Route::get('{slug}/followers', [ShowUserChannelController::class, 'getFollower'])->name('channel.getFollowers');
+
+            /**
+             * [BRACKETGG-223] 채널 게시판 카테고리 변경
+             */
+            Route::post('{slug}/category', [ChangeChannelCategoryStatusController::class, 'changeChannelCategory'])->name('channel.changeCategory');
 
             /**
              * {user}가 채널장인 채널들 조회

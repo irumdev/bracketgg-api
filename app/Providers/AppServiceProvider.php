@@ -21,9 +21,15 @@ use App\Http\Requests\Rules\Broadcast;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Controllers\Team\Board\Category\ChangeStatusController as TeamBoardCategoryStatusChangeController;
-use App\Services\Common\BoardService as CommonBoardService;
+use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChannelBoardCategoryStatusChangeController;
+
+use App\Services\Channel\BoardService as ChannelBoardService;
+use App\Repositories\Channel\BoardRespository as ChannelBoardRepository;
+
 use App\Services\Team\BoardService as TeamBoardService;
 use App\Repositories\Team\BoardRespository as TeamBoardRepository;
+
+use App\Services\Common\BoardService as CommonBoardService;
 use App\Repositories\Common\BoardRespository as CommonBoardRepository;
 use Closure;
 
@@ -40,9 +46,16 @@ class AppServiceProvider extends ServiceProvider
             return new TeamBoardRepository();
         });
 
-
         $this->conditionBind([TeamBoardCategoryStatusChangeController::class], CommonBoardService::class, function (): TeamBoardService {
             return new TeamBoardService(new TeamBoardRepository());
+        });
+
+        $this->conditionBind([ChannelBoardService::class], CommonBoardRepository::class, function (): ChannelBoardRepository {
+            return new ChannelBoardRepository();
+        });
+
+        $this->conditionBind([ChannelBoardCategoryStatusChangeController::class], CommonBoardService::class, function (): ChannelBoardService {
+            return new ChannelBoardService(new ChannelBoardRepository());
         });
     }
 
@@ -117,19 +130,19 @@ class AppServiceProvider extends ServiceProvider
 
         if ($hasNotBroadcastId) {
             return $isExistsBroadcastAddress === false;
-        } else {
-            executeUnless(is_numeric($requestBroadCastId), function (): void {
-                (new CommonFormRequest())->throwUnProcessableEntityException(Broadcast::BROADCAST_ID_IS_NOT_NUMERIC);
-            });
-
-            $requestBroadCast = $value[$modelName]::find($requestBroadCastId);
-            $isSameDbBroadCastUrlAndRequestBroadcastUrl = $requestBroadCast->broadcast_address === $requestBroadCastUrl;
-
-            if ($isSameDbBroadCastUrlAndRequestBroadcastUrl) {
-                return true;
-            }
-            return $isExistsBroadcastAddress === false;
         }
+
+        executeUnless(is_numeric($requestBroadCastId), function (): void {
+            (new CommonFormRequest())->throwUnProcessableEntityException(Broadcast::BROADCAST_ID_IS_NOT_NUMERIC);
+        });
+
+        $requestBroadCast = $value[$modelName]::find($requestBroadCastId);
+        $isSameDbBroadCastUrlAndRequestBroadcastUrl = $requestBroadCast->broadcast_address === $requestBroadCastUrl;
+
+        if ($isSameDbBroadCastUrlAndRequestBroadcastUrl) {
+            return true;
+        }
+        return $isExistsBroadcastAddress === false;
     }
 
 
