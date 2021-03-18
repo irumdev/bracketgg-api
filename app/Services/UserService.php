@@ -141,4 +141,13 @@ class UserService
     {
         return $this->userRepository->updatePassword($user, $password);
     }
+
+    public function updateUserProfileImage(User $user, array $attribute): bool
+    {
+        $storeImageResult = $attribute['profile_image']->store('profileImages');
+        throw_unless(is_string($storeImageResult), new FileSaveFailException());
+        $imageHashName = $attribute['profile_image']->hashName();
+
+        return $this->userRepository->updateProfileImage($user, $imageHashName);
+    }
 }

@@ -126,6 +126,11 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-221] 유저 비밀번호 변경
              */
             Route::post('password', [UpdateUserController::class, 'updatePassword'])->name('user.updateUserPassword');
+
+            /**
+             * [BRACKETGG-196] 나의계정/프로필 사진 변경 API
+             */
+            Route::post('image', [UpdateUserController::class, 'updateProfileImage'])->name('user.updateUserProfileImage');
         });
 
         Route::group(['prefix' => 'email'], function (): void {
