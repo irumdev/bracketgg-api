@@ -66,6 +66,19 @@ class Image
     }
 
     /**
+     * 채널 게시판 게시글 이미지 url 찾아주거나 404를 띄워주는 메소드 입니다.
+     *
+     * @param string $profileImageName 프로필 이미지 이름
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return BinaryFileResponse 프로필 이미지 리스폰스
+     */
+    public static function getChannelBoardArticle(string $channelBoardArticleImageName): BinaryFileResponse
+    {
+        return self::returnFileOrFail('channelBoardArticleImages', $channelBoardArticleImageName);
+    }
+
+    /**
      * 팀 로고 이미지 찾아주거나 404를 띄워주는 메소드 입니다.
      *
      * @param string $teamLogo 팀 로고 이미지 이름
@@ -90,6 +103,20 @@ class Image
     {
         return self::returnFileOrFail('teamBanners', $teamBanner);
     }
+
+    /**
+     * 팀 게시판 게시글 이미지 url 찾아주거나 404를 띄워주는 메소드 입니다.
+     *
+     * @param string $profileImageName 프로필 이미지 이름
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return BinaryFileResponse 프로필 이미지 리스폰스
+     */
+    public static function getTeamBoardArticle(string $teamlBoardArticleImageName): BinaryFileResponse
+    {
+        return self::returnFileOrFail('teamBoardArticleImages', $teamlBoardArticleImageName);
+    }
+
 
     /**
      * 파일이 있을 시 바이너리 리스폰스를 하거나 404익셉션을 합니다.

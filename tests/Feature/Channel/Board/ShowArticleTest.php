@@ -17,9 +17,18 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Channel\Board\ShowArticleRequest;
+use Styde\Enlighten\Tests\EnlightenSetup;
 
 class ShowArticleTest extends TestCase
 {
+    use EnlightenSetup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->setUpEnlighten();
+    }
+
     /**
      * @test
      * @enlighten

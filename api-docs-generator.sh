@@ -94,6 +94,7 @@ function cleanUp() {
     rm -rf ./storage/app/teamBanners/*.png && \
     rm -rf ./storage/app/teamLogos/*.png && \
     rm -rf ./api-docs && \
+    rm -rf ./api-docs.zip && \
     sed -i "s/TEST_USE_REAL_IMAGE=true/TEST_USE_REAL_IMAGE=false/g" /var/www/.env && \
     php artisan optimize:clear > /dev/null && \
     php artisan optimize > /dev/null
@@ -103,4 +104,5 @@ cd /var/www && \
 php artisan enlighten:migrate:fresh > /dev/null && \
 cleanUp && \
 php artisan test > /dev/null && \
-php artisan enlighten:export
+php artisan enlighten:export && \
+zip -r api-docs.zip ./api-docs

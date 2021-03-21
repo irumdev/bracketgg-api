@@ -21,6 +21,7 @@ use App\Http\Controllers\Channel\CreateChannelController;
 use App\Http\Controllers\Channel\UpdateChannelController;
 use App\Http\Controllers\Channel\Board\ShowArticleController as ShowChannelArticleController;
 use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChangeChannelCategoryStatusController;
+use App\Http\Controllers\Channel\Board\UploadArticleController as ChannelBoardArticleUploadController;
 
 use App\Http\Controllers\Team\CreateTeamController;
 use App\Http\Controllers\Team\CheckTeamNameExistsController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Team\Member\InviteMemberController;
 use App\Http\Controllers\Team\Member\KickController;
 use App\Http\Controllers\Team\Board\ShowArticleController as ShowTeamArticleController;
 use App\Http\Controllers\Team\Board\Category\ChangeStatusController as ChangeTeamCategoryStatusController;
+use App\Http\Controllers\Team\Board\UploadArticleController as TeamBoardArticleUploadController;
 
 use App\Http\Controllers\Game\FindTypeController;
 
@@ -208,6 +210,10 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-74] {slug} 채널 좋아요 취소
              */
             Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('channel.unLike');
+
+            Route::group(['prefix' => '{slug}/{channelBoardCategory}/article'], function (): void {
+                Route::post('image', [ChannelBoardArticleUploadController::class, 'uploadArticleImage'])->name('channel.article.upload.image');
+            });
         });
 
         Route::group(['prefix' => 'team'], function (): void {
@@ -265,6 +271,10 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-202] 팀 게시판 카테고리 변경
              */
             Route::post('{teamSlug}/category', [ChangeTeamCategoryStatusController::class, 'changeTeamCategory'])->name('team.changeCategory');
+
+            Route::group(['prefix' => '{teamSlug}/{teamBoardCategory}/article'], function (): void {
+                Route::post('image', [TeamBoardArticleUploadController::class, 'uploadArticleImage'])->name('team.article.upload.image');
+            });
         });
 
         Route::group(['prefix' => 'user'], function (): void {

@@ -29,6 +29,14 @@ abstract class BoardService
         );
     }
 
+    public function uploadArticleImage(string $uploadPath, Collection $uploadImageInfo): string
+    {
+        return $this->boardRepository->uploadArticleImage(
+            $uploadPath,
+            $uploadImageInfo
+        );
+    }
+
     public function articleInfo(BaseArticle $article): array
     {
         return [
