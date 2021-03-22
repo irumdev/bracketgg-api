@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Common;
 
+use App\Exceptions\FileSaveFailException;
 use App\Factories\BoardFactory;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,15 @@ class BoardRespository extends BoardFactory
             Carbon::now()->format('Y-m-d 00:00:00'),
             Carbon::now()->format('Y-m-d 23:59:59'),
         ]);
+    }
+
+    public function uploadArticleImage(string $storagePath, Collection $uploadInfo): string
+    {
+        throw_unless(
+            $uploadInfo['uploadImage']->store($storagePath),
+            new FileSaveFailException()
+        );
+        return $uploadInfo['uploadImage']->hashName();
     }
 
     public function latestArticlesCount(Model $model): int
