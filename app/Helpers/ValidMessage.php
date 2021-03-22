@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use Illuminate\Contracts\Validation\Validator;
-use App\Helpers\ValidJson;
-use Exception;
 
 /**
  * 밸러데이션에 통과하지 못한 값에 대한 에러코드를 가져오는
@@ -17,12 +15,6 @@ use Exception;
  */
 class ValidMessage
 {
-    /**
-     * 정보가 없는 경우
-     * @var int NOT_EXISTS
-     */
-    private const NOT_EXISTS = 0;
-
     /**
      * 여러가지 에러 메세지중 첫번째 에러 메시지를
      * 추출하는 메소드 입니다.

@@ -21,7 +21,10 @@ use App\Http\Requests\Rules\Broadcast;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Controllers\Team\Board\Category\ChangeStatusController as TeamBoardCategoryStatusChangeController;
+use App\Http\Controllers\Team\Board\UploadArticleController as TeamBoardImageUploadController;
+
 use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChannelBoardCategoryStatusChangeController;
+use App\Http\Controllers\Channel\Board\UploadArticleController as ChannelBoardImageUploadController;
 
 use App\Services\Channel\BoardService as ChannelBoardService;
 use App\Repositories\Channel\BoardRespository as ChannelBoardRepository;
@@ -46,7 +49,10 @@ class AppServiceProvider extends ServiceProvider
             return new TeamBoardRepository();
         });
 
-        $this->conditionBind([TeamBoardCategoryStatusChangeController::class], CommonBoardService::class, function (): TeamBoardService {
+        $this->conditionBind([
+            TeamBoardImageUploadController::class,
+            TeamBoardCategoryStatusChangeController::class
+        ], CommonBoardService::class, function (): TeamBoardService {
             return new TeamBoardService(new TeamBoardRepository());
         });
 
@@ -54,7 +60,10 @@ class AppServiceProvider extends ServiceProvider
             return new ChannelBoardRepository();
         });
 
-        $this->conditionBind([ChannelBoardCategoryStatusChangeController::class], CommonBoardService::class, function (): ChannelBoardService {
+        $this->conditionBind([
+            ChannelBoardImageUploadController::class,
+            ChannelBoardCategoryStatusChangeController::class
+        ], CommonBoardService::class, function (): ChannelBoardService {
             return new ChannelBoardService(new ChannelBoardRepository());
         });
     }

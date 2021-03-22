@@ -32,6 +32,19 @@ return [
         ],
         'Board' => [
 
+            'Upload' => [
+                'ImageTest' => [
+                    'successUploadWhenChannelAnyUserUploadImage' => '아무 유저나 업로드 할 수 있는 게시판에 이미지 업로드 성공해라',
+                    'successUploadWhenChannelOwnerUploadImage' => '채널장만 업로드 할 수 있는 게시판에 이미지 업로드 성공하라',
+                    'failUploadChannelBoardArticleImageWhenUserNotLogin' => '로그인 안한채로 업로드 시도에 실패하라',
+                    'failUploadChannelBoardArticleImageWhenChannelImageIsLarge' => '이미지(2048kb)가 커서 업로드에 실패하라',
+                    'failUploadChannelBoardArticleImageWhenChannelImageIsNotImage' => '업로드한 파라미터가 이미지가 아니라서 업로드에 실패하라',
+                    'failUploadChannelBoardArticleImageWhenChannelImageIsNotAttached' => '아무것도 업로드 하지 않아서 업로드에 실패하라',
+                    'failUploadChannelBoardArticleImageWhenChannelImageMimeIsNotValid' => '올바르지 않은 MIME로 시도해서 업로드에 실패하라',
+                    'failUploadChannelBoardArticleImageWhenChannelCategoryAllowOnlyOnwer' => '채널장만 업로드 할 수 있는 게시판에 업로드 시도하여 실패하라',
+                ]
+            ],
+
             'ChangeCategoryDataTest' => [
                 'failCreateCategoryWhenActiveUserHasNotPermission' => '카테고리 생성권한이 없어서 카테고리 생성에 실패하라',
                 'failCreateCategoryWhenCreateCategoryLimitOver' => '카테고리 생성 최대개수 초과로 카테고리 생성에 실패하라',
@@ -273,6 +286,21 @@ return [
             'failLookUpRequestJoinUserWhenLookUpUserIsNotTeamOwner' => '팀 오너가 아니라서 팀원 가입 신청 유저 리스트 조회에 실패하라',
         ],
         'Board' => [
+            'Upload' => [
+                'Imagetest' => [
+                    'failUploadTeamBoardArticleImageWhenTeamImageIsLarge' => '이미지가 커서 이미지 업로드에 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenTeamImageMimeIsNotValid' => '올바르지 않은 MIME로 파일 업로드에 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenTeamImageIsNotImage' => '업로드 한게 이미지가 아니라서 업로드에 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenTeamImageIsNotAttached' => '아무것도 업로드 하지 않아 이미지 업로드에 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenUserNotLogin' => '로그인 안한채로 이미지 업로드에 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenRequestUserIsMemberButCategoryPermissionIsOnlyOwner' => '팀장만 업로드 할 수 있는 게시판에 팀원이 업로드 요청해서 업로드에 실패하라', #v
+                    'failUploadTeamBoardArticleImageWhenRequestUserUserIsAnotherUser' => '팀장, 팀원만 게시할 수 있는 게시판에 다른 유저가 업로드 시도해서 실패하라', # v
+                    'failUploadTeamBoardArticleImageWhenRequestUserIsAnotherUserButCategoryPermissionIsOnlyOwner' => '팀장만 게시할 수 있는 게시판에 다른 유저가 업로드 시도해서 실패하라',
+                    'successUploadWhenTeamMemberUploadImage' => '팀장, 팀원만 게시할 수 있는 게시판에 팀원이 업로드에 성공하라',
+                    'successUploadWhenTeamOwnerUploadImage' => '팀장만 게시할 수 있는 게시판에 팀장이 업로드에 성공하라',
+                    'successUploadWhenAnyUserUploadImage' => '모두가 게시할 수 있는 게시판에 팀과 관련없는 사람이 업로드에 성공하라',
+                ]
+            ],
             'ChangeStatusTest' => [
                 'failCreateCategoryWhenActiveUserHasNotPermission' => '카테고리 생성권한이 없어서 카테고리 생성에 실패하라',
                 'failCreateCategoryWhenCreateCategoryLimitOver' => '카테고리 생성 최대개수 초과로 카테고리 생성에 실패하라',

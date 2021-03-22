@@ -43,6 +43,27 @@ class ShowImageController extends Controller
      * @version 1.0.0
      * @return BinaryFileResponse 채널 배너 이미지 바이너리
      */
+    public function getChannelBoardArticle(string $artcleImage): BinaryFileResponse
+    {
+        return Image::getChannelBoardArticle($artcleImage);
+    }
+
+    public function getTeamBoardArticle(string $artcleImage): BinaryFileResponse
+    {
+        return Image::getTeamBoardArticle($artcleImage);
+    }
+
+    /**
+     * 채널 배너를 클라이언트에게 리턴하는 메소드 입니다.
+     *
+     * @param  string $bannerImage 이미지 이름
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @author  dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return BinaryFileResponse 채널 배너 이미지 바이너리
+     */
     public function getChannelBanner(string $bannerImage): BinaryFileResponse
     {
         return Image::channelBanner($bannerImage);
