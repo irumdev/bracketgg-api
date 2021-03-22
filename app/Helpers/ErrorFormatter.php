@@ -143,11 +143,7 @@ class ErrorFormatter
             $errorInfo['routeName'],
             $errorInfo['requestMethod'],
             $errorInfo['requestIp'],
-            collect($errorInfo['requestParam'])->map(function ($item) {
-                if ($item instanceof TestFile) {
-                    dd('dfdfdf');
-                }
-            })->toJson(),
+            collect($errorInfo['requestParam'])->toJson(),
             $errorInfo['errorTraseAsString']
         );
     }
