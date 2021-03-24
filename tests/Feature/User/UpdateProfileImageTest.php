@@ -112,19 +112,20 @@ class UpdateProfileImageTest extends TestCase
     {
         $this->setName($this->getCurrentCaseKoreanName());
         $requestUser = Sanctum::actingAs(factory(User::class)->create());
-        $tryUpdateUserProfileImage = $this->postJson(
-            $this->testUrl,
-            [
-                'profile_image' => UploadedFile::fake()->create('test.png', 1000)
-            ]
-        )->assertOk();
+        $tempFile = UploadedFile::fake()->image('test.png', 10, 10);
+
+        $tryUpdateUserProfileImage = $this->postJson($this->testUrl, [
+            'profile_image' => $tempFile
+        ])->assertOk();
+
+        $updatedFile = $this->get(route('profileImage', $tempFile->hashName()));
+
+        $postImageHashValue = md5(file_get_contents($tempFile->getPathName(), true));
+        $getImageHashValue = md5(file_get_contents($updatedFile->getFile()->getPathName(), true));
 
         $this->assertTrue($tryUpdateUserProfileImage['ok']);
         $this->assertTrue($tryUpdateUserProfileImage['isValid']);
         $this->assertTrue($tryUpdateUserProfileImage['messages']['isSuccess']);
-        $this->assertEquals(
-            $this->getJson(route('user.current'))['messages']['profileImage'],
-            $tryUpdateUserProfileImage['messages']['profileImage']
-        );
+        $this->assertEquals($postImageHashValue, $getImageHashValue);
     }
 }

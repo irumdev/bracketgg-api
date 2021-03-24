@@ -17,6 +17,11 @@ use App\Helpers\ValidMessage;
 class ProfileImageUpdateRequest extends CommonFormRequest
 {
     /**
+     * @var int 프로필 이미지 업로드 허용 최대용량
+     */
+    public const IMAGE_MAX_SIZE = 2048;
+
+    /**
      * @var int 프로필 이미지란이 이미지가 아님
      */
     public const PROFILE_IMAGE_NOT_IMAGE = 22;
@@ -49,7 +54,7 @@ class ProfileImageUpdateRequest extends CommonFormRequest
     public function rules(): array
     {
         return [
-            'profile_image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'profile_image' => 'required|image|mimes:jpeg,jpg,png|max:' . self::IMAGE_MAX_SIZE,
         ];
     }
 

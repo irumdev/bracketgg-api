@@ -73,9 +73,6 @@ class UpdateUserController extends Controller
 
         return $this->responseBuilder->ok([
             'isSuccess' => $result,
-            'profileImage' => empty($loginUser->profile_image) ? null : Image::toStaticUrl('profileImage', [
-                'profileImage' => $loginUser->profile_image
-            ])
         ]);
     }
 }
