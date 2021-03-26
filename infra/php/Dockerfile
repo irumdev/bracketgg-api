@@ -1,4 +1,4 @@
-ARG phpVersion=7.4
+ARG phpVersion=8.0.3
 FROM php:${phpVersion}-fpm
 LABEL maintainer="dhtmdgkr123 <osh12201@gmail.com>"
 ARG uploadMaxSize=5
