@@ -416,6 +416,14 @@ return [
             'failUpdatePasswordWhenPasswordReEnterIsNotEqualsPassword' => '비밀번호 재입력이 입력한 비밀번호와 달라서 비밀번호 변경에 실패하라',
             'failUpdatePasswordWhenPasswordEnterIsToLong' => '비밀번호를 30자리 초과입력하여 비밀번호 변경에 실패하라',
             'successUpdateUserPassword' => '비밀번호 변경에 성공하라',
+        ],
+
+        'UpdateProfileImageTest' => [
+            'failUpdateProfileImageWhenUserIsNotLogined' => '로그인 하지 않은 경우 프로필 이미지 변경에 실패하라',
+            'failUpdateProfileImageWithoutImage' => '프로필 이미지를 첨부하지 않은 경우 프로필 이미지 변경에 실패하라',
+            'failUpdateProfileImageWhenIsNotImage' => '프로필사진에 사진 아닌거 올려서 프로필 이미지 변경에 실패하라',
+            'failUpdateProfileImageWhenImageIsLarge' => '프로필사진에 사진 2048kb보다 큰거 올려서 프로필 이미지 변경에 실패하라',
+            'successUpdateUserProfileImage' => '프로필 이미지 변경에 성공하라'
         ]
     ],
 ];

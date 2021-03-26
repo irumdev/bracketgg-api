@@ -6,8 +6,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\PasswordUpdateRequest;
+use App\Http\Requests\User\ProfileImageUpdateRequest;
 use App\Services\UserService;
 use App\Helpers\ResponseBuilder;
+use App\Helpers\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +54,25 @@ class UpdateUserController extends Controller
 
         return $this->responseBuilder->ok([
             'isSuccess' => $result
+        ]);
+    }
+
+    /**
+     * 현재 로그인 한 유저의 프로필 이미지를 변경하는 메소드입니다.
+     *
+     * @param ProfileImageUpdateRequest $request 유저 프로필 이미지 업데이트 요청 객체
+     * @author  irumdev <jklsj1252@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 유저 프로필 이미지 업데이트 성공 여부
+     */
+    public function updateProfileImage(ProfileImageUpdateRequest $request): JsonResponse
+    {
+        $requestData = $request->validated();
+        $loginUser = Auth::user();
+        $result = $this->userService->updateUserProfileImage($loginUser, $requestData);
+
+        return $this->responseBuilder->ok([
+            'isSuccess' => $result,
         ]);
     }
 }
