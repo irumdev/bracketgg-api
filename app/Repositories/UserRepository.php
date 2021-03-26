@@ -128,4 +128,12 @@ class UserRepository
             return $user->save();
         });
     }
+
+    public function updateProfileImage(User $user, string $imageHashName): bool
+    {
+        return DB::transaction(function () use ($user, $imageHashName): bool {
+            $user->profile_image = $imageHashName;
+            return $user->save();
+        });
+    }
 }
