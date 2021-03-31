@@ -12,6 +12,7 @@ use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 use App\Services\Common\BoardService as CommonBoardService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use App\Wrappers\Article\Article as ArticleWrapper;
 
 class BoardService extends CommonBoardService
 {
@@ -42,6 +43,18 @@ class BoardService extends CommonBoardService
         ]);
     }
 
+    /**
+     * 팀 게시글을 업로드하는 서비스레이어 입니다.
+     *
+     * @param ArticleWrapper $article
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
+    public function uploadArticle(ArticleWrapper $article): void
+    {
+        parent::uploadArticle($article);
+    }
 
     public function updateCategory(Model $team, Collection $willUpdateItem): void
     {

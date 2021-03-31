@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Common\BoardService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use App\Wrappers\Article\Article as ArticleWrapper;
 
 /**
  * 게시글 업로드 공통 컨트롤러 입니다.
@@ -34,6 +35,14 @@ class UploadArticleController extends Controller
 
         return (new ResponseBuilder())->ok([
             'imageUrl' => $uploadedImageUrl,
+        ]);
+    }
+
+    public function uploadArticle(ArticleWrapper $article): JsonResponse
+    {
+        $this->boardService->uploadArticle($article);
+        return (new ResponseBuilder())->ok([
+            'isSuccess' => true,
         ]);
     }
 }

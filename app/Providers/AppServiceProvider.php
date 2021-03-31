@@ -24,7 +24,7 @@ use App\Http\Controllers\Team\Board\Category\ChangeStatusController as TeamBoard
 use App\Http\Controllers\Team\Board\UploadArticleController as TeamBoardImageUploadController;
 
 use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChannelBoardCategoryStatusChangeController;
-use App\Http\Controllers\Channel\Board\UploadArticleController as ChannelBoardImageUploadController;
+use App\Http\Controllers\Channel\Board\UploadArticleController as ChannelBoardArticleUploadController;
 
 use App\Services\Channel\BoardService as ChannelBoardService;
 use App\Repositories\Channel\BoardRespository as ChannelBoardRepository;
@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->conditionBind([
-            ChannelBoardImageUploadController::class,
+            ChannelBoardArticleUploadController::class,
             ChannelBoardCategoryStatusChangeController::class
         ], CommonBoardService::class, function (): ChannelBoardService {
             return new ChannelBoardService(new ChannelBoardRepository());

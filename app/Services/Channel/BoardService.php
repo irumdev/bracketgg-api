@@ -11,6 +11,7 @@ use App\Services\Common\BoardService as CommonBoardService;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 use App\Models\Common\Board\BaseArticle;
 use Illuminate\Support\Collection;
+use App\Wrappers\Article\Article as ArticleWrapper;
 
 class BoardService extends CommonBoardService
 {
@@ -29,6 +30,19 @@ class BoardService extends CommonBoardService
         return parent::getBoardArticlesByCategory(
             $articlesInfo
         );
+    }
+
+    /**
+     * 채널 게시글을 업로드하는 서비스레이어 입니다.
+     *
+     * @param ArticleWrapper $article
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
+    public function uploadArticle(ArticleWrapper $article): void
+    {
+        parent::uploadArticle($article);
     }
 
     /**

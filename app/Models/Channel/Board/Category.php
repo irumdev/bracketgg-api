@@ -24,6 +24,6 @@ class Category extends BaseCategory
     protected $casts = [
         'is_public' => 'bool'
     ];
-    protected $articleModel = Article::class;
+    public $articleModel = Article::class;
     public $relatedKey = 'channel_id';
 }
