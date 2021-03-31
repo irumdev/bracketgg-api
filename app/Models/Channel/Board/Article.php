@@ -24,7 +24,7 @@ class Article extends BaseArticle
     protected $fillable = [
         'title', 'content', 'user_id',
         'category_id', 'see_count', 'like_count',
-        'unlike_count', 'comment_count'
+        'unlike_count', 'comment_count', 'channel_id'
     ];
 
     public function category(): BelongsTo

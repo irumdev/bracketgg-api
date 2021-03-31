@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 abstract class BaseCategory extends Model
 {
-    protected $articleModel;
+    public $articleModel;
 
     public function articles(): HasMany
     {

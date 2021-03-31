@@ -33,6 +33,18 @@ return [
         'Board' => [
 
             'Upload' => [
+                'ArticleTest' => [
+                    'failWhenChannelOwnerTryUploadArticleButTitleIsNotString' => '채널장이 제목을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',
+                    'failWhenChannelOwnerTryUploadArticleButArticleIsNotString' => '채널장이 게시글을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',
+                    'failWhenChannelOwnerTryUploadArticleButTitleIsEmpty' => '채널장이 게시글 제목을 업로드 하지 않아서 게시글 업로드에 실패하라',
+                    'failWhenChannelOwnerTryUploadArticleButArticleIsEmpty' => '채널장이 게시글을 업로드 하지 않아서 게시글 업로드에 실패하라',
+                    'failWhenChannelOwnerTryUploadArticleButArticleHasXSSMarkup' => '채널장이 XSS 위험성 있는 게시글 첨부하여 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsNotTeamMemberButCategoryPermissionIsTeamMember' => '일반유저가 팀원이 아닌데 팀원 권한 게시판에 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsNotTeamMemberButCategoryPermissionIsOnlyOwner' => '팀원이 팀장이 아닌데 팀장 권한 게시판에 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsTeamMemberButCategoryPermissionIsOnlyOwner' => '일반유저가 팀장이 아닌데 팀장 권한 게시판에 게시글 업로드에 실패하라',
+                    'successUploadArticleAnyUser' => '어느 사람이든 게시글 업로드에 성공하라',
+                    'successUploadArticleOnlyChannelOwner' => '채널장이 게시글 업로드에 성공하라',
+                ],
                 'ImageTest' => [
                     'successUploadWhenChannelAnyUserUploadImage' => '아무 유저나 업로드 할 수 있는 게시판에 이미지 업로드 성공해라',
                     'successUploadWhenChannelOwnerUploadImage' => '채널장만 업로드 할 수 있는 게시판에 이미지 업로드 성공하라',
@@ -287,6 +299,19 @@ return [
         ],
         'Board' => [
             'Upload' => [
+                'ArticleTest' => [
+                    'failWhenTeamOwnerTryUploadArticleButTitleIsNotString' => '팀장이 제목을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',
+                    'failWhenTeamOwnerTryUploadArticleButArticleIsNotString' => '팀장이 게시글을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',
+                    'failWhenTeamOwnerTryUploadArticleButTitleIsEmpty' => '팀장이 게시글 제목을 업로드 하지 않아서 게시글 업로드에 실패하라',
+                    'failWhenTeamOwnerTryUploadArticleButArticleIsEmpty' => '팀장이 게시글을 업로드 하지 않아서 게시글 업로드에 실패하라',
+                    'failWhenTeamOwnerTryUploadArticleButArticleHasXSSMarkup' => '팀장이 XSS 위험성 있는 게시글 첨부하여 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsNotTeamMemberButCategoryPermissionIsTeamMember' => '일반유저가 팀원이 아닌데 팀원 권한 게시판에 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsNotTeamMemberButCategoryPermissionIsOnlyOwner' => '팀원이 팀장이 아닌데 팀장 권한 게시판에 게시글 업로드에 실패하라',
+                    'failUploadArticleWhenUserIsTeamMemberButCategoryPermissionIsOnlyOwner' => '일반유저가 팀장이 아닌데 팀장 권한 게시판에 게시글 업로드에 실패하라',
+                    'successUploadArticleTeamMember' => '팀원 게시글 업로드에 성공하라',
+                    'successUploadArticleAnyUser' => '어느 사람이든 게시글 업로드에 성공하라',
+                    'successUploadArticleOnlyTeamOwner' => '팀장이 게시글 업로드에 성공하라',
+                ],
                 'Imagetest' => [
                     'failUploadTeamBoardArticleImageWhenTeamImageIsLarge' => '이미지가 커서 이미지 업로드에 실패하라', # v
                     'failUploadTeamBoardArticleImageWhenTeamImageMimeIsNotValid' => '올바르지 않은 MIME로 파일 업로드에 실패하라', # v
