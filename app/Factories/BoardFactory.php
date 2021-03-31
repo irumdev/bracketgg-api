@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use App\Models\Common\Board\BaseCategory;
+use App\Wrappers\Article\Article as ArticleWrapper;
 
 class BoardFactory implements BoardFactoryContract
 {
@@ -34,6 +35,26 @@ class BoardFactory implements BoardFactoryContract
                        ->firstOr(function () use ($article): void {
                            throw (new ModelNotFoundException())->setModel(get_class($article));
                        });
+    }
+
+    /**
+     * 게시글 업로드 레포지토리 메소드 입니다
+     *
+     * @param ArticleWrapper $article
+     *
+     * @throws DBtransActionFail 트랜잭션 실패 익셉션
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
+    public function uploadArticle(ArticleWrapper $article): void
+    {
+        DB::transaction(function () use ($article): void {
+            $createdArticle = $article->category->articleModel::create(
+                $article->reformForCreateArticle()
+            );
+            throw_if(is_null($createdArticle), new DBtransActionFail());
+        });
     }
 
     public function updateCategory(Model $teamOrChannel, DataCollection $willUpdateItems): void

@@ -21,6 +21,11 @@ class Article extends BaseArticle
 
     protected $table = 'team_board_articles';
     protected $articleImageModelName = ArticleImage::class;
+    protected $fillable = [
+        'title', 'content', 'user_id',
+        'category_id', 'see_count', 'like_count',
+        'unlike_count', 'comment_count', 'team_id'
+    ];
 
     public function category(): BelongsTo
     {

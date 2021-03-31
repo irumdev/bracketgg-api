@@ -12,12 +12,11 @@ use App\Properties\Paginate;
 use Illuminate\Database\Eloquent\Model;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 use Illuminate\Support\Collection;
+use App\Wrappers\Article\Article as ArticleWrapper;
 
 abstract class BoardService
 {
-    public BaseBoardRespository $boardRepository;
-
-    public function __construct(BaseBoardRespository $boardRepository)
+    public function __construct(public BaseBoardRespository $boardRepository)
     {
         $this->boardRepository = $boardRepository;
     }
@@ -36,6 +35,21 @@ abstract class BoardService
             $uploadImageInfo
         );
     }
+
+    /**
+     * 게시글 업로드 서비스레이어 메소드 입니다.
+     *
+     * @param ArticleWrapper $article
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return void
+     */
+    public function uploadArticle(ArticleWrapper $article): void
+    {
+        $article->content = uglifyHtml($article->content);
+        $this->boardRepository->uploadArticle($article);
+    }
+
 
     public function articleInfo(BaseArticle $article): array
     {

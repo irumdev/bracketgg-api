@@ -217,6 +217,14 @@ Route::group(['prefix' => 'v1'], function (): void {
             Route::patch('{slug}/unlike', [LikeChannelController::class, 'unLikeChannel'])->name('channel.unLike');
 
             Route::group(['prefix' => '{slug}/{channelBoardCategory}/article'], function (): void {
+                /**
+                 * [BRACKETGG-216] 채널, 팀 게시글 업로드
+                 */
+                Route::post('', [ChannelBoardArticleUploadController::class, 'uploadChannelArticle'])->name('channel.article.upload.article');
+
+                /**
+                 * [BRACKETGG_215] 채널, 팀 게시글 이미지 업로드
+                 */
                 Route::post('image', [ChannelBoardArticleUploadController::class, 'uploadArticleImage'])->name('channel.article.upload.image');
             });
         });
@@ -278,6 +286,14 @@ Route::group(['prefix' => 'v1'], function (): void {
             Route::post('{teamSlug}/category', [ChangeTeamCategoryStatusController::class, 'changeTeamCategory'])->name('team.changeCategory');
 
             Route::group(['prefix' => '{teamSlug}/{teamBoardCategory}/article'], function (): void {
+                /**
+                 * [BRACKETGG-216] 채널, 팀 게시글 업로드
+                 */
+                Route::post('', [TeamBoardArticleUploadController::class, 'uploadTeamArticle'])->name('team.article.upload.article');
+
+                /**
+                 * [BRACKETGG_215] 채널, 팀 게시글 이미지 업로드
+                 */
                 Route::post('image', [TeamBoardArticleUploadController::class, 'uploadArticleImage'])->name('team.article.upload.image');
             });
         });

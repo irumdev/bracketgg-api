@@ -14,7 +14,7 @@ class Category extends BaseCategory
     use HasFactory;
 
     protected $table = 'team_board_categories';
-    protected $articleModel = Article::class;
+    public $articleModel = Article::class;
 
     protected $fillable = [
         'name', 'show_order', 'article_count', 'is_public', 'team_id', 'write_permission'

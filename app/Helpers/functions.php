@@ -19,3 +19,33 @@ if (! function_exists('executeUnless')) {
         }
     }
 }
+
+if (! function_exists('uglifyHtml')) {
+    function uglifyHtml(string $prettifyHtml): string
+    {
+        $searchRegexps = [
+            '/(\n|^)(\x20+|\t)/',
+            '/(\n|^)\/\/(.*?)(\n|$)/',
+            '/\n/',
+            '/\<\!--.*?-->/',
+            '/(\x20+|\t)/',
+            '/\>\s+\</',
+            '/(\"|\')\s+\>/',
+            '/=\s+(\"|\')/'
+        ];
+
+        $willReplaceItems = [
+            "\n",
+            "\n",
+            " ",
+            "",
+            " ",
+            "><",
+            "$1>",
+            "=$1"
+
+        ];
+
+        return preg_replace($searchRegexps, $willReplaceItems, trim($prettifyHtml));
+    }
+}

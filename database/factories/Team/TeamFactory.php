@@ -98,6 +98,9 @@ $factory->afterCreatingState(Team::class, 'addTenBroadcasts', function (Team $te
 
 $factory->afterCreatingState(Team::class, 'addOperateGame', function (Team $team, Faker $faker): void {
     collect(range(0, 9))->each(function () use ($team): void {
+        /**
+         * 게임 팩토리 돌리면서 중복이 일어나서 do/while로 처리
+         */
         do {
             try {
                 $isDuplicate = false;
