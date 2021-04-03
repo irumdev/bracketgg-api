@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Wrappers;
+namespace App\Wrappers\Event;
 
 use App\Models\Team\Team;
 

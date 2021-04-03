@@ -256,14 +256,24 @@ Route::group(['prefix' => 'v1'], function (): void {
             Route::get('{teamName}/exists', [CheckTeamNameExistsController::class, 'nameAlreadyExists'])->name('team.name.isDuplicate');
 
             /**
-             * [BRACKETGG-98] 팀원 초대
+             * [BRACKETGG-98] 팀장이 일반유저를 팀원으로 초대신청
              */
-            Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCard'])->name('team.inviteMember');
+            Route::post('{teamSlug}/invite/{userIdx}', [InviteMemberController::class, 'sendInviteCardFromTeamOwner'])->name('team.inviteMember.for.owner');
+
+            /**
+             * [BRACKETGG-214] 팀장이 일반유저의 가입신청을 허가
+             */
+            Route::post('{teamSlug}/accept/{userIdx}', [InviteMemberController::class, 'acceptJoin'])->name('team.acceptJoin');
+
+            /**
+             * [BRACKETGG-214] 팀장이 일반유저의 가입신청을 거절
+             */
+            Route::post('{teamSlug}/reject/{userIdx}', [InviteMemberController::class, 'rejectJoin'])->name('team.rejectJoin');
 
             /**
              * [BRACKETGG-82]유저 인덱스로 유저가 가진 팀리스트 조회
              */
-            Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamssByUserId'])->name('team.showInfoByOwnerId');
+            Route::get('owner/{owner}', [ShowTeamInfoController::class, 'getTeamsByUserId'])->name('team.showInfoByOwnerId');
 
             /**
              * [BRACKETGG-128] 가입 신청 한 유저 리스트
@@ -313,6 +323,11 @@ Route::group(['prefix' => 'v1'], function (): void {
              * [BRACKETGG-197] 유저가 팔로우 한 채널 리스트 조회
              */
             Route::get('channels', [ShowFollowChannelController::class, 'getFollowedChannelByUser'])->name('user.getFollowedChannel');
+
+            /**
+             * [BRACKETGG-214] 일반유저가 팀원으로 가입 신청
+             */
+            Route::post('{teamSlug}/join-request', [InviteMemberController::class, 'sendInviteCardFromNormalUser'])->name('user.requestJoin.to.team');
         });
 
         Route::get('game-types', [FindTypeController::class, 'getTypesByKeyword'])->name('gameTypes.getByKeyword');

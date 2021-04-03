@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Carbon;
+use App\Wrappers\Type\TeamInviteCard as TeamInviteCardType;
 
 class TeamService
 {
@@ -73,19 +74,19 @@ class TeamService
         ]);
     }
 
-    public function sendInviteCard(Team $team, User $user): bool
+    public function sendInviteCard(TeamInviteCardType $teamInviteCard): bool
     {
-        return $this->teamRepository->sendInviteCard($team, $user);
+        return $this->teamRepository->sendInviteCard($teamInviteCard);
     }
 
-    public function acceptInviteCard(Team $team): bool
+    public function acceptInviteCard(Team $team, User $user): bool
     {
-        return $this->teamRepository->acceptInviteCard($team);
+        return $this->teamRepository->acceptInviteCard($team, $user);
     }
 
-    public function rejectInviteCard(Team $team): bool
+    public function rejectInviteCard(Team $team, User $user): bool
     {
-        return $this->teamRepository->rejectInviteCard($team);
+        return $this->teamRepository->rejectInviteCard($team, $user);
     }
 
     public function updateInfo(Team $team, array $updateInfo): array

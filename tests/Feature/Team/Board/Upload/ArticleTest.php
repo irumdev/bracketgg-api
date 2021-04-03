@@ -30,7 +30,7 @@ class ArticleTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->baseStubPath = realpath(__DIR__ . '/../../../../../stubs/uploadArticleTest');
+        $this->baseStubPath = realpath(__DIR__ . '/../../../../stubs/uploadArticleTest');
         $this->setUpEnlighten();
     }
 

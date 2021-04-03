@@ -25,7 +25,7 @@ use App\Http\Controllers\Team\Board\UploadArticleController as TeamBoardImageUpl
 
 use App\Http\Controllers\Channel\Board\Category\ChangeStatusController as ChannelBoardCategoryStatusChangeController;
 use App\Http\Controllers\Channel\Board\UploadArticleController as ChannelBoardArticleUploadController;
-
+use App\Models\User;
 use App\Services\Channel\BoardService as ChannelBoardService;
 use App\Repositories\Channel\BoardRespository as ChannelBoardRepository;
 
@@ -88,8 +88,8 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('teamHasOnlyOneBanner', fn (): bool => $this->canUpdateBanner('teamSlug'));
         Validator::extend('isMyTeamBroadcast', fn ($_, string $param): bool => $this->canUpdateBroadCast('teamSlug', (int)$param));
         Validator::extend('isMyChannelBroadcast', fn ($_, string $param): bool => $this->canUpdateBroadCast('slug', (int)$param));
-        Validator::extend('alreadyInvite', fn (): bool => $this->alreadyInvite());
-        Validator::extend('isNotTeamMember', fn (): bool => $this->isNotTeamMember());
+        Validator::extend('alreadyInvite', fn (string $_, User $requestUser, array $__): bool => $this->alreadyInvite($_, $requestUser, $__));
+        Validator::extend('isNotTeamMember', fn (string $_, User $requestUser, array $__): bool => $this->isNotTeamMember($_, $requestUser, $__));
         Validator::extend('categoryNameIsNotUnique', fn (string $validateIndex, string $categoryName, array $boardCategories): bool => $this->categoryNameIsNotUnique(
             (int)explode('.', $validateIndex)[1],
             $categoryName,
@@ -191,29 +191,28 @@ class AppServiceProvider extends ServiceProvider
         return true;
     }
 
-    private function teamRelatedAnotherIsNotExists(string $model, array $otherCondition = []): bool
+    private function teamRelatedAnotherIsNotExists(User $requestUser, string $model, array $otherCondition = []): bool
     {
         $request = request();
-        $inviteUser = $request->route('userIdx');
         $team = $request->route('teamSlug');
 
         $searchConditions = collect(array_merge($otherCondition, [
             ['team_id', '=', $team->id],
-            ['user_id', '=', $inviteUser->id],
+            ['user_id', '=', $requestUser->id],
         ]))->filter(fn (array $searchCondition): bool => count($searchCondition) >= 1)->toArray();
         return $model::where($searchConditions)->exists() === false;
     }
 
 
-    private function alreadyInvite(): bool
+    private function alreadyInvite(string $_, User $requestUser, array $__): bool
     {
-        return $this->teamRelatedAnotherIsNotExists(InvitationCard::class, [
+        return $this->teamRelatedAnotherIsNotExists($requestUser, InvitationCard::class, [
             ['status', '=', InvitationCard::PENDING]
         ]);
     }
 
-    private function isNotTeamMember(): bool
+    private function isNotTeamMember(string $_, User $requestUser, array $__): bool
     {
-        return $this->teamRelatedAnotherIsNotExists(Member::class);
+        return $this->teamRelatedAnotherIsNotExists($requestUser, Member::class);
     }
 }
