@@ -25,10 +25,20 @@ class RejectRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->setUser();
         return $this->user->can('rejectInvite', [
             $this->route('teamSlug')
         ]);
     }
+
+    private function setUser(): void
+    {
+        $reqeustUser = $this->route('userIdx');
+        if (is_null($reqeustUser) === false) {
+            $this->user = $reqeustUser;
+        }
+    }
+
 
     /**
      * Get the validation rules that apply to the request.

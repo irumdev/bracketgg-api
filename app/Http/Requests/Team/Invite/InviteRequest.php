@@ -78,7 +78,7 @@ class InviteRequest extends CommonFormRequest
     {
         return array_merge(request()->all(), [
             'user' => $this->inviteUser,
-            'inviteUserId' => $this->inviteUser->id,
+            'inviteUserId' => $this->inviteUser,
             'team' => $this->route('teamSlug')
         ]);
     }

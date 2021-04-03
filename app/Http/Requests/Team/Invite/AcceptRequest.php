@@ -25,9 +25,18 @@ class AcceptRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->setUser();
         return $this->user->can('acceptInvite', [
             $this->route('teamSlug')
         ]);
+    }
+
+    private function setUser(): void
+    {
+        $reqeustUser = $this->route('userIdx');
+        if (is_null($reqeustUser) === false) {
+            $this->user = $reqeustUser;
+        }
     }
 
     /**

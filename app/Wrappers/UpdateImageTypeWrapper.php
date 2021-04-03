@@ -10,7 +10,7 @@ class UpdateImageTypeWrapper
     public const BASE = 'base';
     public const BANNER_IMAGE = 'banner';
 
-    public function __construct(string $target, string $type)
+    public function __construct(public string $target, public string $type)
     {
         $this->target = strtolower($target);
         $this->type = strtolower($type);

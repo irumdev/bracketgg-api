@@ -70,7 +70,7 @@ class ShowTeamInfoController extends Controller
      * @version 1.0.0
      * @return JsonResponse 채널정보
      */
-    public function getTeamssByUserId(string $userId): JsonResponse
+    public function getTeamsByUserId(string $userId): JsonResponse
     {
         return $this->responseBuilder->ok(
             $this->teamService->findTeamsByUserId($userId)

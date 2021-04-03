@@ -42,7 +42,7 @@ class InvitationCard extends Model
     public const FROM_TEAM_OWNER = 1;
 
     /**
-     * @var int 팀장이 일반유저에게 팀원초대
+     * @var int 일반유저가 팀에 가입신청한 상태
      */
     public const FROM_NORMAL_USER = 2;
 

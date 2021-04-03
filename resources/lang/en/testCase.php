@@ -278,20 +278,35 @@ return [
             'successUpdateAllItem' => '모든 팀정보 변경에 성공',
 
         ],
-        'InviteMemberTest' => [
-            'failInviteWhenReceiverUserIsAlreadyMember' => '이미 팀원이라서 초대장 발송에 실패하라',
-            'failInviteWhenSendToTeamOwner' => '초대장 받는사람이 팀 오너 본인이라 초대장 발송에 실패하라',
-            'failInviteWhenSendTeamSlugIsNotExists' => '존재하지 않는 팀이라 초대장 발송에 실패하라',
-            'failInviteWhenSendTargetUserIsNotExists' => '존재하지 않는 유저라서 초대장 발송에 실패하라',
-            'failInviteWhenSendUserIsNotLogin' => '로그인 하지 않아 초대장 발송에 실패하라',
-            'failInviteWhenAlreadySendInviteCardToTargetUser' => '이미 초대장을 보내서 초대장 발송에 실패하라',
-            'successSendInviteCard' => '초대장 발송에 성공하라',
-            'successAcceptInvite' => '초대장 수락에 성공하라',
-            'failAcceptInviteWhenUserIsNotLogin' => '로그인을 안해서 초대장 수럭에 실패하라',
-            'failAcceptInviteWhenUserHasNotInviteCard' => '초대장이 없어서 초대장 수락에 실패하라',
-            'successRejectTeamOper' => '초대장 거절 성공하라',
-            'failRejectTeamOperWhenUserNotHaveInviteCard' => '초대장이 없어서 초대장 거절에 실패하라',
-            'failRejectTeamOperWhenUserIsAlreadyTeamMember' => '이미 팀원이라서 초대장 거절에 실패하라',
+        'Invite' => [
+
+            'RequestJoinUserTest' => [
+
+                'failRejectTeamMemberRequestUserHasNotTicket' => '요청한 사람이 초대장이 없어서 팀원 요청 거절에 실패하라',
+                'failRejectTeamMemberRequestUserAlreadyTeamMember' => '요청한 사람이 이미 팀원이라 팀원 요청 거절에 실패하라',
+                'failAcceptTeamMemberRequestUserHasNotTicket' => '요청한 사람이 초대장이 없어서 팀원 요청 승낙에 실패하라',
+                'failAcceptTeamMemberRequestUserAlreadyTeamMember' => '요청한 사람이 이미 팀원이라 팀원 요청 승낙에 실패하라',
+                'failRequestJoinToTeamWhenRequestUserAlreadyTeamMember' => '요청한 사람이 이미 팀원이라 팀원 요청에 실패하라',
+                'failRequestJoinToTeamWhenRequestUserAlreadyRequstJoinToTeam' => '요청한 사람이 이미 팀원요청을 해서 팀원 요청에 실패하라',
+                'successRejectJoinRequest' => '팀원이 아닌 유저가 팀원 요청을 하고 팀장이 해당 요청 거절에 성공하라',
+                'successAcceptJoinRequest' => '팀원이 아닌 유저가 팀원 요청을 하고 팀장이 해당 요청 승낙에 성공하라',
+
+            ],
+            'InviteMemberTest' => [
+                'failInviteWhenReceiverUserIsAlreadyMember' => '이미 팀원이라서 초대장 발송에 실패하라',
+                'failInviteWhenSendToTeamOwner' => '초대장 받는사람이 팀 오너 본인이라 초대장 발송에 실패하라',
+                'failInviteWhenSendTeamSlugIsNotExists' => '존재하지 않는 팀이라 초대장 발송에 실패하라',
+                'failInviteWhenSendTargetUserIsNotExists' => '존재하지 않는 유저라서 초대장 발송에 실패하라',
+                'failInviteWhenSendUserIsNotLogin' => '로그인 하지 않아 초대장 발송에 실패하라',
+                'failInviteWhenAlreadySendInviteCardToTargetUser' => '이미 초대장을 보내서 초대장 발송에 실패하라',
+                'successSendInviteCard' => '초대장 발송에 성공하라',
+                'successAcceptInvite' => '초대장 수락에 성공하라',
+                'failAcceptInviteWhenUserIsNotLogin' => '로그인을 안해서 초대장 수럭에 실패하라',
+                'failAcceptInviteWhenUserHasNotInviteCard' => '초대장이 없어서 초대장 수락에 실패하라',
+                'successRejectTeamOper' => '초대장 거절 성공하라',
+                'failRejectTeamOperWhenUserNotHaveInviteCard' => '초대장이 없어서 초대장 거절에 실패하라',
+                'failRejectTeamOperWhenUserIsAlreadyTeamMember' => '이미 팀원이라서 초대장 거절에 실패하라',
+            ],
         ],
         'ShowWantJoinToTeamUsersTest' => [
             'successLookUpJoinTeamRequestUsers' => '팀원 가입 신청한 유저리스트 조회에 성공하라',
