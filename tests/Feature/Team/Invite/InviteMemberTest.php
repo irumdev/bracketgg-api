@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Team;
+namespace Tests\Feature\Team\Invite;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -25,143 +25,42 @@ class InviteMemberTest extends TestCase
         $this->setUpEnlighten();
     }
 
+
+    #### success case ####
+
     /**
      * @test
      * @enlighten
      */
-    public function failInviteWhenReceiverUserIsAlreadyMember(): void
+    public function successRejectTeamOper(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-
+        $teamOwner = factory(User::class)->create();
         $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
-        ]);
-        $receiveUser = factory(User::class)->create();
-
-        \App\Models\Team\Member::create([
-            'team_id' => $team->id,
-            'user_id' => $receiveUser->id
-        ]);
-
-        $this->assertTrue(
-            $team->members()->where('user_id', $receiveUser->id)->exists()
-        );
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $receiveUser->id,
-            'teamSlug' => $team->slug
-        ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertFalse($trySendInviteCard['ok']);
-        $this->assertFalse($trySendInviteCard['isValid']);
-        $this->assertEquals(['code' => InviteRequest::RECEIVER_ALREADY_TEAM_MEMBER], $trySendInviteCard['messages']);
-    }
-
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failInviteWhenSendToTeamOwner(): void
-    {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
+            'owner' => $teamOwner->id,
+            'member_count' => 1
         ]);
 
         $targetUser = factory(User::class)->create();
 
-        $this->setName($this->getCurrentCaseKoreanName());
+        Sanctum::actingAs($teamOwner);
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $targetUser->id,
+            'teamSlug' => $team->slug,
+        ]))->assertOk();
 
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $activeUser->id,
+
+        Sanctum::actingAs($targetUser);
+
+        $tryRejectOper = $this->postJson(route('user.rejectTeamInvite', [
             'teamSlug' => $team->slug
-        ]))->assertUnauthorized();
+        ]))->assertOk();
 
-        $this->assertFalse($trySendInviteCard['ok']);
-        $this->assertFalse($trySendInviteCard['isValid']);
-        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $trySendInviteCard['messages']);
+        $this->assertTrue($tryRejectOper['ok']);
+        $this->assertTrue($tryRejectOper['isValid']);
+        $this->assertTrue($tryRejectOper['messages']['markTeamOperRejected']);
     }
 
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failInviteWhenSendTeamSlugIsNotExists(): void
-    {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
-        ]);
-
-        $targetUser = factory(User::class)->create();
-
-        $this->setName($this->getCurrentCaseKoreanName());
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $activeUser->id,
-            'teamSlug' => '-123'
-        ]))->assertNotFound();
-
-        $this->assertFalse($trySendInviteCard['ok']);
-        $this->assertFalse($trySendInviteCard['isValid']);
-        $this->assertEquals(['code' => Response::HTTP_NOT_FOUND], $trySendInviteCard['messages']);
-    }
-
-
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failInviteWhenSendTargetUserIsNotExists(): void
-    {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
-        ]);
-
-        $targetUser = factory(User::class)->create();
-
-        $this->setName($this->getCurrentCaseKoreanName());
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => '-1',
-            'teamSlug' => $team->slug
-        ]))->assertNotFound();
-
-        $this->assertFalse($trySendInviteCard['ok']);
-        $this->assertFalse($trySendInviteCard['isValid']);
-        $this->assertEquals(['code' => Response::HTTP_NOT_FOUND], $trySendInviteCard['messages']);
-    }
-
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failInviteWhenSendUserIsNotLogin(): void
-    {
-        $activeUser = factory(User::class)->create();
-
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
-        ]);
-
-        $targetUser = factory(User::class)->create();
-
-        $this->setName($this->getCurrentCaseKoreanName());
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $activeUser->id,
-            'teamSlug' => $team->slug
-        ]))->assertUnauthorized();
-
-        $this->assertFalse($trySendInviteCard['ok']);
-        $this->assertFalse($trySendInviteCard['isValid']);
-        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $trySendInviteCard['messages']);
-    }
 
     /**
      * @test
@@ -179,7 +78,7 @@ class InviteMemberTest extends TestCase
 
         $targetUser = factory(User::class)->create();
 
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
             'userIdx' => $targetUser->id,
             'teamSlug' => $team->slug,
         ]))->assertOk();
@@ -191,42 +90,10 @@ class InviteMemberTest extends TestCase
             InvitationCard::where([
                 ['team_id', '=', $team->id],
                 ['user_id', '=', $targetUser->id],
+                ['invitation_card_creator', '=', $team->owner],
             ])->exists()
         );
     }
-
-    /**
-     * @test
-     * @enlighten
-     */
-    public function failInviteWhenAlreadySendInviteCardToTargetUser(): void
-    {
-        $activeUser = Sanctum::actingAs(factory(User::class)->create());
-
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $activeUser->id
-        ]);
-
-        $targetUser = factory(User::class)->create();
-        $this->setName($this->getCurrentCaseKoreanName());
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $targetUser->id,
-            'teamSlug' => $team->slug,
-        ]))->assertOk();
-
-        $this->assertTrue($trySendInviteCard['ok']);
-        $this->assertTrue($trySendInviteCard['isValid']);
-        $this->assertEquals(['sendInviteCard' => true], $trySendInviteCard['messages']);
-
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $targetUser->id,
-            'teamSlug' => $team->slug,
-        ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertEquals(['code' => InviteRequest::ALREADY_SEND_INVITE_CARD], $trySendInviteCard['messages']);
-    }
-
 
     /**
      * @test
@@ -270,6 +137,179 @@ class InviteMemberTest extends TestCase
         ])->exists());
         $this->assertEquals(2, $team->member_count);
         $this->assertEquals(InvitationCard::ACCEPT, $trashedCard->status);
+    }
+
+    ### success case ####
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenReceiverUserIsAlreadyMember(): void
+    {
+        $this->setName($this->getCurrentCaseKoreanName());
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+        $receiveUser = factory(User::class)->create();
+
+        \App\Models\Team\Member::create([
+            'team_id' => $team->id,
+            'user_id' => $receiveUser->id
+        ]);
+
+        $this->assertTrue(
+            $team->members()->where('user_id', $receiveUser->id)->exists()
+        );
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $receiveUser->id,
+            'teamSlug' => $team->slug
+        ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $this->assertFalse($trySendInviteCard['ok']);
+        $this->assertFalse($trySendInviteCard['isValid']);
+        $this->assertEquals(['code' => InviteRequest::RECEIVER_ALREADY_TEAM_MEMBER], $trySendInviteCard['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenSendToTeamOwner(): void
+    {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+
+        $targetUser = factory(User::class)->create();
+
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $activeUser->id,
+            'teamSlug' => $team->slug
+        ]))->assertUnauthorized();
+
+        $this->assertFalse($trySendInviteCard['ok']);
+        $this->assertFalse($trySendInviteCard['isValid']);
+        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $trySendInviteCard['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenSendTeamSlugIsNotExists(): void
+    {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+
+        $targetUser = factory(User::class)->create();
+
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $activeUser->id,
+            'teamSlug' => '-123'
+        ]))->assertNotFound();
+
+        $this->assertFalse($trySendInviteCard['ok']);
+        $this->assertFalse($trySendInviteCard['isValid']);
+        $this->assertEquals(['code' => Response::HTTP_NOT_FOUND], $trySendInviteCard['messages']);
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenSendTargetUserIsNotExists(): void
+    {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+
+        $targetUser = factory(User::class)->create();
+
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => '-1',
+            'teamSlug' => $team->slug
+        ]))->assertNotFound();
+
+        $this->assertFalse($trySendInviteCard['ok']);
+        $this->assertFalse($trySendInviteCard['isValid']);
+        $this->assertEquals(['code' => Response::HTTP_NOT_FOUND], $trySendInviteCard['messages']);
+    }
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenSendUserIsNotLogin(): void
+    {
+        $activeUser = factory(User::class)->create();
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+
+        $targetUser = factory(User::class)->create();
+
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $activeUser->id,
+            'teamSlug' => $team->slug
+        ]))->assertUnauthorized();
+
+        $this->assertFalse($trySendInviteCard['ok']);
+        $this->assertFalse($trySendInviteCard['isValid']);
+        $this->assertEquals(['code' => Response::HTTP_UNAUTHORIZED], $trySendInviteCard['messages']);
+    }
+
+
+    /**
+     * @test
+     * @enlighten
+     */
+    public function failInviteWhenAlreadySendInviteCardToTargetUser(): void
+    {
+        $activeUser = Sanctum::actingAs(factory(User::class)->create());
+
+        $team = factory(Team::class)->states(['addSlug'])->create([
+            'owner' => $activeUser->id
+        ]);
+
+        $targetUser = factory(User::class)->create();
+        $this->setName($this->getCurrentCaseKoreanName());
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $targetUser->id,
+            'teamSlug' => $team->slug,
+        ]))->assertOk();
+
+        $this->assertTrue($trySendInviteCard['ok']);
+        $this->assertTrue($trySendInviteCard['isValid']);
+        $this->assertEquals(['sendInviteCard' => true], $trySendInviteCard['messages']);
+
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
+            'userIdx' => $targetUser->id,
+            'teamSlug' => $team->slug,
+        ]))->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $this->assertEquals(['code' => InviteRequest::ALREADY_SEND_INVITE_CARD], $trySendInviteCard['messages']);
     }
 
     /**
@@ -320,39 +360,6 @@ class InviteMemberTest extends TestCase
      * @test
      * @enlighten
      */
-    public function successRejectTeamOper(): void
-    {
-        $this->setName($this->getCurrentCaseKoreanName());
-        $teamOwner = factory(User::class)->create();
-        $team = factory(Team::class)->states(['addSlug'])->create([
-            'owner' => $teamOwner->id,
-            'member_count' => 1
-        ]);
-
-        $targetUser = factory(User::class)->create();
-
-        Sanctum::actingAs($teamOwner);
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
-            'userIdx' => $targetUser->id,
-            'teamSlug' => $team->slug,
-        ]))->assertOk();
-
-
-        Sanctum::actingAs($targetUser);
-
-        $tryRejectOper = $this->postJson(route('user.rejectTeamInvite', [
-            'teamSlug' => $team->slug
-        ]))->assertOk();
-
-        $this->assertTrue($tryRejectOper['ok']);
-        $this->assertTrue($tryRejectOper['isValid']);
-        $this->assertTrue($tryRejectOper['messages']['markTeamOperRejected']);
-    }
-
-    /**
-     * @test
-     * @enlighten
-     */
     public function failRejectTeamOperWhenUserNotHaveInviteCard(): void
     {
         $this->setName($this->getCurrentCaseKoreanName());
@@ -391,7 +398,7 @@ class InviteMemberTest extends TestCase
         $targetUser = factory(User::class)->create();
 
         Sanctum::actingAs($teamOwner);
-        $trySendInviteCard = $this->postJson(route('team.inviteMember', [
+        $trySendInviteCard = $this->postJson(route('team.inviteMember.for.owner', [
             'userIdx' => $targetUser->id,
             'teamSlug' => $team->slug,
         ]))->assertOk();

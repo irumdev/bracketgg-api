@@ -9,6 +9,7 @@ use App\Models\Team\Member as TeamMember;
 use App\Models\Team\InvitationCard;
 use App\Models\User;
 use App\Models\Team\Slug;
+use App\Wrappers\Type\TeamInviteCard as TeamInviteCardType;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -41,17 +42,17 @@ class TeamRepository extends TeamInfoUpdateFactory
      * @version 1.0.0
      * @return bool 카드 생성 여부
      */
-    public function sendInviteCard(Team $team, User $user): bool
+    public function sendInviteCard(TeamInviteCardType $teamInviteCard): bool
     {
-        return DB::transaction(function () use ($team, $user): bool {
+        return DB::transaction(function () use ($teamInviteCard): bool {
             $card = InvitationCard::where([
-                ['team_id', '=', $team->id],
-                ['user_id', '=', $user->id],
+                ['team_id', '=', $teamInviteCard->team->id],
+                ['user_id', '=', $teamInviteCard->user->id],
             ])->firstOrCreate([
-                'team_id' => $team->id,
-                'user_id' => $user->id,
+                'team_id' => $teamInviteCard->team->id,
+                'user_id' => $teamInviteCard->user->id,
                 'invitation_card_creator' => Auth::id(),
-                'from_type' => InvitationCard::FROM_TEAM_OWNER,
+                'from_type' => $teamInviteCard->fromType,
             ]);
             return $card !== null;
         });
@@ -63,10 +64,10 @@ class TeamRepository extends TeamInfoUpdateFactory
             return $team->members()->where('user_id', $user->id)->delete() === 1;
         });
     }
-    public function acceptInviteCard(Team $team): bool
+    public function acceptInviteCard(Team $team, User $user): bool
     {
-        return DB::transaction(function () use ($team): bool {
-            $willAcceptUser = Auth::id();
+        return DB::transaction(function () use ($team, $user): bool {
+            $willAcceptUser = $user->id;
 
             $card = InvitationCard::find($team->invitationCards()->where([
                 ['user_id', '=', $willAcceptUser],
@@ -81,12 +82,6 @@ class TeamRepository extends TeamInfoUpdateFactory
             $team->member_count += 1;
             $card->status = InvitationCard::ACCEPT;
 
-            event(teamInviteResolver(
-                $team,
-                $willAcceptUser,
-                NotificationMessage::ACCEPT_INVITE_TEAM
-            ));
-
             $cardDataHandelReusult = $card->save() && $card->delete();
             $teamDataHandelResult = $team->save();
             $requestUserInviteResult = $member !== null;
@@ -97,10 +92,10 @@ class TeamRepository extends TeamInfoUpdateFactory
         });
     }
 
-    public function rejectInviteCard(Team $team): bool
+    public function rejectInviteCard(Team $team, User $user): bool
     {
-        return DB::transaction(function () use ($team): bool {
-            $willRejectUser = Auth::id();
+        return DB::transaction(function () use ($team, $user): bool {
+            $willRejectUser = $user->id;
 
             $card = InvitationCard::find($team->invitationCards()->where([
                 ['user_id', '=', $willRejectUser],
@@ -108,12 +103,6 @@ class TeamRepository extends TeamInfoUpdateFactory
             ])->first()->id);
 
             $card->status = InvitationCard::REJECT;
-
-            event(teamInviteResolver(
-                $team,
-                $willRejectUser,
-                NotificationMessage::REJECT_INVITE_TEAM
-            ));
 
             return $card->save() && $card->delete();
         });
@@ -172,17 +161,13 @@ class TeamRepository extends TeamInfoUpdateFactory
         })->with(Team::TEAM_RELATIONS);
     }
 
-
-    /**
-     * @todo 팀원 신청을 할 때 초대장 보낸것과 혼동 될 우려가 있어
-     *       요청을 했는지, 요청을 받았는지 분리 할 것
-     */
     public function getRequestJoinUsers(Team $team): Builder
     {
         return User::whereHas('invitationCards', function (Builder $query) use ($team): void {
             $query->where([
                 ['status', '=', InvitationCard::PENDING],
                 ['team_id', '=', $team->id],
+                ['from_type', '=', InvitationCard::FROM_NORMAL_USER]
             ]);
         });
     }

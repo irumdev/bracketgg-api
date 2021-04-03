@@ -78,6 +78,7 @@ class ShowWantJoinToTeamUsersTest extends TestCase
                     $query->where([
                         ['status', '=', InvitationCard::PENDING],
                         ['team_id', '=', $team->id],
+                        ['from_type', '=', InvitationCard::FROM_NORMAL_USER]
                     ]);
                 })->where('id', $wantJoinUser['id'])->first();
 
