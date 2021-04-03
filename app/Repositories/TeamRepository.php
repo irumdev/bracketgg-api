@@ -32,6 +32,15 @@ class TeamRepository extends TeamInfoUpdateFactory
         $this->team = $team;
     }
 
+    /**
+     * 팀장이 일반 유저에게 팀원 가입 초대 하는 메소드 입니다.
+     *
+     * @param Team $team 팀원 가입 초대하는 팀
+     * @param User $user 초대받는 유저
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return bool 카드 생성 여부
+     */
     public function sendInviteCard(Team $team, User $user): bool
     {
         return DB::transaction(function () use ($team, $user): bool {
@@ -40,7 +49,9 @@ class TeamRepository extends TeamInfoUpdateFactory
                 ['user_id', '=', $user->id],
             ])->firstOrCreate([
                 'team_id' => $team->id,
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'invitation_card_creator' => Auth::id(),
+                'from_type' => InvitationCard::FROM_TEAM_OWNER,
             ]);
             return $card !== null;
         });

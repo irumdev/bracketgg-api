@@ -132,6 +132,8 @@ $factory->afterCreatingState(Team::class, 'addRandInvitationCards', function (Te
             'team_id' => $team->id,
             'user_id' => factory(User::class)->create()->id,
             'status' => Arr::random($statusSet),
+            'from_type' => InvitationCard::FROM_TEAM_OWNER,
+            'invitation_card_creator' => $team->owner,
         ]);
     });
     createTeamOwner($team);
@@ -143,6 +145,8 @@ $factory->afterCreatingState(Team::class, 'addPendingInvitationCards', function 
             'team_id' => $team->id,
             'user_id' => factory(User::class)->create()->id,
             'status' => InvitationCard::PENDING,
+            'from_type' => InvitationCard::FROM_TEAM_OWNER,
+            'invitation_card_creator' => $team->owner,
         ]);
     });
     createTeamOwner($team);
@@ -154,6 +158,8 @@ $factory->afterCreatingState(Team::class, 'addRejectInvitationCard', function (T
         'team_id' => $team->id,
         'user_id' => factory(User::class)->create()->id,
         'status' => InvitationCard::REJECT,
+        'from_type' => InvitationCard::FROM_TEAM_OWNER,
+        'invitation_card_creator' => $team->owner,
     ]);
     createTeamOwner($team);
 });
@@ -163,6 +169,8 @@ $factory->afterCreatingState(Team::class, 'addAcceptInvitationCard', function (T
         'team_id' => $team->id,
         'user_id' => factory(User::class)->create()->id,
         'status' => InvitationCard::ACCEPT,
+        'from_type' => InvitationCard::FROM_TEAM_OWNER,
+        'invitation_card_creator' => $team->owner,
     ]);
     createTeamOwner($team);
 });
@@ -173,6 +181,8 @@ $factory->afterCreatingState(Team::class, 'addManyPendingInvitationCard', functi
             'team_id' => $team->id,
             'user_id' => factory(User::class)->create()->id,
             'status' => InvitationCard::PENDING,
+            'from_type' => InvitationCard::FROM_TEAM_OWNER,
+            'invitation_card_creator' => $team->owner,
         ]);
     });
     createTeamOwner($team);
