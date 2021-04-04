@@ -22,7 +22,7 @@ class CreateChannelArticleRepliesTable extends Migration
             $table->foreignId('user_id')->comment('게시자');
             $table->foreignId('channel_id')->comment('댓글 소속');
             $table->text('content')->comment('댓글 내용');
-            $table->string('delete_reason');
+            $table->string('delete_reason')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
