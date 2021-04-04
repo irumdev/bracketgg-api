@@ -54,6 +54,19 @@ return [
                     'failUploadChannelBoardArticleImageWhenChannelImageIsNotAttached' => '아무것도 업로드 하지 않아서 업로드에 실패하라',
                     'failUploadChannelBoardArticleImageWhenChannelImageMimeIsNotValid' => '올바르지 않은 MIME로 시도해서 업로드에 실패하라',
                     'failUploadChannelBoardArticleImageWhenChannelCategoryAllowOnlyOnwer' => '채널장만 업로드 할 수 있는 게시판에 업로드 시도하여 실패하라',
+                ],
+                'CommentTest' => [
+                    'failUploadCommentToPublicCategoryWhenParentIsNotExists' => '존재하지 않는 댓글에 답글을 달려고 시도해 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenParentIdIsNotNumeric' => '답글 아이디가 슷자가 아니라서 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenContentIsNotString' => '답글 내용이 문자열이 아니라서 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenContentIsEmpty' => '답글 내용이 비어있어서 답글달기에 실패하라',
+                    'anotherUserFailUploadCommentToPrivateCategory' => '비공개 게시판에 일반유저가 댓글을 달려고해서 댓글달기에 실패하라',
+                    'successUploadCommentToPublicCategory' => '일반유저가 공개 게시판에 댓글달기에 성공하라',
+                    'normalUserSuccessUploadCommentToPublicCategory' => '일반 유저가 공개된 카테고리에 댓글달기에 성공하라',
+                    'teamMemberSuccessUploadCommentToPrivateCategory' => '팀원이 비공개 게시판에 댓글달기에 성공하라',
+                    'successUploadCommentToPrivateCategory' => '팀장이 비공개 게시판에 댓글달기에 성공하라',
+                    'normalUserSuccessUploadCommentAndReplyToPublicCategory' => '일반유저가 공개 게시판에 댓글, 댓글의 댓글달기에 성공하라',
+                    'successUploadChildCommentToPublicCategory' => '팀장이 공개 게시판에 댓글, 댓글의 댓글달기에 성공하라',
                 ]
             ],
 
@@ -314,6 +327,18 @@ return [
         ],
         'Board' => [
             'Upload' => [
+                'CommentTest' => [
+                    'failUploadCommentToPublicCategoryWhenParentIsNotExists' => '존재하지 않는 댓글에 답글을 달려고 시도해 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenParentIdIsNotNumeric' => '답글 아이디가 슷자가 아니라서 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenContentIsNotString' => '답글 내용이 문자열이 아니라서 답글달기에 실패하라',
+                    'failUploadCommentToPublicCategoryWhenContentIsEmpty' => '답글 내용이 비어있어서 답글달기에 실패하라',
+                    'anotherUserFailUploadCommentToPrivateCategory' => '비공개 게시판에 일반유저가 댓글을 달려고해서 댓글달기에 실패하라',
+                    'successUploadCommentToPublicCategory' => '일반유저가 공개 게시판에 댓글달기에 성공하라',
+                    'successUploadChildCommentToPublicCategory' => '팀장이 공개 게시판에 댓글, 댓글의 댓글달기에 성공하라',
+                    'teamMemberSuccessUploadCommentToPrivateCategory' => '팀원이 비공개 게시판에 댓글 달기에 성공하라',
+                    'normalUserSuccessUploadCommentToPublicCategory' => '일반유저가 공개 게시판에 댓글달기에 성공하라',
+                    'normalUserSuccessUploadCommentAndReplyToPublicCategory' => '일반유저가 비공개 게시판에 댓글, 대댓글 달기에 성공하라',
+                ],
                 'ArticleTest' => [
                     'failWhenTeamOwnerTryUploadArticleButTitleIsNotString' => '팀장이 제목을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',
                     'failWhenTeamOwnerTryUploadArticleButArticleIsNotString' => '팀장이 게시글을 스트링이 아닌 다른걸 첨부하여 게시글 업로드에 실패하라',

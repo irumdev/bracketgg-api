@@ -12,6 +12,7 @@ use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 use App\Models\Common\Board\BaseArticle;
 use Illuminate\Support\Collection;
 use App\Wrappers\Article\Article as ArticleWrapper;
+use App\Wrappers\Article\Comment as ChannelArticleCommentWrapper;
 
 class BoardService extends CommonBoardService
 {
@@ -58,6 +59,19 @@ class BoardService extends CommonBoardService
         return Image::toStaticUrl('channel.article.image', [
             'channelArticleImage' => parent::uploadArticleImage('channelBoardArticleImages', $uploadImageInfo),
         ]);
+    }
+
+    /**
+     * 채널 게시글에 댓글을 다는 메소드 입니다.
+     *
+     * @param ChannelArticleCommentWrapper $comment
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
+    public function uploadComment(ChannelArticleCommentWrapper $comment): void
+    {
+        parent::uploadComment($comment);
     }
 
     public function articleInfo(BaseArticle $article): array

@@ -9,6 +9,7 @@ use App\Models\Channel\Board\ArticleImage;
 use App\Models\Common\Board\BaseArticle;
 use App\Models\Channel\Board\Category;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Channel\Board\Reply as ChannelArticleReply;
 
 class Article extends BaseArticle
 {
@@ -20,12 +21,15 @@ class Article extends BaseArticle
     use HasFactory;
 
     protected $articleImageModelName = ArticleImage::class;
+    protected string $articleCommentModelName = ChannelArticleReply::class;
+
     protected $table = 'channel_board_articles';
     protected $fillable = [
         'title', 'content', 'user_id',
         'category_id', 'see_count', 'like_count',
         'unlike_count', 'comment_count', 'channel_id'
     ];
+    public string $relateKeyName = 'channel_id';
 
     public function category(): BelongsTo
     {

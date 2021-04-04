@@ -9,6 +9,7 @@ use App\Models\Common\Board\BaseArticle;
 use App\Models\Team\Board\ArticleImage;
 use App\Models\Team\Board\Category;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Team\Board\Reply as TeamArticleReply;
 
 class Article extends BaseArticle
 {
@@ -21,11 +22,14 @@ class Article extends BaseArticle
 
     protected $table = 'team_board_articles';
     protected $articleImageModelName = ArticleImage::class;
+    protected string $articleCommentModelName = TeamArticleReply::class;
+
     protected $fillable = [
         'title', 'content', 'user_id',
         'category_id', 'see_count', 'like_count',
         'unlike_count', 'comment_count', 'team_id'
     ];
+    public string $relateKeyName = 'team_id';
 
     public function category(): BelongsTo
     {

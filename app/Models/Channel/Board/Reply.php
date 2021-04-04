@@ -9,4 +9,8 @@ class Reply extends Model
 {
     use HasFactory;
     protected $table = 'channel_article_replies';
+    protected $fillable = [
+        'article_id', 'parent_id',
+        'user_id', 'channel_id', 'content',
+    ];
 }
