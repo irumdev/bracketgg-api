@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use App\Models\Common\Board\BaseCategory;
 use App\Wrappers\Article\Article as ArticleWrapper;
+use App\Wrappers\Article\Comment as ArticleCommentWrapper;
 
 class BoardFactory implements BoardFactoryContract
 {
@@ -57,6 +58,26 @@ class BoardFactory implements BoardFactoryContract
         });
     }
 
+    /**
+     * 팀 또는 채널에 올라온 게시글에
+     * 댓글을 추가하는 메소드 입니다.
+     *
+     * @param ArticleCommentWrapper $willWriteComment
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse
+     */
+    public function addComment(ArticleCommentWrapper $willWriteComment)
+    {
+        DB::transaction(function () use ($willWriteComment) {
+            $articleReply = $willWriteComment->article->comments()->create($willWriteComment->reformForCreateComment());
+            throw_if(is_null($articleReply));
+        });
+    }
+
+    /**
+     * @todo 카테고리 업데이트 로직 분리
+     */
     public function updateCategory(Model $teamOrChannel, DataCollection $willUpdateItems): void
     {
         $boardCategories = $teamOrChannel->boardCategories;
