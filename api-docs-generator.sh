@@ -105,4 +105,5 @@ php artisan enlighten:migrate:fresh > /dev/null && \
 cleanUp && \
 php artisan test > /dev/null && \
 php artisan enlighten:export && \
-zip -r api-docs.zip ./api-docs
+zip -r api-docs.zip ./api-docs && \
+rm -rf ./api-docs
