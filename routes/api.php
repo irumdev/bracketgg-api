@@ -223,6 +223,11 @@ Route::group(['prefix' => 'v1'], function (): void {
                 Route::post('', [ChannelBoardArticleUploadController::class, 'uploadChannelArticle'])->name('channel.article.upload.article');
 
                 /**
+                 * [BRACKETGG-216] 채널, 팀 게시글 댓글 작성
+                 */
+                Route::post('{channelArticle}/comment', [ChannelBoardArticleUploadController::class, 'uploadChannelArticleComment'])->name('channel.article.upload.comment');
+
+                /**
                  * [BRACKETGG_215] 채널, 팀 게시글 이미지 업로드
                  */
                 Route::post('image', [ChannelBoardArticleUploadController::class, 'uploadArticleImage'])->name('channel.article.upload.image');
@@ -300,6 +305,11 @@ Route::group(['prefix' => 'v1'], function (): void {
                  * [BRACKETGG-216] 채널, 팀 게시글 업로드
                  */
                 Route::post('', [TeamBoardArticleUploadController::class, 'uploadTeamArticle'])->name('team.article.upload.article');
+
+                /**
+                 * [BRACKETGG-216] 채널, 팀 게시글 댓글 작성
+                 */
+                Route::post('{teamArticle}/comment', [TeamBoardArticleUploadController::class, 'uploadTeamArticleComment'])->name('team.article.upload.comment');
 
                 /**
                  * [BRACKETGG_215] 채널, 팀 게시글 이미지 업로드

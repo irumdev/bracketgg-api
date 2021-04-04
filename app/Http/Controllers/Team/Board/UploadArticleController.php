@@ -8,6 +8,9 @@ use App\Services\Common\BoardService as CommonBoardService;
 use App\Http\Requests\Team\Board\Article\Upload\ArticleRequest;
 use App\Http\Controllers\Common\Board\UploadArticleController as CommonBoardArticleUploadController;
 use App\Http\Requests\Team\Board\Article\Upload\ImageRequest as TeamBoardArticleImageUploadRequest;
+use App\Http\Requests\Team\Board\Article\Upload\CommentRequest as UploadArticleCommentRequest;
+use App\Wrappers\Article\Comment as TeamArticleCommentWrapper;
+
 use Illuminate\Http\JsonResponse;
 use App\Wrappers\Article\Article as TeamArticleWrapper;
 use Illuminate\Support\Facades\Auth;
@@ -61,5 +64,26 @@ class UploadArticleController extends CommonBoardArticleUploadController
         );
 
         return parent::uploadArticle($willUploadArticle);
+    }
+
+    /**
+     * 팀 게시글 댓글 업로드 컨트롤러 입니다.
+     *
+     * @param UploadArticleCommentRequest $request
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 댓글 업로드 성공결과
+     */
+    public function uploadTeamArticleComment(UploadArticleCommentRequest $request): JsonResponse
+    {
+        $validatedComment = $request->validated();
+        $comment = new TeamArticleCommentWrapper(
+            article: $request->route('teamArticle'),
+            writer: Auth::user(),
+            articleOwnerGroup: $request->route('teamSlug'),
+            content: $validatedComment['content'],
+            parent: $validatedComment['parent_id'] ?? null,
+        );
+        return parent::uploadComment($comment);
     }
 }

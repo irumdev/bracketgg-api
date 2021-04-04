@@ -8,11 +8,11 @@ use App\Models\Common\Board\BaseArticle;
 use App\Repositories\Common\BoardRespository as BaseBoardRespository;
 use App\Helpers\Image;
 use App\Models\Common\Board\BaseCategory;
-use App\Properties\Paginate;
 use Illuminate\Database\Eloquent\Model;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
 use Illuminate\Support\Collection;
 use App\Wrappers\Article\Article as ArticleWrapper;
+use App\Wrappers\Article\Comment as ArticleCommentWrapper;
 
 abstract class BoardService
 {
@@ -95,5 +95,10 @@ abstract class BoardService
     public function updateCategory(Model $teamOrChannel, Collection $willUpdateItem): void
     {
         $this->boardRepository->updateCategory($teamOrChannel, $willUpdateItem);
+    }
+
+    public function uploadComment(ArticleCommentWrapper $comment): void
+    {
+        $this->boardRepository->addComment($comment);
     }
 }

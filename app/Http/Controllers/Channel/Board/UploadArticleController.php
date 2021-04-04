@@ -9,7 +9,9 @@ use App\Http\Controllers\Common\Board\UploadArticleController as CommonBoardArti
 use App\Http\Requests\Channel\Board\Article\Upload\ImageRequest as ChannelBoardArticleImageUploadRequest;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Channel\Board\Article\Upload\ArticleRequest as UploadArticleRequest;
+use App\Http\Requests\Channel\Board\Article\Upload\CommentRequest as UploadArticleCommentRequest;
 use App\Wrappers\Article\Article as ChannelArticleWrapper;
+use App\Wrappers\Article\Comment as ChannelArticleCommentWrapper;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -67,5 +69,28 @@ class UploadArticleController extends CommonBoardArticleUploadController
         );
 
         return parent::uploadArticle($willUploadArticle);
+    }
+
+    /**
+     * 채널 게시글 댓글 업로드 컨트롤러 입니다.
+     *
+     * @param UploadArticleCommentRequest $request
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 댓글 업로드 성공결과
+     */
+    public function uploadChannelArticleComment(UploadArticleCommentRequest $request): JsonResponse
+    {
+        $validatedComment = $request->validated();
+
+        $comment = new ChannelArticleCommentWrapper(
+            article: $request->route('channelArticle'),
+            writer: Auth::user(),
+            articleOwnerGroup: $request->route('slug'),
+            content: $validatedComment['content'],
+            parent: $validatedComment['parent_id'] ?? null,
+        );
+
+        return parent::uploadComment($comment);
     }
 }

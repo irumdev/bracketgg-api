@@ -10,6 +10,7 @@ use App\Services\Common\BoardService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use App\Wrappers\Article\Article as ArticleWrapper;
+use App\Wrappers\Article\Comment as ChannelArticleCommentWrapper;
 
 /**
  * 게시글 업로드 공통 컨트롤러 입니다.
@@ -43,6 +44,23 @@ class UploadArticleController extends Controller
         $this->boardService->uploadArticle($article);
         return (new ResponseBuilder())->ok([
             'isSuccess' => true,
+        ]);
+    }
+
+    /**
+     * 채널 게시글 댓글 업로드 공통 컨트롤러 입니다.
+     *
+     * @param UploadArticleCommentRequest $request
+     * @author dhtmdgkr123 <osh12201@gmail.com>
+     * @version 1.0.0
+     * @return JsonResponse 댓글 업로드 성공결과
+     */
+    public function uploadComment(ChannelArticleCommentWrapper $comment): JsonResponse
+    {
+        $this->boardService->uploadComment($comment);
+
+        return (new ResponseBuilder())->ok([
+            'isSuccess' => true
         ]);
     }
 }

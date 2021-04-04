@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 abstract class BaseArticle extends Model
 {
     protected $articleImageModelName;
+    protected string $articleCommentModelName;
 
+    public string $relateKeyName;
     public array $eagerRelation = [
         'images:id,article_id,article_image',
         'writer:id,nick_name,profile_image',
@@ -29,5 +31,16 @@ abstract class BaseArticle extends Model
     public function writer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function comments(): HasMany
+    {
+        $canNotRelateToCommentModel = empty($this->articleCommentModelName);
+        throw_if($canNotRelateToCommentModel, new LogicException('model or key name name is empty'));
+        return $this->hasMany(
+            $this->articleCommentModelName,
+            'article_id',
+            'id'
+        );
     }
 }
