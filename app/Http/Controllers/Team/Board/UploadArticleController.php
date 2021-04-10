@@ -14,6 +14,7 @@ use App\Wrappers\Article\Comment as TeamArticleCommentWrapper;
 use Illuminate\Http\JsonResponse;
 use App\Wrappers\Article\Article as TeamArticleWrapper;
 use Illuminate\Support\Facades\Auth;
+use App\Contracts\Board\Service as BoardServiceContract;
 
 /**
  * 팀 게시글 업로드 컨트롤러 입니다.
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class UploadArticleController extends CommonBoardArticleUploadController
 {
-    public function __construct(public CommonBoardService $boardService)
+    public function __construct(public BoardServiceContract $boardService)
     {
         $this->boardService = $boardService;
     }
