@@ -18,16 +18,11 @@ use App\Http\Controllers\Common\Board\BaseController;
 use App\Models\ArticleViewLog;
 use App\Models\Channel\Channel;
 use App\Wrappers\Type\ShowArticleByCategory as CategoryWithArticleType;
+use App\Contracts\Board\Service as BoardServiceContract;
 
 class ShowArticleController extends BaseController
 {
-    /**
-     * 채널 서비스레이어
-     * @var ChannelBoardServices $channelService
-     */
-    public ChannelBoardServices $boardService;
-
-    public function __construct(ChannelBoardServices $boardService)
+    public function __construct(public BoardServiceContract $boardService)
     {
         $this->boardService = $boardService;
     }

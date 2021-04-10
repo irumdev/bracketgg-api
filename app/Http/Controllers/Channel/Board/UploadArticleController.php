@@ -13,6 +13,7 @@ use App\Http\Requests\Channel\Board\Article\Upload\CommentRequest as UploadArtic
 use App\Wrappers\Article\Article as ChannelArticleWrapper;
 use App\Wrappers\Article\Comment as ChannelArticleCommentWrapper;
 use Illuminate\Support\Facades\Auth;
+use App\Contracts\Board\Service as BoardServiceContract;
 
 /**
  * 채널 게시글 업로드 컨트롤러 입니다.
@@ -22,10 +23,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class UploadArticleController extends CommonBoardArticleUploadController
 {
-    /**
-     * @var CommonBoardService $boardService
-     */
-    public function __construct(public CommonBoardService $boardService)
+    public function __construct(public BoardServiceContract $boardService)
     {
         $this->boardService = $boardService;
     }

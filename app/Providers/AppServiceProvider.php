@@ -36,6 +36,11 @@ use App\Services\Common\BoardService as CommonBoardService;
 use App\Repositories\Common\BoardRespository as CommonBoardRepository;
 use Closure;
 
+use App\Contracts\Board\Service as BoardServiceContract;
+
+use App\Http\Controllers\Channel\Board\ShowArticleController as ShowChannelBoardArticleController;
+use App\Http\Controllers\Team\Board\ShowArticleController as ShowTeamBoardArticleController;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -51,8 +56,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->conditionBind([
             TeamBoardImageUploadController::class,
-            TeamBoardCategoryStatusChangeController::class
-        ], CommonBoardService::class, function (): TeamBoardService {
+            TeamBoardCategoryStatusChangeController::class,
+            ShowTeamBoardArticleController::class,
+        ], BoardServiceContract::class, function (): TeamBoardService {
             return new TeamBoardService(new TeamBoardRepository());
         });
 
@@ -62,8 +68,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->conditionBind([
             ChannelBoardArticleUploadController::class,
-            ChannelBoardCategoryStatusChangeController::class
-        ], CommonBoardService::class, function (): ChannelBoardService {
+            ChannelBoardCategoryStatusChangeController::class,
+            ShowChannelBoardArticleController::class,
+        ], BoardServiceContract::class, function (): ChannelBoardService {
             return new ChannelBoardService(new ChannelBoardRepository());
         });
     }

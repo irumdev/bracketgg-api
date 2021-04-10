@@ -18,16 +18,11 @@ use App\Services\Team\BoardService;
 
 use App\Http\Controllers\Common\Board\BaseController;
 use App\Properties\Paginate;
+use App\Contracts\Board\Service as BoardServiceContract;
 
 class ShowArticleController extends BaseController
 {
-    /**
-     * 채널 서비스레이어
-     * @var BoardService $teamBoardService
-     */
-    public BoardService $boardService;
-
-    public function __construct(BoardService $boardService)
+    public function __construct(public BoardServiceContract $boardService)
     {
         $this->boardService = $boardService;
     }
