@@ -9,14 +9,13 @@ use App\Http\Controllers\Common\Board\BaseController;
 use App\Services\Common\BoardService;
 use App\Http\Requests\Channel\Board\Category\ChangeStatusRequest;
 use Illuminate\Http\JsonResponse;
+use App\Contracts\Board\Service as BoardServiceContract;
 
 class ChangeStatusController extends BaseController
 {
-    public BoardService $boardService;
-
-    public function __construct(BoardService $teamBoardService)
+    public function __construct(public BoardServiceContract $boardService)
     {
-        $this->boardService = $teamBoardService;
+        $this->boardService = $boardService;
     }
 
     public function changeChannelCategory(ChangeStatusRequest $request): JsonResponse

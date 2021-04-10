@@ -14,7 +14,9 @@ use Illuminate\Support\Collection;
 use App\Wrappers\Article\Article as ArticleWrapper;
 use App\Wrappers\Article\Comment as ArticleCommentWrapper;
 
-abstract class BoardService
+use App\Contracts\Board\Service as BoardServiceContract;
+
+abstract class BoardService implements BoardServiceContract
 {
     public function __construct(public BaseBoardRespository $boardRepository)
     {
