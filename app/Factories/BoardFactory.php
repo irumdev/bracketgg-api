@@ -67,7 +67,7 @@ class BoardFactory implements BoardFactoryContract
      * @version 1.0.0
      * @return JsonResponse
      */
-    public function addComment(ArticleCommentWrapper $willWriteComment)
+    public function addComment(ArticleCommentWrapper $willWriteComment): void
     {
         DB::transaction(function () use ($willWriteComment) {
             $articleReply = $willWriteComment->article->comments()->create($willWriteComment->reformForCreateComment());
